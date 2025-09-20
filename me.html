@@ -5,12 +5,57 @@
     <title>Yönlendiriliyor...</title>
     
     <script>
-        // JavaScript ile de yönlendirme garantisi
-        window.location.replace("https://api.whatsapp.com/send?phone=905413200216&text=MER");
+        function detectDevice() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/.test(userAgent);
+            
+            if (isMobile) {
+                // Mobil cihazlarda direkt WhatsApp uygulamasını aç
+                window.location.replace("whatsapp://send?phone=905413200216&text=Merhaba");
+                
+                // Eğer WhatsApp yüklü değilse, 2 saniye sonra web versiyonuna yönlendir
+                setTimeout(function() {
+                    window.location.replace("https://wa.me/905413200216?text=Merhaba");
+                }, 2000);
+            } else {
+                // Masaüstünde WhatsApp Web'i aç
+                window.location.replace("https://wa.me/905413200216?text=Merhaba");
+            }
+        }
+        
+        // Sayfa yüklenince hemen çalıştır
+        window.onload = detectDevice;
+        
+        // JavaScript devre dışı durumunda meta refresh ile yedekleme
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(detectDevice, 100);
+        });
     </script>
+    
+    <!-- JavaScript çalışmazsa meta refresh ile yedekleme -->
+    <meta http-equiv="refresh" content="1;url=https://wa.me/905413200216?text=Merhaba">
 </head>
 <body>
-    <p>WhatsApp'a yönlendiriliyorsunuz...</p>
-    <p>Eğer yönlendirme otomatik olarak başlamazsa, lütfen <a href="https://api.whatsapp.com/send?phone=905413200216&text=MER">buraya tıklayın</a>.</p>
+    <div style="text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
+        <h2>WhatsApp'a yönlendiriliyorsunuz...</h2>
+        <p>Lütfen bekleyiniz...</p>
+        
+        <div style="margin-top: 30px;">
+            <p>Eğer yönlendirme otomatik olarak başlamazsa:</p>
+            <a href="whatsapp://send?phone=905413200216&text=Merhaba" 
+               style="display: inline-block; margin: 10px; padding: 10px 20px; 
+                      background-color: #25D366; color: white; text-decoration: none; 
+                      border-radius: 5px;">
+                WhatsApp Uygulamasını Aç
+            </a>
+            <br>
+            <a href="https://wa.me/905413200216?text=Merhaba" 
+               style="display: inline-block; margin: 10px; padding: 10px 20px; 
+                      background-color: #075E54; color: white; text-decoration: none; 
+                      border-radius: 5px;">
+                WhatsApp Web'i Aç
+            </a>
+        </div>
+    </div>
 </body>
 </html>
