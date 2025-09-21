@@ -11,15 +11,15 @@
             
             if (isMobile) {
                 // Mobil cihazlarda direkt WhatsApp uygulamasını aç
-                window.location.replace("whatsapp://send?phone=905413200216&text=MER");
+                window.location.replace("https://web.whatsapp.com/send/?phone=905413200216&text=Merhaba&type=phone_number&app_absent=0&utm_campaign=wa_api_send_v1");
                 
                 // Eğer WhatsApp yüklü değilse, wa.me kullan (daha güvenilir)
                 setTimeout(function() {
-                    window.location.replace("https://wa.me/905413200216?text=MER");
+                    window.location.replace("https://web.whatsapp.com/send/?phone=905413200216&text=Merhaba&type=phone_number&app_absent=0&utm_campaign=wa_api_send_v1");
                 }, 500);
             } else {
                 // Masaüstünde WhatsApp Web'i aç
-                window.location.replace("https://wa.me/905413200216?text=MER");
+                window.location.replace("https://web.whatsapp.com/send/?phone=905413200216&text=Merhaba&type=phone_number&app_absent=0&utm_campaign=wa_api_send_v1");
             }
         })();
 
@@ -70,14 +70,14 @@
     </script>
     
     <!-- JavaScript çalışmazsa meta refresh ile yedekleme -->
-    <meta http-equiv="refresh" content="0;url=https://wa.me/905413200216?text=MER">
+    <meta http-equiv="refresh" content="0;url=https://web.whatsapp.com/send/?phone=905413200216&text=Merhaba&type=phone_number&app_absent=0&utm_campaign=wa_api_send_v1">
 </head>
 <body style="display: none;">
     <!-- Gizli içerik - yalnızca JavaScript çalışmazsa görünür -->
     <div id="fallback" style="display: none; text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
-        <a href="whatsapp://send?phone=905413200216&text=MER">WhatsApp Uygulamasını Aç</a>
+        <a href="https://web.whatsapp.com/send/?phone=905413200216&text=Merhaba&type=phone_number&app_absent=0&utm_campaign=wa_api_send_v1">WhatsApp Uygulamasını Aç</a>
         <br><br>
-        <a href="https://wa.me/905413200216?text=MER">WhatsApp Web'i Aç</a>
+        <a href="https://web.whatsapp.com/send/?phone=905413200216&text=Merhaba&type=phone_number&app_absent=0&utm_campaign=wa_api_send_v1">WhatsApp Web'i Aç</a>
     </div>
     
     <script>
