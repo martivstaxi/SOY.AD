@@ -372,7 +372,7 @@
         }
     </style>
 </head>
-<body>
+<body style="display: none;">
     <div class="header">
         <div class="header-content">
             <h1>
@@ -500,30 +500,37 @@
     </div>
     
     <script>
-        // Admin Authentication Check
-function checkAdminAuth() {
-    const user = localStorage.getItem('user');
-    
-    // Admin kullanıcı adları (bunları değiştirin!)
-    const ADMIN_USERS = ['admin']; 
-    
-    if (!user) {
-        alert('Önce giriş yapmalısınız!');
-        window.location.href = 'index.html';
-        return;
-    }
-    
-    const currentUser = JSON.parse(user);
-    
-    if (!ADMIN_USERS.includes(currentUser.username)) {
-        alert('Bu sayfaya erişim yetkiniz yok!');
-        window.location.href = 'app.html';
-        return;
-    }
-}
-
-// Sayfa yüklendiğinde kontrol et
-checkAdminAuth();
+        // Admin Authentication Check - GÜVENLİK İÇİN ÖNEMLİ!
+        function checkAdminAuth() {
+            const user = localStorage.getItem('user');
+            
+            // Sadece admin kullanıcısı girebilir
+            const ADMIN_USERS = ['admin']; 
+            
+            if (!user) {
+                alert('Önce giriş yapmalısınız!');
+                window.location.href = 'index.html';
+                return false;
+            }
+            
+            const currentUser = JSON.parse(user);
+            
+            if (!ADMIN_USERS.includes(currentUser.username)) {
+                alert('Bu sayfaya erişim yetkiniz yok!');
+                window.location.href = 'app.html';
+                return false;
+            }
+            
+            // Admin yetkisi var - sayfayı göster
+            document.body.style.display = 'block';
+            return true;
+        }
+        
+        // Sayfa yüklendiğinde kontrol et
+        if (!checkAdminAuth()) {
+            // Yetkisiz erişim - sayfa görünmeyecek
+            document.body.innerHTML = '';
+        }
         
         const API_URL = 'https://soy-ad-backend.onrender.com';
         let currentTab = 'users';
