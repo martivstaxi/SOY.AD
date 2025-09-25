@@ -1,1 +1,573 @@
-.
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soy.ad - Eşleştirme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: #764ba2;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .username {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .logout-btn {
+            padding: 8px 20px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Swipe Container */
+        .swipe-container {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            height: 600px;
+            margin: 40px auto;
+        }
+        
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            cursor: grab;
+            transition: transform 0.2s, opacity 0.2s;
+            overflow: hidden;
+        }
+        
+        .card.dragging {
+            transition: none;
+            cursor: grabbing;
+        }
+        
+        .card img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+        
+        .card-info {
+            padding: 20px;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .card-username {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .card-bio {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Choice Labels */
+        .choice {
+            position: absolute;
+            top: 50px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 30px;
+            transform: rotate(-30deg);
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        
+        .choice.like {
+            right: 20px;
+            color: #00d68f;
+            border: 4px solid #00d68f;
+        }
+        
+        .choice.nope {
+            left: 20px;
+            color: #ff4757;
+            border: 4px solid #ff4757;
+        }
+        
+        .card.go-right .choice.like {
+            opacity: 1;
+        }
+        
+        .card.go-left .choice.nope {
+            opacity: 1;
+        }
+        
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .pass-btn {
+            background: white;
+            color: #ff4757;
+            font-size: 30px;
+        }
+        
+        .like-btn {
+            background: white;
+            color: #00d68f;
+            font-size: 30px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            display: none;
+        }
+        
+        .empty-state h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* Match Modal */
+        .match-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .match-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .match-content h2 {
+            color: #00d68f;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .match-content p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .match-content button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        /* Loading */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔥 Soy.ad</h1>
+        <div class="user-info">
+            <span class="username" id="currentUser"></span>
+            <button class="logout-btn" onclick="logout()">Çıkış</button>
+        </div>
+    </div>
+    
+    <div class="swipe-container" id="swipeContainer">
+        <div class="loading-container" id="loading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    
+    <div class="empty-state" id="emptyState">
+        <h2>🎉 Tebrikler!</h2>
+        <p>Tüm profilleri gördünüz. Yeni profiller için daha sonra tekrar gelin.</p>
+    </div>
+    
+    <div class="actions" id="actionButtons" style="display: none;">
+        <button class="action-btn pass-btn" onclick="handlePass()">❌</button>
+        <button class="action-btn like-btn" onclick="handleLike()">💚</button>
+    </div>
+    
+    <div class="match-modal" id="matchModal">
+        <div class="match-content">
+            <h2>🎉 Eşleşme!</h2>
+            <p id="matchMessage">Karşılıklı beğeni! Admin panelinizde grup oluşturulmasını bekleyin.</p>
+            <button onclick="closeMatchModal()">Devam Et</button>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'https://soy-ad-backend.onrender.com';
+        let currentUser = null;
+        let profiles = [];
+        let currentProfileIndex = 0;
+        
+        // Check auth
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            currentUser = JSON.parse(user);
+            document.getElementById('currentUser').textContent = currentUser.username;
+        }
+        
+        // Load profiles
+        async function loadProfiles() {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'flex';
+            
+            try {
+                const response = await fetch(`${API_URL}/api/users/${currentUser.id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                profiles = data.users;
+                
+                loading.style.display = 'none';
+                
+                if (profiles.length === 0) {
+                    showEmptyState();
+                } else {
+                    showProfiles();
+                }
+            } catch (error) {
+                console.error('Error loading profiles:', error);
+                loading.style.display = 'none';
+            }
+        }
+        
+        // Show profiles
+        function showProfiles() {
+            const container = document.getElementById('swipeContainer');
+            container.innerHTML = '';
+            
+            // Create cards (show max 2 at a time)
+            const cardsToShow = Math.min(2, profiles.length - currentProfileIndex);
+            
+            for (let i = cardsToShow - 1; i >= 0; i--) {
+                const profile = profiles[currentProfileIndex + i];
+                const card = createCard(profile, i);
+                container.appendChild(card);
+            }
+            
+            // Show action buttons
+            document.getElementById('actionButtons').style.display = 'flex';
+            
+            // Setup drag for top card
+            if (cardsToShow > 0) {
+                setupDrag(container.lastElementChild);
+            }
+        }
+        
+        // Create card element
+        function createCard(profile, stackIndex) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.zIndex = 100 - stackIndex;
+            card.style.transform = `scale(${1 - stackIndex * 0.05})`;
+            card.dataset.userId = profile.id;
+            
+            card.innerHTML = `
+                <img src="${profile.instagram_image}" alt="${profile.username}">
+                <div class="card-info">
+                    <div class="card-username">@${profile.username}</div>
+                    <div class="card-bio">Shopier Satıcısı</div>
+                </div>
+                <div class="choice like">BEĞENDİM</div>
+                <div class="choice nope">PAS</div>
+            `;
+            
+            return card;
+        }
+        
+        // Setup drag functionality
+        function setupDrag(card) {
+            let startX = null;
+            let startY = null;
+            let currentX = null;
+            let currentY = null;
+            
+            // Mouse events
+            card.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+            
+            // Touch events
+            card.addEventListener('touchstart', handleStart);
+            document.addEventListener('touchmove', handleMove);
+            document.addEventListener('touchend', handleEnd);
+            
+            function handleStart(e) {
+                card.classList.add('dragging');
+                startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+            }
+            
+            function handleMove(e) {
+                if (!startX || !startY) return;
+                
+                currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                currentY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+                
+                const diffX = currentX - startX;
+                const diffY = currentY - startY;
+                const rotate = diffX * 0.1;
+                
+                card.style.transform = `translate(${diffX}px, ${diffY}px) rotate(${rotate}deg)`;
+                
+                // Show choice labels
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        card.classList.add('go-right');
+                        card.classList.remove('go-left');
+                    } else {
+                        card.classList.add('go-left');
+                        card.classList.remove('go-right');
+                    }
+                } else {
+                    card.classList.remove('go-left', 'go-right');
+                }
+            }
+            
+            function handleEnd(e) {
+                if (!startX || !startY) return;
+                
+                card.classList.remove('dragging');
+                const diffX = currentX - startX;
+                
+                if (Math.abs(diffX) > 100) {
+                    // Swipe action
+                    const action = diffX > 0 ? 'like' : 'pass';
+                    card.style.transform = `translateX(${diffX > 0 ? 1000 : -1000}px) rotate(${diffX > 0 ? 30 : -30}deg)`;
+                    card.style.opacity = '0';
+                    
+                    sendSwipe(parseInt(card.dataset.userId), action);
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        nextProfile();
+                    }, 300);
+                } else {
+                    // Reset position
+                    card.style.transform = '';
+                    card.classList.remove('go-left', 'go-right');
+                }
+                
+                startX = null;
+                startY = null;
+                currentX = null;
+                currentY = null;
+            }
+        }
+        
+        // Send swipe to backend
+        async function sendSwipe(targetId, action) {
+            try {
+                const response = await fetch(`${API_URL}/api/swipe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        targetId: targetId,
+                        action: action
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.match) {
+                    showMatchModal();
+                }
+            } catch (error) {
+                console.error('Error sending swipe:', error);
+            }
+        }
+        
+        // Next profile
+        function nextProfile() {
+            currentProfileIndex++;
+            
+            if (currentProfileIndex >= profiles.length) {
+                showEmptyState();
+            } else {
+                showProfiles();
+            }
+        }
+        
+        // Button actions
+        function handlePass() {
+            const card = document.querySelector('.card:last-child');
+            if (!card) return;
+            
+            card.classList.add('go-left');
+            card.style.transform = 'translateX(-1000px) rotate(-30deg)';
+            card.style.opacity = '0';
+            
+            sendSwipe(parseInt(card.dataset.userId), 'pass');
+            
+            setTimeout(() => {
+                card.remove();
+                nextProfile();
+            }, 300);
+        }
+        
+        function handleLike() {
+            const card = document.querySelector('.card:last-child');
+            if (!card) return;
+            
+            card.classList.add('go-right');
+            card.style.transform = 'translateX(1000px) rotate(30deg)';
+            card.style.opacity = '0';
+            
+            sendSwipe(parseInt(card.dataset.userId), 'like');
+            
+            setTimeout(() => {
+                card.remove();
+                nextProfile();
+            }, 300);
+        }
+        
+        // Show empty state
+        function showEmptyState() {
+            document.getElementById('swipeContainer').style.display = 'none';
+            document.getElementById('actionButtons').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+        }
+        
+        // Match modal
+        function showMatchModal() {
+            document.getElementById('matchModal').style.display = 'flex';
+        }
+        
+        function closeMatchModal() {
+            document.getElementById('matchModal').style.display = 'none';
+        }
+        
+        // Logout
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize
+        checkAuth();
+        loadProfiles();
+    </script>
+</body>
+</html>
