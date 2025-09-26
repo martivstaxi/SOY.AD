@@ -325,8 +325,7 @@
     <div class="match-modal" id="matchModal">
         <div class="match-content">
             <h2>🎉 Eşleşme!</h2>
-            <p id="matchMessage">Karşılıklı beğeni! Admin panelinizde grup oluşturulmasını bekleyin.</p>
-            <button onclick="closeMatchModal()">Devam Et</button>
+            <p id="matchMessage">Tebrikler! Instagram profiline yönlendiriliyorsunuz...</p>
         </div>
     </div>
     
@@ -509,31 +508,42 @@
             }
         }
         
-        // Send swipe to backend
-        async function sendSwipe(targetId, action) {
-            try {
-                const response = await fetch(`${API_URL}/api/swipe`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        userId: currentUser.id,
-                        targetId: targetId,
-                        action: action
-                    })
-                });
+    // Send swipe to backend
+    async function sendSwipe(targetId, action) {
+        try {
+            const response = await fetch(`${API_URL}/api/swipe`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    userId: currentUser.id,
+                    targetId: targetId,
+                    action: action
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.match) {
+                // Eşleşen kullanıcının Instagram URL'ini bul
+                const matchedUser = profiles.find(p => p.id === targetId);
+                const instagramUrl = matchedUser?.instagram_url || `https://instagram.com/${matchedUser?.username}`;
                 
-                const data = await response.json();
+                // Modal'ı göster
+                showMatchModal();
                 
-                if (data.match) {
-                    showMatchModal();
-                }
-            } catch (error) {
-                console.error('Error sending swipe:', error);
+                // 2 saniye bekle ve Instagram'a yönlendir
+                setTimeout(() => {
+                    window.open(instagramUrl, '_blank');
+                    closeMatchModal();
+                }, 2000);
             }
+        } catch (error) {
+            console.error('Error sending swipe:', error);
         }
+    }
         
         // Next profile
         function nextProfile() {
