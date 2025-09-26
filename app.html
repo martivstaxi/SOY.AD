@@ -487,58 +487,109 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 40px;
             position: fixed;
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
         
         .action-btn {
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.16);
-            font-size: 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            z-index: -1;
         }
         
         .action-btn:hover {
-            transform: scale(1.08);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
         .action-btn:active {
-            transform: scale(0.96);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
         .pass-btn {
-            background: white;
+            background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
             color: #ff4757;
+            border: 2px solid rgba(255, 71, 87, 0.1);
+        }
+        
+        .pass-btn::before {
+            background: rgba(255, 71, 87, 0.1);
+        }
+        
+        .pass-btn:hover::before {
+            width: 100px;
+            height: 100px;
         }
         
         .like-btn {
-            background: white;
+            background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
             color: #00d68f;
+            border: 2px solid rgba(0, 214, 143, 0.1);
+        }
+        
+        .like-btn::before {
+            background: rgba(0, 214, 143, 0.1);
+        }
+        
+        .like-btn:hover::before {
+            width: 100px;
+            height: 100px;
         }
         
         .instagram-btn {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            background: linear-gradient(135deg, #833AB4 0%, #C13584 50%, #F77737 100%);
             color: white;
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
             font-size: 24px;
             position: relative;
+            border: none;
+            box-shadow: 0 4px 15px rgba(131, 58, 180, 0.3);
+        }
+        
+        .instagram-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(131, 58, 180, 0.4);
+            background: linear-gradient(135deg, #9A44C4 0%, #D14594 50%, #FF8747 100%);
         }
         
         .instagram-btn svg {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             fill: white;
         }
         
@@ -782,16 +833,23 @@
             .actions {
                 bottom: 30px;
                 gap: 25px;
+                padding: 12px 25px;
             }
             
             .action-btn {
-                width: 55px;
-                height: 55px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
             }
             
             .instagram-btn {
-                width: 45px;
-                height: 45px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .instagram-btn svg {
+                width: 26px;
+                height: 26px;
             }
             
             .header h1 {
