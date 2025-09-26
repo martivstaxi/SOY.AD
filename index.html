@@ -158,59 +158,62 @@
         // Backend URL
         const API_URL = 'https://soy-ad-backend.onrender.com';
         
-        // Form submit
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('loginBtn');
-            const errorMsg = document.getElementById('errorMsg');
-            const successMsg = document.getElementById('successMsg');
-            
-            // Reset messages
-            errorMsg.style.display = 'none';
-            successMsg.style.display = 'none';
-            
-            // Loading state
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading"></span>';
-            
-            try {
-                const response = await fetch(`${API_URL}/api/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    // Save token
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Show success
-                    successMsg.textContent = 'Giriş başarılı! Yönlendiriliyorsunuz...';
-                    successMsg.style.display = 'block';
-                    
-                    // Redirect after 1 second
-                    setTimeout(() => {
-                        window.location.href = 'app.html';
-                    }, 1000);
-                } else {
-                    throw new Error(data.error || 'Giriş başarısız');
-                }
-            } catch (error) {
-                errorMsg.textContent = error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
-                errorMsg.style.display = 'block';
-                
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Giriş Yap';
-            }
+// Form submit
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Kullanıcı adını küçük harfe çevir ve trim yap
+    const username = document.getElementById('username').value.toLowerCase().trim();
+    // Şifredeki boşlukları temizle
+    const password = document.getElementById('password').value.replace(/\s/g, '');
+    
+    const loginBtn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+    
+    // Reset messages
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+    
+    // Loading state
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<span class="loading"></span>';
+    
+    try {
+        const response = await fetch(`${API_URL}/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
         });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Save token
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            // Show success
+            successMsg.textContent = 'Giriş başarılı! Yönlendiriliyorsunuz...';
+            successMsg.style.display = 'block';
+            
+            // Redirect after 1 second
+            setTimeout(() => {
+                window.location.href = 'app.html';
+            }, 1000);
+        } else {
+            throw new Error(data.error || 'Giriş başarısız');
+        }
+    } catch (error) {
+        errorMsg.textContent = error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+        errorMsg.style.display = 'block';
+        
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Giriş Yap';
+    }
+});
     </script>
 </body>
 </html>
