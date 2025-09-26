@@ -187,6 +187,10 @@
             border: 2px dashed #667eea;
         }
         
+        .csv-upload-section.delete {
+            border-color: #ff4757;
+        }
+        
         .csv-upload-title {
             font-size: 16px;
             font-weight: 600;
@@ -237,6 +241,10 @@
             transition: all 0.3s;
         }
         
+        .file-input-label.delete {
+            background: #ff4757;
+        }
+        
         .file-input-label:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
@@ -262,6 +270,10 @@
             padding: 8px;
             position: sticky;
             top: 0;
+        }
+        
+        .csv-preview.delete th {
+            background: #ff4757;
         }
         
         .csv-preview td {
@@ -345,6 +357,21 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        .delete-user-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .delete-user-btn:hover {
+            transform: scale(1.05);
         }
         
         /* Match Card */
@@ -480,7 +507,7 @@
     </div>
     
     <div class="container">
-        <!-- Stats - Sadece 2 kart kaldı -->
+        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card primary">
                 <div class="stat-label">Toplam Kullanıcı</div>
@@ -495,7 +522,7 @@
         <!-- Alert -->
         <div class="alert" id="alert"></div>
         
-        <!-- Tabs - Gruplar kaldırıldı -->
+        <!-- Tabs -->
         <div class="tabs">
             <button class="tab active" onclick="switchTab('users')">👥 Kullanıcılar</button>
             <button class="tab" onclick="switchTab('matches')">💚 Eşleşmeler</button>
@@ -507,10 +534,10 @@
                 <h2 class="section-title">Kullanıcı Yönetimi</h2>
             </div>
             
-            <!-- CSV Upload Section - YENİ -->
+            <!-- CSV Upload Section - EKLEME -->
             <div class="csv-upload-section">
                 <div class="csv-upload-title">
-                    📁 CSV ile Toplu Kullanıcı Ekleme
+                    📝 CSV ile Toplu Kullanıcı Ekleme
                 </div>
                 <div class="csv-format">
                     <strong>CSV Formatı:</strong><br>
@@ -527,6 +554,30 @@
                         <span id="uploadBtnText">Kullanıcıları Yükle</span>
                     </button>
                     <button class="btn btn-danger" onclick="clearCSV()">İptal</button>
+                </div>
+            </div>
+            
+            <!-- CSV Delete Section - YENİ -->
+            <div class="csv-upload-section delete">
+                <div class="csv-upload-title">
+                    🗑️ CSV ile Toplu Kullanıcı Silme
+                </div>
+                <div class="csv-format">
+                    <strong>CSV Formatı (2 seçenek):</strong><br>
+                    <strong>1)</strong> <code>username</code> - Sadece kullanıcı adları<br>
+                    <strong>2)</strong> <code>username,delete</code> - İkinci sütun "yes" veya "true" olmalı<br>
+                    <small>Örnek: ayse veya ayse,yes</small>
+                </div>
+                <div class="file-input-wrapper">
+                    <input type="file" id="csvDeleteFile" accept=".csv" onchange="handleDeleteCSVFile(event)">
+                    <label for="csvDeleteFile" class="file-input-label delete">Silme Listesi Seç</label>
+                </div>
+                <div class="csv-preview delete" id="csvDeletePreview"></div>
+                <div class="csv-actions" id="csvDeleteActions" style="display: flex;">
+                    <button class="btn btn-danger" onclick="deleteCSVUsers()">
+                        <span id="deleteBtnText">Kullanıcıları Sil</span>
+                    </button>
+                    <button class="btn" onclick="clearDeleteCSV()">İptal</button>
                 </div>
             </div>
             
@@ -566,11 +617,12 @@
                             <th>Görüntülenme</th>
                             <th>Beğeni</th>
                             <th>Pas</th>
+                            <th>İşlem</th>
                         </tr>
                     </thead>
                     <tbody id="usersTable">
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 40px;">
+                            <td colspan="6" style="text-align: center; padding: 40px;">
                                 <div class="loading"></div>
                             </td>
                         </tr>
@@ -627,6 +679,7 @@
         let users = [];
         let matches = [];
         let csvData = null;
+        let csvDeleteData = null;
         
         // Initialize
         async function init() {
@@ -658,7 +711,7 @@
             }, 3000);
         }
         
-        // CSV Handler - YENİ
+        // CSV Handler - EKLEME
         function handleCSVFile(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -678,16 +731,34 @@
             reader.readAsText(file);
         }
         
-        // Parse CSV - YENİ
+        // CSV Handler - SİLME (YENİ)
+        function handleDeleteCSVFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                csvDeleteData = parseDeleteCSV(text);
+                
+                if (csvDeleteData && csvDeleteData.length > 0) {
+                    displayDeleteCSVPreview(csvDeleteData);
+                    document.getElementById('csvDeleteActions').style.display = 'flex';
+                } else {
+                    showAlert('CSV dosyası okunamadı veya boş', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // Parse CSV - EKLEME
         function parseCSV(text) {
             const lines = text.trim().split('\n');
             if (lines.length < 2) return null;
             
-            // İlk satırı al ve virgülle ayır
             const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
             const expectedHeaders = ['username', 'password', 'photo_url', 'instagram_profile_url'];
             
-            // Header kontrolü - sıralama önemli değil, sadece var olması önemli
             const hasAllHeaders = expectedHeaders.every(h => 
                 headers.some(header => header.toLowerCase() === h.toLowerCase())
             );
@@ -699,7 +770,6 @@
             
             const data = [];
             for (let i = 1; i < lines.length; i++) {
-                // CSV satırını düzgün parse et (virgül içinde virgül olabilir)
                 const values = [];
                 let current = '';
                 let inQuotes = false;
@@ -715,7 +785,7 @@
                         current += char;
                     }
                 }
-                values.push(current.trim()); // Son değeri ekle
+                values.push(current.trim());
                 
                 if (values.length === headers.length) {
                     const row = {};
@@ -730,7 +800,42 @@
             return data;
         }
         
-        // Display CSV Preview - YENİ
+        // Parse Delete CSV (YENİ)
+        function parseDeleteCSV(text) {
+            const lines = text.trim().split('\n');
+            if (lines.length < 1) return null;
+            
+            const data = [];
+            const firstLine = lines[0].toLowerCase();
+            
+            // Başlık satırı var mı kontrol et
+            const hasHeader = firstLine.includes('username') || firstLine.includes('delete');
+            const startIndex = hasHeader ? 1 : 0;
+            
+            for (let i = startIndex; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                const parts = line.split(',');
+                const username = parts[0].trim().replace(/"/g, '');
+                
+                // İkinci sütun varsa ve "yes", "true", "1" değilse atla
+                if (parts.length > 1) {
+                    const deleteFlag = parts[1].trim().toLowerCase();
+                    if (deleteFlag !== 'yes' && deleteFlag !== 'true' && deleteFlag !== '1') {
+                        continue;
+                    }
+                }
+                
+                if (username) {
+                    data.push({ username: username.toLowerCase() });
+                }
+            }
+            
+            return data;
+        }
+        
+        // Display CSV Preview - EKLEME
         function displayCSVPreview(data) {
             const preview = document.getElementById('csvPreview');
             const maxRows = Math.min(5, data.length);
@@ -757,7 +862,31 @@
             preview.style.display = 'block';
         }
         
-        // Upload CSV Users - YENİ
+        // Display Delete CSV Preview (YENİ)
+        function displayDeleteCSVPreview(data) {
+            const preview = document.getElementById('csvDeletePreview');
+            const maxRows = Math.min(10, data.length);
+            
+            let html = '<table><thead><tr>';
+            html += '<th>Silinecek Kullanıcı Adları</th>';
+            html += '</tr></thead><tbody>';
+            
+            for (let i = 0; i < maxRows; i++) {
+                html += '<tr>';
+                html += `<td>${data[i].username}</td>`;
+                html += '</tr>';
+            }
+            
+            if (data.length > maxRows) {
+                html += `<tr><td style="text-align: center;">... ve ${data.length - maxRows} kullanıcı daha</td></tr>`;
+            }
+            
+            html += '</tbody></table>';
+            preview.innerHTML = html;
+            preview.style.display = 'block';
+        }
+        
+        // Upload CSV Users - EKLEME
         async function uploadCSVUsers() {
             if (!csvData || csvData.length === 0) {
                 showAlert('Yüklenecek veri yok', 'error');
@@ -775,7 +904,8 @@
                     const response = await fetch(`${API_URL}/api/admin/add-user`, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
                         },
                         body: JSON.stringify({
                             username: user.username.toLowerCase().trim(),
@@ -810,7 +940,62 @@
             }
         }
         
-        // Clear CSV - YENİ
+        // Delete CSV Users (YENİ)
+        async function deleteCSVUsers() {
+            if (!csvDeleteData || csvDeleteData.length === 0) {
+                showAlert('Silinecek kullanıcı yok', 'error');
+                return;
+            }
+            
+            if (!confirm(`${csvDeleteData.length} kullanıcıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz!`)) {
+                return;
+            }
+            
+            const btnText = document.getElementById('deleteBtnText');
+            btnText.innerHTML = '<span class="loading"></span> Siliniyor...';
+            
+            let successCount = 0;
+            let failCount = 0;
+            
+            for (const user of csvDeleteData) {
+                try {
+                    const response = await fetch(`${API_URL}/api/admin/delete-user`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            username: user.username
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        successCount++;
+                    } else {
+                        failCount++;
+                        console.error(`Kullanıcı silinemedi: ${user.username}`, data.error);
+                    }
+                } catch (error) {
+                    failCount++;
+                    console.error(`Hata: ${user.username}`, error);
+                }
+            }
+            
+            btnText.textContent = 'Kullanıcıları Sil';
+            
+            if (successCount > 0) {
+                showAlert(`${successCount} kullanıcı başarıyla silindi${failCount > 0 ? `, ${failCount} başarısız` : ''}`, 
+                          failCount > 0 ? 'error' : 'success');
+                loadUsers();
+                clearDeleteCSV();
+            } else {
+                showAlert('Hiçbir kullanıcı silinemedi', 'error');
+            }
+        }
+        
+        // Clear CSV - EKLEME
         function clearCSV() {
             csvData = null;
             document.getElementById('csvFile').value = '';
@@ -818,10 +1003,51 @@
             document.getElementById('csvActions').style.display = 'none';
         }
         
+        // Clear Delete CSV (YENİ)
+        function clearDeleteCSV() {
+            csvDeleteData = null;
+            document.getElementById('csvDeleteFile').value = '';
+            document.getElementById('csvDeletePreview').style.display = 'none';
+            document.getElementById('csvDeleteActions').style.display = 'none';
+        }
+        
+        // Delete single user (YENİ)
+        async function deleteUser(username) {
+            if (!confirm(`${username} kullanıcısını silmek istediğinize emin misiniz?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/api/admin/delete-user`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ username })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('Kullanıcı başarıyla silindi');
+                    loadUsers();
+                } else {
+                    showAlert(data.error || 'Kullanıcı silinemedi', 'error');
+                }
+            } catch (error) {
+                showAlert('Bir hata oluştu', 'error');
+            }
+        }
+        
         // Load users
         async function loadUsers() {
             try {
-                const response = await fetch(`${API_URL}/api/admin/users`);
+                const response = await fetch(`${API_URL}/api/admin/users`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
                 const data = await response.json();
                 users = data.users;
                 renderUsersTable();
@@ -838,7 +1064,7 @@
             if (users.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px; color: #999;">
+                        <td colspan="6" style="text-align: center; padding: 40px; color: #999;">
                             Henüz kullanıcı yok
                         </td>
                     </tr>
@@ -858,6 +1084,9 @@
                     <td>${user.viewed_by ? user.viewed_by.length : 0}</td>
                     <td>${user.likes ? user.likes.length : 0}</td>
                     <td>${user.passes ? user.passes.length : 0}</td>
+                    <td>
+                        <button class="delete-user-btn" onclick="deleteUser('${user.username}')">Sil</button>
+                    </td>
                 </tr>
             `).join('');
         }
@@ -881,7 +1110,8 @@
                 const response = await fetch(`${API_URL}/api/admin/add-user`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify({
                         username,
@@ -913,7 +1143,11 @@
         // Load matches
         async function loadMatches() {
             try {
-                const response = await fetch(`${API_URL}/api/matches`);
+                const response = await fetch(`${API_URL}/api/matches`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
                 const data = await response.json();
                 matches = data.matches;
                 renderMatches();
@@ -923,7 +1157,7 @@
             }
         }
         
-        // Render matches - Instagram yönlendirmesi eklendi
+        // Render matches
         function renderMatches() {
             const grid = document.getElementById('matchesGrid');
             
