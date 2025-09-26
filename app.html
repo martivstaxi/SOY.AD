@@ -790,14 +790,15 @@
                     m.user1 === currentUser.id ? m.user2 : m.user1
                 );
                 
-                // BENİ beğenenleri bul (ben onları beğenmemişim)
+                // BENİ beğenenleri bul
                 userLikers = [];
                 
                 // Her kullanıcının likes dizisini kontrol et
                 usersData.users.forEach(user => {
-                    // Bu kullanıcı beni beğenmiş mi?
+                    // Bu kullanıcının likes dizisinde ben var mıyım?
+                    // Yani bu kullanıcı başkalarını beğenmiş ve ben o beğenilenler arasında mıyım?
                     if (user.likes && user.likes.includes(currentUser.id)) {
-                        // Henüz eşleşmemiş miyiz?
+                        // Bu kullanıcı beni beğenmiş! Ama henüz eşleşmemiş miyiz?
                         if (!matchedUserIds.includes(user.id)) {
                             userLikers.push(user);
                         }
