@@ -66,6 +66,26 @@
             margin: 40px auto;
         }
         
+        /* Swipe Indicator Background */
+        .swipe-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            transition: background-color 0.3s;
+            z-index: 1;
+        }
+        
+        .swipe-indicator.like {
+            background-color: rgba(0, 214, 143, 0.2);
+        }
+        
+        .swipe-indicator.nope {
+            background-color: rgba(255, 71, 87, 0.2);
+        }
+        
         .card {
             position: absolute;
             width: 100%;
@@ -76,6 +96,7 @@
             cursor: grab;
             transition: transform 0.2s, opacity 0.2s;
             overflow: hidden;
+            z-index: 2;
         }
         
         .card.dragging {
@@ -109,46 +130,15 @@
             font-size: 14px;
         }
         
-        /* Choice Labels */
-        .choice {
-            position: absolute;
-            top: 50px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 30px;
-            transform: rotate(-30deg);
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-        }
-        
-        .choice.like {
-            right: 20px;
-            color: #00d68f;
-            border: 4px solid #00d68f;
-        }
-        
-        .choice.nope {
-            left: 20px;
-            color: #ff4757;
-            border: 4px solid #ff4757;
-        }
-        
-        .card.go-right .choice.like {
-            opacity: 1;
-        }
-        
-        .card.go-left .choice.nope {
-            opacity: 1;
-        }
-        
-        /* Action Buttons */
+        /* Action Buttons - Her zaman görünsün */
         .actions {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            align-items: center;
+            gap: 30px;
             margin-top: 20px;
+            position: relative;
+            z-index: 10;
         }
         
         .action-btn {
@@ -162,6 +152,7 @@
             justify-content: center;
             transition: transform 0.2s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 28px;
         }
         
         .action-btn:hover {
@@ -175,13 +166,19 @@
         .pass-btn {
             background: white;
             color: #ff4757;
-            font-size: 30px;
         }
         
         .like-btn {
             background: white;
             color: #00d68f;
-            font-size: 30px;
+        }
+        
+        .instagram-btn {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
         }
         
         /* Empty State */
@@ -265,9 +262,39 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .swipe-container {
+                height: 500px;
+                margin: 20px auto;
+            }
+            
+            .action-btn {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .instagram-btn {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .logout-btn {
+                padding: 6px 15px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Swipe indicator background -->
+    <div class="swipe-indicator" id="swipeIndicator"></div>
+    
     <div class="header">
         <h1>🔥 Soy.ad</h1>
         <div class="user-info">
@@ -287,9 +314,12 @@
         <p>Tüm profilleri gördünüz. Yeni profiller için daha sonra tekrar gelin.</p>
     </div>
     
-    <div class="actions" id="actionButtons" style="display: none;">
-        <button class="action-btn pass-btn" onclick="handlePass()">❌</button>
-        <button class="action-btn like-btn" onclick="handleLike()">💚</button>
+    <div class="actions" id="actionButtons">
+        <button class="action-btn pass-btn" onclick="handlePass()">✕</button>
+        <button class="action-btn instagram-btn" onclick="openInstagram()" id="instagramBtn">
+            <span>📷</span>
+        </button>
+        <button class="action-btn like-btn" onclick="handleLike()">♥</button>
     </div>
     
     <div class="match-modal" id="matchModal">
@@ -305,6 +335,7 @@
         let currentUser = null;
         let profiles = [];
         let currentProfileIndex = 0;
+        let currentProfileInstagram = null;
         
         // Check auth
         function checkAuth() {
@@ -362,8 +393,11 @@
                 container.appendChild(card);
             }
             
-            // Show action buttons
-            document.getElementById('actionButtons').style.display = 'flex';
+            // Update current profile Instagram link
+            if (profiles[currentProfileIndex]) {
+                currentProfileInstagram = profiles[currentProfileIndex].instagram_url || 
+                                         `https://instagram.com/${profiles[currentProfileIndex].username}`;
+            }
             
             // Setup drag for top card
             if (cardsToShow > 0) {
@@ -378,6 +412,7 @@
             card.style.zIndex = 100 - stackIndex;
             card.style.transform = `scale(${1 - stackIndex * 0.05})`;
             card.dataset.userId = profile.id;
+            card.dataset.instagramUrl = profile.instagram_url || `https://instagram.com/${profile.username}`;
             
             card.innerHTML = `
                 <img src="${profile.instagram_image}" alt="${profile.username}">
@@ -385,8 +420,6 @@
                     <div class="card-username">@${profile.username}</div>
                     <div class="card-bio">Shopier Satıcısı</div>
                 </div>
-                <div class="choice like">BEĞENDİM</div>
-                <div class="choice nope">PAS</div>
             `;
             
             return card;
@@ -398,6 +431,7 @@
             let startY = null;
             let currentX = null;
             let currentY = null;
+            const indicator = document.getElementById('swipeIndicator');
             
             // Mouse events
             card.addEventListener('mousedown', handleStart);
@@ -427,17 +461,15 @@
                 
                 card.style.transform = `translate(${diffX}px, ${diffY}px) rotate(${rotate}deg)`;
                 
-                // Show choice labels
+                // Show background color based on swipe direction
                 if (Math.abs(diffX) > 50) {
                     if (diffX > 0) {
-                        card.classList.add('go-right');
-                        card.classList.remove('go-left');
+                        indicator.className = 'swipe-indicator like';
                     } else {
-                        card.classList.add('go-left');
-                        card.classList.remove('go-right');
+                        indicator.className = 'swipe-indicator nope';
                     }
                 } else {
-                    card.classList.remove('go-left', 'go-right');
+                    indicator.className = 'swipe-indicator';
                 }
             }
             
@@ -462,8 +494,13 @@
                 } else {
                     // Reset position
                     card.style.transform = '';
-                    card.classList.remove('go-left', 'go-right');
+                    indicator.className = 'swipe-indicator';
                 }
+                
+                // Always reset background
+                setTimeout(() => {
+                    indicator.className = 'swipe-indicator';
+                }, 300);
                 
                 startX = null;
                 startY = null;
@@ -514,7 +551,9 @@
             const card = document.querySelector('.card:last-child');
             if (!card) return;
             
-            card.classList.add('go-left');
+            const indicator = document.getElementById('swipeIndicator');
+            indicator.className = 'swipe-indicator nope';
+            
             card.style.transform = 'translateX(-1000px) rotate(-30deg)';
             card.style.opacity = '0';
             
@@ -523,6 +562,7 @@
             setTimeout(() => {
                 card.remove();
                 nextProfile();
+                indicator.className = 'swipe-indicator';
             }, 300);
         }
         
@@ -530,7 +570,9 @@
             const card = document.querySelector('.card:last-child');
             if (!card) return;
             
-            card.classList.add('go-right');
+            const indicator = document.getElementById('swipeIndicator');
+            indicator.className = 'swipe-indicator like';
+            
             card.style.transform = 'translateX(1000px) rotate(30deg)';
             card.style.opacity = '0';
             
@@ -539,7 +581,18 @@
             setTimeout(() => {
                 card.remove();
                 nextProfile();
+                indicator.className = 'swipe-indicator';
             }, 300);
+        }
+        
+        // Open Instagram
+        function openInstagram() {
+            const card = document.querySelector('.card:last-child');
+            if (card && card.dataset.instagramUrl) {
+                window.open(card.dataset.instagramUrl, '_blank');
+            } else if (currentProfileInstagram) {
+                window.open(currentProfileInstagram, '_blank');
+            }
         }
         
         // Show empty state
