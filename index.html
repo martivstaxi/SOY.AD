@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soy.ad - Giriş</title>
+    <title>www.soy.ad - Giriş</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -161,6 +161,45 @@
             transform: none;
         }
         
+        .register-section {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .register-text {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .register-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: transparent;
+            color: #6366f1;
+            border: 2px solid #6366f1;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .register-btn:hover {
+            background: #6366f1;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+        }
+        
+        .register-btn:active {
+            transform: translateY(0);
+        }
+        
         .error-message {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: white;
@@ -203,16 +242,28 @@
         
         /* Mobile Optimizations */
         @media (max-width: 480px) {
+            body {
+                overflow-y: scroll;
+            }
+            
             .wrapper {
                 padding: 16px;
                 min-height: 100vh;
                 min-height: -webkit-fill-available;
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+            
+            .wrapper::before,
+            .wrapper::after {
+                display: none;
             }
             
             .login-container {
                 padding: 32px 24px;
                 border-radius: 20px;
                 max-width: 100%;
+                margin-bottom: 40px;
             }
             
             .logo {
@@ -239,7 +290,7 @@
             
             input {
                 padding: 13px 14px;
-                font-size: 16px; /* Prevents zoom on iOS */
+                font-size: 16px;
                 border-radius: 10px;
             }
             
@@ -247,6 +298,7 @@
                 padding: 15px;
                 font-size: 16px;
                 border-radius: 10px;
+                min-height: 52px;
             }
             
             .error-message,
@@ -255,6 +307,21 @@
                 font-size: 13px;
                 margin-top: 16px;
                 border-radius: 10px;
+            }
+            
+            .register-section {
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+            
+            .register-text {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+            
+            .register-btn {
+                padding: 11px 20px;
+                font-size: 14px;
             }
         }
         
@@ -295,13 +362,21 @@
                 transform: scale(0.98);
             }
         }
+        
+        /* Keyboard handling */
+        @media (max-width: 480px) {
+            input:focus {
+                position: relative;
+                z-index: 10;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="login-container">
             <div class="logo">
-                <h1>Soy.ad</h1>
+                <h1>www.soy.ad</h1>
                 <p>Karşılıklı Tanıtım ve İşbirliği Platformu</p>
             </div>
             
@@ -319,6 +394,11 @@
                 <button type="submit" id="loginBtn">Giriş Yap</button>
             </form>
             
+            <div class="register-section">
+                <p class="register-text">Hesabınız yok mu?</p>
+                <a href="https://wa.me/905413200216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="register-btn" target="_blank">Başvuru Yapın</a>
+            </div>
+            
             <div class="error-message" id="errorMsg"></div>
             <div class="success-message" id="successMsg"></div>
         </div>
@@ -328,8 +408,23 @@
         // Backend URL
         const API_URL = 'https://soy-ad-backend.onrender.com';
         
-        // Prevent viewport resize on mobile keyboard open
-        const viewport = document.querySelector('meta[name=viewport]');
+        // Keyboard handling for mobile
+        let isKeyboardOpen = false;
+        
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                const currentHeight = window.visualViewport.height;
+                const windowHeight = window.innerHeight;
+                
+                if (currentHeight < windowHeight * 0.75 && !isKeyboardOpen) {
+                    isKeyboardOpen = true;
+                    document.body.style.height = `${currentHeight}px`;
+                } else if (currentHeight >= windowHeight * 0.75 && isKeyboardOpen) {
+                    isKeyboardOpen = false;
+                    document.body.style.height = '100%';
+                }
+            });
+        }
         
         // Form submit
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -387,6 +482,22 @@
                 loginBtn.textContent = 'Giriş Yap';
             }
         });
+        
+        // Auto scroll to input on mobile keyboard open
+        if (window.innerWidth <= 480) {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                    }, 300);
+                });
+            });
+        }
     </script>
 </body>
 </html>
