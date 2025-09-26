@@ -708,6 +708,10 @@
             animation: spin 1s linear infinite;
         }
         
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .swipe-container {
@@ -933,6 +937,9 @@
         // Load Profile Data - OPTİMİZE EDİLDİ
         async function loadProfileData() {
             try {
+                // TEST: 1 saniye yapay gecikme ekleyelim loading'i görmek için
+                // await new Promise(resolve => setTimeout(resolve, 1000));
+                
                 // Paralel çağrı yap (sıralı değil)
                 const [matchesResponse, usersResponse] = await Promise.all([
                     fetch(`${API_URL}/api/matches`, {
