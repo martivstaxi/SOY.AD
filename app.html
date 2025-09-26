@@ -692,8 +692,20 @@
             animation: spin 1s linear infinite;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .profile-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .profile-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(102, 126, 234, 0.2);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
         
         /* Mobile responsiveness */
@@ -897,33 +909,53 @@
             modal.classList.toggle('active');
             
             if (modal.classList.contains('active')) {
+                // Loading göster
+                showProfileLoading();
                 loadProfileData();
             }
         }
         
-        // Load Profile Data
+        // Show Profile Loading
+        function showProfileLoading() {
+            const matchesList = document.getElementById('matchesList');
+            const likersList = document.getElementById('likersList');
+            
+            const loadingHTML = `
+                <div class="profile-loading">
+                    <div class="profile-spinner"></div>
+                </div>
+            `;
+            
+            matchesList.innerHTML = loadingHTML;
+            likersList.innerHTML = loadingHTML;
+        }
+        
+        // Load Profile Data - OPTİMİZE EDİLDİ
         async function loadProfileData() {
             try {
-                // Eşleşmeleri yükle
-                const matchesResponse = await fetch(`${API_URL}/api/matches`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                const matchesData = await matchesResponse.json();
+                // Paralel çağrı yap (sıralı değil)
+                const [matchesResponse, usersResponse] = await Promise.all([
+                    fetch(`${API_URL}/api/matches`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }),
+                    fetch(`${API_URL}/api/admin/users`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    })
+                ]);
+                
+                const [matchesData, usersData] = await Promise.all([
+                    matchesResponse.json(),
+                    usersResponse.json()
+                ]);
                 
                 // Kullanıcının eşleşmelerini filtrele
                 userMatches = matchesData.matches.filter(m => 
                     m.user1 === currentUser.id || m.user2 === currentUser.id
                 );
-                
-                // Tüm kullanıcıları al
-                const usersResponse = await fetch(`${API_URL}/api/admin/users`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                const usersData = await usersResponse.json();
                 
                 // Eşleşen kullanıcıların ID'lerini al
                 const matchedUserIds = userMatches.map(m => 
@@ -947,6 +979,8 @@
                 renderProfileData();
             } catch (error) {
                 console.error('Error loading profile data:', error);
+                // Hata durumunda boş liste göster
+                renderProfileData();
             }
         }
         
