@@ -203,6 +203,8 @@
             padding: 10px;
             gap: 8px;
             position: relative;
+            width: 100px;
+            height: 100px;
         }
         
         .profile-item:hover {
@@ -214,9 +216,8 @@
         .profile-item::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 10px;
+            left: 10px;
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -235,12 +236,14 @@
                 height: 80px;
                 border-color: rgba(100, 100, 100, 0.5);
                 opacity: 0.7;
+                transform: translate(0, 0);
             }
             100% {
                 width: 105px;
                 height: 105px;
                 border-color: rgba(100, 100, 100, 0);
                 opacity: 0;
+                transform: translate(-12.5px, -12.5px);
             }
         }
         
@@ -251,7 +254,9 @@
             object-fit: cover;
             border: 3px solid #e1e1e1;
             background: white;
-            position: relative;
+            position: absolute;
+            top: 10px;
+            left: 10px;
             z-index: 2;
         }
         
@@ -264,6 +269,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
         }
         
         .empty-profile-state {
@@ -924,12 +934,15 @@
             }
             
             .profile-item {
-                width: 95%;
-                padding: 8px 15px;
+                width: 70px;
+                height: 70px;
+                padding: 0;
             }
             
             .profile-item::before,
             .profile-item::after {
+                top: 10px;
+                left: 10px;
                 width: 50px;
                 height: 50px;
             }
@@ -940,22 +953,27 @@
                     height: 50px;
                     border-color: rgba(100, 100, 100, 0.5);
                     opacity: 0.7;
+                    transform: translate(0, 0);
                 }
                 100% {
                     width: 70px;
                     height: 70px;
                     border-color: rgba(100, 100, 100, 0);
                     opacity: 0;
+                    transform: translate(-10px, -10px);
                 }
             }
             
             .profile-avatar {
                 width: 50px;
                 height: 50px;
+                top: 10px;
+                left: 10px;
             }
             
             .profile-name {
                 font-size: 13px;
+                bottom: -5px;
             }
         }
     </style>
