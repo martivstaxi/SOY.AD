@@ -183,7 +183,7 @@
         
         .profile-divider {
             background: #e1e1e1;
-            width: 2px; /* Daha kalın yapıldı */
+            width: 2px;
             height: 100%;
             margin: 0;
         }
@@ -249,7 +249,7 @@
             position: relative;
             width: 90%;
             max-width: 400px;
-            height: calc(100vh - 260px); /* Dinamik yükseklik */
+            height: calc(100vh - 260px);
             max-height: 600px;
             margin: 20px auto;
         }
@@ -314,7 +314,7 @@
             align-items: center;
             gap: 30px;
             position: fixed;
-            bottom: 40px; /* Alttan mesafe artırıldı */
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -390,7 +390,7 @@
             color: #666;
         }
         
-        /* Match Modal - Güncellendi */
+        /* Match Modal */
         .match-modal {
             position: fixed;
             top: 0;
@@ -548,7 +548,7 @@
             }
             
             .actions {
-                bottom: 30px; /* Mobilde de alttan mesafe */
+                bottom: 30px;
                 gap: 25px;
             }
             
@@ -576,9 +576,8 @@
                 font-size: 16px;
             }
             
-            /* Mobilde profil modal - dikey bölünmüş kalır */
             .profile-content {
-                grid-template-columns: 1fr 2px 1fr; /* Mobilde de yan yana */
+                grid-template-columns: 1fr 2px 1fr;
                 grid-template-rows: auto;
             }
             
@@ -588,7 +587,6 @@
                 background: #e1e1e1;
             }
             
-            /* Küçük ekranlar için metin boyutları */
             .profile-section-title {
                 font-size: 16px;
             }
@@ -660,9 +658,7 @@
     <!-- Confetti Container -->
     <div class="confetti-container" id="confettiContainer"></div>
     
-    <!-- Profil Butonu kaldırıldı -->
-    
-    <!-- Profil Modal - YENİ -->
+    <!-- Profil Modal -->
     <div class="profile-modal" id="profileModal">
         <div class="profile-modal-header">
             <h2>Profilim</h2>
@@ -700,8 +696,9 @@
         let profiles = [];
         let currentProfileIndex = 0;
         let currentProfileInstagram = null;
-        let userMatches = []; // YENİ
-        let userLikers = []; // YENİ
+        let userMatches = [];
+        let userLikers = [];
+        let indicatorResetTimeout = null; // Timeout değişkeni
         
         // Check auth
         function checkAuth() {
@@ -717,7 +714,7 @@
             document.getElementById('currentUser').textContent = currentUser.username;
         }
         
-        // Toggle Profile Modal - YENİ
+        // Toggle Profile Modal
         function toggleProfile() {
             const modal = document.getElementById('profileModal');
             modal.classList.toggle('active');
@@ -776,7 +773,7 @@
             }
         }
         
-        // Render Profile Data - YENİ
+        // Render Profile Data
         function renderProfileData() {
             // Eşleşmeleri render et
             const matchesList = document.getElementById('matchesList');
@@ -849,6 +846,19 @@
                 // Desktop'ta yeni sekmede aç
                 window.open(url, '_blank');
             }
+        }
+        
+        // Reset indicator function
+        function resetIndicator() {
+            if (indicatorResetTimeout) {
+                clearTimeout(indicatorResetTimeout);
+            }
+            
+            indicatorResetTimeout = setTimeout(() => {
+                const indicator = document.getElementById('swipeIndicator');
+                indicator.style.backgroundColor = 'transparent';
+                indicator.style.background = 'none';
+            }, 500); // 500ms sonra rengi kaldır
         }
         
         // Load profiles
@@ -928,6 +938,8 @@
             let startY = null;
             let currentX = null;
             let currentY = null;
+            let isDragging = false;
+            let dragDistance = 0;
             const indicator = document.getElementById('swipeIndicator');
             
             // Mouse events
@@ -941,9 +953,14 @@
             document.addEventListener('touchend', handleEnd);
             
             function handleStart(e) {
+                e.preventDefault(); // Tıklama olayını engelle
                 card.classList.add('dragging');
                 startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
                 startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+                currentX = startX;
+                currentY = startY;
+                isDragging = false;
+                dragDistance = 0;
             }
             
             function handleMove(e) {
@@ -954,22 +971,27 @@
                 
                 const diffX = currentX - startX;
                 const diffY = currentY - startY;
-                const rotate = diffX * 0.1;
+                dragDistance = Math.abs(diffX) + Math.abs(diffY);
                 
-                card.style.transform = `translate(${diffX}px, ${diffY}px) rotate(${rotate}deg)`;
+                // Eğer hareket 10 pikselden fazlaysa, sürükleme başladı
+                if (dragDistance > 10) {
+                    isDragging = true;
+                }
                 
-                // Show background color based on swipe direction
-                if (Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        indicator.className = 'swipe-indicator like';
-                        indicator.style.backgroundColor = `rgba(0, 214, 143, ${Math.min(Math.abs(diffX) / 200, 0.6)})`; /* Dinamik opaklık */
+                if (isDragging) {
+                    const rotate = diffX * 0.1;
+                    card.style.transform = `translate(${diffX}px, ${diffY}px) rotate(${rotate}deg)`;
+                    
+                    // Show background color based on swipe direction
+                    if (Math.abs(diffX) > 50) {
+                        if (diffX > 0) {
+                            indicator.style.backgroundColor = `rgba(0, 214, 143, ${Math.min(Math.abs(diffX) / 200, 0.6)})`;
+                        } else {
+                            indicator.style.backgroundColor = `rgba(255, 71, 87, ${Math.min(Math.abs(diffX) / 200, 0.6)})`;
+                        }
                     } else {
-                        indicator.className = 'swipe-indicator nope';
-                        indicator.style.backgroundColor = `rgba(255, 71, 87, ${Math.min(Math.abs(diffX) / 200, 0.6)})`; /* Dinamik opaklık */
+                        indicator.style.backgroundColor = 'transparent';
                     }
-                } else {
-                    indicator.className = 'swipe-indicator';
-                    indicator.style.backgroundColor = '';
                 }
             }
             
@@ -979,7 +1001,8 @@
                 card.classList.remove('dragging');
                 const diffX = currentX - startX;
                 
-                if (Math.abs(diffX) > 100) {
+                // Sadece gerçek bir sürükleme hareketi varsa işlem yap
+                if (isDragging && Math.abs(diffX) > 100) {
                     // Swipe action
                     const action = diffX > 0 ? 'like' : 'pass';
                     card.style.transform = `translateX(${diffX > 0 ? 1000 : -1000}px) rotate(${diffX > 0 ? 30 : -30}deg)`;
@@ -987,25 +1010,25 @@
                     
                     sendSwipe(parseInt(card.dataset.userId), action);
                     
+                    // Rengi kısa süre sonra temizle
+                    resetIndicator();
+                    
                     setTimeout(() => {
                         card.remove();
                         nextProfile();
                     }, 300);
                 } else {
-                    // Reset position
+                    // Reset position if it was just a click or small drag
                     card.style.transform = '';
-                    indicator.className = 'swipe-indicator';
+                    indicator.style.backgroundColor = 'transparent';
                 }
-                
-                // Always reset background
-                setTimeout(() => {
-                    indicator.className = 'swipe-indicator';
-                }, 300);
                 
                 startX = null;
                 startY = null;
                 currentX = null;
                 currentY = null;
+                isDragging = false;
+                dragDistance = 0;
             }
         }
         
@@ -1074,7 +1097,6 @@
             if (!card) return;
             
             const indicator = document.getElementById('swipeIndicator');
-            indicator.className = 'swipe-indicator nope';
             indicator.style.backgroundColor = 'rgba(255, 71, 87, 0.4)';
             
             card.style.transform = 'translateX(-1000px) rotate(-30deg)';
@@ -1082,12 +1104,8 @@
             
             sendSwipe(parseInt(card.dataset.userId), 'pass');
             
-            // Hemen rengi sıfırla
-            setTimeout(() => {
-                indicator.className = 'swipe-indicator';
-                indicator.style.backgroundColor = 'transparent';
-                indicator.style.background = 'none';
-            }, 200);
+            // Rengi kısa süre sonra temizle
+            resetIndicator();
             
             setTimeout(() => {
                 card.remove();
@@ -1100,7 +1118,6 @@
             if (!card) return;
             
             const indicator = document.getElementById('swipeIndicator');
-            indicator.className = 'swipe-indicator like';
             indicator.style.backgroundColor = 'rgba(0, 214, 143, 0.4)';
             
             card.style.transform = 'translateX(1000px) rotate(30deg)';
@@ -1108,12 +1125,8 @@
             
             sendSwipe(parseInt(card.dataset.userId), 'like');
             
-            // Hemen rengi sıfırla
-            setTimeout(() => {
-                indicator.className = 'swipe-indicator';
-                indicator.style.backgroundColor = 'transparent';
-                indicator.style.background = 'none';
-            }, 200);
+            // Rengi kısa süre sonra temizle
+            resetIndicator();
             
             setTimeout(() => {
                 card.remove();
@@ -1121,7 +1134,7 @@
             }, 300);
         }
         
-        // Open Instagram - URL Scheme yönlendirme (yeni sekme açmaz)
+        // Open Instagram
         function openInstagram() {
             const card = document.querySelector('.card:last-child');
             let instagramUrl = null;
@@ -1175,7 +1188,7 @@
             document.getElementById('emptyState').style.display = 'block';
         }
         
-        // Confetti effect - YENİ
+        // Confetti effect
         function createConfetti() {
             const container = document.getElementById('confettiContainer');
             container.innerHTML = '';
@@ -1198,12 +1211,11 @@
         // Match modal
         function showMatchModal() {
             document.getElementById('matchModal').style.display = 'flex';
-            createConfetti(); // Confetti efekti başlat
+            createConfetti();
         }
         
         function closeMatchModal() {
             document.getElementById('matchModal').style.display = 'none';
-            // Confetti container'ı da temizle
             const container = document.getElementById('confettiContainer');
             container.innerHTML = '';
             container.classList.remove('active');
