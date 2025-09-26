@@ -190,27 +190,28 @@
         
         .profile-grid {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
             padding: 20px 10px;
         }
         
         .profile-item {
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
             cursor: pointer;
             transition: transform 0.2s;
             background: #f8f9fa;
-            padding: 10px 20px;
+            padding: 10px;
             border-radius: 15px;
-            width: 90%;
-            max-width: 280px;
+            width: 80px;
+            height: 80px;
         }
         
         .profile-item:hover {
-            transform: translateX(5px);
+            transform: scale(1.1);
             background: #e9ecef;
         }
         
@@ -220,13 +221,6 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #e1e1e1;
-            flex-shrink: 0;
-        }
-        
-        .profile-name {
-            font-size: 14px;
-            color: #333;
-            font-weight: 500;
         }
         
         .empty-profile-state {
@@ -748,6 +742,14 @@
                     m.user1 === currentUser.id || m.user2 === currentUser.id
                 );
                 
+                // Kendimi getir - likes array'imi kontrol etmek için
+                const myUserResponse = await fetch(`${API_URL}/api/users/${currentUser.id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                const myData = await myUserResponse.json();
+                
                 // Tüm kullanıcıları al
                 const usersResponse = await fetch(`${API_URL}/api/admin/users`, {
                     headers: {
@@ -756,32 +758,35 @@
                 });
                 const usersData = await usersResponse.json();
                 
-                // DEBUG: Konsola yazdır
-                console.log('Current User ID:', currentUser.id);
-                console.log('All Users:', usersData.users);
-                
                 // Eşleşen kullanıcıların ID'lerini al
                 const matchedUserIds = userMatches.map(m => 
                     m.user1 === currentUser.id ? m.user2 : m.user1
                 );
                 
-                // BENİ beğenenleri bul
+                // BENİ beğenenleri bul - Kendi likes array'imde OLMAYAN ama beni beğenenler
                 userLikers = [];
-                usersData.users.forEach(user => {
-                    // DEBUG: Her kullanıcının likes array'ini kontrol et
-                    console.log(`User ${user.username} (ID: ${user.id}) likes:`, user.likes);
-                    
+                
+                // Backend'den gelen tüm kullanıcıları kontrol et
+                const allUsers = [...usersData.users];
+                
+                // Kendimi bul
+                const myself = allUsers.find(u => u.id === currentUser.id);
+                const myLikes = myself ? myself.likes || [] : [];
+                
+                allUsers.forEach(user => {
                     // Bu kullanıcı beni beğenmiş mi?
                     if (user.likes && user.likes.includes(currentUser.id)) {
-                        // Ve henüz eşleşmemiş miyiz?
-                        if (!matchedUserIds.includes(user.id)) {
-                            userLikers.push(user);
-                            console.log(`${user.username} beni beğenmiş!`);
+                        // Ben onu beğenmemiş miyim? (tek taraflı beğeni)
+                        if (!myLikes.includes(user.id)) {
+                            // Ve henüz eşleşmemiş miyiz?
+                            if (!matchedUserIds.includes(user.id)) {
+                                userLikers.push(user);
+                            }
                         }
                     }
                 });
                 
-                console.log('Beni beğenenler:', userLikers);
+                console.log('Beni tek taraflı beğenenler:', userLikers);
                 
                 renderProfileData();
             } catch (error) {
@@ -802,9 +807,8 @@
                         instagramUrl = 'https://' + instagramUrl;
                     }
                     return `
-                        <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')">
+                        <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')" title="@${otherUser.username}">
                             <img src="${otherUser.instagram_image}" alt="${otherUser.username}" class="profile-avatar">
-                            <div class="profile-name">@${otherUser.username}</div>
                         </div>
                     `;
                 }).join('');
@@ -827,9 +831,8 @@
                         instagramUrl = 'https://' + instagramUrl;
                     }
                     return `
-                        <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')">
+                        <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')" title="@${user.username}">
                             <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
-                            <div class="profile-name">@${user.username}</div>
                         </div>
                     `;
                 }).join('');
