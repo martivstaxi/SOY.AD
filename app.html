@@ -202,10 +202,46 @@
             transition: transform 0.2s;
             padding: 10px;
             gap: 8px;
+            position: relative;
         }
         
         .profile-item:hover {
             transform: scale(1.1);
+        }
+        
+        /* Profil item'ları için pulse animasyonu */
+        .profile-item::before,
+        .profile-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid rgba(100, 100, 100, 0.4);
+            pointer-events: none;
+            animation: profile-pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .profile-item::after {
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes profile-pulse-ring {
+            0% {
+                width: 80px;
+                height: 80px;
+                border-color: rgba(100, 100, 100, 0.5);
+                opacity: 0.7;
+            }
+            100% {
+                width: 105px;
+                height: 105px;
+                border-color: rgba(100, 100, 100, 0);
+                opacity: 0;
+            }
         }
         
         .profile-avatar {
@@ -215,6 +251,8 @@
             object-fit: cover;
             border: 3px solid #e1e1e1;
             background: white;
+            position: relative;
+            z-index: 2;
         }
         
         .profile-name {
@@ -888,6 +926,27 @@
             .profile-item {
                 width: 95%;
                 padding: 8px 15px;
+            }
+            
+            .profile-item::before,
+            .profile-item::after {
+                width: 50px;
+                height: 50px;
+            }
+            
+            @keyframes profile-pulse-ring {
+                0% {
+                    width: 50px;
+                    height: 50px;
+                    border-color: rgba(100, 100, 100, 0.5);
+                    opacity: 0.7;
+                }
+                100% {
+                    width: 70px;
+                    height: 70px;
+                    border-color: rgba(100, 100, 100, 0);
+                    opacity: 0;
+                }
             }
             
             .profile-avatar {
