@@ -250,16 +250,17 @@
             right: 0;
             bottom: 0;
             pointer-events: none;
-            transition: background-color 0.3s;
+            transition: background-color 0.2s ease-out;
             z-index: 1;
+            background-color: transparent !important;
         }
         
         .swipe-indicator.like {
-            background-color: rgba(0, 214, 143, 0.4); /* Daha koyu yeşil */
+            transition: background-color 0.2s ease-in;
         }
         
         .swipe-indicator.nope {
-            background-color: rgba(255, 71, 87, 0.4); /* Daha koyu kırmızı */
+            transition: background-color 0.2s ease-in;
         }
         
         .card {
@@ -1061,12 +1062,16 @@
             
             sendSwipe(parseInt(card.dataset.userId), 'pass');
             
+            // Hemen rengi sıfırla
+            setTimeout(() => {
+                indicator.className = 'swipe-indicator';
+                indicator.style.backgroundColor = 'transparent';
+                indicator.style.background = 'none';
+            }, 200);
+            
             setTimeout(() => {
                 card.remove();
                 nextProfile();
-                // Rengi sıfırla
-                indicator.className = 'swipe-indicator';
-                indicator.style.backgroundColor = '';
             }, 300);
         }
         
@@ -1083,12 +1088,16 @@
             
             sendSwipe(parseInt(card.dataset.userId), 'like');
             
+            // Hemen rengi sıfırla
+            setTimeout(() => {
+                indicator.className = 'swipe-indicator';
+                indicator.style.backgroundColor = 'transparent';
+                indicator.style.background = 'none';
+            }, 200);
+            
             setTimeout(() => {
                 card.remove();
                 nextProfile();
-                // Rengi sıfırla
-                indicator.className = 'swipe-indicator';
-                indicator.style.backgroundColor = '';
             }, 300);
         }
         
