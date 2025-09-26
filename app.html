@@ -219,12 +219,12 @@
         }
         
         /* Sağ taraftaki bekleyenler için altın pulse animasyonu */
-        .profile-avatar-wrapper::before,
-        .profile-avatar-wrapper::after {
+        .profile-item::before,
+        .profile-item::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 10px;
+            left: 10px;
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -233,44 +233,52 @@
             animation: profile-pulse-ring-gold 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
-        .profile-avatar-wrapper::after {
+        .profile-item::after {
             animation-delay: 0.9s;
         }
         
         /* Sol taraftaki onaylanmışlar için yeşil pulse animasyonu */
-        .matches-section .profile-avatar-wrapper::before,
-        .matches-section .profile-avatar-wrapper::after {
+        .matches-section .profile-item::before,
+        .matches-section .profile-item::after {
             border: 2px solid rgba(0, 214, 143, 0.5);
             animation: profile-pulse-ring-green 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
-        .matches-section .profile-avatar-wrapper::after {
+        .matches-section .profile-item::after {
             animation-delay: 0.9s;
         }
         
         @keyframes profile-pulse-ring-gold {
             0% {
-                transform: scale(1);
+                width: 80px;
+                height: 80px;
                 border-color: rgba(255, 215, 0, 0.6);
                 opacity: 0.8;
+                transform: translate(0, 0);
             }
             100% {
-                transform: scale(1.3);
+                width: 105px;
+                height: 105px;
                 border-color: rgba(255, 215, 0, 0);
                 opacity: 0;
+                transform: translate(-12.5px, -12.5px);
             }
         }
         
         @keyframes profile-pulse-ring-green {
             0% {
-                transform: scale(1);
+                width: 80px;
+                height: 80px;
                 border-color: rgba(0, 214, 143, 0.6);
                 opacity: 0.8;
+                transform: translate(0, 0);
             }
             100% {
-                transform: scale(1.3);
+                width: 105px;
+                height: 105px;
                 border-color: rgba(0, 214, 143, 0);
                 opacity: 0;
+                transform: translate(-12.5px, -12.5px);
             }
         }
         
@@ -281,8 +289,26 @@
             object-fit: cover;
             border: 3px solid #e1e1e1;
             background: white;
-            position: relative;
+            position: absolute;
+            top: 10px;
+            left: 10px;
             z-index: 2;
+        }
+        
+        .profile-name {
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            text-align: center;
+            max-width: 85px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
         }
         
         .profile-name {
@@ -1270,9 +1296,7 @@
                     }
                     return `
                         <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')">
-                            <div class="profile-avatar-wrapper">
-                                <img src="${otherUser.instagram_image}" alt="${otherUser.username}" class="profile-avatar">
-                            </div>
+                            <img src="${otherUser.instagram_image}" alt="${otherUser.username}" class="profile-avatar">
                             <div class="profile-name">@${otherUser.username}</div>
                         </div>
                     `;
@@ -1291,9 +1315,7 @@
             if (userLikers.length > 0) {
                 likersList.innerHTML = userLikers.map(user => `
                     <div class="profile-item" onclick="showLikerApproval(${JSON.stringify(user).replace(/"/g, '&quot;')})">
-                        <div class="profile-avatar-wrapper">
-                            <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
-                        </div>
+                        <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
                         <div class="profile-name">@${user.username}</div>
                     </div>
                 `).join('');
