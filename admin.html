@@ -615,50 +615,52 @@
             `).join('');
         }
         
-        // Add user
-        async function addUser() {
-            const username = document.getElementById('newUsername').value;
-            const password = document.getElementById('newPassword').value;
-            const imageUrl = document.getElementById('newImageUrl').value;
-            
-            if (!username || !password) {
-                showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
-                return;
-            }
-            
-            const btnText = document.getElementById('addUserBtnText');
-            btnText.innerHTML = '<span class="loading"></span>';
-            
-            try {
-                const response = await fetch(`${API_URL}/api/admin/add-user`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username,
-                        password,
-                        instagram_image: imageUrl
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    showAlert('Kullanıcı başarıyla eklendi!');
-                    document.getElementById('newUsername').value = '';
-                    document.getElementById('newPassword').value = '';
-                    document.getElementById('newImageUrl').value = '';
-                    loadUsers();
-                } else {
-                    showAlert(data.error || 'Kullanıcı eklenemedi', 'error');
-                }
-            } catch (error) {
-                showAlert('Bir hata oluştu', 'error');
-            } finally {
-                btnText.textContent = 'Kullanıcı Ekle';
-            }
+ // Add user
+async function addUser() {
+    // Kullanıcı adını küçük harfe çevir ve trim yap
+    const username = document.getElementById('newUsername').value.toLowerCase().trim();
+    // Şifredeki boşlukları temizle
+    const password = document.getElementById('newPassword').value.replace(/\s/g, '');
+    const imageUrl = document.getElementById('newImageUrl').value;
+    
+    if (!username || !password) {
+        showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
+        return;
+    }
+    
+    const btnText = document.getElementById('addUserBtnText');
+    btnText.innerHTML = '<span class="loading"></span>';
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/add-user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password,
+                instagram_image: imageUrl
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showAlert('Kullanıcı başarıyla eklendi!');
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('newImageUrl').value = '';
+            loadUsers();
+        } else {
+            showAlert(data.error || 'Kullanıcı eklenemedi', 'error');
         }
+    } catch (error) {
+        showAlert('Bir hata oluştu', 'error');
+    } finally {
+        btnText.textContent = 'Kullanıcı Ekle';
+    }
+}
         
         // Load matches
         async function loadMatches() {
