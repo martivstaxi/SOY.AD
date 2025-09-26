@@ -204,18 +204,11 @@
             gap: 8px;
             position: relative;
             width: 100px;
-            height: 120px;
+            height: 100px;
         }
         
         .profile-item:hover {
             transform: scale(1.1);
-        }
-        
-        /* Avatar wrapper for centering */
-        .profile-avatar-wrapper {
-            position: relative;
-            width: 80px;
-            height: 80px;
         }
         
         /* Sağ taraftaki bekleyenler için altın pulse animasyonu */
@@ -230,22 +223,22 @@
             border-radius: 50%;
             border: 2px solid rgba(255, 215, 0, 0.5);
             pointer-events: none;
-            animation: profile-pulse-ring-gold 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation: profile-pulse-ring-gold 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
         .profile-item::after {
-            animation-delay: 0.9s;
+            animation-delay: 1.5s;
         }
         
         /* Sol taraftaki onaylanmışlar için yeşil pulse animasyonu */
         .matches-section .profile-item::before,
         .matches-section .profile-item::after {
             border: 2px solid rgba(0, 214, 143, 0.5);
-            animation: profile-pulse-ring-green 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation: profile-pulse-ring-green 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
         .matches-section .profile-item::after {
-            animation-delay: 0.9s;
+            animation-delay: 1.5s;
         }
         
         @keyframes profile-pulse-ring-gold {
@@ -293,22 +286,6 @@
             top: 10px;
             left: 10px;
             z-index: 2;
-        }
-        
-        .profile-name {
-            font-size: 13px;
-            color: #333;
-            font-weight: 500;
-            text-align: center;
-            max-width: 85px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
         }
         
         .profile-name {
@@ -589,22 +566,14 @@
             gap: 40px;
             position: fixed;
             bottom: 40px;
-            left: 0;
-            right: 0;
-            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 10;
-            pointer-events: none;
-        }
-        
-        .actions-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 30px;
             border-radius: 50px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            display: flex;
-            gap: 40px;
-            pointer-events: auto;
         }
         
         .action-btn {
@@ -1009,35 +978,20 @@
             @media (max-width: 768px) {
                 /* ... diğer stiller ... */
                 
-                .profile-item::before,
-                .profile-item::after {
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 50px;
-                    height: 50px;
-                }
-                
-                .profile-avatar {
-                    width: 50px;
-                    height: 50px;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                }
-                
                 @keyframes profile-pulse-ring-gold {
                     0% {
                         width: 50px;
                         height: 50px;
                         border-color: rgba(255, 215, 0, 0.6);
                         opacity: 0.8;
+                        transform: translate(0, 0);
                     }
                     100% {
                         width: 70px;
                         height: 70px;
                         border-color: rgba(255, 215, 0, 0);
                         opacity: 0;
+                        transform: translate(-10px, -10px);
                     }
                 }
                 
@@ -1047,12 +1001,14 @@
                         height: 50px;
                         border-color: rgba(0, 214, 143, 0.6);
                         opacity: 0.8;
+                        transform: translate(0, 0);
                     }
                     100% {
                         width: 70px;
                         height: 70px;
                         border-color: rgba(0, 214, 143, 0);
                         opacity: 0;
+                        transform: translate(-10px, -10px);
                     }
                 }
             }
@@ -1095,15 +1051,13 @@
     </div>
     
     <div class="actions" id="actionButtons">
-        <div class="actions-container">
-            <button class="action-btn pass-btn" onclick="handlePass()">✕</button>
-            <button class="action-btn instagram-btn" onclick="openInstagram()" id="instagramBtn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
-                </svg>
-            </button>
-            <button class="action-btn like-btn" onclick="handleLike()">♥</button>
-        </div>
+        <button class="action-btn pass-btn" onclick="handlePass()">✕</button>
+        <button class="action-btn instagram-btn" onclick="openInstagram()" id="instagramBtn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+            </svg>
+        </button>
+        <button class="action-btn like-btn" onclick="handleLike()">♥</button>
     </div>
     
     <div class="match-modal" id="matchModal">
