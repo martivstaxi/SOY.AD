@@ -808,13 +808,26 @@
             }
         }
         
-        // Open Instagram Profile - YENİ
+        // Open Instagram Profile - Popup olmadan açma
         function openInstagramProfile(url) {
             // URL'i kontrol et ve düzelt
             if (!url.startsWith('http://') && !url.startsWith('https://')) {
                 url = 'https://' + url;
             }
-            window.open(url, '_blank');
+            
+            const username = url.split('/').pop();
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Mobilde önce uygulamayı dene
+                window.location.href = `instagram://user?username=${username}`;
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 1000);
+            } else {
+                // Desktop'ta aynı sekmede aç
+                window.location.href = url;
+            }
         }
         
         // Load profiles
@@ -1079,33 +1092,42 @@
             }, 300);
         }
         
-        // Open Instagram
+        // Open Instagram - İki aşamalı yöntem (popup yok)
         function openInstagram() {
             const card = document.querySelector('.card:last-child');
+            let instagramUrl = null;
+            let username = null;
+            
             if (card && card.dataset.instagramUrl) {
-                let url = card.dataset.instagramUrl;
-                // URL'i kontrol et ve düzelt
-                if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                    url = 'https://' + url;
-                }
-                // Instagram uygulamasını açmayı dene
-                window.location.href = `instagram://user?username=${url.split('/').pop()}`;
-                // Yedek olarak web'de aç
-                setTimeout(() => {
-                    window.open(url, '_blank');
-                }, 500);
+                instagramUrl = card.dataset.instagramUrl;
             } else if (currentProfileInstagram) {
-                let url = currentProfileInstagram;
-                // URL'i kontrol et ve düzelt
-                if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                    url = 'https://' + url;
-                }
-                // Instagram uygulamasını açmayı dene
-                window.location.href = `instagram://user?username=${url.split('/').pop()}`;
-                // Yedek olarak web'de aç
+                instagramUrl = currentProfileInstagram;
+            }
+            
+            if (!instagramUrl) return;
+            
+            // URL'i düzelt
+            if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                instagramUrl = 'https://' + instagramUrl;
+            }
+            
+            // Username'i çıkar
+            username = instagramUrl.split('/').pop();
+            
+            // Mobil cihaz kontrolü
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Mobilde önce uygulamayı açmayı dene
+                window.location.href = `instagram://user?username=${username}`;
+                
+                // 1 saniye sonra web'e yönlendir (uygulama yoksa)
                 setTimeout(() => {
-                    window.open(url, '_blank');
-                }, 500);
+                    window.location.href = instagramUrl;
+                }, 1000);
+            } else {
+                // Desktop'ta direkt aynı sekmede aç (popup yok)
+                window.location.href = instagramUrl;
             }
         }
         
