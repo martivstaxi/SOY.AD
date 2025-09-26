@@ -86,12 +86,7 @@
             font-weight: 500;
         }
         
-        /* Profile Button - Alt sağdan kaldırılacak */
-        .profile-btn {
-            display: none;
-        }
-        
-        /* Profile Modal - YENİ */
+        /* Profile Modal */
         .profile-modal {
             position: fixed;
             top: 0;
@@ -242,6 +237,103 @@
             font-size: 48px;
             margin-bottom: 10px;
             opacity: 0.5;
+        }
+        
+        /* Liker Approval Modal - YENİ */
+        .liker-approval-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .liker-approval-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 350px;
+            position: relative;
+        }
+        
+        .liker-approval-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #e1e1e1;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .liker-approval-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .liker-approval-username {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .liker-approval-text {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        .liker-approval-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .liker-approve-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00d68f 0%, #00b579 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .liker-approve-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 214, 143, 0.3);
+        }
+        
+        .liker-reject-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff4757 0%, #ff3838 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .liker-reject-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
         }
         
         /* Swipe Container */
@@ -492,66 +584,11 @@
             position: relative;
         }
         
-        #matchProfileImage::after {
-            content: '👆';
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            animation: bounce 1.5s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            50% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-        
         .match-username {
             font-size: 20px;
             font-weight: 600;
             color: #333;
             margin-bottom: 20px;
-        }
-        
-        .instagram-link-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-            animation: pulse 1.5s infinite;
-            box-shadow: 0 4px 15px rgba(224, 104, 60, 0.4);
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 4px 15px rgba(224, 104, 60, 0.4);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 6px 20px rgba(224, 104, 60, 0.6);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 4px 15px rgba(224, 104, 60, 0.4);
-            }
-        }
-        
-        .instagram-link-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 25px rgba(224, 104, 60, 0.6);
         }
         
         .match-subtitle {
@@ -753,6 +790,23 @@
         </div>
     </div>
     
+    <!-- Liker Approval Modal - YENİ -->
+    <div class="liker-approval-modal" id="likerApprovalModal">
+        <div class="liker-approval-content">
+            <img src="" alt="Profile" id="likerApprovalImage" class="liker-approval-image" onclick="openLikerInstagram()">
+            <div class="liker-approval-username" id="likerApprovalUsername">@username</div>
+            <div class="liker-approval-text">Size işbirliği teklifi gönderdi!</div>
+            <div class="liker-approval-buttons">
+                <button class="liker-approve-btn" onclick="approveLiker()">
+                    ✓ Onayla
+                </button>
+                <button class="liker-reject-btn" onclick="rejectLiker()">
+                    ✕ Reddet
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Confetti Container -->
     <div class="confetti-container" id="confettiContainer"></div>
     
@@ -796,7 +850,8 @@
         let currentProfileInstagram = null;
         let userMatches = [];
         let userLikers = [];
-        let indicatorResetTimeout = null; // Timeout değişkeni
+        let indicatorResetTimeout = null;
+        let currentLikerData = null; // YENİ - Onay bekleyen liker bilgisi
         
         // Check auth
         function checkAuth() {
@@ -856,8 +911,7 @@
                 
                 // Her kullanıcının likes dizisini kontrol et
                 usersData.users.forEach(user => {
-                    // Bu kullanıcının likes dizisinde ben var mıyım?
-                    // Yani bu kullanıcı başkalarını beğenmiş ve ben o beğenilenler arasında mıyım?
+                    // Bu kullanıcı beni beğenmiş mi?
                     if (user.likes && user.likes.includes(currentUser.id)) {
                         // Bu kullanıcı beni beğenmiş! Ama henüz eşleşmemiş miyiz?
                         if (!matchedUserIds.includes(user.id)) {
@@ -900,11 +954,11 @@
                 `;
             }
             
-            // Beni beğenenleri render et
+            // Beni beğenenleri render et - YENİ onclick fonksiyonu
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
                 likersList.innerHTML = userLikers.map(user => `
-                    <div class="profile-item" onclick="openInstagramProfile('${user.instagram_url || 'https://instagram.com/' + user.username}')">
+                    <div class="profile-item" onclick="showLikerApproval(${JSON.stringify(user).replace(/"/g, '&quot;')})">
                         <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
                         <div class="profile-name">@${user.username}</div>
                     </div>
@@ -919,7 +973,119 @@
             }
         }
         
-        // Open Instagram Profile - URL Scheme yönlendirme
+        // Show Liker Approval Modal - YENİ
+        function showLikerApproval(likerData) {
+            currentLikerData = likerData;
+            
+            // Modal elementlerini doldur
+            document.getElementById('likerApprovalImage').src = likerData.instagram_image;
+            document.getElementById('likerApprovalUsername').textContent = `@${likerData.username}`;
+            
+            // Modal'ı göster
+            const modal = document.getElementById('likerApprovalModal');
+            modal.style.display = 'flex';
+        }
+        
+        // Open Liker Instagram - YENİ
+        function openLikerInstagram() {
+            if (!currentLikerData) return;
+            
+            let instagramUrl = currentLikerData.instagram_url || `https://instagram.com/${currentLikerData.username}`;
+            if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                instagramUrl = 'https://' + instagramUrl;
+            }
+            
+            window.open(instagramUrl, '_blank');
+        }
+        
+        // Approve Liker - YENİ
+        async function approveLiker() {
+            if (!currentLikerData) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/api/approve-like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        likerId: currentLikerData.id
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Approval modal'ı kapat
+                    document.getElementById('likerApprovalModal').style.display = 'none';
+                    
+                    // Match modal'ı göster
+                    const profileBtn = document.getElementById('instagramProfileBtn');
+                    const profileImage = document.getElementById('matchProfileImage');
+                    const matchUsername = document.getElementById('matchUsername');
+                    
+                    matchUsername.textContent = `@${currentLikerData.username}`;
+                    profileImage.src = currentLikerData.instagram_image;
+                    
+                    let instagramUrl = currentLikerData.instagram_url || `https://instagram.com/${currentLikerData.username}`;
+                    if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                        instagramUrl = 'https://' + instagramUrl;
+                    }
+                    
+                    profileBtn.href = instagramUrl;
+                    profileBtn.onclick = function(e) {
+                        e.preventDefault();
+                        window.open(instagramUrl, '_blank');
+                        setTimeout(() => {
+                            closeMatchModal();
+                        }, 1000);
+                    };
+                    
+                    // Match modal'ı göster
+                    showMatchModal();
+                    
+                    // Profil verilerini yenile
+                    loadProfileData();
+                }
+            } catch (error) {
+                console.error('Error approving like:', error);
+            }
+        }
+        
+        // Reject Liker - YENİ
+        async function rejectLiker() {
+            if (!currentLikerData) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/api/reject-like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        likerId: currentLikerData.id
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Modal'ı kapat
+                    document.getElementById('likerApprovalModal').style.display = 'none';
+                    
+                    // Profil verilerini yenile
+                    loadProfileData();
+                }
+            } catch (error) {
+                console.error('Error rejecting like:', error);
+            }
+        }
+        
+        // Open Instagram Profile
         function openInstagramProfile(url) {
             // URL'i kontrol et ve düzelt
             if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -930,10 +1096,10 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde Instagram uygulamasını aç - sayfa yönlendirmesi yapmadan
+                // Mobilde Instagram uygulamasını aç
                 const appUrl = `instagram://user?username=${username}`;
                 
-                // iframe ile uygulamayı açmayı dene (sayfa yenilenmez)
+                // iframe ile uygulamayı açmayı dene
                 const iframe = document.createElement('iframe');
                 iframe.style.display = 'none';
                 iframe.src = appUrl;
@@ -960,7 +1126,7 @@
                 const indicator = document.getElementById('swipeIndicator');
                 indicator.style.backgroundColor = 'transparent';
                 indicator.style.background = 'none';
-            }, 500); // 500ms sonra rengi kaldır
+            }, 500);
         }
         
         // Load profiles
@@ -1055,7 +1221,7 @@
             document.addEventListener('touchend', handleEnd);
             
             function handleStart(e) {
-                e.preventDefault(); // Tıklama olayını engelle
+                e.preventDefault();
                 card.classList.add('dragging');
                 startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
                 startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
@@ -1120,7 +1286,7 @@
                         nextProfile();
                     }, 300);
                 } else {
-                    // Reset position if it was just a click or small drag
+                    // Reset position
                     card.style.transform = '';
                     indicator.style.backgroundColor = 'transparent';
                 }
@@ -1167,39 +1333,28 @@
                     const profileImage = document.getElementById('matchProfileImage');
                     const matchUsername = document.getElementById('matchUsername');
                     
-                    // Kullanıcı adını göster
                     matchUsername.textContent = `@${matchedUser?.username}`;
-                    
-                    // Profil resmini göster
                     profileImage.src = matchedUser?.instagram_image;
                     
-                    // Instagram linkini butona ekle
                     profileBtn.href = instagramUrl;
-                    
-                    // Butona tıklama event listener ekle
                     profileBtn.onclick = function(e) {
-                        e.preventDefault(); // Default davranışı engelle
+                        e.preventDefault();
                         
                         const username = instagramUrl.split('/').pop();
                         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                         
                         if (isMobile) {
-                            // Mobilde Instagram uygulamasını aç - sayfa yönlendirmesi yapmadan
                             const appUrl = `instagram://user?username=${username}`;
-                            
-                            // iframe ile uygulamayı açmayı dene
                             const iframe = document.createElement('iframe');
                             iframe.style.display = 'none';
                             iframe.src = appUrl;
                             document.body.appendChild(iframe);
                             
-                            // 2 saniye sonra iframe'i ve modalı kaldır
                             setTimeout(() => {
                                 document.body.removeChild(iframe);
                                 closeMatchModal();
                             }, 2000);
                         } else {
-                            // Desktop'ta yeni sekmede aç
                             window.open(instagramUrl, '_blank');
                             setTimeout(() => {
                                 closeMatchModal();
@@ -1239,7 +1394,6 @@
             
             sendSwipe(parseInt(card.dataset.userId), 'pass');
             
-            // Rengi kısa süre sonra temizle
             resetIndicator();
             
             setTimeout(() => {
@@ -1260,7 +1414,6 @@
             
             sendSwipe(parseInt(card.dataset.userId), 'like');
             
-            // Rengi kısa süre sonra temizle
             resetIndicator();
             
             setTimeout(() => {
@@ -1288,29 +1441,22 @@
                 instagramUrl = 'https://' + instagramUrl;
             }
             
-            // Username'i çıkar
             username = instagramUrl.split('/').pop();
             
-            // Mobil cihaz kontrolü
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde Instagram uygulamasını aç - sayfa yönlendirmesi yapmadan
                 const appUrl = `instagram://user?username=${username}`;
-                
-                // iframe ile uygulamayı açmayı dene (sayfa yenilenmez)
                 const iframe = document.createElement('iframe');
                 iframe.style.display = 'none';
                 iframe.src = appUrl;
                 document.body.appendChild(iframe);
                 
-                // 2 saniye sonra iframe'i kaldır
                 setTimeout(() => {
                     document.body.removeChild(iframe);
                 }, 2000);
                 
             } else {
-                // Desktop'ta yeni sekmede aç
                 window.open(instagramUrl, '_blank');
             }
         }
