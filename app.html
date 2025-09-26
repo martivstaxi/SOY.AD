@@ -714,7 +714,7 @@
             }
         }
         
-        // Load Profile Data - YENİ
+        // Load Profile Data - Debug eklenmiş
         async function loadProfileData() {
             try {
                 // Eşleşmeleri yükle
@@ -730,7 +730,7 @@
                     m.user1 === currentUser.id || m.user2 === currentUser.id
                 );
                 
-                // Beni beğenenleri bulmak için tüm kullanıcıları kontrol et
+                // Tüm kullanıcıları al
                 const usersResponse = await fetch(`${API_URL}/api/admin/users`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -738,16 +738,32 @@
                 });
                 const usersData = await usersResponse.json();
                 
-                // Kendimi beğenenleri bul (eşleşme olmayanlar)
+                // DEBUG: Konsola yazdır
+                console.log('Current User ID:', currentUser.id);
+                console.log('All Users:', usersData.users);
+                
+                // Eşleşen kullanıcıların ID'lerini al
                 const matchedUserIds = userMatches.map(m => 
                     m.user1 === currentUser.id ? m.user2 : m.user1
                 );
                 
-                userLikers = usersData.users.filter(u => 
-                    u.likes && 
-                    u.likes.includes(currentUser.id) && 
-                    !matchedUserIds.includes(u.id)
-                );
+                // BENİ beğenenleri bul
+                userLikers = [];
+                usersData.users.forEach(user => {
+                    // DEBUG: Her kullanıcının likes array'ini kontrol et
+                    console.log(`User ${user.username} (ID: ${user.id}) likes:`, user.likes);
+                    
+                    // Bu kullanıcı beni beğenmiş mi?
+                    if (user.likes && user.likes.includes(currentUser.id)) {
+                        // Ve henüz eşleşmemiş miyiz?
+                        if (!matchedUserIds.includes(user.id)) {
+                            userLikers.push(user);
+                            console.log(`${user.username} beni beğenmiş!`);
+                        }
+                    }
+                });
+                
+                console.log('Beni beğenenler:', userLikers);
                 
                 renderProfileData();
             } catch (error) {
@@ -809,7 +825,7 @@
             }
         }
         
-        // Open Instagram Profile - Popup olmadan açma
+        // Open Instagram Profile - URL Scheme yönlendirme
         function openInstagramProfile(url) {
             // URL'i kontrol et ve düzelt
             if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -820,14 +836,20 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde önce uygulamayı dene
-                window.location.href = `instagram://user?username=${username}`;
+                // Mobilde Instagram uygulamasını aç
+                const appUrl = `instagram://user?username=${username}`;
+                const startTime = Date.now();
+                window.location = appUrl;
+                
+                // Uygulama yoksa web'e git
                 setTimeout(() => {
-                    window.location.href = url;
-                }, 1000);
+                    if (Date.now() - startTime < 2000) {
+                        window.location.replace(url);
+                    }
+                }, 1500);
             } else {
-                // Desktop'ta aynı sekmede aç
-                window.location.href = url;
+                // Desktop'ta yeni sekmede aç
+                window.open(url, '_blank');
             }
         }
         
@@ -1101,7 +1123,7 @@
             }, 300);
         }
         
-        // Open Instagram - İki aşamalı yöntem (popup yok)
+        // Open Instagram - URL Scheme yönlendirme (yeni sekme açmaz)
         function openInstagram() {
             const card = document.querySelector('.card:last-child');
             let instagramUrl = null;
@@ -1127,16 +1149,24 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde önce uygulamayı açmayı dene
-                window.location.href = `instagram://user?username=${username}`;
+                // Mobilde Instagram uygulamasını aç
+                const appUrl = `instagram://user?username=${username}`;
+                const webUrl = instagramUrl;
                 
-                // 1 saniye sonra web'e yönlendir (uygulama yoksa)
+                // Önce uygulamayı dene
+                const startTime = Date.now();
+                window.location = appUrl;
+                
+                // Eğer uygulama açılmazsa web'e git
                 setTimeout(() => {
-                    window.location.href = instagramUrl;
-                }, 1000);
+                    // Eğer hala aynı sayfadaysak web'e yönlendir
+                    if (Date.now() - startTime < 2000) {
+                        window.location.replace(webUrl);
+                    }
+                }, 1500);
             } else {
-                // Desktop'ta direkt aynı sekmede aç (popup yok)
-                window.location.href = instagramUrl;
+                // Desktop'ta yeni sekmede aç
+                window.open(instagramUrl, '_blank');
             }
         }
         
