@@ -48,13 +48,6 @@
             gap: 10px;
         }
         
-        .username {
-            font-weight: 600;
-            color: #333;
-            padding-right: 10px;
-            border-right: 1px solid #e1e1e1;
-        }
-        
         .header-buttons {
             display: flex;
             align-items: center;
@@ -84,6 +77,11 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
+            transition: transform 0.2s;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
         }
         
         /* Profile Modal */
@@ -141,7 +139,7 @@
         
         .profile-content {
             display: grid;
-            grid-template-columns: 1fr 1px 1fr;
+            grid-template-columns: 1fr 2px 1fr;
             min-height: calc(100vh - 80px);
         }
         
@@ -157,6 +155,9 @@
             color: #333;
             padding-bottom: 10px;
             border-bottom: 2px solid #e1e1e1;
+            display: flex;
+            align-items: center;
+            min-height: 40px;
         }
         
         .matches-section {
@@ -775,8 +776,7 @@
         <h1>🔥 Soy.ad</h1>
         <div class="user-info">
             <button class="logout-btn" onclick="logout()">Çıkış</button>
-            <button class="profile-header-btn" onclick="toggleProfile()">👤 Profil</button>
-            <span class="username" id="currentUser"></span>
+            <button class="profile-header-btn" onclick="toggleProfile()">Profil</button>
         </div>
     </div>
     
@@ -888,7 +888,7 @@
             }
             
             currentUser = JSON.parse(user);
-            document.getElementById('currentUser').textContent = currentUser.username;
+            // Kullanıcı adını artık göstermiyoruz
         }
         
         // Toggle Profile Modal
@@ -1029,13 +1029,20 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde önce Instagram app'i dene
-                window.location.href = `instagram://user?username=${username}`;
+                // Mobilde Instagram uygulamasını aç - iframe yöntemi
+                const appUrl = `instagram://user?username=${username}`;
                 
-                // 500ms sonra browser'a yönlendir (app yoksa)
+                // iframe ile uygulamayı açmayı dene (popup engelleyici sorun çıkarmaz)
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = appUrl;
+                document.body.appendChild(iframe);
+                
+                // 2 saniye sonra iframe'i kaldır
                 setTimeout(() => {
-                    window.open(instagramUrl, '_blank');
-                }, 500);
+                    document.body.removeChild(iframe);
+                }, 2000);
+                
             } else {
                 // Desktop'ta yeni sekmede aç
                 window.open(instagramUrl, '_blank');
@@ -1140,13 +1147,20 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde önce Instagram app'i dene
-                window.location.href = `instagram://user?username=${username}`;
+                // Mobilde Instagram uygulamasını aç - iframe yöntemi
+                const appUrl = `instagram://user?username=${username}`;
                 
-                // 500ms sonra browser'a yönlendir (app yoksa)
+                // iframe ile uygulamayı açmayı dene (popup engelleyici sorun çıkarmaz)
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = appUrl;
+                document.body.appendChild(iframe);
+                
+                // 2 saniye sonra iframe'i kaldır
                 setTimeout(() => {
-                    window.open(url, '_blank');
-                }, 500);
+                    document.body.removeChild(iframe);
+                }, 2000);
+                
             } else {
                 // Desktop'ta yeni sekmede aç
                 window.open(url, '_blank');
