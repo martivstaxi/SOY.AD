@@ -296,7 +296,7 @@
             cursor: pointer;
             transition: transform 0.3s;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
         
         .liker-approval-image:hover {
@@ -308,39 +308,64 @@
             position: relative;
             display: inline-block;
             margin-bottom: 10px;
+            width: 140px;
+            height: 140px;
         }
         
-        .liker-image-wrapper::before,
+        /* Arkadaki renk değiştiren yuvarlak */
+        .liker-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradient-shift 3s ease infinite;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        
+        /* İkinci halka - pulsing effect */
         .liker-image-wrapper::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            border: 3px solid rgba(100, 100, 100, 0.6);
-            pointer-events: none;
-            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            background: rgba(100, 100, 100, 0.2);
+            animation: pulse-size 2s ease-in-out infinite;
+            z-index: 0;
         }
         
-        .liker-image-wrapper::after {
-            animation-delay: 1s;
-        }
-        
-        @keyframes pulse-ring {
+        @keyframes gradient-shift {
             0% {
-                width: 120px;
-                height: 120px;
-                opacity: 0.8;
-                border-width: 3px;
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
             }
             100% {
-                width: 160px;
-                height: 160px;
-                opacity: 0;
-                border-width: 2px;
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes pulse-size {
+            0%, 100% {
+                width: 130px;
+                height: 130px;
+                opacity: 0.2;
+            }
+            50% {
+                width: 145px;
+                height: 145px;
+                opacity: 0.1;
             }
         }
         
