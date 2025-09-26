@@ -610,8 +610,13 @@
             if (userMatches.length > 0) {
                 matchesList.innerHTML = userMatches.map(match => {
                     const otherUser = match.user1 === currentUser.id ? match.user2_info : match.user1_info;
+                    let instagramUrl = otherUser.instagram_url || 'https://instagram.com/' + otherUser.username;
+                    // URL'i kontrol et ve düzelt
+                    if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                        instagramUrl = 'https://' + instagramUrl;
+                    }
                     return `
-                        <div class="profile-item" onclick="openInstagramProfile('${otherUser.instagram_url || 'https://instagram.com/' + otherUser.username}')">
+                        <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')">
                             <img src="${otherUser.instagram_image}" alt="${otherUser.username}" class="profile-avatar">
                             <div class="profile-name">@${otherUser.username}</div>
                         </div>
@@ -629,12 +634,19 @@
             // Beni beğenenleri render et
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
-                likersList.innerHTML = userLikers.map(user => `
-                    <div class="profile-item" onclick="openInstagramProfile('${user.instagram_url || 'https://instagram.com/' + user.username}')">
-                        <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
-                        <div class="profile-name">@${user.username}</div>
-                    </div>
-                `).join('');
+                likersList.innerHTML = userLikers.map(user => {
+                    let instagramUrl = user.instagram_url || 'https://instagram.com/' + user.username;
+                    // URL'i kontrol et ve düzelt
+                    if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                        instagramUrl = 'https://' + instagramUrl;
+                    }
+                    return `
+                        <div class="profile-item" onclick="openInstagramProfile('${instagramUrl}')">
+                            <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
+                            <div class="profile-name">@${user.username}</div>
+                        </div>
+                    `;
+                }).join('');
             } else {
                 likersList.innerHTML = `
                     <div class="empty-profile-state">
@@ -647,6 +659,10 @@
         
         // Open Instagram Profile - YENİ
         function openInstagramProfile(url) {
+            // URL'i kontrol et ve düzelt
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
             window.open(url, '_blank');
         }
         
@@ -829,7 +845,12 @@
                 if (data.match) {
                     // Eşleşen kullanıcının Instagram URL'ini bul
                     const matchedUser = profiles.find(p => p.id === targetId);
-                    const instagramUrl = matchedUser?.instagram_url || `https://instagram.com/${matchedUser?.username}`;
+                    let instagramUrl = matchedUser?.instagram_url || `https://instagram.com/${matchedUser?.username}`;
+                    
+                    // URL'i kontrol et ve düzelt
+                    if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                        instagramUrl = 'https://' + instagramUrl;
+                    }
                     
                     // Modal'ı göster
                     showMatchModal();
@@ -899,9 +920,19 @@
         function openInstagram() {
             const card = document.querySelector('.card:last-child');
             if (card && card.dataset.instagramUrl) {
-                window.open(card.dataset.instagramUrl, '_blank');
+                let url = card.dataset.instagramUrl;
+                // URL'i kontrol et ve düzelt
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                }
+                window.open(url, '_blank');
             } else if (currentProfileInstagram) {
-                window.open(currentProfileInstagram, '_blank');
+                let url = currentProfileInstagram;
+                // URL'i kontrol et ve düzelt
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                }
+                window.open(url, '_blank');
             }
         }
         
