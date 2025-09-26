@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
             min-height: 100vh;
             overflow: hidden;
         }
@@ -26,6 +26,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 50;
         }
         
         .header h1 {
@@ -39,12 +41,35 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         
         .username {
             font-weight: 600;
             color: #333;
+            padding-right: 10px;
+            border-right: 1px solid #e1e1e1;
+        }
+        
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-header-btn {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+        
+        .profile-header-btn:hover {
+            transform: translateY(-2px);
         }
         
         .logout-btn {
@@ -57,29 +82,9 @@
             font-weight: 500;
         }
         
-        /* Profile Button - YENİ */
+        /* Profile Button - Alt sağdan kaldırılacak */
         .profile-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
-            z-index: 100;
-            border: none;
-        }
-        
-        .profile-btn:hover {
-            transform: scale(1.1);
+            display: none;
         }
         
         /* Profile Modal - YENİ */
@@ -254,7 +259,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            max-height: 700px; /* Artırıldı uzun ekran görüntüleri için */
+            max-height: 700px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
@@ -269,32 +274,26 @@
             cursor: grabbing;
         }
         
-        .card-header {
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 8px 15px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .card-username-top {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-        
         .card img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* cover yerine contain */
-            background: #f8f9fa;
+            object-fit: contain;
+            background: white;
         }
         
-        .card-info {
-            display: none; /* Alt bilgi alanı kaldırıldı */
+        .card-username-bottom {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            z-index: 10;
         }
         
         /* Action Buttons */
@@ -466,8 +465,9 @@
     <div class="header">
         <h1>🔥 Soy.ad</h1>
         <div class="user-info">
-            <span class="username" id="currentUser"></span>
             <button class="logout-btn" onclick="logout()">Çıkış</button>
+            <button class="profile-header-btn" onclick="toggleProfile()">👤 Profil</button>
+            <span class="username" id="currentUser"></span>
         </div>
     </div>
     
@@ -498,8 +498,7 @@
         </div>
     </div>
     
-    <!-- Profil Butonu - YENİ -->
-    <button class="profile-btn" onclick="toggleProfile()">👤</button>
+    <!-- Profil Butonu kaldırıldı -->
     
     <!-- Profil Modal - YENİ -->
     <div class="profile-modal" id="profileModal">
@@ -715,9 +714,7 @@
             card.dataset.instagramUrl = profile.instagram_url || `https://instagram.com/${profile.username}`;
             
             card.innerHTML = `
-                <div class="card-header">
-                    <div class="card-username-top">@${profile.username}</div>
-                </div>
+                <div class="card-username-bottom">@${profile.username}</div>
                 <img src="${profile.instagram_image}" alt="${profile.username}">
             `;
             
