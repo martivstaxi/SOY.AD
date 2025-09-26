@@ -294,12 +294,15 @@
             border: 3px solid #e1e1e1;
             cursor: pointer;
             transition: transform 0.3s;
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
         }
         
         .liker-approval-image:hover {
-            transform: scale(1.05);
+            transform: translate(-50%, -50%) scale(1.05);
         }
         
         /* Profil resmi container'ı için wrapper */
@@ -307,57 +310,53 @@
             position: relative;
             display: inline-block;
             margin-bottom: 20px;
-            width: 140px;
-            height: 140px;
+            width: 160px;
+            height: 160px;
         }
         
-        /* Arkadaki gri yuvarlak */
+        /* Arkadaki animasyonlu halka 1 */
         .liker-image-wrapper::before {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 140px;
-            height: 140px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: rgba(128, 128, 128, 0.15);
-            animation: pulse-bg 2s ease-in-out infinite;
+            border: 3px solid rgba(100, 100, 100, 0.6);
+            animation: pulse-ring 2.5s ease-in-out infinite;
             z-index: 1;
         }
         
-        /* İkinci halka - pulsing effect */
+        /* Arkadaki animasyonlu halka 2 */
         .liker-image-wrapper::after {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 135px;
-            height: 135px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 2px solid rgba(100, 100, 100, 0.3);
-            animation: pulse-border 2s ease-in-out infinite;
+            border: 3px solid rgba(100, 100, 100, 0.6);
+            animation: pulse-ring 2.5s ease-in-out infinite;
+            animation-delay: 1.25s;
             z-index: 0;
         }
         
-        @keyframes pulse-bg {
-            0%, 100% {
-                background: rgba(128, 128, 128, 0.15);
-                transform: scale(1);
+        @keyframes pulse-ring {
+            0% {
+                width: 120px;
+                height: 120px;
+                border-color: rgba(100, 100, 100, 0.6);
+                opacity: 0.8;
             }
-            50% {
-                background: rgba(100, 100, 100, 0.25);
-                transform: scale(1.05);
-            }
-        }
-        
-        @keyframes pulse-border {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(1.08);
+            100% {
+                width: 155px;
+                height: 155px;
+                border-color: rgba(100, 100, 100, 0);
+                opacity: 0;
             }
         }
         
