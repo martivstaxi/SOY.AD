@@ -178,6 +178,103 @@
             border-color: #667eea;
         }
         
+        /* CSV Upload Section */
+        .csv-upload-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #667eea;
+        }
+        
+        .csv-upload-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .csv-format {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .csv-format code {
+            background: #e1e1e1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .csv-preview {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .csv-preview table {
+            width: 100%;
+            font-size: 12px;
+        }
+        
+        .csv-preview th {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            position: sticky;
+            top: 0;
+        }
+        
+        .csv-preview td {
+            padding: 8px;
+            border: 1px solid #e1e1e1;
+        }
+        
+        .csv-actions {
+            margin-top: 15px;
+            display: none;
+            gap: 10px;
+        }
+        
         .btn {
             padding: 10px 25px;
             border: none;
@@ -200,6 +297,11 @@
         
         .btn-success {
             background: #00d68f;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #ff4757;
             color: white;
         }
         
@@ -258,6 +360,7 @@
             padding: 20px;
             border: 2px solid #e1e1e1;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .match-card:hover {
@@ -274,6 +377,11 @@
         
         .match-user {
             text-align: center;
+            cursor: pointer;
+        }
+        
+        .match-user:hover img {
+            transform: scale(1.1);
         }
         
         .match-user img {
@@ -282,6 +390,7 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 10px;
+            transition: transform 0.2s;
         }
         
         .match-user-name {
@@ -299,18 +408,6 @@
             color: #666;
             font-size: 12px;
             margin-top: 10px;
-        }
-        
-        .match-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .match-actions button {
-            flex: 1;
-            padding: 8px;
-            font-size: 12px;
         }
         
         /* Empty State */
@@ -383,7 +480,7 @@
     </div>
     
     <div class="container">
-        <!-- Stats -->
+        <!-- Stats - Sadece 2 kart kaldı -->
         <div class="stats-grid">
             <div class="stat-card primary">
                 <div class="stat-label">Toplam Kullanıcı</div>
@@ -393,24 +490,15 @@
                 <div class="stat-label">Toplam Eşleşme</div>
                 <div class="stat-value" id="totalMatches">0</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Bugünkü Swipe</div>
-                <div class="stat-value" id="todaySwipes">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Aktif Gruplar</div>
-                <div class="stat-value" id="activeGroups">0</div>
-            </div>
         </div>
         
         <!-- Alert -->
         <div class="alert" id="alert"></div>
         
-        <!-- Tabs -->
+        <!-- Tabs - Gruplar kaldırıldı -->
         <div class="tabs">
             <button class="tab active" onclick="switchTab('users')">👥 Kullanıcılar</button>
             <button class="tab" onclick="switchTab('matches')">💚 Eşleşmeler</button>
-            <button class="tab" onclick="switchTab('groups')">🎯 Gruplar</button>
         </div>
         
         <!-- Users Section -->
@@ -419,9 +507,32 @@
                 <h2 class="section-title">Kullanıcı Yönetimi</h2>
             </div>
             
-            <!-- Add User Form -->
+            <!-- CSV Upload Section - YENİ -->
+            <div class="csv-upload-section">
+                <div class="csv-upload-title">
+                    📁 CSV ile Toplu Kullanıcı Ekleme
+                </div>
+                <div class="csv-format">
+                    <strong>CSV Formatı:</strong><br>
+                    <code>username,password,photo_url,instagram_profile_url</code><br>
+                    <small>İlk satır başlık satırı olmalıdır. UTF-8 kodlaması kullanın.</small>
+                </div>
+                <div class="file-input-wrapper">
+                    <input type="file" id="csvFile" accept=".csv" onchange="handleCSVFile(event)">
+                    <label for="csvFile" class="file-input-label">CSV Dosyası Seç</label>
+                </div>
+                <div class="csv-preview" id="csvPreview"></div>
+                <div class="csv-actions" id="csvActions" style="display: flex;">
+                    <button class="btn btn-success" onclick="uploadCSVUsers()">
+                        <span id="uploadBtnText">Kullanıcıları Yükle</span>
+                    </button>
+                    <button class="btn btn-danger" onclick="clearCSV()">İptal</button>
+                </div>
+            </div>
+            
+            <!-- Add User Form - Tekli ekleme -->
             <div style="margin-bottom: 30px;">
-                <h3 style="margin-bottom: 15px; color: #333;">Yeni Kullanıcı Ekle</h3>
+                <h3 style="margin-bottom: 15px; color: #333;">Tekli Kullanıcı Ekle</h3>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Kullanıcı Adı</label>
@@ -472,9 +583,6 @@
         <div class="section" id="matchesSection" style="display: none;">
             <div class="section-header">
                 <h2 class="section-title">Eşleşmeler</h2>
-                <button class="btn btn-success" onclick="createGroupFromMatches()">
-                    Seçili Eşleşmelerden Grup Oluştur
-                </button>
             </div>
             
             <div class="matches-grid" id="matchesGrid">
@@ -484,31 +592,12 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Groups Section -->
-        <div class="section" id="groupsSection" style="display: none;">
-            <div class="section-header">
-                <h2 class="section-title">Gruplar</h2>
-                <button class="btn btn-primary" onclick="showCreateGroupModal()">
-                    Yeni Grup Oluştur
-                </button>
-            </div>
-            
-            <div id="groupsList">
-                <div class="empty-state">
-                    <div class="empty-state-icon">📦</div>
-                    <p>Henüz grup oluşturulmamış</p>
-                </div>
-            </div>
-        </div>
     </div>
     
     <script>
-        // Admin Authentication Check - GÜVENLİK İÇİN ÖNEMLİ!
+        // Admin Authentication Check
         function checkAdminAuth() {
             const user = localStorage.getItem('user');
-            
-            // Sadece admin kullanıcısı girebilir
             const ADMIN_USERS = ['admin']; 
             
             if (!user) {
@@ -525,14 +614,11 @@
                 return false;
             }
             
-            // Admin yetkisi var - sayfayı göster
             document.body.style.display = 'block';
             return true;
         }
         
-        // Sayfa yüklendiğinde kontrol et
         if (!checkAdminAuth()) {
-            // Yetkisiz erişim - sayfa görünmeyecek
             document.body.innerHTML = '';
         }
         
@@ -540,7 +626,7 @@
         let currentTab = 'users';
         let users = [];
         let matches = [];
-        let selectedMatches = [];
+        let csvData = null;
         
         // Initialize
         async function init() {
@@ -553,14 +639,11 @@
         function switchTab(tab) {
             currentTab = tab;
             
-            // Update tab styles
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
             
-            // Show/hide sections
             document.getElementById('usersSection').style.display = tab === 'users' ? 'block' : 'none';
             document.getElementById('matchesSection').style.display = tab === 'matches' ? 'block' : 'none';
-            document.getElementById('groupsSection').style.display = tab === 'groups' ? 'block' : 'none';
         }
         
         // Show alert
@@ -573,6 +656,144 @@
             setTimeout(() => {
                 alert.style.display = 'none';
             }, 3000);
+        }
+        
+        // CSV Handler - YENİ
+        function handleCSVFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                csvData = parseCSV(text);
+                
+                if (csvData && csvData.length > 0) {
+                    displayCSVPreview(csvData);
+                    document.getElementById('csvActions').style.display = 'flex';
+                } else {
+                    showAlert('CSV dosyası okunamadı veya boş', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // Parse CSV - YENİ
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            if (lines.length < 2) return null;
+            
+            const headers = lines[0].split(',').map(h => h.trim());
+            const expectedHeaders = ['username', 'password', 'photo_url', 'instagram_profile_url'];
+            
+            // Header kontrolü
+            const hasAllHeaders = expectedHeaders.every(h => headers.includes(h));
+            if (!hasAllHeaders) {
+                showAlert('CSV başlıkları hatalı! Gerekli: username,password,photo_url,instagram_profile_url', 'error');
+                return null;
+            }
+            
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim());
+                if (values.length === headers.length) {
+                    const row = {};
+                    headers.forEach((header, index) => {
+                        row[header] = values[index];
+                    });
+                    data.push(row);
+                }
+            }
+            
+            return data;
+        }
+        
+        // Display CSV Preview - YENİ
+        function displayCSVPreview(data) {
+            const preview = document.getElementById('csvPreview');
+            const maxRows = Math.min(5, data.length);
+            
+            let html = '<table><thead><tr>';
+            html += '<th>Kullanıcı Adı</th><th>Şifre</th><th>Fotoğraf</th><th>Instagram</th>';
+            html += '</tr></thead><tbody>';
+            
+            for (let i = 0; i < maxRows; i++) {
+                html += '<tr>';
+                html += `<td>${data[i].username}</td>`;
+                html += `<td>***</td>`;
+                html += `<td>${data[i].photo_url ? '✓' : '✗'}</td>`;
+                html += `<td>${data[i].instagram_profile_url ? '✓' : '✗'}</td>`;
+                html += '</tr>';
+            }
+            
+            if (data.length > maxRows) {
+                html += `<tr><td colspan="4" style="text-align: center;">... ve ${data.length - maxRows} kullanıcı daha</td></tr>`;
+            }
+            
+            html += '</tbody></table>';
+            preview.innerHTML = html;
+            preview.style.display = 'block';
+        }
+        
+        // Upload CSV Users - YENİ
+        async function uploadCSVUsers() {
+            if (!csvData || csvData.length === 0) {
+                showAlert('Yüklenecek veri yok', 'error');
+                return;
+            }
+            
+            const btnText = document.getElementById('uploadBtnText');
+            btnText.innerHTML = '<span class="loading"></span> Yükleniyor...';
+            
+            let successCount = 0;
+            let failCount = 0;
+            
+            for (const user of csvData) {
+                try {
+                    const response = await fetch(`${API_URL}/api/admin/add-user`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: user.username.toLowerCase().trim(),
+                            password: user.password.replace(/\s/g, ''),
+                            instagram_image: user.photo_url || `https://via.placeholder.com/400x400?text=${user.username}`,
+                            instagram_url: user.instagram_profile_url || `https://instagram.com/${user.username}`
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        successCount++;
+                    } else {
+                        failCount++;
+                        console.error(`Kullanıcı eklenemedi: ${user.username}`, data.error);
+                    }
+                } catch (error) {
+                    failCount++;
+                    console.error(`Hata: ${user.username}`, error);
+                }
+            }
+            
+            btnText.textContent = 'Kullanıcıları Yükle';
+            
+            if (successCount > 0) {
+                showAlert(`${successCount} kullanıcı başarıyla eklendi${failCount > 0 ? `, ${failCount} başarısız` : ''}`, 
+                          failCount > 0 ? 'error' : 'success');
+                loadUsers();
+                clearCSV();
+            } else {
+                showAlert('Hiçbir kullanıcı eklenemedi', 'error');
+            }
+        }
+        
+        // Clear CSV - YENİ
+        function clearCSV() {
+            csvData = null;
+            document.getElementById('csvFile').value = '';
+            document.getElementById('csvPreview').style.display = 'none';
+            document.getElementById('csvActions').style.display = 'none';
         }
         
         // Load users
@@ -619,53 +840,53 @@
             `).join('');
         }
         
- // Add user
-async function addUser() {
-    const username = document.getElementById('newUsername').value.toLowerCase().trim();
-    const password = document.getElementById('newPassword').value.replace(/\s/g, '');
-    const imageUrl = document.getElementById('newImageUrl').value;
-    const instagramUrl = document.getElementById('newInstagramUrl').value; // YENİ SATIR
-    
-    if (!username || !password) {
-        showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
-        return;
-    }
-    
-    const btnText = document.getElementById('addUserBtnText');
-    btnText.innerHTML = '<span class="loading"></span>';
-    
-    try {
-        const response = await fetch(`${API_URL}/api/admin/add-user`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username,
-                password,
-                instagram_image: imageUrl,
-                instagram_url: instagramUrl // YENİ SATIR
-            })
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            showAlert('Kullanıcı başarıyla eklendi!');
-            document.getElementById('newUsername').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('newImageUrl').value = '';
-            document.getElementById('newInstagramUrl').value = ''; // YENİ SATIR
-            loadUsers();
-        } else {
-            showAlert(data.error || 'Kullanıcı eklenemedi', 'error');
+        // Add single user
+        async function addUser() {
+            const username = document.getElementById('newUsername').value.toLowerCase().trim();
+            const password = document.getElementById('newPassword').value.replace(/\s/g, '');
+            const imageUrl = document.getElementById('newImageUrl').value;
+            const instagramUrl = document.getElementById('newInstagramUrl').value;
+            
+            if (!username || !password) {
+                showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
+                return;
+            }
+            
+            const btnText = document.getElementById('addUserBtnText');
+            btnText.innerHTML = '<span class="loading"></span>';
+            
+            try {
+                const response = await fetch(`${API_URL}/api/admin/add-user`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password,
+                        instagram_image: imageUrl,
+                        instagram_url: instagramUrl
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('Kullanıcı başarıyla eklendi!');
+                    document.getElementById('newUsername').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('newImageUrl').value = '';
+                    document.getElementById('newInstagramUrl').value = '';
+                    loadUsers();
+                } else {
+                    showAlert(data.error || 'Kullanıcı eklenemedi', 'error');
+                }
+            } catch (error) {
+                showAlert('Bir hata oluştu', 'error');
+            } finally {
+                btnText.textContent = 'Kullanıcı Ekle';
+            }
         }
-    } catch (error) {
-        showAlert('Bir hata oluştu', 'error');
-    } finally {
-        btnText.textContent = 'Kullanıcı Ekle';
-    }
-}
         
         // Load matches
         async function loadMatches() {
@@ -680,7 +901,7 @@ async function addUser() {
             }
         }
         
-        // Render matches
+        // Render matches - Instagram yönlendirmesi eklendi
         function renderMatches() {
             const grid = document.getElementById('matchesGrid');
             
@@ -698,58 +919,32 @@ async function addUser() {
                 const date = new Date(match.matched_at);
                 const formattedDate = date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
                 
+                const user1Instagram = match.user1_info.instagram_url || `https://instagram.com/${match.user1_info.username}`;
+                const user2Instagram = match.user2_info.instagram_url || `https://instagram.com/${match.user2_info.username}`;
+                
                 return `
                     <div class="match-card">
                         <div class="match-users">
-                            <div class="match-user">
+                            <div class="match-user" onclick="window.open('${user1Instagram}', '_blank')">
                                 <img src="${match.user1_info.instagram_image}" alt="${match.user1_info.username}">
                                 <div class="match-user-name">@${match.user1_info.username}</div>
                             </div>
                             <div class="match-heart">💚</div>
-                            <div class="match-user">
+                            <div class="match-user" onclick="window.open('${user2Instagram}', '_blank')">
                                 <img src="${match.user2_info.instagram_image}" alt="${match.user2_info.username}">
                                 <div class="match-user-name">@${match.user2_info.username}</div>
                             </div>
                         </div>
                         <div class="match-date">Eşleşme: ${formattedDate}</div>
-                        <div class="match-actions">
-                            <button class="btn btn-primary" onclick="selectMatch(${match.id})">
-                                Grup İçin Seç
-                            </button>
-                        </div>
                     </div>
                 `;
             }).join('');
-        }
-        
-        // Select match for group
-        function selectMatch(matchId) {
-            if (selectedMatches.includes(matchId)) {
-                selectedMatches = selectedMatches.filter(id => id !== matchId);
-            } else {
-                selectedMatches.push(matchId);
-            }
-            
-            showAlert(`${selectedMatches.length} eşleşme seçildi`);
-        }
-        
-        // Create group from matches
-        function createGroupFromMatches() {
-            if (selectedMatches.length < 2) {
-                showAlert('En az 2 eşleşme seçmelisiniz!', 'error');
-                return;
-            }
-            
-            showAlert(`${selectedMatches.length} eşleşmeden grup oluşturuldu!`);
-            selectedMatches = [];
         }
         
         // Update stats
         function updateStats() {
             document.getElementById('totalUsers').textContent = users.length;
             document.getElementById('totalMatches').textContent = matches.length;
-            document.getElementById('todaySwipes').textContent = Math.floor(Math.random() * 100); // Simulated
-            document.getElementById('activeGroups').textContent = 0; // Will be implemented
         }
         
         // Initialize on load
