@@ -1041,6 +1041,7 @@
             
             const indicator = document.getElementById('swipeIndicator');
             indicator.className = 'swipe-indicator nope';
+            indicator.style.backgroundColor = 'rgba(255, 71, 87, 0.4)';
             
             card.style.transform = 'translateX(-1000px) rotate(-30deg)';
             card.style.opacity = '0';
@@ -1050,7 +1051,9 @@
             setTimeout(() => {
                 card.remove();
                 nextProfile();
+                // Rengi sıfırla
                 indicator.className = 'swipe-indicator';
+                indicator.style.backgroundColor = '';
             }, 300);
         }
         
@@ -1060,6 +1063,7 @@
             
             const indicator = document.getElementById('swipeIndicator');
             indicator.className = 'swipe-indicator like';
+            indicator.style.backgroundColor = 'rgba(0, 214, 143, 0.4)';
             
             card.style.transform = 'translateX(1000px) rotate(30deg)';
             card.style.opacity = '0';
@@ -1069,7 +1073,9 @@
             setTimeout(() => {
                 card.remove();
                 nextProfile();
+                // Rengi sıfırla
                 indicator.className = 'swipe-indicator';
+                indicator.style.backgroundColor = '';
             }, 300);
         }
         
@@ -1082,14 +1088,24 @@
                 if (!url.startsWith('http://') && !url.startsWith('https://')) {
                     url = 'https://' + url;
                 }
-                window.open(url, '_blank');
+                // Instagram uygulamasını açmayı dene
+                window.location.href = `instagram://user?username=${url.split('/').pop()}`;
+                // Yedek olarak web'de aç
+                setTimeout(() => {
+                    window.open(url, '_blank');
+                }, 500);
             } else if (currentProfileInstagram) {
                 let url = currentProfileInstagram;
                 // URL'i kontrol et ve düzelt
                 if (!url.startsWith('http://') && !url.startsWith('https://')) {
                     url = 'https://' + url;
                 }
-                window.open(url, '_blank');
+                // Instagram uygulamasını açmayı dene
+                window.location.href = `instagram://user?username=${url.split('/').pop()}`;
+                // Yedek olarak web'de aç
+                setTimeout(() => {
+                    window.open(url, '_blank');
+                }, 500);
             }
         }
         
