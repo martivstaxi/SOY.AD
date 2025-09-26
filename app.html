@@ -648,9 +648,9 @@
     <div class="match-modal" id="matchModal">
         <div class="match-content">
             <h2>🎉 Tebrikler Eşleştiniz! 🎉</h2>
-            <p class="match-subtitle">Instagram profilini görmek için butona tıklayın</p>
-            <a href="#" id="instagramLinkBtn" class="instagram-link-btn" target="_blank">
-                📸 Instagram Profilini Aç
+            <p class="match-username" id="matchUsername">@username</p>
+            <a href="#" id="instagramProfileBtn" class="instagram-profile-btn" target="_blank">
+                <img src="" alt="Profile" id="matchProfileImage">
             </a>
         </div>
     </div>
@@ -831,17 +831,20 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde Instagram uygulamasını aç
+                // Mobilde Instagram uygulamasını aç - sayfa yönlendirmesi yapmadan
                 const appUrl = `instagram://user?username=${username}`;
-                const startTime = Date.now();
-                window.location = appUrl;
                 
-                // Uygulama yoksa web'e git
+                // iframe ile uygulamayı açmayı dene (sayfa yenilenmez)
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = appUrl;
+                document.body.appendChild(iframe);
+                
+                // 2 saniye sonra iframe'i kaldır
                 setTimeout(() => {
-                    if (Date.now() - startTime < 2000) {
-                        window.location.replace(url);
-                    }
-                }, 1500);
+                    document.body.removeChild(iframe);
+                }, 2000);
+                
             } else {
                 // Desktop'ta yeni sekmede aç
                 window.open(url, '_blank');
@@ -1060,16 +1063,49 @@
                         instagramUrl = 'https://' + instagramUrl;
                     }
                     
-                    // Instagram linkini butona ekle
-                    const linkBtn = document.getElementById('instagramLinkBtn');
-                    linkBtn.href = instagramUrl;
+                    // Match modal elementlerini güncelle
+                    const profileBtn = document.getElementById('instagramProfileBtn');
+                    const profileImage = document.getElementById('matchProfileImage');
+                    const matchUsername = document.getElementById('matchUsername');
                     
-                    // Butona tıklama event listener ekle (bir kerelik)
-                    linkBtn.onclick = function(e) {
-                        // 2 saniye sonra modalı kapat
-                        setTimeout(() => {
-                            closeMatchModal();
-                        }, 2000);
+                    // Kullanıcı adını göster
+                    matchUsername.textContent = `@${matchedUser?.username}`;
+                    
+                    // Profil resmini göster
+                    profileImage.src = matchedUser?.instagram_image;
+                    
+                    // Instagram linkini butona ekle
+                    profileBtn.href = instagramUrl;
+                    
+                    // Butona tıklama event listener ekle
+                    profileBtn.onclick = function(e) {
+                        e.preventDefault(); // Default davranışı engelle
+                        
+                        const username = instagramUrl.split('/').pop();
+                        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                        
+                        if (isMobile) {
+                            // Mobilde Instagram uygulamasını aç - sayfa yönlendirmesi yapmadan
+                            const appUrl = `instagram://user?username=${username}`;
+                            
+                            // iframe ile uygulamayı açmayı dene
+                            const iframe = document.createElement('iframe');
+                            iframe.style.display = 'none';
+                            iframe.src = appUrl;
+                            document.body.appendChild(iframe);
+                            
+                            // 2 saniye sonra iframe'i ve modalı kaldır
+                            setTimeout(() => {
+                                document.body.removeChild(iframe);
+                                closeMatchModal();
+                            }, 2000);
+                        } else {
+                            // Desktop'ta yeni sekmede aç
+                            window.open(instagramUrl, '_blank');
+                            setTimeout(() => {
+                                closeMatchModal();
+                            }, 1000);
+                        }
                     };
                     
                     // Modal'ı göster
@@ -1160,21 +1196,20 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Mobilde Instagram uygulamasını aç
+                // Mobilde Instagram uygulamasını aç - sayfa yönlendirmesi yapmadan
                 const appUrl = `instagram://user?username=${username}`;
-                const webUrl = instagramUrl;
                 
-                // Önce uygulamayı dene
-                const startTime = Date.now();
-                window.location = appUrl;
+                // iframe ile uygulamayı açmayı dene (sayfa yenilenmez)
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = appUrl;
+                document.body.appendChild(iframe);
                 
-                // Eğer uygulama açılmazsa web'e git
+                // 2 saniye sonra iframe'i kaldır
                 setTimeout(() => {
-                    // Eğer hala aynı sayfadaysak web'e yönlendir
-                    if (Date.now() - startTime < 2000) {
-                        window.location.replace(webUrl);
-                    }
-                }, 1500);
+                    document.body.removeChild(iframe);
+                }, 2000);
+                
             } else {
                 // Desktop'ta yeni sekmede aç
                 window.open(instagramUrl, '_blank');
