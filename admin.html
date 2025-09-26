@@ -435,6 +435,10 @@
                         <label>Instagram Görsel URL</label>
                         <input type="text" id="newImageUrl" placeholder="https://...">
                     </div>
+                    <div class="form-group">
+                        <label>Instagram Profil URL</label>
+                        <input type="text" id="newInstagramUrl" placeholder="https://instagram.com/kullanici">
+                    </div>
                 </div>
                 <button class="btn btn-primary" onclick="addUser()">
                     <span id="addUserBtnText">Kullanıcı Ekle</span>
@@ -617,11 +621,10 @@
         
  // Add user
 async function addUser() {
-    // Kullanıcı adını küçük harfe çevir ve trim yap
     const username = document.getElementById('newUsername').value.toLowerCase().trim();
-    // Şifredeki boşlukları temizle
     const password = document.getElementById('newPassword').value.replace(/\s/g, '');
     const imageUrl = document.getElementById('newImageUrl').value;
+    const instagramUrl = document.getElementById('newInstagramUrl').value; // YENİ SATIR
     
     if (!username || !password) {
         showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
@@ -640,7 +643,8 @@ async function addUser() {
             body: JSON.stringify({
                 username,
                 password,
-                instagram_image: imageUrl
+                instagram_image: imageUrl,
+                instagram_url: instagramUrl // YENİ SATIR
             })
         });
         
@@ -651,6 +655,7 @@ async function addUser() {
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('newImageUrl').value = '';
+            document.getElementById('newInstagramUrl').value = ''; // YENİ SATIR
             loadUsers();
         } else {
             showAlert(data.error || 'Kullanıcı eklenemedi', 'error');
