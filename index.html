@@ -226,28 +226,18 @@
             font-size: 24px;
         }
         
-        .feature-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-        
-        .highlight {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 700;
-            color: #667eea;
-        }
-        
         /* Mobile Optimizations */
         @media (max-width: 768px) {
             .section {
                 padding: 30px 16px;
+                min-height: 100vh;
+                min-height: -webkit-fill-available;
             }
             
             .content-box {
                 padding: 40px 28px;
                 border-radius: 28px;
+                margin-bottom: 80px; /* Scroll hint için yer aç */
             }
             
             .logo-icon {
@@ -285,8 +275,43 @@
             }
             
             .scroll-hint {
-                bottom: 30px;
+                bottom: 20px;
                 font-size: 13px;
+                gap: 6px;
+            }
+            
+            .scroll-hint span:last-child {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .content-box {
+                padding: 32px 24px;
+                margin-bottom: 70px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .description {
+                font-size: 15px;
+            }
+            
+            .cta-button {
+                padding: 16px 32px;
+                font-size: 16px;
+                width: 100%;
+            }
+            
+            .scroll-hint {
+                bottom: 15px;
+                font-size: 12px;
             }
         }
         
