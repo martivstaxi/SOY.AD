@@ -14,12 +14,14 @@
         
         html {
             scroll-behavior: smooth;
+            height: 100%;
         }
         
         body {
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            height: 100%;
             position: relative;
             overflow-x: hidden;
         }
@@ -77,7 +79,8 @@
         }
         
         .section {
-            min-height: 100vh;
+            height: 100vh;
+            height: 100svh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -220,6 +223,7 @@
             gap: 8px;
             animation: bounce 2s infinite;
             cursor: pointer;
+            z-index: 100;
         }
         
         @keyframes bounce {
@@ -231,17 +235,26 @@
             font-size: 24px;
         }
         
-        /* Mobile Optimizations */
+        /* Tablet ve Mobile */
+        @media (max-width: 1024px) {
+            .section {
+                height: 100vh;
+                height: 100svh;
+                padding: 30px 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .section {
-                min-height: 100vh;
-                min-height: -webkit-fill-available;
-                padding: 30px 20px;
+                height: 100vh;
+                height: 100svh;
+                padding: 25px 20px;
             }
             
             .content-box {
                 padding: 40px 32px;
                 border-radius: 28px;
+                max-width: 95%;
             }
             
             .logo-icon {
@@ -249,7 +262,6 @@
                 height: 70px;
                 font-size: 36px;
                 border-radius: 18px;
-                margin-bottom: 20px;
             }
             
             h1 {
@@ -269,7 +281,7 @@
             }
             
             .cta-button {
-                padding: 18px 42px;
+                padding: 18px 40px;
                 font-size: 17px;
                 border-radius: 14px;
             }
@@ -281,18 +293,14 @@
             
             .scroll-hint {
                 bottom: 35px;
-                font-size: 13px;
-                gap: 6px;
-            }
-            
-            .scroll-hint span:last-child {
-                font-size: 22px;
             }
         }
         
         @media (max-width: 480px) {
             .section {
-                padding: 25px 16px;
+                height: 100vh;
+                height: 100svh;
+                padding: 20px 16px;
             }
             
             .content-box {
@@ -359,11 +367,6 @@
             .description {
                 font-size: 15px;
                 margin-bottom: 24px;
-            }
-            
-            .cta-button {
-                padding: 15px 32px;
-                font-size: 15px;
             }
         }
     </style>
