@@ -220,6 +220,7 @@
             gap: 8px;
             animation: bounce 2s infinite;
             cursor: pointer;
+            z-index: 10;
         }
         
         @keyframes bounce {
@@ -234,15 +235,18 @@
         /* Mobile Optimizations */
         @media (max-width: 768px) {
             .section {
-                padding: 60px 20px;
+                padding: 40px 20px;
                 min-height: 100vh;
                 min-height: -webkit-fill-available;
+                justify-content: flex-start;
+                padding-top: max(60px, 10vh);
             }
             
             .content-box {
-                padding: 48px 32px;
+                padding: 48px 32px 70px;
                 border-radius: 28px;
                 margin-bottom: 0;
+                position: relative;
             }
             
             .logo-icon {
@@ -280,23 +284,28 @@
             }
             
             .scroll-hint {
-                bottom: 30px;
-                font-size: 14px;
-                gap: 8px;
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 13px;
+                gap: 6px;
+                color: rgba(102, 126, 234, 0.7);
             }
             
             .scroll-hint span:last-child {
-                font-size: 22px;
+                font-size: 20px;
             }
         }
         
         @media (max-width: 480px) {
             .section {
-                padding: 50px 20px;
+                padding: 30px 20px;
+                padding-top: max(50px, 8vh);
             }
             
             .content-box {
-                padding: 40px 28px;
+                padding: 40px 28px 65px;
                 margin-bottom: 0;
             }
             
@@ -320,8 +329,54 @@
             }
             
             .scroll-hint {
-                bottom: 25px;
-                font-size: 13px;
+                bottom: 18px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-height: 667px) and (max-width: 480px) {
+            .section {
+                padding-top: 40px;
+            }
+            
+            .content-box {
+                padding: 35px 28px 60px;
+            }
+            
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
+            
+            .feature-icon {
+                font-size: 48px;
+                margin-bottom: 16px;
+            }
+            
+            h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+            
+            .description {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+            
+            .scroll-hint {
+                bottom: 15px;
+                font-size: 11px;
+            }
+            
+            .scroll-hint span:last-child {
+                font-size: 18px;
             }
         }
     </style>
