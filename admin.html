@@ -1043,10 +1043,6 @@
             let failCount = 0;
             
             for (const user of csvData) {
-                // Her istek arasında 100ms bekle
-                await new Promise(resolve => setTimeout(resolve, 100));
-                
-                
                 try {
                     const response = await fetch(`${API_URL}/api/admin/add-user`, {
                         method: 'POST',
