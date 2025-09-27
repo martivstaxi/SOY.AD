@@ -1236,7 +1236,8 @@
         function renderProfileData() {
             const matchesList = document.getElementById('matchesList');
             if (userMatches.length > 0) {
-                matchesList.innerHTML = userMatches.map(match => {
+                const reversedMatches = [...userMatches].reverse();
+                matchesList.innerHTML = reversedMatches.map(match => {
                     const otherUser = match.user1 === currentUser.id ? match.user2_info : match.user1_info;
                     let instagramUrl = otherUser.instagram_url || 'https://instagram.com/' + otherUser.username;
                     if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
