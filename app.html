@@ -1262,7 +1262,8 @@
             
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
-                likersList.innerHTML = userLikers.map(user => `
+                const reversedLikers = [...userLikers].reverse();
+                likersList.innerHTML = reversedLikers.map(user => `
                     <div class="profile-item" onclick="showLikerApproval(${JSON.stringify(user).replace(/"/g, '&quot;')})">
                         <div class="profile-avatar-wrapper">
                             <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
