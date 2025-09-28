@@ -1344,8 +1344,13 @@
                 const data = await response.json();
                 
                 if (data.success) {
+                    // Önce modal'ı kapat
                     document.getElementById('likerApprovalModal').style.display = 'none';
                     
+                    // Profil verilerini yeniden yükle ve bekle
+                    await loadProfileData();
+                    
+                    // Match modal'ını hazırla ve göster
                     const profileBtn = document.getElementById('instagramProfileBtn');
                     const profileImage = document.getElementById('matchProfileImage');
                     const matchUsername = document.getElementById('matchUsername');
@@ -1368,8 +1373,6 @@
                     };
                     
                     showMatchModal();
-                    
-                    loadProfileData();
                 }
             } catch (error) {
                 console.error('Error approving like:', error);
