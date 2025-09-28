@@ -1208,18 +1208,22 @@
                     usersResponse.json()
                 ]);
                 
+                // ID'leri integer'a çevir
+                const currentUserId = parseInt(currentUser.id);
+                
+                // user1_id ve user2_id kullan (user1 ve user2 değil)
                 userMatches = matchesData.matches.filter(m => 
-                    m.user1 === currentUser.id || m.user2 === currentUser.id
+                    m.user1_id === currentUserId || m.user2_id === currentUserId
                 );
                 
                 const matchedUserIds = userMatches.map(m => 
-                    m.user1 === currentUser.id ? m.user2 : m.user1
+                    m.user1_id === currentUserId ? m.user2_id : m.user1_id
                 );
                 
                 userLikers = [];
                 
                 usersData.users.forEach(user => {
-                    if (user.likes && user.likes.includes(currentUser.id)) {
+                    if (user.likes && user.likes.includes(currentUserId)) {
                         if (!matchedUserIds.includes(user.id)) {
                             userLikers.push(user);
                         }
@@ -1234,11 +1238,13 @@
         }
         
         function renderProfileData() {
+            const currentUserId = parseInt(currentUser.id);
             const matchesList = document.getElementById('matchesList');
+            
             if (userMatches.length > 0) {
                 const reversedMatches = [...userMatches].reverse();
                 matchesList.innerHTML = reversedMatches.map(match => {
-                    const otherUser = match.user1 === currentUser.id ? match.user2_info : match.user1_info;
+                    const otherUser = match.user1_id === currentUserId ? match.user2_info : match.user1_info;
                     let instagramUrl = otherUser.instagram_url || 'https://instagram.com/' + otherUser.username;
                     if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
                         instagramUrl = 'https://' + instagramUrl;
@@ -1261,6 +1267,7 @@
                 `;
             }
             
+            // Likers listesi için de devam etmeniz gerekiyor
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
                 const reversedLikers = [...userLikers].reverse();
@@ -1336,16 +1343,18 @@
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify({
-                        userId: currentUser.id,
-                        likerId: currentLikerData.id
+                        userId: parseInt(currentUser.id),  // ID'yi integer'a çevir
+                        likerId: parseInt(currentLikerData.id)  // ID'yi integer'a çevir
                     })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
+                    // Modal'ı kapat
                     document.getElementById('likerApprovalModal').style.display = 'none';
                     
+                    // Match modal'ını göster
                     const profileBtn = document.getElementById('instagramProfileBtn');
                     const profileImage = document.getElementById('matchProfileImage');
                     const matchUsername = document.getElementById('matchUsername');
@@ -1369,7 +1378,10 @@
                     
                     showMatchModal();
                     
-                    loadProfileData();
+                    // Veritabanının güncellenmesini bekleyip sonra yeniden yükle
+                    setTimeout(() => {
+                        loadProfileData();
+                    }, 500);
                 }
             } catch (error) {
                 console.error('Error approving like:', error);
