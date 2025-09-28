@@ -1342,13 +1342,25 @@
                 });
                 
                 const data = await response.json();
+                console.log('Approve response:', data);
                 
                 if (data.success) {
-                    // Önce modal'ı kapat
+                    // Liker approval modal'ını kapat
                     document.getElementById('likerApprovalModal').style.display = 'none';
                     
-                    // Profil verilerini yeniden yükle ve bekle
+                    // Profile modal açık mı kontrol et
+                    const profileModalIsOpen = document.getElementById('profileModal').classList.contains('active');
+                    
+                    // Kısa bir gecikme ekle backend'in güncellenmesi için
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    
+                    // Profil verilerini yeniden yükle
                     await loadProfileData();
+                    
+                    // Profile modal açıksa açık tut
+                    if (profileModalIsOpen) {
+                        document.getElementById('profileModal').classList.add('active');
+                    }
                     
                     // Match modal'ını hazırla ve göster
                     const profileBtn = document.getElementById('instagramProfileBtn');
@@ -1373,6 +1385,9 @@
                     };
                     
                     showMatchModal();
+                    
+                    // currentLikerData'yı temizle
+                    currentLikerData = null;
                 }
             } catch (error) {
                 console.error('Error approving like:', error);
