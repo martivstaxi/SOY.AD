@@ -15,13 +15,13 @@
         html {
             scroll-behavior: smooth;
             height: 100%;
+            overflow-x: hidden;
         }
         
         body {
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #667eea;
             min-height: 100vh;
-            height: 100%;
             position: relative;
             overflow-x: hidden;
         }
@@ -40,15 +40,9 @@
         }
         
         @keyframes gradientWave {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .orb {
@@ -93,7 +87,6 @@
             66% { transform: translate(-20px, 20px) scale(0.9); }
         }
         
-        /* Language Selector */
         .lang-select {
             position: fixed;
             top: 30px;
@@ -172,8 +165,7 @@
         }
         
         .section {
-            height: 100vh;
-            height: 100svh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -299,7 +291,7 @@
         }
         
         .cta-button:active {
-            transform: translateY(-1px) scale(0.90);
+            transform: translateY(-1px) scale(0.98);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
         
@@ -329,19 +321,8 @@
             font-size: 24px;
         }
         
-        /* Tablet ve Mobile */
-        @media (max-width: 1024px) {
-            .section {
-                height: 100vh;
-                height: 100svh;
-                padding: 30px 20px;
-            }
-        }
-        
         @media (max-width: 768px) {
             .section {
-                height: 100vh;
-                height: 100svh;
                 padding: 25px 20px;
             }
             
@@ -392,8 +373,6 @@
         
         @media (max-width: 480px) {
             .section {
-                height: 100vh;
-                height: 100svh;
                 padding: 20px 16px;
             }
             
@@ -472,7 +451,6 @@
         <div class="orb orb3"></div>
     </div>
     
-    <!-- Language Selector -->
     <div class="lang-select">
         <button class="lang-btn" id="langBtn">
             <span id="langFlag">🇹🇷</span>
@@ -484,7 +462,6 @@
         <div class="lang-list" id="langList"></div>
     </div>
     
-    <!-- Section 1: Ana Başlık -->
     <section class="section">
         <div class="content-box">
             <div class="logo-icon">🪙</div>
@@ -497,7 +474,6 @@
         </div>
     </section>
     
-    <!-- Section 2: Nasıl Çalışır -->
     <section class="section" id="section2">
         <div class="content-box">
             <div class="feature-icon">📱</div>
@@ -510,7 +486,6 @@
         </div>
     </section>
     
-    <!-- Section 3: Eşleşme -->
     <section class="section" id="section3">
         <div class="content-box">
             <div class="feature-icon">🎯</div>
@@ -523,7 +498,6 @@
         </div>
     </section>
     
-    <!-- Section 4: CTA -->
     <section class="section" id="section4">
         <div class="content-box">
             <div class="feature-icon">✨</div>
@@ -534,11 +508,9 @@
     </section>
     
     <script>
-        // Translations
         const translations = {
             tr: {
-                flag: '🇹🇷',
-                name: 'TR',
+                flag: '🇹🇷', name: 'TR',
                 heading1: 'Sattığınız ürün veya hizmeti ücret ödemeden tanıtabilirsiniz',
                 desc1: 'Reklam ücreti yok !',
                 scrollText1: 'Nasıl mı?',
@@ -553,8 +525,7 @@
                 loginBtn: 'Giriş Yap ⟶'
             },
             en: {
-                flag: '🇬🇧',
-                name: 'EN',
+                flag: '🇬🇧', name: 'EN',
                 heading1: 'Promote your stuff without spending a dime',
                 desc1: 'Zero ad costs!',
                 scrollText1: 'How?',
@@ -569,8 +540,7 @@
                 loginBtn: 'Sign In ⟶'
             },
             de: {
-                flag: '🇩🇪',
-                name: 'DE',
+                flag: '🇩🇪', name: 'DE',
                 heading1: 'Bewerben Sie Ihre Sachen kostenlos',
                 desc1: 'Null Werbekosten!',
                 scrollText1: 'Wie geht das?',
@@ -585,8 +555,7 @@
                 loginBtn: 'Anmelden ⟶'
             },
             fr: {
-                flag: '🇫🇷',
-                name: 'FR',
+                flag: '🇫🇷', name: 'FR',
                 heading1: 'Faites votre promo sans payer un centime',
                 desc1: 'Zéro frais de pub !',
                 scrollText1: 'Comment ça ?',
@@ -601,8 +570,7 @@
                 loginBtn: 'Se connecter ⟶'
             },
             es: {
-                flag: '🇪🇸',
-                name: 'ES',
+                flag: '🇪🇸', name: 'ES',
                 heading1: 'Promociona tus cosas sin gastar ni un euro',
                 desc1: '¡Cero costes de publicidad!',
                 scrollText1: '¿Cómo?',
@@ -617,8 +585,7 @@
                 loginBtn: 'Iniciar sesión ⟶'
             },
             it: {
-                flag: '🇮🇹',
-                name: 'IT',
+                flag: '🇮🇹', name: 'IT',
                 heading1: 'Promuovi le tue cose senza spendere nulla',
                 desc1: 'Zero costi pubblicitari!',
                 scrollText1: 'Come?',
@@ -633,8 +600,7 @@
                 loginBtn: 'Accedi ⟶'
             },
             pt: {
-                flag: '🇵🇹',
-                name: 'PT',
+                flag: '🇵🇹', name: 'PT',
                 heading1: 'Promova suas coisas sem gastar nada',
                 desc1: 'Zero custos de publicidade!',
                 scrollText1: 'Como?',
@@ -649,8 +615,7 @@
                 loginBtn: 'Entrar ⟶'
             },
             ru: {
-                flag: '🇷🇺',
-                name: 'RU',
+                flag: '🇷🇺', name: 'RU',
                 heading1: 'Продвигайте свой товар бесплатно',
                 desc1: 'Никакой платы за рекламу!',
                 scrollText1: 'Как это?',
@@ -665,8 +630,7 @@
                 loginBtn: 'Войти ⟶'
             },
             ja: {
-                flag: '🇯🇵',
-                name: 'JA',
+                flag: '🇯🇵', name: 'JA',
                 heading1: '無料でビジネスをPRできます',
                 desc1: '広告費ゼロ！',
                 scrollText1: 'どうやって？',
@@ -681,8 +645,7 @@
                 loginBtn: 'ログイン ⟶'
             },
             zh: {
-                flag: '🇨🇳',
-                name: 'ZH',
+                flag: '🇨🇳', name: 'ZH',
                 heading1: '免费推广您的产品和服务',
                 desc1: '零广告费！',
                 scrollText1: '怎么做？',
@@ -696,9 +659,53 @@
                 desc4: '用Soy.ad发展您的业务！',
                 loginBtn: '登录 ⟶'
             },
+            yue: {
+                flag: '🇭🇰', name: 'YUE',
+                heading1: '免費宣傳你嘅產品',
+                desc1: '零廣告費！',
+                scrollText1: '點做？',
+                heading2: 'Story換Story',
+                desc2: '你一個story，我一個story - 互相宣傳搵新客',
+                scrollText2: '繼續',
+                heading3: '我哋幫你搵partner!',
+                desc3: '為你嘅fans整靚嘢，同肯share嘅account connect。互相撐場，自然增長...',
+                scrollText3: '最後一步',
+                heading4: '即刻開始',
+                desc4: '用Soy.ad做大你盤生意！',
+                loginBtn: '登入 ⟶'
+            },
+            tw: {
+                flag: '🇹🇼', name: 'TW',
+                heading1: '免費推廣您的產品和服務',
+                desc1: '零廣告費！',
+                scrollText1: '怎麼做？',
+                heading2: '故事互換',
+                desc2: '你發我的，我發你的 - 透過互相推廣獲得新客戶',
+                scrollText2: '繼續',
+                heading3: '我們幫您找合作夥伴！',
+                desc3: '為您的受眾創建優質內容，與願意分享的帳號建立聯繫。相互支持，自然成長...',
+                scrollText3: '最後一步',
+                heading4: '立即開始',
+                desc4: '用Soy.ad發展您的事業！',
+                loginBtn: '登入 ⟶'
+            },
+            wuu: {
+                flag: '🇨🇳', name: 'WUU',
+                heading1: '免费推广侬个物事',
+                desc1: '广告费一分钿呒没！',
+                scrollText1: '哪能做？',
+                heading2: '故事交换',
+                desc2: '侬一只故事，我一只故事 - 互相推广寻新客户',
+                scrollText2: '下底',
+                heading3: '阿拉帮侬寻合作伙伴！',
+                desc3: '为侬个观众做好内容，搭准备分享个账号连接。互相支持，自然增长...',
+                scrollText3: '最后一步',
+                heading4: '现在开始',
+                desc4: '用Soy.ad发展侬个生意！',
+                loginBtn: '登录 ⟶'
+            },
             ar: {
-                flag: '🇸🇦',
-                name: 'AR',
+                flag: '🇸🇦', name: 'AR',
                 heading1: 'روج لمنتجاتك مجاناً',
                 desc1: 'بدون تكاليف إعلانات!',
                 scrollText1: 'كيف؟',
@@ -713,8 +720,7 @@
                 loginBtn: 'تسجيل الدخول ⟶'
             },
             hi: {
-                flag: '🇮🇳',
-                name: 'HI',
+                flag: '🇮🇳', name: 'HI',
                 heading1: 'अपना सामान मुफ्त में प्रमोट करें',
                 desc1: 'शून्य विज्ञापन लागत!',
                 scrollText1: 'कैसे?',
@@ -729,8 +735,7 @@
                 loginBtn: 'साइन इन ⟶'
             },
             ko: {
-                flag: '🇰🇷',
-                name: 'KO',
+                flag: '🇰🇷', name: 'KO',
                 heading1: '무료로 홍보하세요',
                 desc1: '광고비 제로!',
                 scrollText1: '어떻게?',
@@ -745,8 +750,7 @@
                 loginBtn: '로그인 ⟶'
             },
             nl: {
-                flag: '🇳🇱',
-                name: 'NL',
+                flag: '🇳🇱', name: 'NL',
                 heading1: 'Promoot je spullen gratis',
                 desc1: 'Nul advertentiekosten!',
                 scrollText1: 'Hoe dan?',
@@ -761,8 +765,7 @@
                 loginBtn: 'Inloggen ⟶'
             },
             pl: {
-                flag: '🇵🇱',
-                name: 'PL',
+                flag: '🇵🇱', name: 'PL',
                 heading1: 'Promuj swoje rzeczy za darmo',
                 desc1: 'Zero kosztów reklamy!',
                 scrollText1: 'Jak?',
@@ -777,8 +780,7 @@
                 loginBtn: 'Zaloguj się ⟶'
             },
             sv: {
-                flag: '🇸🇪',
-                name: 'SV',
+                flag: '🇸🇪', name: 'SV',
                 heading1: 'Marknadsför dina grejer gratis',
                 desc1: 'Noll annonskostnader!',
                 scrollText1: 'Hur?',
@@ -793,8 +795,7 @@
                 loginBtn: 'Logga in ⟶'
             },
             no: {
-                flag: '🇳🇴',
-                name: 'NO',
+                flag: '🇳🇴', name: 'NO',
                 heading1: 'Promoter greia dine gratis',
                 desc1: 'Null annonsekostnader!',
                 scrollText1: 'Hvordan?',
@@ -809,8 +810,7 @@
                 loginBtn: 'Logg inn ⟶'
             },
             da: {
-                flag: '🇩🇰',
-                name: 'DA',
+                flag: '🇩🇰', name: 'DA',
                 heading1: 'Promover dine ting gratis',
                 desc1: 'Nul reklameomkostninger!',
                 scrollText1: 'Hvordan?',
@@ -825,8 +825,7 @@
                 loginBtn: 'Log ind ⟶'
             },
             fi: {
-                flag: '🇫🇮',
-                name: 'FI',
+                flag: '🇫🇮', name: 'FI',
                 heading1: 'Mainosta kamojasi ilmaiseksi',
                 desc1: 'Nolla mainoskustannuksia!',
                 scrollText1: 'Miten?',
@@ -841,8 +840,7 @@
                 loginBtn: 'Kirjaudu ⟶'
             },
             cs: {
-                flag: '🇨🇿',
-                name: 'CS',
+                flag: '🇨🇿', name: 'CS',
                 heading1: 'Propagujte své věci zadarmo',
                 desc1: 'Žádné náklady na reklamu!',
                 scrollText1: 'Jak?',
@@ -857,8 +855,7 @@
                 loginBtn: 'Přihlásit se ⟶'
             },
             uk: {
-                flag: '🇺🇦',
-                name: 'UK',
+                flag: '🇺🇦', name: 'UK',
                 heading1: 'Просувайте свій товар безкоштовно',
                 desc1: 'Нуль витрат на рекламу!',
                 scrollText1: 'Як?',
@@ -873,8 +870,7 @@
                 loginBtn: 'Увійти ⟶'
             },
             ro: {
-                flag: '🇷🇴',
-                name: 'RO',
+                flag: '🇷🇴', name: 'RO',
                 heading1: 'Promovează-ți lucrurile gratis',
                 desc1: 'Zero costuri de publicitate!',
                 scrollText1: 'Cum?',
@@ -889,8 +885,7 @@
                 loginBtn: 'Conectare ⟶'
             },
             el: {
-                flag: '🇬🇷',
-                name: 'EL',
+                flag: '🇬🇷', name: 'EL',
                 heading1: 'Προωθήστε τα πράγματά σας δωρεάν',
                 desc1: 'Μηδέν κόστος διαφήμισης!',
                 scrollText1: 'Πώς;',
@@ -905,8 +900,7 @@
                 loginBtn: 'Σύνδεση ⟶'
             },
             hu: {
-                flag: '🇭🇺',
-                name: 'HU',
+                flag: '🇭🇺', name: 'HU',
                 heading1: 'Hirdess ingyen',
                 desc1: 'Nulla hirdetési költség!',
                 scrollText1: 'Hogyan?',
@@ -921,8 +915,7 @@
                 loginBtn: 'Bejelentkezés ⟶'
             },
             th: {
-                flag: '🇹🇭',
-                name: 'TH',
+                flag: '🇹🇭', name: 'TH',
                 heading1: 'โปรโมตฟรี ไม่ต้องจ่าย',
                 desc1: 'ค่าโฆษณาเป็นศูนย์!',
                 scrollText1: 'ยังไง?',
@@ -937,8 +930,7 @@
                 loginBtn: 'เข้าสู่ระบบ ⟶'
             },
             vi: {
-                flag: '🇻🇳',
-                name: 'VI',
+                flag: '🇻🇳', name: 'VI',
                 heading1: 'Quảng bá miễn phí',
                 desc1: 'Không tốn tiền quảng cáo!',
                 scrollText1: 'Làm sao?',
@@ -953,8 +945,7 @@
                 loginBtn: 'Đăng nhập ⟶'
             },
             id: {
-                flag: '🇮🇩',
-                name: 'ID',
+                flag: '🇮🇩', name: 'ID',
                 heading1: 'Promosikan gratis tanpa bayar',
                 desc1: 'Biaya iklan nol!',
                 scrollText1: 'Gimana?',
@@ -969,8 +960,7 @@
                 loginBtn: 'Masuk ⟶'
             },
             ms: {
-                flag: '🇲🇾',
-                name: 'MS',
+                flag: '🇲🇾', name: 'MS',
                 heading1: 'Promosi percuma tanpa bayar',
                 desc1: 'Kos iklan sifar!',
                 scrollText1: 'Macam mana?',
@@ -985,8 +975,7 @@
                 loginBtn: 'Log masuk ⟶'
             },
             bn: {
-                flag: '🇧🇩',
-                name: 'BN',
+                flag: '🇧🇩', name: 'BN',
                 heading1: 'ফ্রি প্রচার করুন',
                 desc1: 'বিজ্ঞাপন খরচ শূন্য!',
                 scrollText1: 'কিভাবে?',
@@ -1001,8 +990,7 @@
                 loginBtn: 'সাইন ইন ⟶'
             },
             tl: {
-                flag: '🇵🇭',
-                name: 'TL',
+                flag: '🇵🇭', name: 'TL',
                 heading1: 'Mag-promote ng libre',
                 desc1: 'Walang bayad sa ads!',
                 scrollText1: 'Paano?',
@@ -1017,8 +1005,7 @@
                 loginBtn: 'Mag-sign in ⟶'
             },
             hr: {
-                flag: '🇭🇷',
-                name: 'HR',
+                flag: '🇭🇷', name: 'HR',
                 heading1: 'Promovirajte besplatno',
                 desc1: 'Nula troškova oglašavanja!',
                 scrollText1: 'Kako?',
@@ -1033,8 +1020,7 @@
                 loginBtn: 'Prijava ⟶'
             },
             he: {
-                flag: '🇮🇱',
-                name: 'HE',
+                flag: '🇮🇱', name: 'HE',
                 heading1: 'קדמו את העסק שלכם בחינם',
                 desc1: 'אפס עלויות פרסום!',
                 scrollText1: 'איך?',
@@ -1049,8 +1035,7 @@
                 loginBtn: 'התחברו ⟶'
             },
             fa: {
-                flag: '🇮🇷',
-                name: 'FA',
+                flag: '🇮🇷', name: 'FA',
                 heading1: 'کسب‌وکارتون رو رایگان تبلیغ کنید',
                 desc1: 'هزینه تبلیغات صفر!',
                 scrollText1: 'چطوری؟',
@@ -1065,8 +1050,7 @@
                 loginBtn: 'ورود ⟶'
             },
             ca: {
-                flag: '🇪🇸',
-                name: 'CA',
+                flag: '🇪🇸', name: 'CA',
                 heading1: 'Promociona les teves coses gratis',
                 desc1: 'Zero costos de publicitat!',
                 scrollText1: 'Com?',
@@ -1081,8 +1065,7 @@
                 loginBtn: 'Inicia sessió ⟶'
             },
             sk: {
-                flag: '🇸🇰',
-                name: 'SK',
+                flag: '🇸🇰', name: 'SK',
                 heading1: 'Propagujte svoje veci zadarmo',
                 desc1: 'Žiadne náklady na reklamu!',
                 scrollText1: 'Ako?',
@@ -1090,15 +1073,14 @@
                 desc2: 'Story od teba, story odo mňa - oslovte nových zákazníkov vzájomnou propagáciou',
                 scrollText2: 'Ďalej',
                 heading3: 'Nájdeme vám partnerov!',
-                desc3: 'Vytvárajte skvelý obsah pre svoje publikum a spojte sa s účtami pripravenými zdieľať. Podporujte sa navzájom a rástite prirodzene...',
+                desc3: 'Vytvárajte skvelý obsah pre svoje publikum a spojte sa s účtami pripravenými zdieľať. Podporujte sa navzájem a rástite prirodzene...',
                 scrollText3: 'Posledný krok',
                 heading4: 'Začnite Teraz',
                 desc4: 'Rozviňte svoj biznis s Soy.ad!',
                 loginBtn: 'Prihlásiť sa ⟶'
             },
             ur: {
-                flag: '🇵🇰',
-                name: 'UR',
+                flag: '🇵🇰', name: 'UR',
                 heading1: 'اپنا سامان مفت میں پروموٹ کریں',
                 desc1: 'اشتہار کی لاگت صفر!',
                 scrollText1: 'کیسے؟',
@@ -1112,790 +1094,83 @@
                 desc4: 'Soy.ad کے ساتھ اپنا کاروبار بڑھائیں!',
                 loginBtn: 'سائن ان ⟶'
             },
-            hak: {
-                flag: '🇨🇳',
-                name: 'HAK',
-                heading1: '免費宣傳你嘅嘢',
-                desc1: '零廣告費!',
-                scrollText1: '點樣?',
-                heading2: '故事交換',
-                desc2: '你一個故事，我一個故事 - 互相宣傳搵新客',
-                scrollText2: '繼續',
-                heading3: '我哋幫你搵合作夥伴!',
-                desc3: '為你嘅觀眾整好嘢，同準備分享嘅帳號連繫。互相支持，自然增長...',
-                scrollText3: '最後一步',
-                heading4: '即刻開始',
-                desc4: '用Soy.ad發展你嘅生意!',
-                loginBtn: '登入 ⟶'
-            },
-            arz: {
-                flag: '🇪🇬',
-                name: 'ARZ',
-                heading1: 'سوّق حاجتك ببلاش',
-                desc1: 'مفيش فلوس إعلانات خالص!',
-                scrollText1: 'إزاي؟',
-                heading2: 'بدّل الستوريز',
-                desc2: 'ستوري منك، ستوري مني - وصّل لزباين جداد بالترويج المتبادل',
-                scrollText2: 'كمّل',
-                heading3: 'احنا هنلاقيلك شركا!',
-                desc3: 'اعمل محتوى جامد لجمهورك واتواصل مع حسابات جاهزة تشير. ساندوا بعض واكبروا طبيعي...',
-                scrollText3: 'آخر خطوة',
-                heading4: 'ابدأ دلوقتي',
-                desc4: 'كبّر بيزنسك مع Soy.ad!',
-                loginBtn: 'دخول ⟶'
-            },
-            wuu: {
-                flag: '🇨🇳',
-                name: 'WUU',
-                heading1: '免费推广侬个物事',
-                desc1: '广告费一分钿呒没!',
-                scrollText1: '哪能?',
-                heading2: '故事交换',
-                desc2: '侬一只故事，我一只故事 - 互相推广寻新客户',
-                scrollText2: '下去',
-                heading3: '阿拉帮侬寻合作伙伴!',
-                desc3: '为侬个观众做好内容，搭准备分享个账号连接。互相支持，自然增长...',
-                scrollText3: '最后一步',
-                heading4: '现在开始',
-                desc4: '用Soy.ad发展侬个生意!',
-                loginBtn: '登录 ⟶'
-            },
-            yue: {
-                flag: '🇭🇰',
-                name: 'YUE',
-                heading1: '免費sell嘢',
-                desc1: '零廣告費!',
-                scrollText1: '點做?',
-                heading2: 'Story換Story',
-                desc2: '你一個story，我一個story - 互相宣傳搵新客',
-                scrollText2: '繼續',
-                heading3: '我哋幫你搵partner!',
-                desc3: '為你嘅fans整正嘢，同肯share嘅account connect。互相撐腰，自然growth...',
-                scrollText3: '最後一步',
-                heading4: '即刻開波',
-                desc4: '用Soy.ad搞大盤生意!',
-                loginBtn: '登入 ⟶'
-            }
-        };
-
-        // Initialize everything when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get saved language or detect from browser
-            let currentLang = localStorage.getItem('soyad-lang');
-            if (!currentLang || !translations[currentLang]) {
-                const browserLang = navigator.language.toLowerCase();
-                currentLang = 'tr'; // default
-                for (const code in translations) {
-                    if (browserLang.startsWith(code)) {
-                        currentLang = code;
-                        break;
-                    }
-                }
-            }
-
-            // Function to update all text
-            function updateLanguage(lang) {
-                const t = translations[lang];
-                if (!t) return;
-
-                document.getElementById('heading1').textContent = t.heading1;
-                document.getElementById('desc1').textContent = t.desc1;
-                document.getElementById('scrollText1').textContent = t.scrollText1;
-                document.getElementById('heading2').textContent = t.heading2;
-                document.getElementById('desc2').textContent = t.desc2;
-                document.getElementById('scrollText2').textContent = t.scrollText2;
-                document.getElementById('heading3').textContent = t.heading3;
-                document.getElementById('desc3').textContent = t.desc3;
-                document.getElementById('scrollText3').textContent = t.scrollText3;
-                document.getElementById('heading4').textContent = t.heading4;
-                document.getElementById('desc4').textContent = t.desc4;
-                document.getElementById('loginBtn').textContent = t.loginBtn;
-                document.getElementById('langFlag').textContent = t.flag;
-                document.getElementById('langName').textContent = t.name;
-                
-                document.documentElement.lang = lang;
-                localStorage.setItem('soyad-lang', lang);
-            }
-
-            // Create language dropdown items
-            const langList = document.getElementById('langList');
-            for (const [code, lang] of Object.entries(translations)) {
-                const item = document.createElement('div');
-                item.className = 'lang-item';
-                item.innerHTML = `<span>${lang.flag}</span><span>${lang.name}</span>`;
-                item.onclick = function() {
-                    updateLanguage(code);
-                    langList.classList.remove('show');
-                    // Update active state
-                    document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('active'));
-                    item.classList.add('active');
-                };
-                if (code === currentLang) {
-                    item.classList.add('active');
-                }
-                langList.appendChild(item);
-            }
-
-            // Add click event to language button
-            document.getElementById('langBtn').onclick = function(e) {
-                e.stopPropagation();
-                langList.classList.toggle('show');
-            };
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function() {
-                langList.classList.remove('show');
-            });
-
-            // Set initial language
-            updateLanguage(currentLang);
-        });
-    </script>
-</body>
-</html>
-            tr: {
-                flag: '🇹🇷',
-                name: 'TR',
-                heading1: 'Sattığınız ürün veya hizmeti ücret ödemeden tanıtabilirsiniz',
-                desc1: 'Reklam ücreti yok !',
-                scrollText1: 'Nasıl mı?',
-                heading2: 'Story Takası Yaparak',
-                desc2: 'Bir story sizden, bir story benden - karşılıklı tanıtım yöntemiyle yeni müşterilere ulaşın',
-                scrollText2: 'Devamı',
-                heading3: 'İşbirlikçi hesapları bulmak bizde !',
-                desc3: 'Hedef kitlenize uygun kaliteli içerikler üretin ve paylaşım desteği verecek hesaplarla bu platformda tanışın. Karşılıklı destek verin ve organik büyüme yolunda ilerleyin...',
-                scrollText3: 'Son adım',
-                heading4: 'Başlayın',
-                desc4: 'Soy.ad sayesinde işlerinizi büyütün !',
-                loginBtn: 'Giriş Yap ⟶'
-            },
-            en: {
-                flag: '🇬🇧',
-                name: 'EN',
-                heading1: 'Promote your stuff without spending a dime',
-                desc1: 'Zero ad costs!',
-                scrollText1: 'How?',
-                heading2: 'Story for Story',
-                desc2: 'You share mine, I share yours - reach new customers through mutual promotion',
-                scrollText2: 'Next',
-                heading3: 'We match you with partners!',
-                desc3: 'Create killer content for your audience and connect with accounts ready to cross-promote. Support each other and grow naturally...',
-                scrollText3: 'Final step',
-                heading4: 'Get Started',
-                desc4: 'Grow your business with Soy.ad!',
-                loginBtn: 'Sign In ⟶'
-            },
-            de: {
-                flag: '🇩🇪',
-                name: 'DE',
-                heading1: 'Bewerben Sie Ihre Sachen kostenlos',
-                desc1: 'Null Werbekosten!',
-                scrollText1: 'Wie geht das?',
-                heading2: 'Story-Tausch',
-                desc2: 'Eine Story von dir, eine von mir - neue Kunden durch gegenseitige Werbung erreichen',
-                scrollText2: 'Weiter',
-                heading3: 'Wir finden passende Partner für dich!',
-                desc3: 'Erstelle geilen Content für deine Zielgruppe und vernetze dich mit Accounts, die bereit für Cross-Promotion sind. Unterstützt euch gegenseitig und wachst organisch...',
-                scrollText3: 'Letzter Schritt',
-                heading4: 'Los geht\'s',
-                desc4: 'Lass dein Business mit Soy.ad wachsen!',
-                loginBtn: 'Anmelden ⟶'
-            },
-            fr: {
-                flag: '🇫🇷',
-                name: 'FR',
-                heading1: 'Faites votre promo sans payer un centime',
-                desc1: 'Zéro frais de pub !',
-                scrollText1: 'Comment ça ?',
-                heading2: 'Échange de Stories',
-                desc2: 'Une story de toi, une de moi - atteignez de nouveaux clients grâce à la promo mutuelle',
-                scrollText2: 'Suite',
-                heading3: 'On trouve vos partenaires !',
-                desc3: 'Créez du contenu de qualité pour votre audience et connectez-vous avec des comptes prêts à partager. Soutenez-vous mutuellement et grandissez naturellement...',
-                scrollText3: 'Dernière étape',
-                heading4: 'C\'est parti',
-                desc4: 'Développez votre business avec Soy.ad !',
-                loginBtn: 'Se connecter ⟶'
-            },
-            es: {
-                flag: '🇪🇸',
-                name: 'ES',
-                heading1: 'Promociona tus cosas sin gastar ni un euro',
-                desc1: '¡Cero costes de publicidad!',
-                scrollText1: '¿Cómo?',
-                heading2: 'Intercambio de Stories',
-                desc2: 'Tú compartes lo mío, yo comparto lo tuyo - llega a nuevos clientes con promoción mutua',
-                scrollText2: 'Siguiente',
-                heading3: '¡Encontramos tus socios perfectos!',
-                desc3: 'Crea contenido brutal para tu audiencia y conecta con cuentas listas para compartir. Apoyaos mutuamente y creced de forma orgánica...',
-                scrollText3: 'Último paso',
-                heading4: 'Empieza Ya',
-                desc4: '¡Haz crecer tu negocio con Soy.ad!',
-                loginBtn: 'Iniciar sesión ⟶'
-            },
-            it: {
-                flag: '🇮🇹',
-                name: 'IT',
-                heading1: 'Promuovi le tue cose senza spendere nulla',
-                desc1: 'Zero costi pubblicitari!',
-                scrollText1: 'Come?',
-                heading2: 'Scambio di Stories',
-                desc2: 'Una story tua, una mia - raggiungi nuovi clienti con la promozione reciproca',
-                scrollText2: 'Avanti',
-                heading3: 'Troviamo noi i tuoi partner!',
-                desc3: 'Crea contenuti fantastici per il tuo pubblico e connettiti con account pronti a condividere. Supportatevi a vicenda e crescete in modo naturale...',
-                scrollText3: 'Ultimo passo',
-                heading4: 'Inizia Ora',
-                desc4: 'Fai crescere il tuo business con Soy.ad!',
-                loginBtn: 'Accedi ⟶'
-            },
-            pt: {
-                flag: '🇵🇹',
-                name: 'PT',
-                heading1: 'Promova suas coisas sem gastar nada',
-                desc1: 'Zero custos de publicidade!',
-                scrollText1: 'Como?',
-                heading2: 'Troca de Stories',
-                desc2: 'Um story seu, um meu - alcance novos clientes com promoção mútua',
-                scrollText2: 'Próximo',
-                heading3: 'Encontramos seus parceiros!',
-                desc3: 'Crie conteúdo incrível para seu público e conecte-se com contas prontas para compartilhar. Apoiem-se mutuamente e cresçam naturalmente...',
-                scrollText3: 'Último passo',
-                heading4: 'Comece Agora',
-                desc4: 'Faça seu negócio crescer com Soy.ad!',
-                loginBtn: 'Entrar ⟶'
-            },
-            ru: {
-                flag: '🇷🇺',
-                name: 'RU',
-                heading1: 'Продвигайте свой товар бесплатно',
-                desc1: 'Никакой платы за рекламу!',
-                scrollText1: 'Как это?',
-                heading2: 'Обмен историями',
-                desc2: 'История от тебя, история от меня - находите новых клиентов через взаимную рекламу',
-                scrollText2: 'Дальше',
-                heading3: 'Мы найдём вам партнёров!',
-                desc3: 'Создавайте крутой контент для своей аудитории и знакомьтесь с аккаунтами, готовыми к взаимному продвижению. Поддерживайте друг друга и растите органически...',
-                scrollText3: 'Последний шаг',
-                heading4: 'Начните сейчас',
-                desc4: 'Развивайте свой бизнес с Soy.ad!',
-                loginBtn: 'Войти ⟶'
-            },
-            ja: {
-                flag: '🇯🇵',
-                name: 'JA',
-                heading1: '無料でビジネスをPRできます',
-                desc1: '広告費ゼロ！',
-                scrollText1: 'どうやって？',
-                heading2: 'ストーリー交換',
-                desc2: 'あなたのストーリー、私のストーリー - 相互プロモーションで新規顧客にリーチ',
-                scrollText2: '次へ',
-                heading3: 'パートナーマッチングはお任せ！',
-                desc3: 'ターゲットに響くコンテンツを作成し、シェアし合えるアカウントとつながろう。お互いをサポートして自然に成長...',
-                scrollText3: '最後のステップ',
-                heading4: '今すぐ始める',
-                desc4: 'Soy.adでビジネスを成長させよう！',
-                loginBtn: 'ログイン ⟶'
-            },
-            zh: {
-                flag: '🇨🇳',
-                name: 'ZH',
-                heading1: '免费推广您的产品和服务',
-                desc1: '零广告费！',
-                scrollText1: '怎么做？',
-                heading2: '故事互换',
-                desc2: '你发我的，我发你的 - 通过互相推广获得新客户',
-                scrollText2: '继续',
-                heading3: '我们帮您找合作伙伴！',
-                desc3: '为您的受众创建优质内容，与愿意分享的账号建立联系。相互支持，自然增长...',
-                scrollText3: '最后一步',
-                heading4: '立即开始',
-                desc4: '用Soy.ad发展您的业务！',
-                loginBtn: '登录 ⟶'
-            },
-            ar: {
-                flag: '🇸🇦',
-                name: 'AR',
-                heading1: 'روج لمنتجاتك مجاناً',
-                desc1: 'بدون تكاليف إعلانات!',
-                scrollText1: 'كيف؟',
-                heading2: 'تبادل القصص',
-                desc2: 'قصة منك وقصة مني - اوصل لعملاء جدد بالترويج المتبادل',
-                scrollText2: 'التالي',
-                heading3: 'نجد لك الشركاء المناسبين!',
-                desc3: 'اصنع محتوى رائع لجمهورك واتصل مع حسابات جاهزة للمشاركة. ادعموا بعضكم وانموا بشكل طبيعي...',
-                scrollText3: 'آخر خطوة',
-                heading4: 'ابدأ الآن',
-                desc4: 'نمِّ أعمالك مع Soy.ad!',
-                loginBtn: 'تسجيل الدخول ⟶'
-            },
-            hi: {
-                flag: '🇮🇳',
-                name: 'HI',
-                heading1: 'अपना सामान मुफ्त में प्रमोट करें',
-                desc1: 'शून्य विज्ञापन लागत!',
-                scrollText1: 'कैसे?',
-                heading2: 'स्टोरी एक्सचेंज',
-                desc2: 'एक स्टोरी आपकी, एक मेरी - आपसी प्रचार से नए ग्राहक पाएं',
-                scrollText2: 'आगे',
-                heading3: 'हम आपके पार्टनर ढूंढते हैं!',
-                desc3: 'अपने दर्शकों के लिए शानदार कंटेंट बनाएं और शेयर करने को तैयार अकाउंट्स से जुड़ें। एक-दूसरे का समर्थन करें और स्वाभाविक रूप से बढ़ें...',
-                scrollText3: 'अंतिम चरण',
-                heading4: 'शुरू करें',
-                desc4: 'Soy.ad के साथ अपना बिज़नेस बढ़ाएं!',
-                loginBtn: 'साइन इन ⟶'
-            },
-            ko: {
-                flag: '🇰🇷',
-                name: 'KO',
-                heading1: '무료로 홍보하세요',
-                desc1: '광고비 제로!',
-                scrollText1: '어떻게?',
-                heading2: '스토리 교환',
-                desc2: '너의 스토리, 나의 스토리 - 상호 홍보로 신규 고객 확보',
-                scrollText2: '다음',
-                heading3: '파트너 매칭은 저희가!',
-                desc3: '타겟에 맞는 킬러 콘텐츠를 만들고 공유할 준비가 된 계정들과 연결하세요. 서로 서포트하고 자연스럽게 성장하세요...',
-                scrollText3: '마지막 단계',
-                heading4: '지금 시작',
-                desc4: 'Soy.ad로 비즈니스를 키우세요!',
-                loginBtn: '로그인 ⟶'
-            },
-            nl: {
-                flag: '🇳🇱',
-                name: 'NL',
-                heading1: 'Promoot je spullen gratis',
-                desc1: 'Nul advertentiekosten!',
-                scrollText1: 'Hoe dan?',
-                heading2: 'Story-ruil',
-                desc2: 'Jij deelt die van mij, ik deel die van jou - bereik nieuwe klanten door wederzijdse promotie',
-                scrollText2: 'Verder',
-                heading3: 'Wij vinden jouw partners!',
-                desc3: 'Maak geweldige content voor je publiek en connect met accounts die klaar zijn om te delen. Steun elkaar en groei organisch...',
-                scrollText3: 'Laatste stap',
-                heading4: 'Start Nu',
-                desc4: 'Laat je business groeien met Soy.ad!',
-                loginBtn: 'Inloggen ⟶'
-            },
-            pl: {
-                flag: '🇵🇱',
-                name: 'PL',
-                heading1: 'Promuj swoje rzeczy za darmo',
-                desc1: 'Zero kosztów reklamy!',
-                scrollText1: 'Jak?',
-                heading2: 'Wymiana Stories',
-                desc2: 'Story ode mnie, story od ciebie - docieraj do nowych klientów przez wzajemną promocję',
-                scrollText2: 'Dalej',
-                heading3: 'Znajdziemy ci partnerów!',
-                desc3: 'Twórz świetny content dla swojej publiczności i łącz się z kontami gotowymi do dzielenia się. Wspierajcie się nawzajem i rośnijcie organicznie...',
-                scrollText3: 'Ostatni krok',
-                heading4: 'Zacznij Teraz',
-                desc4: 'Rozwijaj swój biznes z Soy.ad!',
-                loginBtn: 'Zaloguj się ⟶'
-            },
-            sv: {
-                flag: '🇸🇪',
-                name: 'SV',
-                heading1: 'Marknadsför dina grejer gratis',
-                desc1: 'Noll annonskostnader!',
-                scrollText1: 'Hur?',
-                heading2: 'Story-byte',
-                desc2: 'En story från dig, en från mig - nå nya kunder genom ömsesidig marknadsföring',
-                scrollText2: 'Nästa',
-                heading3: 'Vi hittar dina partners!',
-                desc3: 'Skapa grym content för din målgrupp och koppla upp dig med konton redo att dela. Stötta varandra och väx organiskt...',
-                scrollText3: 'Sista steget',
-                heading4: 'Kör igång',
-                desc4: 'Få din business att växa med Soy.ad!',
-                loginBtn: 'Logga in ⟶'
-            },
-            no: {
-                flag: '🇳🇴',
-                name: 'NO',
-                heading1: 'Promoter greia dine gratis',
-                desc1: 'Null annonsekostnader!',
-                scrollText1: 'Hvordan?',
-                heading2: 'Story-bytte',
-                desc2: 'En story fra deg, en fra meg - nå nye kunder gjennom gjensidig markedsføring',
-                scrollText2: 'Videre',
-                heading3: 'Vi finner dine partnere!',
-                desc3: 'Lag dritbra innhold for publikummet ditt og koble deg med kontoer klare til å dele. Støtt hverandre og voks organisk...',
-                scrollText3: 'Siste steg',
-                heading4: 'Start Nå',
-                desc4: 'Få businessen din til å vokse med Soy.ad!',
-                loginBtn: 'Logg inn ⟶'
-            },
-            da: {
-                flag: '🇩🇰',
-                name: 'DA',
-                heading1: 'Promover dine ting gratis',
-                desc1: 'Nul reklameomkostninger!',
-                scrollText1: 'Hvordan?',
-                heading2: 'Story-bytte',
-                desc2: 'En story fra dig, en fra mig - nå nye kunder gennem gensidig promovering',
-                scrollText2: 'Næste',
-                heading3: 'Vi finder dine partnere!',
-                desc3: 'Lav fedt content til dit publikum og connect med konti klar til at dele. Støt hinanden og voks organisk...',
-                scrollText3: 'Sidste trin',
-                heading4: 'Start Nu',
-                desc4: 'Få din business til at vokse med Soy.ad!',
-                loginBtn: 'Log ind ⟶'
-            },
-            fi: {
-                flag: '🇫🇮',
-                name: 'FI',
-                heading1: 'Mainosta kamojasi ilmaiseksi',
-                desc1: 'Nolla mainoskustannuksia!',
-                scrollText1: 'Miten?',
-                heading2: 'Story-vaihto',
-                desc2: 'Story sulta, story multa - tavoita uusia asiakkaita keskinäisellä mainostamisella',
-                scrollText2: 'Seuraava',
-                heading3: 'Me löydämme kumppanisi!',
-                desc3: 'Luo mahtavaa sisältöä yleisöllesi ja verkostoidu jakamisvalmiiden tilien kanssa. Tukekaa toisianne ja kasvakaa orgaanisesti...',
-                scrollText3: 'Viimeinen askel',
-                heading4: 'Aloita Nyt',
-                desc4: 'Kasvata bisnestäsi Soy.ad:n avulla!',
-                loginBtn: 'Kirjaudu ⟶'
-            },
-            cs: {
-                flag: '🇨🇿',
-                name: 'CS',
-                heading1: 'Propagujte své věci zadarmo',
-                desc1: 'Žádné náklady na reklamu!',
-                scrollText1: 'Jak?',
-                heading2: 'Výměna Stories',
-                desc2: 'Story od tebe, story ode mě - oslovte nové zákazníky vzájemnou propagací',
-                scrollText2: 'Dále',
-                heading3: 'Najdeme vám partnery!',
-                desc3: 'Vytvářejte skvělý obsah pro své publikum a spojte se s účty připravenými sdílet. Podporujte se navzájem a rostěte přirozeně...',
-                scrollText3: 'Poslední krok',
-                heading4: 'Začněte Teď',
-                desc4: 'Rozviňte svůj byznys s Soy.ad!',
-                loginBtn: 'Přihlásit se ⟶'
-            },
-            uk: {
-                flag: '🇺🇦',
-                name: 'UK',
-                heading1: 'Просувайте свій товар безкоштовно',
-                desc1: 'Нуль витрат на рекламу!',
-                scrollText1: 'Як?',
-                heading2: 'Обмін сторіз',
-                desc2: 'Сторіз від тебе, сторіз від мене - знаходьте нових клієнтів через взаємну рекламу',
-                scrollText2: 'Далі',
-                heading3: 'Ми знайдемо вам партнерів!',
-                desc3: 'Створюйте крутий контент для своєї аудиторії та знайомтеся з акаунтами, готовими ділитися. Підтримуйте один одного та ростіть органічно...',
-                scrollText3: 'Останній крок',
-                heading4: 'Почніть зараз',
-                desc4: 'Розвивайте свій бізнес з Soy.ad!',
-                loginBtn: 'Увійти ⟶'
-            },
-            ro: {
-                flag: '🇷🇴',
-                name: 'RO',
-                heading1: 'Promovează-ți lucrurile gratis',
-                desc1: 'Zero costuri de publicitate!',
-                scrollText1: 'Cum?',
-                heading2: 'Schimb de Stories',
-                desc2: 'O poveste de la tine, una de la mine - ajungi la clienți noi prin promovare mutuală',
-                scrollText2: 'Înainte',
-                heading3: 'Găsim noi partenerii tăi!',
-                desc3: 'Creează conținut tare pentru audiența ta și conectează-te cu conturi gata să împărtășească. Susțineți-vă reciproc și creșteți organic...',
-                scrollText3: 'Ultimul pas',
-                heading4: 'Începe Acum',
-                desc4: 'Crește-ți afacerea cu Soy.ad!',
-                loginBtn: 'Conectare ⟶'
-            },
-            el: {
-                flag: '🇬🇷',
-                name: 'EL',
-                heading1: 'Προωθήστε τα πράγματά σας δωρεάν',
-                desc1: 'Μηδέν κόστος διαφήμισης!',
-                scrollText1: 'Πώς;',
-                heading2: 'Ανταλλαγή Stories',
-                desc2: 'Ένα story από σένα, ένα από μένα - φτάστε σε νέους πελάτες με αμοιβαία προώθηση',
-                scrollText2: 'Επόμενο',
-                heading3: 'Βρίσκουμε εμείς τους συνεργάτες σου!',
-                desc3: 'Δημιούργησε φοβερό περιεχόμενο για το κοινό σου και συνδέσου με λογαριασμούς έτοιμους να μοιραστούν. Υποστηρίξτε ο ένας τον άλλον και αναπτυχθείτε οργανικά...',
-                scrollText3: 'Τελευταίο βήμα',
-                heading4: 'Ξεκίνα Τώρα',
-                desc4: 'Ανάπτυξε την επιχείρησή σου με το Soy.ad!',
-                loginBtn: 'Σύνδεση ⟶'
-            },
-            hu: {
-                flag: '🇭🇺',
-                name: 'HU',
-                heading1: 'Hirdess ingyen',
-                desc1: 'Nulla hirdetési költség!',
-                scrollText1: 'Hogyan?',
-                heading2: 'Story-csere',
-                desc2: 'Egy sztori tőled, egy tőlem - érj el új ügyfeleket kölcsönös promócióval',
-                scrollText2: 'Tovább',
-                heading3: 'Mi találjuk meg a partnereidet!',
-                desc3: 'Készíts király tartalmat a közönségednek és kapcsolódj össze megosztásra kész fiókokkal. Támogassátok egymást és növekedjetek organikusan...',
-                scrollText3: 'Utolsó lépés',
-                heading4: 'Kezdd El Most',
-                desc4: 'Növeld a vállalkozásod a Soy.ad-dal!',
-                loginBtn: 'Bejelentkezés ⟶'
-            },
-            th: {
-                flag: '🇹🇭',
-                name: 'TH',
-                heading1: 'โปรโมตฟรี ไม่ต้องจ่าย',
-                desc1: 'ค่าโฆษณาเป็นศูนย์!',
-                scrollText1: 'ยังไง?',
-                heading2: 'แลกสตอรี่',
-                desc2: 'สตอรี่จากคุณ สตอรี่จากเรา - เข้าถึงลูกค้าใหม่ด้วยการโปรโมตซึ่งกันและกัน',
-                scrollText2: 'ต่อไป',
-                heading3: 'เราหาพาร์ทเนอร์ให้คุณ!',
-                desc3: 'สร้างคอนเทนต์เจ๋งๆ สำหรับกลุ่มเป้าหมายของคุณและเชื่อมต่อกับบัญชีที่พร้อมแชร์ ช่วยเหลือซึ่งกันและกันและเติบโตแบบธรรมชาติ...',
-                scrollText3: 'ขั้นสุดท้าย',
-                heading4: 'เริ่มเลย',
-                desc4: 'ขยายธุรกิจของคุณด้วย Soy.ad!',
-                loginBtn: 'เข้าสู่ระบบ ⟶'
-            },
-            vi: {
-                flag: '🇻🇳',
-                name: 'VI',
-                heading1: 'Quảng bá miễn phí',
-                desc1: 'Không tốn tiền quảng cáo!',
-                scrollText1: 'Làm sao?',
-                heading2: 'Trao đổi Story',
-                desc2: 'Story của bạn, story của tôi - tiếp cận khách hàng mới qua quảng bá lẫn nhau',
-                scrollText2: 'Tiếp',
-                heading3: 'Chúng tôi tìm đối tác cho bạn!',
-                desc3: 'Tạo nội dung chất cho khán giả của bạn và kết nối với các tài khoản sẵn sàng chia sẻ. Hỗ trợ lẫn nhau và phát triển tự nhiên...',
-                scrollText3: 'Bước cuối',
-                heading4: 'Bắt Đầu Ngay',
-                desc4: 'Phát triển doanh nghiệp với Soy.ad!',
-                loginBtn: 'Đăng nhập ⟶'
-            },
-            id: {
-                flag: '🇮🇩',
-                name: 'ID',
-                heading1: 'Promosikan gratis tanpa bayar',
-                desc1: 'Biaya iklan nol!',
-                scrollText1: 'Gimana?',
-                heading2: 'Tukar Story',
-                desc2: 'Story dari kamu, story dari aku - jangkau customer baru lewat promosi bareng',
-                scrollText2: 'Lanjut',
-                heading3: 'Kita carikan partner buat kamu!',
-                desc3: 'Bikin konten keren buat audience kamu dan connect sama akun yang siap sharing. Saling support dan tumbuh natural...',
-                scrollText3: 'Step terakhir',
-                heading4: 'Mulai Sekarang',
-                desc4: 'Kembangkan bisnis kamu dengan Soy.ad!',
-                loginBtn: 'Masuk ⟶'
-            },
-            ms: {
-                flag: '🇲🇾',
-                name: 'MS',
-                heading1: 'Promosi percuma tanpa bayar',
-                desc1: 'Kos iklan sifar!',
-                scrollText1: 'Macam mana?',
-                heading2: 'Tukar Story',
-                desc2: 'Story dari awak, story dari saya - capai pelanggan baru melalui promosi bersama',
-                scrollText2: 'Seterusnya',
-                heading3: 'Kami cari partner untuk awak!',
-                desc3: 'Cipta content hebat untuk audience awak dan connect dengan akaun sedia berkongsi. Sokong sesama sendiri dan berkembang secara natural...',
-                scrollText3: 'Langkah akhir',
-                heading4: 'Mula Sekarang',
-                desc4: 'Kembangkan perniagaan awak dengan Soy.ad!',
-                loginBtn: 'Log masuk ⟶'
-            },
-            bn: {
-                flag: '🇧🇩',
-                name: 'BN',
-                heading1: 'ফ্রি প্রচার করুন',
-                desc1: 'বিজ্ঞাপন খরচ শূন্য!',
-                scrollText1: 'কিভাবে?',
-                heading2: 'স্টোরি বিনিময়',
-                desc2: 'আপনার একটি স্টোরি, আমার একটি - পারস্পরিক প্রচারের মাধ্যমে নতুন গ্রাহক পান',
-                scrollText2: 'পরবর্তী',
-                heading3: 'আমরা আপনার পার্টনার খুঁজি!',
-                desc3: 'আপনার দর্শকদের জন্য দুর্দান্ত কন্টেন্ট তৈরি করুন এবং শেয়ার করতে প্রস্তুত অ্যাকাউন্টগুলির সাথে সংযুক্ত হন। একে অপরকে সমর্থন করুন এবং স্বাভাবিকভাবে বৃদ্ধি পান...',
-                scrollText3: 'শেষ ধাপ',
-                heading4: 'এখনই শুরু করুন',
-                desc4: 'Soy.ad দিয়ে আপনার ব্যবসা বাড়ান!',
-                loginBtn: 'সাইন ইন ⟶'
-            },
-            tl: {
-                flag: '🇵🇭',
-                name: 'TL',
-                heading1: 'Mag-promote ng libre',
-                desc1: 'Walang bayad sa ads!',
-                scrollText1: 'Paano?',
-                heading2: 'Story Swap',
-                desc2: 'Story mo, story ko - maabot ang bagong customers sa mutual promotion',
-                scrollText2: 'Sunod',
-                heading3: 'Kami maghahanap ng partners mo!',
-                desc3: 'Gumawa ng astig na content para sa audience mo at mag-connect sa mga accounts na ready mag-share. Mag-supportan at lumaki nang natural...',
-                scrollText3: 'Last step',
-                heading4: 'Simulan Na',
-                desc4: 'Palakihin ang business mo with Soy.ad!',
-                loginBtn: 'Mag-sign in ⟶'
-            },
-            hr: {
-                flag: '🇭🇷',
-                name: 'HR',
-                heading1: 'Promovirajte besplatno',
+            sr: {
+                flag: '🇷🇸', name: 'SR',
+                heading1: 'Promoviši besplatno',
                 desc1: 'Nula troškova oglašavanja!',
                 scrollText1: 'Kako?',
-                heading2: 'Razmjena priča',
-                desc2: 'Priča od tebe, priča od mene - dosegnite nove kupce kroz međusobnu promociju',
+                heading2: 'Razmena priča',
+                desc2: 'Priča od tebe, priča od mene - dođite do novih kupaca kroz međusobnu promociju',
                 scrollText2: 'Dalje',
-                heading3: 'Mi pronalazimo vaše partnere!',
-                desc3: 'Stvorite odličan sadržaj za svoju publiku i povežite se s računima spremnim za dijeljenje. Podržite jedni druge i rastite organski...',
-                scrollText3: 'Zadnji korak',
+                heading3: 'Mi nalazimo vaše partnere!',
+                desc3: 'Napravite odličan sadržaj za vašu publiku i povežite se sa nalozima spremnim za deljenje. Podržavajte jedni druge i rastite organski...',
+                scrollText3: 'Poslednji korak',
                 heading4: 'Počnite Sada',
-                desc4: 'Razvijte svoj posao s Soy.ad!',
-                loginBtn: 'Prijava ⟶'
+                desc4: 'Razvijte svoj posao sa Soy.ad!',
+                loginBtn: 'Prijavite se ⟶'
             },
-            he: {
-                flag: '🇮🇱',
-                name: 'HE',
-                heading1: 'קדמו את העסק שלכם בחינם',
-                desc1: 'אפס עלויות פרסום!',
-                scrollText1: 'איך?',
-                heading2: 'החלפת סטוריז',
-                desc2: 'סטורי ממך, סטורי ממני - הגיעו ללקוחות חדשים דרך קידום הדדי',
-                scrollText2: 'הבא',
-                heading3: 'אנחנו נמצא לכם שותפים!',
-                desc3: 'צרו תוכן מעולה לקהל שלכם והתחברו עם חשבונות מוכנים לשתף. תמכו אחד בשני וצמחו באופן טבעי...',
-                scrollText3: 'צעד אחרון',
-                heading4: 'התחילו עכשיו',
-                desc4: 'הצמיחו את העסק שלכם עם Soy.ad!',
-                loginBtn: 'התחברו ⟶'
+            bg: {
+                flag: '🇧🇬', name: 'BG',
+                heading1: 'Популяризирайте безплатно',
+                desc1: 'Нулеви разходи за реклама!',
+                scrollText1: 'Как?',
+                heading2: 'Размяна на истории',
+                desc2: 'История от теб, история от мен - достигнете до нови клиенти чрез взаимна промоция',
+                scrollText2: 'Напред',
+                heading3: 'Ние намираме вашите партньори!',
+                desc3: 'Създайте страхотно съдържание за вашата аудитория и се свържете с акаунти, готови да споделят. Подкрепяйте се взаимно и растете органично...',
+                scrollText3: 'Последна стъпка',
+                heading4: 'Започнете Сега',
+                desc4: 'Развийте бизнеса си с Soy.ad!',
+                loginBtn: 'Влезте ⟶'
             },
-            fa: {
-                flag: '🇮🇷',
-                name: 'FA',
-                heading1: 'کسب‌وکارتون رو رایگان تبلیغ کنید',
-                desc1: 'هزینه تبلیغات صفر!',
-                scrollText1: 'چطوری؟',
-                heading2: 'تبادل استوری',
-                desc2: 'یه استوری از تو، یه استوری از من - با تبلیغات متقابل به مشتری‌های جدید برسید',
-                scrollText2: 'ادامه',
-                heading3: 'ما شریک‌هاتون رو پیدا می‌کنیم!',
-                desc3: 'محتوای خفن برای مخاطباتون بسازید و با اکانت‌های آماده اشتراک‌گذاری وصل شید. همدیگه رو حمایت کنید و طبیعی رشد کنید...',
-                scrollText3: 'قدم آخر',
-                heading4: 'شروع کنید',
-                desc4: 'کسب‌وکارتون رو با Soy.ad رشد بدید!',
-                loginBtn: 'ورود ⟶'
+            lt: {
+                flag: '🇱🇹', name: 'LT',
+                heading1: 'Reklamsuok nemokamai',
+                desc1: 'Nulinės reklamos išlaidos!',
+                scrollText1: 'Kaip?',
+                heading2: 'Istorijų mainai',
+                desc2: 'Istorija iš tavęs, istorija iš manęs - pasiekite naujus klientus per abipusę reklamą',
+                scrollText2: 'Toliau',
+                heading3: 'Mes rasime jūsų partnerius!',
+                desc3: 'Kurkite puikų turinį savo auditorijai ir susisiekite su paskyromis, pasiruošusiomis dalintis. Palaikykite vienas kitą ir augkite organiškai...',
+                scrollText3: 'Paskutinis žingsnis',
+                heading4: 'Pradėkite Dabar',
+                desc4: 'Auginkite savo verslą su Soy.ad!',
+                loginBtn: 'Prisijungti ⟶'
             },
-            ca: {
-                flag: '🇪🇸',
-                name: 'CA',
-                heading1: 'Promociona les teves coses gratis',
-                desc1: 'Zero costos de publicitat!',
-                scrollText1: 'Com?',
-                heading2: 'Intercanvi de Stories',
-                desc2: 'Una story teva, una meva - arriba a nous clients amb promoció mútua',
-                scrollText2: 'Següent',
-                heading3: 'Trobem els teus socis!',
-                desc3: 'Crea contingut brutal per la teva audiència i connecta amb comptes llestos per compartir. Recolzeu-vos mútuament i creixeu de forma orgànica...',
-                scrollText3: 'Últim pas',
-                heading4: 'Comença Ara',
-                desc4: 'Fes créixer el teu negoci amb Soy.ad!',
-                loginBtn: 'Inicia sessió ⟶'
+            lv: {
+                flag: '🇱🇻', name: 'LV',
+                heading1: 'Reklamē bez maksas',
+                desc1: 'Nulles reklāmas izmaksas!',
+                scrollText1: 'Kā?',
+                heading2: 'Stāstu apmaiņa',
+                desc2: 'Stāsts no tevis, stāsts no manis - sasniedziet jaunus klientus caur savstarpēju reklāmu',
+                scrollText2: 'Tālāk',
+                heading3: 'Mēs atrodam jūsu partnerus!',
+                desc3: 'Izveidojiet lieliskas saturs savai auditorijai un savienojieties ar kontiem, kas gatavi dalīties. Atbalstiet viens otru un augiet organiski...',
+                scrollText3: 'Pēdējais solis',
+                heading4: 'Sāciet Tagad',
+                desc4: 'Audzējiet savu biznesu ar Soy.ad!',
+                loginBtn: 'Pieslēgties ⟶'
             },
-            sk: {
-                flag: '🇸🇰',
-                name: 'SK',
-                heading1: 'Propagujte svoje veci zadarmo',
-                desc1: 'Žiadne náklady na reklamu!',
-                scrollText1: 'Ako?',
-                heading2: 'Výmena Stories',
-                desc2: 'Story od teba, story odo mňa - oslovte nových zákazníkov vzájomnou propagáciou',
-                scrollText2: 'Ďalej',
-                heading3: 'Nájdeme vám partnerov!',
-                desc3: 'Vytvárajte skvelý obsah pre svoje publikum a spojte sa s účtami pripravenými zdieľať. Podporujte sa navzájom a rástite prirodzene...',
-                scrollText3: 'Posledný krok',
-                heading4: 'Začnite Teraz',
-                desc4: 'Rozviňte svoj biznis s Soy.ad!',
-                loginBtn: 'Prihlásiť sa ⟶'
-            },
-            ur: {
-                flag: '🇵🇰',
-                name: 'UR',
-                heading1: 'اپنا سامان مفت میں پروموٹ کریں',
-                desc1: 'اشتہار کی لاگت صفر!',
-                scrollText1: 'کیسے؟',
-                heading2: 'اسٹوری کی تبدیلی',
-                desc2: 'ایک اسٹوری آپ کی، ایک میری - باہمی پروموشن سے نئے گاہکوں تک پہنچیں',
-                scrollText2: 'آگے',
-                heading3: 'ہم آپ کے پارٹنرز تلاش کرتے ہیں!',
-                desc3: 'اپنی آڈیئنس کے لیے زبردست مواد بنائیں اور شیئر کرنے کو تیار اکاؤنٹس سے جڑیں۔ ایک دوسرے کی مدد کریں اور قدرتی طور پر بڑھیں...',
-                scrollText3: 'آخری قدم',
-                heading4: 'ابھی شروع کریں',
-                desc4: 'Soy.ad کے ساتھ اپنا کاروبار بڑھائیں!',
-                loginBtn: 'سائن ان ⟶'
-            },
-            hak: {
-                flag: '🇨🇳',
-                name: 'HAK',
-                heading1: '免費宣傳你嘅嘢',
-                desc1: '零廣告費!',
-                scrollText1: '點樣?',
-                heading2: '故事交換',
-                desc2: '你一個故事，我一個故事 - 互相宣傳搵新客',
-                scrollText2: '繼續',
-                heading3: '我哋幫你搵合作夥伴!',
-                desc3: '為你嘅觀眾整好嘢，同準備分享嘅帳號連繫。互相支持，自然增長...',
-                scrollText3: '最後一步',
-                heading4: '即刻開始',
-                desc4: '用Soy.ad發展你嘅生意!',
-                loginBtn: '登入 ⟶'
-            },
-            arz: {
-                flag: '🇪🇬',
-                name: 'ARZ',
-                heading1: 'سوّق حاجتك ببلاش',
-                desc1: 'مفيش فلوس إعلانات خالص!',
-                scrollText1: 'إزاي؟',
-                heading2: 'بدّل الستوريز',
-                desc2: 'ستوري منك، ستوري مني - وصّل لزباين جداد بالترويج المتبادل',
-                scrollText2: 'كمّل',
-                heading3: 'احنا هنلاقيلك شركا!',
-                desc3: 'اعمل محتوى جامد لجمهورك واتواصل مع حسابات جاهزة تشير. ساندوا بعض واكبروا طبيعي...',
-                scrollText3: 'آخر خطوة',
-                heading4: 'ابدأ دلوقتي',
-                desc4: 'كبّر بيزنسك مع Soy.ad!',
-                loginBtn: 'دخول ⟶'
-            },
-            wuu: {
-                flag: '🇨🇳',
-                name: 'WUU',
-                heading1: '免费推广侬个物事',
-                desc1: '广告费一分钿呒没!',
-                scrollText1: '哪能?',
-                heading2: '故事交换',
-                desc2: '侬一只故事，我一只故事 - 互相推广寻新客户',
-                scrollText2: '下去',
-                heading3: '阿拉帮侬寻合作伙伴!',
-                desc3: '为侬个观众做好内容，搭准备分享个账号连接。互相支持，自然增长...',
-                scrollText3: '最后一步',
-                heading4: '现在开始',
-                desc4: '用Soy.ad发展侬个生意!',
-                loginBtn: '登录 ⟶'
-            },
-            yue: {
-                flag: '🇭🇰',
-                name: 'YUE',
-                heading1: '免費sell嘢',
-                desc1: '零廣告費!',
-                scrollText1: '點做?',
-                heading2: 'Story換Story',
-                desc2: '你一個story，我一個story - 互相宣傳搵新客',
-                scrollText2: '繼續',
-                heading3: '我哋幫你搵partner!',
-                desc3: '為你嘅fans整正嘢，同肯share嘅account connect。互相撐腰，自然growth...',
-                scrollText3: '最後一步',
-                heading4: '即刻開波',
-                desc4: '用Soy.ad搞大盤生意!',
-                loginBtn: '登入 ⟶'
+            et: {
+                flag: '🇪🇪', name: 'ET',
+                heading1: 'Reklaamige tasuta',
+                desc1: 'Null reklaamikulusid!',
+                scrollText1: 'Kuidas?',
+                heading2: 'Lugude vahetus',
+                desc2: 'Lugu sinult, lugu minult - jõudke uute klientideni vastastikuse reklaami kaudu',
+                scrollText2: 'Edasi',
+                heading3: 'Me leiame teie partnerid!',
+                desc3: 'Looge suurepärast sisu oma publikule ja ühenduge kontodega, mis on valmis jagama. Toetage üksteist ja kasvage orgaaniliselt...',
+                scrollText3: 'Viimane samm',
+                heading4: 'Alusta Kohe',
+                desc4: 'Kasvatage oma äri Soy.ad-ga!',
+                loginBtn: 'Logi sisse ⟶'
             }
         };
 
-        // Language functions
         let currentLang = 'tr';
 
         function detectLang() {
@@ -1909,11 +1184,12 @@
             return 'tr';
         }
 
-        function setLang(code) {
-            currentLang = code;
-            const t = translations[code];
+        function updateLanguage(lang) {
+            if (!translations[lang]) return;
             
-            // Update UI elements
+            currentLang = lang;
+            const t = translations[lang];
+            
             document.getElementById('heading1').textContent = t.heading1;
             document.getElementById('desc1').textContent = t.desc1;
             document.getElementById('scrollText1').textContent = t.scrollText1;
@@ -1926,29 +1202,20 @@
             document.getElementById('heading4').textContent = t.heading4;
             document.getElementById('desc4').textContent = t.desc4;
             document.getElementById('loginBtn').textContent = t.loginBtn;
-            
-            // Update language button
             document.getElementById('langFlag').textContent = t.flag;
             document.getElementById('langName').textContent = t.name;
             
-            // Update document language
-            document.documentElement.lang = code;
-            localStorage.setItem('soyad-lang', code);
+            document.documentElement.lang = lang;
+            localStorage.setItem('soyad-lang', lang);
             
-            // Update active state in dropdown
             document.querySelectorAll('.lang-item').forEach(item => {
-                item.classList.toggle('active', item.dataset.lang === code);
+                item.classList.toggle('active', item.dataset.lang === lang);
             });
         }
 
-        function toggleLang() {
-            const list = document.getElementById('langList');
-            list.classList.toggle('show');
-        }
-
-        function initLangList() {
-            const list = document.getElementById('langList');
-            list.innerHTML = '';
+        function initLanguageSelector() {
+            const langList = document.getElementById('langList');
+            const langBtn = document.getElementById('langBtn');
             
             for (const [code, lang] of Object.entries(translations)) {
                 const item = document.createElement('div');
@@ -1956,32 +1223,29 @@
                 item.dataset.lang = code;
                 item.innerHTML = `<span>${lang.flag}</span><span>${lang.name}</span>`;
                 item.onclick = function() {
-                    setLang(code);
-                    list.classList.remove('show');
+                    updateLanguage(code);
+                    langList.classList.remove('show');
                 };
-                list.appendChild(item);
+                langList.appendChild(item);
             }
+            
+            langBtn.onclick = function(e) {
+                e.stopPropagation();
+                langList.classList.toggle('show');
+            };
+            
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.lang-select')) {
+                    langList.classList.remove('show');
+                }
+            });
         }
 
-        // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize language list
-            initLangList();
-            
-            // Set initial language
+            initLanguageSelector();
             const detectedLang = detectLang();
-            setLang(detectedLang);
-            
-            // Add click event to language button
-            document.getElementById('langBtn').addEventListener('click', function() {
-                toggleLang();
-            });
+            updateLanguage(detectedLang);
         });
-
-        // Close language dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            const langSelect = document.querySelector('.lang-select');
-            if (!langSelect.contains(e.target)) {
-                document.getElementById('langList').classList.remove('show');
-            }
-        });
+    </script>
+</body>
+</html>
