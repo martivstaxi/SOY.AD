@@ -3,7 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>www.Soy.ad - karşılıklı destek ve işbirliği platformu</title>
+    <title>Soy.ad - Ücretsiz Story Takası ile İşinizi Büyütün</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Soy.ad ile ürün ve hizmetlerinizi reklam ücreti ödemeden tanıtın. Story takası yaparak yeni müşterilere ulaşın ve organik büyüme sağlayın.">
+    <meta name="keywords" content="story takası, ücretsiz reklam, sosyal medya işbirliği, karşılıklı tanıtım, organik büyüme">
+    <meta name="author" content="Soy.ad">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soy.ad/">
+    <meta property="og:title" content="Soy.ad - Ücretsiz Story Takası Platformu">
+    <meta property="og:description" content="Reklam ücreti ödemeden ürün ve hizmetlerinizi tanıtın. Story takası yaparak yeni müşterilere ulaşın!">
+    <meta property="og:image" content="https://soy.ad/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://soy.ad/">
+    <meta property="twitter:title" content="Soy.ad - Ücretsiz Story Takası Platformu">
+    <meta property="twitter:description" content="Reklam ücreti ödemeden ürün ve hizmetlerinizi tanıtın. Story takası yaparak yeni müşterilere ulaşın!">
+    <meta property="twitter:image" content="https://soy.ad/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,6 +40,17 @@
             scroll-behavior: smooth;
             height: 100%;
             overflow-x: hidden;
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] .lang-select {
+            right: auto;
+            left: 30px;
+        }
+        
+        [dir="rtl"] .lang-list {
+            right: auto;
+            left: 0;
         }
         
         body {
@@ -516,7 +551,7 @@
     <script>
         const translations = {
             tr: {
-                flag: '🇹🇷', name: 'TR',
+                flag: '🇹🇷', name: 'TR', rtl: false,
                 heading1: 'Sattığınız ürün veya hizmeti ücret ödemeden tanıtabilirsiniz',
                 desc1: 'Reklam ücreti yok !',
                 scrollText1: 'Nasıl mı?',
@@ -711,7 +746,7 @@
                 loginBtn: '登录 ⟶'
             },
             ar: {
-                flag: '🇸🇦', name: 'AR',
+                flag: '🇸🇦', name: 'AR', rtl: true,
                 heading1: 'روج لمنتجاتك مجاناً',
                 desc1: 'بدون تكاليف إعلانات!',
                 scrollText1: 'كيف؟',
@@ -1026,7 +1061,7 @@
                 loginBtn: 'Prijava ⟶'
             },
             he: {
-                flag: '🇮🇱', name: 'HE',
+                flag: '🇮🇱', name: 'HE', rtl: true,
                 heading1: 'קדמו את העסק שלכם בחינם',
                 desc1: 'אפס עלויות פרסום!',
                 scrollText1: 'איך?',
@@ -1041,7 +1076,7 @@
                 loginBtn: 'התחברו ⟶'
             },
             fa: {
-                flag: '🇮🇷', name: 'FA',
+                flag: '🇮🇷', name: 'FA', rtl: true,
                 heading1: 'کسب‌وکارتون رو رایگان تبلیغ کنید',
                 desc1: 'هزینه تبلیغات صفر!',
                 scrollText1: 'چطوری؟',
@@ -1086,7 +1121,7 @@
                 loginBtn: 'Prihlásiť sa ⟶'
             },
             ur: {
-                flag: '🇵🇰', name: 'UR',
+                flag: '🇵🇰', name: 'UR', rtl: true,
                 heading1: 'اپنا سامان مفت میں پروموٹ کریں',
                 desc1: 'اشتہار کی لاگت صفر!',
                 scrollText1: 'کیسے؟',
@@ -1300,6 +1335,15 @@
             
             currentLang = lang;
             const t = translations[lang];
+            
+            // Update text direction for RTL languages
+            if (t.rtl) {
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.body.style.direction = 'rtl';
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.body.style.direction = 'ltr';
+            }
             
             document.getElementById('heading1').textContent = t.heading1;
             document.getElementById('desc1').textContent = t.desc1;
