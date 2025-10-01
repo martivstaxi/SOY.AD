@@ -5,28 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Soy.ad - Ücretsiz Story Takası ile İşinizi Büyütün</title>
     
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Soy.ad ile ürün ve hizmetlerinizi reklam ücreti ödemeden tanıtın. Story takası yaparak yeni müşterilere ulaşın ve organik büyüme sağlayın.">
     <meta name="keywords" content="story takası, ücretsiz reklam, sosyal medya işbirliği, karşılıklı tanıtım, organik büyüme">
-    <meta name="author" content="Soy.ad">
     
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://soy.ad/">
     <meta property="og:title" content="Soy.ad - Ücretsiz Story Takası Platformu">
     <meta property="og:description" content="Reklam ücreti ödemeden ürün ve hizmetlerinizi tanıtın. Story takası yaparak yeni müşterilere ulaşın!">
-    <meta property="og:image" content="https://soy.ad/og-image.jpg">
     
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://soy.ad/">
-    <meta property="twitter:title" content="Soy.ad - Ücretsiz Story Takası Platformu">
-    <meta property="twitter:description" content="Reklam ücreti ödemeden ürün ve hizmetlerinizi tanıtın. Story takası yaparak yeni müşterilere ulaşın!">
-    <meta property="twitter:image" content="https://soy.ad/og-image.jpg">
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -42,7 +29,6 @@
             overflow-x: hidden;
         }
         
-        /* RTL Support */
         [dir="rtl"] .lang-select {
             right: auto;
             left: 30px;
@@ -201,6 +187,7 @@
         
         .section {
             min-height: 100vh;
+            min-height: 100svh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -356,15 +343,33 @@
             font-size: 24px;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .section {
-                padding: 25px 20px;
                 min-height: 100vh;
+                min-height: 100svh;
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .lang-select {
+                top: 20px;
+                right: 20px;
+            }
+            
+            [dir="rtl"] .lang-select {
+                right: auto;
+                left: 20px;
+            }
+            
+            .section {
+                min-height: 100vh;
+                min-height: 100svh;
+                padding: 25px 20px;
             }
             
             .scroll-hint {
                 bottom: 60px;
-            }
             }
             
             .content-box {
@@ -413,7 +418,19 @@
         }
         
         @media (max-width: 480px) {
+            .lang-select {
+                top: 16px;
+                right: 16px;
+            }
+            
+            [dir="rtl"] .lang-select {
+                right: auto;
+                left: 16px;
+            }
+            
             .section {
+                min-height: 100vh;
+                min-height: 100svh;
                 padding: 20px 16px;
             }
             
@@ -700,51 +717,6 @@
                 desc4: '用Soy.ad发展您的业务！',
                 loginBtn: '登录 ⟶'
             },
-            yue: {
-                flag: '🇭🇰', name: 'YUE',
-                heading1: '免費宣傳你嘅產品',
-                desc1: '零廣告費！',
-                scrollText1: '點做？',
-                heading2: 'Story換Story',
-                desc2: '你一個story，我一個story - 互相宣傳搵新客',
-                scrollText2: '繼續',
-                heading3: '我哋幫你搵partner!',
-                desc3: '為你嘅fans整靚嘢，同肯share嘅account connect。互相撐場，自然增長...',
-                scrollText3: '最後一步',
-                heading4: '即刻開始',
-                desc4: '用Soy.ad做大你盤生意！',
-                loginBtn: '登入 ⟶'
-            },
-            tw: {
-                flag: '🇹🇼', name: 'TW',
-                heading1: '免費推廣您的產品和服務',
-                desc1: '零廣告費！',
-                scrollText1: '怎麼做？',
-                heading2: '故事互換',
-                desc2: '你發我的，我發你的 - 透過互相推廣獲得新客戶',
-                scrollText2: '繼續',
-                heading3: '我們幫您找合作夥伴！',
-                desc3: '為您的受眾創建優質內容，與願意分享的帳號建立聯繫。相互支持，自然成長...',
-                scrollText3: '最後一步',
-                heading4: '立即開始',
-                desc4: '用Soy.ad發展您的事業！',
-                loginBtn: '登入 ⟶'
-            },
-            wuu: {
-                flag: '🇨🇳', name: 'WUU',
-                heading1: '免费推广侬个物事',
-                desc1: '广告费一分钿呒没！',
-                scrollText1: '哪能做？',
-                heading2: '故事交换',
-                desc2: '侬一只故事，我一只故事 - 互相推广寻新客户',
-                scrollText2: '下底',
-                heading3: '阿拉帮侬寻合作伙伴！',
-                desc3: '为侬个观众做好内容，搭准备分享个账号连接。互相支持，自然增长...',
-                scrollText3: '最后一步',
-                heading4: '现在开始',
-                desc4: '用Soy.ad发展侬个生意！',
-                loginBtn: '登录 ⟶'
-            },
             ar: {
                 flag: '🇸🇦', name: 'AR', rtl: true,
                 heading1: 'روج لمنتجاتك مجاناً',
@@ -789,6 +761,51 @@
                 heading4: '지금 시작',
                 desc4: 'Soy.ad로 비즈니스를 키우세요!',
                 loginBtn: '로그인 ⟶'
+            },
+            yue: {
+                flag: '🇭🇰', name: 'YUE',
+                heading1: '免費宣傳你嘅產品',
+                desc1: '零廣告費！',
+                scrollText1: '點做？',
+                heading2: 'Story換Story',
+                desc2: '你一個story，我一個story - 互相宣傳搵新客',
+                scrollText2: '繼續',
+                heading3: '我哋幫你搵partner!',
+                desc3: '為你嘅fans整靚嘢，同肯share嘅account connect。互相撐場，自然增長...',
+                scrollText3: '最後一步',
+                heading4: '即刻開始',
+                desc4: '用Soy.ad做大你盤生意！',
+                loginBtn: '登入 ⟶'
+            },
+            tw: {
+                flag: '🇹🇼', name: 'TW',
+                heading1: '免費推廣您的產品和服務',
+                desc1: '零廣告費！',
+                scrollText1: '怎麼做？',
+                heading2: '故事互換',
+                desc2: '你發我的，我發你的 - 透過互相推廣獲得新客戶',
+                scrollText2: '繼續',
+                heading3: '我們幫您找合作夥伴！',
+                desc3: '為您的受眾創建優質內容，與願意分享的帳號建立聯繫。相互支持，自然成長...',
+                scrollText3: '最後一步',
+                heading4: '立即開始',
+                desc4: '用Soy.ad發展您的事業！',
+                loginBtn: '登入 ⟶'
+            },
+            wuu: {
+                flag: '🇨🇳', name: 'WUU',
+                heading1: '免费推广侬个物事',
+                desc1: '广告费一分钿呒没！',
+                scrollText1: '哪能做？',
+                heading2: '故事交换',
+                desc2: '侬一只故事，我一只故事 - 互相推广寻新客户',
+                scrollText2: '下底',
+                heading3: '阿拉帮侬寻合作伙伴！',
+                desc3: '为侬个观众做好内容，搭准备分享个账号连接。互相支持，自然增长...',
+                scrollText3: '最后一步',
+                heading4: '现在开始',
+                desc4: '用Soy.ad发展侬个生意！',
+                loginBtn: '登录 ⟶'
             },
             nl: {
                 flag: '🇳🇱', name: 'NL',
@@ -1336,7 +1353,6 @@
             currentLang = lang;
             const t = translations[lang];
             
-            // Update text direction for RTL languages
             if (t.rtl) {
                 document.documentElement.setAttribute('dir', 'rtl');
                 document.body.style.direction = 'rtl';
