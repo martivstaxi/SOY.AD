@@ -1150,21 +1150,6 @@
             }
         }
         
-        /* Language Selector - Hidden but functional */
-        .lang-select {
-                    position: fixed;
-                    top: -9999px;
-                    left: -9999px;
-                    opacity: 0;
-                    pointer-events: none;
-                }
-        
-                .lang-select {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 100;
-        }
         
         .lang-btn {
             background: rgba(255, 255, 255, 0.2);
@@ -1242,16 +1227,6 @@
     
     <div class="header">
         <h1>soy.ad</h1>
-        <div class="lang-select">
-            <button class="lang-btn" id="langBtn">
-                <span id="langFlag">🇹🇷</span>
-                <span id="langName">TR</span>
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                    <path d="M3 5L6 8L9 5"/>
-                </svg>
-            </button>
-            <div class="lang-list" id="langList"></div>
-        </div>
         <div class="user-info">
             <button class="filter-btn" onclick="toggleFilters()">Filtreler</button>
             <button class="logout-btn" onclick="logout()">Çıkış</button>
@@ -1409,39 +1384,6 @@
             sw: { matches: 'Pamoja ⇄ Idhini', likers: '🤝 Wanataka kushirikiana na wewe', noMatches: 'Bado hakuna ushirikiano wa pamoja', noLikers: 'Bado hakuna maombi ya ushirikiano', profile: 'Wasifu', filters: 'Vichujio', logout: 'Toka', allDone: 'Yote yamekamilika!', checkTomorrow: 'Wasifu mpya wanakuja. Angalia kesho.', selectCountry: '🌍 Chagua Nchi', searchCountry: 'Tafuta nchi...', message: 'Ujumbe ⟹ Ushirikiano 🎉', congrats: '🎉 Hongera! 🎉', collaboration: 'Mnaweza kushirikiana na kutangaza pamoja!', checkProfile: '👆🏻 Angalia wasifu', approve: '✓ Idhinisha', reject: '✕ Kataa' }
         };
         
-        function initLanguageSelector() {
-            const langList = document.getElementById('langList');
-            const langBtn = document.getElementById('langBtn');
-            
-            for (const [code, lang] of Object.entries(translations)) {
-                const item = document.createElement('div');
-                item.className = 'lang-item';
-                item.dataset.lang = code;
-                item.innerHTML = `<span>${lang.flag}</span><span>${lang.name}</span>`;
-                item.onclick = function() {
-                    updateTexts(code);
-                    langList.classList.remove('show');
-                    const t = translations[code];
-                    document.getElementById('langFlag').textContent = t.flag;
-                    document.getElementById('langName').textContent = t.name;
-                    document.querySelectorAll('.lang-item').forEach(i => {
-                        i.classList.toggle('active', i.dataset.lang === code);
-                    });
-                };
-                langList.appendChild(item);
-            }
-            
-            langBtn.onclick = function(e) {
-                e.stopPropagation();
-                langList.classList.toggle('show');
-            };
-            
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.lang-select')) {
-                    langList.classList.remove('show');
-                }
-            });
-        }
         const API_URL = 'https://soy-ad-backend.onrender.com';
         let currentUser = null;
         let profiles = [];
@@ -2248,7 +2190,6 @@
         updateTexts(detectedLang);
         loadCountries();
         loadProfiles();
-        initLanguageSelector();
     </script>
 </body>
 </html>
