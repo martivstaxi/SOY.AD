@@ -1823,19 +1823,9 @@
             selectedCountry = countryCode;
             renderCountries();
             
-            // Eski durumları temizle
-            document.getElementById('swipeContainer').style.display = 'block';
-            document.getElementById('swipeContainer').innerHTML = '';
-            document.getElementById('emptyState').style.display = 'none';
-            document.getElementById('actionButtons').style.display = 'flex';
-            
-            // Profil indexini sıfırla
             currentProfileIndex = 0;
-            
-            // Profilleri yükle
             loadProfiles();
             
-            // Filtreyi kapat
             setTimeout(() => {
                 toggleFilters();
             }, 300);
@@ -1843,13 +1833,18 @@
         
         async function loadProfiles() {
             const loading = document.getElementById('loading');
-            loading.style.display = 'flex';
+            const swipeContainer = document.getElementById('swipeContainer');
+            const emptyState = document.getElementById('emptyState');
+            const actionButtons = document.getElementById('actionButtons');
             
-            // Kaydedilmiş ülkeyi kontrol et
-            const savedCountry = localStorage.getItem('selectedCountry');
-            if (savedCountry && !selectedCountry) {
-                selectedCountry = savedCountry;
-            }
+            // Önce her şeyi sıfırla
+            swipeContainer.style.display = 'block';
+            swipeContainer.innerHTML = '<div class="loading-container" id="loading"><div class="spinner"></div></div>';
+            emptyState.style.display = 'none';
+            actionButtons.style.display = 'flex';
+            
+            const newLoading = document.getElementById('loading');
+            newLoading.style.display = 'flex';
             
             try {
                 let url = `${API_URL}/api/users/${currentUser.id}`;
@@ -1866,16 +1861,20 @@
                 const data = await response.json();
                 profiles = data.users;
                 
-                loading.style.display = 'none';
+                newLoading.style.display = 'none';
+                swipeContainer.innerHTML = ''; // Loading'i temizle
                 
                 if (profiles.length === 0) {
                     showEmptyState();
                 } else {
+                    swipeContainer.style.display = 'block';
+                    actionButtons.style.display = 'flex';
                     showProfiles();
                 }
             } catch (error) {
                 console.error('Error loading profiles:', error);
-                loading.style.display = 'none';
+                newLoading.style.display = 'none';
+                swipeContainer.innerHTML = '';
             }
         }
         
