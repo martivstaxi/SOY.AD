@@ -155,17 +155,22 @@
             font-weight: 500;
         }
         
-        .form-group input {
+        .form-group input, .form-group select {
             padding: 10px;
             border: 2px solid #e1e1e1;
             border-radius: 8px;
             font-size: 14px;
             transition: border-color 0.3s;
+            background: white;
         }
         
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #667eea;
+        }
+        
+        .form-group select {
+            cursor: pointer;
         }
         
         .csv-upload-section {
@@ -406,6 +411,8 @@
             border-radius: 15px;
             max-width: 500px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .modal-header {
@@ -494,6 +501,7 @@
         .empty-state-icon {
             font-size: 48px;
             margin-bottom: 10px;
+            opacity: 0.5;
         }
         
         .alert {
@@ -575,8 +583,8 @@
                 <div class="csv-upload-title">📝 CSV ile Toplu Kullanıcı Ekleme</div>
                 <div class="csv-format">
                     <strong>CSV Formatı:</strong><br>
-                    <code>username,password,photo_url,instagram_profile_url</code><br>
-                    <small>İlk satır başlık satırı olmalıdır. UTF-8 kodlaması kullanın.</small>
+                    <code>username,password,photo_url,instagram_profile_url,country,city</code><br>
+                    <small>İlk satır başlık satırı olmalıdır. UTF-8 kodlaması kullanın. Country kodu 2 harf (TR, US, GB vb.)</small>
                 </div>
                 <div class="file-input-wrapper">
                     <input type="file" id="csvFile" accept=".csv" onchange="handleCSVFile(event)">
@@ -633,6 +641,39 @@
                         <label>Instagram Profil URL</label>
                         <input type="text" id="newInstagramUrl" placeholder="https://instagram.com/kullanici">
                     </div>
+                    <div class="form-group">
+                        <label>Ülke</label>
+                        <select id="newCountry">
+                            <option value="TR">🇹🇷 Türkiye</option>
+                            <option value="US">🇺🇸 United States</option>
+                            <option value="FR">🇫🇷 France</option>
+                            <option value="ES">🇪🇸 Spain</option>
+                            <option value="IT">🇮🇹 Italy</option>
+                            <option value="MX">🇲🇽 Mexico</option>
+                            <option value="GB">🇬🇧 United Kingdom</option>
+                            <option value="DE">🇩🇪 Germany</option>
+                            <option value="GR">🇬🇷 Greece</option>
+                            <option value="AT">🇦🇹 Austria</option>
+                            <option value="JP">🇯🇵 Japan</option>
+                            <option value="MY">🇲🇾 Malaysia</option>
+                            <option value="TH">🇹🇭 Thailand</option>
+                            <option value="SA">🇸🇦 Saudi Arabia</option>
+                            <option value="AE">🇦🇪 UAE</option>
+                            <option value="PT">🇵🇹 Portugal</option>
+                            <option value="CN">🇨🇳 China</option>
+                            <option value="HR">🇭🇷 Croatia</option>
+                            <option value="PL">🇵🇱 Poland</option>
+                            <option value="NL">🇳🇱 Netherlands</option>
+                            <option value="CA">🇨🇦 Canada</option>
+                            <option value="AU">🇦🇺 Australia</option>
+                            <option value="BR">🇧🇷 Brazil</option>
+                            <option value="IN">🇮🇳 India</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Şehir (Opsiyonel)</label>
+                        <input type="text" id="newCity" placeholder="İstanbul">
+                    </div>
                 </div>
                 <button class="btn btn-primary" onclick="addUser()">
                     <span id="addUserBtnText">Kullanıcı Ekle</span>
@@ -645,6 +686,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Kullanıcı</th>
+                            <th>Ülke</th>
+                            <th>Şehir</th>
                             <th>Beğeni ✓</th>
                             <th>Pas ✕</th>
                             <th>Eşleşme 💚</th>
@@ -653,7 +696,7 @@
                     </thead>
                     <tbody id="usersTable">
                         <tr>
-                            <td colspan="6" style="text-align: center; padding: 40px;">
+                            <td colspan="8" style="text-align: center; padding: 40px;">
                                 <div class="loading"></div>
                             </td>
                         </tr>
@@ -700,6 +743,30 @@
                     <label>Instagram Profil URL</label>
                     <input type="text" id="editInstagramUrl">
                 </div>
+                <div class="form-group">
+                    <label>Ülke</label>
+                    <select id="editCountry">
+                        <option value="TR">🇹🇷 Türkiye</option>
+                        <option value="US">🇺🇸 United States</option>
+                        <option value="FR">🇫🇷 France</option>
+                        <option value="ES">🇪🇸 Spain</option>
+                        <option value="IT">🇮🇹 Italy</option>
+                        <option value="MX">🇲🇽 Mexico</option>
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="DE">🇩🇪 Germany</option>
+                        <option value="GR">🇬🇷 Greece</option>
+                        <option value="AT">🇦🇹 Austria</option>
+                        <option value="JP">🇯🇵 Japan</option>
+                        <option value="AU">🇦🇺 Australia</option>
+                        <option value="CA">🇨🇦 Canada</option>
+                        <option value="BR">🇧🇷 Brazil</option>
+                        <option value="IN">🇮🇳 India</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Şehir</label>
+                    <input type="text" id="editCity">
+                </div>
                 <button type="submit" class="btn btn-primary">Güncelle</button>
             </form>
         </div>
@@ -740,12 +807,10 @@
         
         async function init() {
             try {
-                // Önce tüm verileri yükle
                 await loadUsers();
                 await loadMatches();
                 await loadSwipes();
                 
-                // Sonra render et
                 updateStats();
                 renderUsersTable();
                 
@@ -793,7 +858,6 @@
                 const data = await response.json();
                 users = data.users || [];
                 console.log('Users loaded:', users.length);
-                // renderUsersTable(); <- BU SATIRI SİLİN veya yorum satırı yapın
             } catch (error) {
                 console.error('Error loading users:', error);
                 users = [];
@@ -861,11 +925,20 @@
             });
         }
         
+        function getCountryFlag(countryCode) {
+            const flags = {
+                'TR': '🇹🇷', 'US': '🇺🇸', 'FR': '🇫🇷', 'ES': '🇪🇸', 'IT': '🇮🇹',
+                'MX': '🇲🇽', 'GB': '🇬🇧', 'DE': '🇩🇪', 'GR': '🇬🇷', 'AT': '🇦🇹',
+                'JP': '🇯🇵', 'AU': '🇦🇺', 'CA': '🇨🇦', 'BR': '🇧🇷', 'IN': '🇮🇳'
+            };
+            return flags[countryCode] || '🌍';
+        }
+        
         function renderUsersTable() {
             const tbody = document.getElementById('usersTable');
             
             if (!users || users.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: #999;">Henüz kullanıcı yok</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 40px; color: #999;">Henüz kullanıcı yok</td></tr>`;
                 return;
             }
             
@@ -883,6 +956,8 @@
                                 <strong>${user.username}</strong>
                             </div>
                         </td>
+                        <td>${getCountryFlag(user.country)} ${user.country || '-'}</td>
+                        <td>${user.city || '-'}</td>
                         <td>${userLikes.length}</td>
                         <td>${userPasses.length}</td>
                         <td>${userMatches.length}</td>
@@ -918,42 +993,6 @@
                 }
                 
                 const date = new Date(match.matched_at || match.created_at);
-                const formattedDate = date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-                
-                return `
-                    <div class="match-card">
-                        <div class="match-users">
-                            <div class="match-user">
-                                <img src="${match.user1_info.instagram_image}" alt="${match.user1_info.username}">
-                                <div class="match-user-name">@${match.user1_info.username}</div>
-                            </div>
-                            <div class="match-heart">💚</div>
-                            <div class="match-user">
-                                <img src="${match.user2_info.instagram_image}" alt="${match.user2_info.username}">
-                                <div class="match-user-name">@${match.user2_info.username}</div>
-                            </div>
-                        </div>
-                        <div class="match-date">Eşleşme: ${formattedDate}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-        
-        function renderMatches() {
-            const grid = document.getElementById('matchesGrid');
-            
-            if (matches.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">💔</div>
-                        <p>Henüz eşleşme yok</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            grid.innerHTML = matches.map(match => {
-                const date = new Date(match.matched_at);
                 const formattedDate = date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
                 
                 return `
@@ -1023,9 +1062,8 @@
             
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
-                if (!line) continue; // Boş satırları atla
+                if (!line) continue;
                 
-                // Virgülle ayır ama tırnak içindeki virgülleri sayma
                 const values = [];
                 let current = '';
                 let inQuotes = false;
@@ -1043,11 +1081,15 @@
                 }
                 values.push(current.trim().replace(/^"|"$/g, ''));
                 
-                if (values.length === headers.length) {
-                    const row = {};
-                    headers.forEach((header, index) => {
-                        row[header.toLowerCase().replace(/[^a-z_]/g, '')] = values[index];
-                    });
+                if (values.length >= 4) {
+                    const row = {
+                        username: values[0],
+                        password: values[1],
+                        photo_url: values[2],
+                        instagram_profile_url: values[3],
+                        country: values[4] || 'TR',
+                        city: values[5] || ''
+                    };
                     data.push(row);
                 }
             }
@@ -1082,7 +1124,7 @@
             const preview = document.getElementById('csvPreview');
             const maxRows = Math.min(5, data.length);
             
-            let html = '<table><thead><tr><th>Kullanıcı Adı</th><th>Şifre</th><th>Fotoğraf</th><th>Instagram</th></tr></thead><tbody>';
+            let html = '<table><thead><tr><th>Kullanıcı</th><th>Şifre</th><th>Fotoğraf</th><th>Instagram</th><th>Ülke</th><th>Şehir</th></tr></thead><tbody>';
             
             for (let i = 0; i < maxRows; i++) {
                 html += `<tr>
@@ -1090,11 +1132,13 @@
                     <td>***</td>
                     <td>${data[i].photo_url ? '✓' : '✗'}</td>
                     <td>${data[i].instagram_profile_url ? '✓' : '✗'}</td>
+                    <td>${data[i].country}</td>
+                    <td>${data[i].city || '-'}</td>
                 </tr>`;
             }
             
             if (data.length > maxRows) {
-                html += `<tr><td colspan="4" style="text-align: center;">... ve ${data.length - maxRows} kullanıcı daha</td></tr>`;
+                html += `<tr><td colspan="6" style="text-align: center;">... ve ${data.length - maxRows} kullanıcı daha</td></tr>`;
             }
             
             html += '</tbody></table>';
@@ -1145,7 +1189,9 @@
                             username: user.username.toLowerCase().trim(),
                             password: user.password.replace(/\s/g, ''),
                             instagram_image: user.photo_url || `https://via.placeholder.com/400x400?text=${user.username}`,
-                            instagram_url: user.instagram_profile_url || `https://instagram.com/${user.username}`
+                            instagram_url: user.instagram_profile_url || `https://instagram.com/${user.username}`,
+                            country: user.country || 'TR',
+                            city: user.city || ''
                         })
                     });
                     
@@ -1241,6 +1287,8 @@
             document.getElementById('editPassword').value = '';
             document.getElementById('editImageUrl').value = user.instagram_image || '';
             document.getElementById('editInstagramUrl').value = user.instagram_url || '';
+            document.getElementById('editCountry').value = user.country || 'TR';
+            document.getElementById('editCity').value = user.city || '';
             
             document.getElementById('editModal').classList.add('active');
         }
@@ -1257,6 +1305,8 @@
             const password = document.getElementById('editPassword').value;
             const imageUrl = document.getElementById('editImageUrl').value;
             const instagramUrl = document.getElementById('editInstagramUrl').value;
+            const country = document.getElementById('editCountry').value;
+            const city = document.getElementById('editCity').value;
             
             try {
                 const response = await fetch(`${API_URL}/api/admin/update-user`, {
@@ -1270,7 +1320,9 @@
                         username,
                         password: password || undefined,
                         instagram_image: imageUrl,
-                        instagram_url: instagramUrl
+                        instagram_url: instagramUrl,
+                        country: country,
+                        city: city
                     })
                 });
                 
@@ -1293,6 +1345,8 @@
             const password = document.getElementById('newPassword').value.replace(/\s/g, '');
             const imageUrl = document.getElementById('newImageUrl').value;
             const instagramUrl = document.getElementById('newInstagramUrl').value;
+            const country = document.getElementById('newCountry').value;
+            const city = document.getElementById('newCity').value;
             
             if (!username || !password) {
                 showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
@@ -1313,7 +1367,9 @@
                         username,
                         password,
                         instagram_image: imageUrl,
-                        instagram_url: instagramUrl
+                        instagram_url: instagramUrl,
+                        country: country || 'TR',
+                        city: city || ''
                     })
                 });
                 
@@ -1325,6 +1381,7 @@
                     document.getElementById('newPassword').value = '';
                     document.getElementById('newImageUrl').value = '';
                     document.getElementById('newInstagramUrl').value = '';
+                    document.getElementById('newCity').value = '';
                     loadUsers();
                 } else {
                     showAlert(data.error || 'Kullanıcı eklenemedi', 'error');
@@ -1376,8 +1433,8 @@
             }).join(', ');
             
             const csv = [
-                ['Kullanıcı Adı', 'Toplam Beğeni', 'Toplam Pas', 'Toplam Eşleşme', 'Eşleştiği Kullanıcılar'],
-                [user.username, userLikes.length, userPasses.length, userMatches.length, matchedUsers]
+                ['Kullanıcı Adı', 'Ülke', 'Şehir', 'Toplam Beğeni', 'Toplam Pas', 'Toplam Eşleşme', 'Eşleştiği Kullanıcılar'],
+                [user.username, user.country || '-', user.city || '-', userLikes.length, userPasses.length, userMatches.length, matchedUsers]
             ].map(row => row.join(',')).join('\n');
             
             const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
@@ -1389,7 +1446,7 @@
         
         function exportAllData() {
             const csv = [
-                ['Kullanıcı Adı', 'Toplam Beğeni', 'Toplam Pas', 'Toplam Eşleşme', 'Eşleştiği Kullanıcılar']
+                ['Kullanıcı Adı', 'Ülke', 'Şehir', 'Toplam Beğeni', 'Toplam Pas', 'Toplam Eşleşme', 'Eşleştiği Kullanıcılar']
             ];
             
             users.forEach(user => {
@@ -1402,7 +1459,7 @@
                     return otherUser ? otherUser.username : '';
                 }).join(' | ');
                 
-                csv.push([user.username, userLikes.length, userPasses.length, userMatches.length, matchedUsers]);
+                csv.push([user.username, user.country || '-', user.city || '-', userLikes.length, userPasses.length, userMatches.length, matchedUsers]);
             });
             
             const csvContent = csv.map(row => row.join(',')).join('\n');
