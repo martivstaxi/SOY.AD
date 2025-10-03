@@ -369,10 +369,17 @@
         // Ülke adını cihaz diline göre al
         function getCountryName(iso, langCode) {
             try {
+                // Intl.DisplayNames API'si otomatik olarak ülke adlarını çevirir
                 const displayNames = new Intl.DisplayNames([langCode], { type: 'region' });
                 return displayNames.of(iso.toUpperCase());
             } catch (e) {
-                return iso.toUpperCase();
+                // Fallback: İngilizce dene
+                try {
+                    const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
+                    return displayNames.of(iso.toUpperCase());
+                } catch (err) {
+                    return iso.toUpperCase();
+                }
             }
         }
         
