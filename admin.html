@@ -740,13 +740,16 @@
         
         async function init() {
             try {
+                // Önce tüm verileri yükle
                 await loadUsers();
                 await loadMatches();
                 await loadSwipes();
-                updateStats();
                 
-                // Debug için
-                console.log('Loaded data:', {
+                // Sonra render et
+                updateStats();
+                renderUsersTable();
+                
+                console.log('Init complete:', {
                     users: users.length,
                     matches: matches.length,
                     swipes: swipes.length
@@ -790,7 +793,7 @@
                 const data = await response.json();
                 users = data.users || [];
                 console.log('Users loaded:', users.length);
-                renderUsersTable();
+                // renderUsersTable(); <- BU SATIRI SİLİN veya yorum satırı yapın
             } catch (error) {
                 console.error('Error loading users:', error);
                 users = [];
