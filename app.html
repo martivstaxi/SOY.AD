@@ -1458,6 +1458,10 @@
         let currentLikerData = null;
         let countries = [];
         let selectedCountry = null;
+        // Kullanıcının kayıtlı ülkesini default olarak ayarla
+        if (currentUser && currentUser.country) {
+            selectedCountry = currentUser.country;
+        }
         
         function checkAuth() {
             const token = localStorage.getItem('token');
@@ -2264,6 +2268,7 @@
         }
         
         checkAuth();
+        setDefaultCountry();
         const detectedLang = detectLanguage();
         updateTexts(detectedLang);
         loadCountries();
