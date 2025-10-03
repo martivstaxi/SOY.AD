@@ -8,7 +8,6 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Soy.ad - Eşleştirme</title>
-    <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
     <style>
         * {
             margin: 0;
@@ -57,7 +56,7 @@
             gap: 10px;
         }
         
-        .profile-header-btn, .logout-btn {
+        .profile-header-btn, .logout-btn, .filter-btn {
             padding: 8px 20px;
             color: white;
             border: none;
@@ -83,6 +82,14 @@
         }
         
         .logout-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .filter-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .filter-btn:hover {
             transform: translateY(-2px);
         }
         
@@ -214,7 +221,6 @@
             transform: scale(1.1);
         }
         
-        /* Avatar wrapper için merkezi hizalama */
         .profile-avatar-wrapper {
             position: relative;
             width: 80px;
@@ -224,7 +230,6 @@
             justify-content: center;
         }
         
-        /* Sağ taraftaki bekleyenler için altın pulse animasyonu */
         .profile-avatar-wrapper::before,
         .profile-avatar-wrapper::after {
             content: '';
@@ -244,7 +249,6 @@
             animation-delay: 0.9s;
         }
         
-        /* Sol taraftaki onaylanmışlar için yeşil pulse animasyonu */
         .matches-section .profile-avatar-wrapper::before,
         .matches-section .profile-avatar-wrapper::after {
             border: 2px solid rgba(0, 214, 143, 0.5);
@@ -392,7 +396,6 @@
             transform: translate(-50%, -50%) scale(1.05);
         }
         
-        /* Profil resmi container'ı için wrapper */
         .liker-image-wrapper {
             position: relative;
             display: inline-block;
@@ -401,7 +404,6 @@
             height: 160px;
         }
         
-        /* Arkadaki animasyonlu halka 1 */
         .liker-image-wrapper::before {
             content: '';
             position: absolute;
@@ -416,7 +418,6 @@
             z-index: 1;
         }
         
-        /* Arkadaki animasyonlu halka 2 */
         .liker-image-wrapper::after {
             content: '';
             position: absolute;
@@ -506,6 +507,117 @@
             box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
         }
         
+        /* Filter Modal */
+        .filter-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            transition: right 0.3s ease;
+            z-index: 1500;
+            overflow: hidden;
+        }
+        
+        .filter-modal.active {
+            right: 0;
+        }
+        
+        .filter-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .filter-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .close-filter-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .close-filter-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .country-search {
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 2px solid #e1e1e1;
+            font-size: 16px;
+            outline: none;
+            flex-shrink: 0;
+        }
+        
+        .country-search:focus {
+            border-bottom-color: #667eea;
+        }
+        
+        .country-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .country-item {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid transparent;
+        }
+        
+        .country-item:hover {
+            background: #f5f6fa;
+            border-color: #667eea;
+        }
+        
+        .country-item.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .country-flag {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .country-name {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
         /* Swipe Container */
         .swipe-container {
             position: relative;
@@ -516,7 +628,6 @@
             margin: 20px auto;
         }
         
-        /* Swipe Indicator Background */
         .swipe-indicator {
             position: fixed;
             top: 0;
@@ -952,7 +1063,7 @@
                 font-size: 20px;
             }
             
-            .logout-btn {
+            .logout-btn, .filter-btn, .profile-header-btn {
                 padding: 6px 15px;
                 font-size: 14px;
             }
@@ -1041,12 +1152,12 @@
     </style>
 </head>
 <body>
-    <!-- Swipe indicator background -->
     <div class="swipe-indicator" id="swipeIndicator"></div>
     
     <div class="header">
         <h1>🚀 soy.ad</h1>
         <div class="user-info">
+            <button class="filter-btn" onclick="toggleFilters()">🌍 Filtreler</button>
             <button class="logout-btn" onclick="logout()">Çıkış</button>
             <button class="profile-header-btn" onclick="toggleProfile()">Profil</button>
         </div>
@@ -1087,7 +1198,6 @@
         </div>
     </div>
     
-    <!-- Liker Approval Modal -->
     <div class="liker-approval-modal" id="likerApprovalModal">
         <div class="liker-approval-content">
             <button class="liker-close-btn" onclick="closeLikerApproval()">✕</button>
@@ -1107,10 +1217,8 @@
         </div>
     </div>
     
-    <!-- Confetti Container -->
     <div class="confetti-container" id="confettiContainer"></div>
     
-    <!-- Profil Modal -->
     <div class="profile-modal" id="profileModal">
         <div class="profile-modal-header">
             <h3>Bir mesaj ⟹ İşbirliği 🎉</h3>
@@ -1139,6 +1247,18 @@
         </div>
     </div>
     
+    <div class="filter-modal" id="filterModal">
+        <div class="filter-content">
+            <div class="filter-header">
+                <h3>🌍 Ülke Seçin</h3>
+                <button class="close-filter-btn" onclick="toggleFilters()">✕</button>
+            </div>
+            <input type="text" id="countrySearch" placeholder="Ülke ara..." 
+                   oninput="searchCountries()" class="country-search">
+            <div class="country-list" id="countryList"></div>
+        </div>
+    </div>
+    
     <script>
         const version = Date.now();
         
@@ -1151,6 +1271,8 @@
         let userLikers = [];
         let indicatorResetTimeout = null;
         let currentLikerData = null;
+        let countries = [];
+        let selectedCountry = null;
         
         function checkAuth() {
             const token = localStorage.getItem('token');
@@ -1208,10 +1330,8 @@
                     usersResponse.json()
                 ]);
                 
-                // ID'leri integer'a çevir
                 const currentUserId = parseInt(currentUser.id);
                 
-                // user1_id ve user2_id kullan (user1 ve user2 değil)
                 userMatches = matchesData.matches.filter(m => 
                     m.user1_id === currentUserId || m.user2_id === currentUserId
                 );
@@ -1267,7 +1387,6 @@
                 `;
             }
             
-            // Likers listesi için de devam etmeniz gerekiyor
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
                 const reversedLikers = [...userLikers].reverse();
@@ -1343,18 +1462,16 @@
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify({
-                        userId: parseInt(currentUser.id),  // ID'yi integer'a çevir
-                        likerId: parseInt(currentLikerData.id)  // ID'yi integer'a çevir
+                        userId: parseInt(currentUser.id),
+                        likerId: parseInt(currentLikerData.id)
                     })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Modal'ı kapat
                     document.getElementById('likerApprovalModal').style.display = 'none';
                     
-                    // Match modal'ını göster
                     const profileBtn = document.getElementById('instagramProfileBtn');
                     const profileImage = document.getElementById('matchProfileImage');
                     const matchUsername = document.getElementById('matchUsername');
@@ -1378,7 +1495,6 @@
                     
                     showMatchModal();
                     
-                    // Veritabanının güncellenmesini bekleyip sonra yeniden yükle
                     setTimeout(() => {
                         loadProfileData();
                     }, 500);
@@ -1461,12 +1577,76 @@
             }, 500);
         }
         
+        async function loadCountries() {
+            try {
+                const response = await fetch(`${API_URL}/api/countries`);
+                const data = await response.json();
+                countries = data.countries;
+                
+                if (currentUser && currentUser.country) {
+                    selectedCountry = currentUser.country;
+                }
+                
+                renderCountries();
+            } catch (error) {
+                console.error('Error loading countries:', error);
+            }
+        }
+        
+        function renderCountries(filter = '') {
+            const list = document.getElementById('countryList');
+            
+            if (!countries || countries.length === 0) {
+                list.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">Ülkeler yükleniyor...</div>';
+                return;
+            }
+            
+            const filtered = countries.filter(c => 
+                c.name.toLowerCase().includes(filter.toLowerCase())
+            );
+            
+            list.innerHTML = filtered.map(country => `
+                <div class="country-item ${selectedCountry === country.code ? 'selected' : ''}" 
+                     onclick="selectCountry('${country.code}')">
+                    <span class="country-flag">${country.flag}</span>
+                    <span class="country-name">${country.name}</span>
+                </div>
+            `).join('');
+        }
+        
+        function searchCountries() {
+            const search = document.getElementById('countrySearch').value;
+            renderCountries(search);
+        }
+        
+        function toggleFilters() {
+            document.getElementById('filterModal').classList.toggle('active');
+        }
+        
+        function selectCountry(countryCode) {
+            selectedCountry = countryCode;
+            renderCountries();
+            
+            currentProfileIndex = 0;
+            document.getElementById('swipeContainer').innerHTML = '';
+            loadProfiles();
+            
+            setTimeout(() => {
+                toggleFilters();
+            }, 300);
+        }
+        
         async function loadProfiles() {
             const loading = document.getElementById('loading');
             loading.style.display = 'flex';
             
             try {
-                const response = await fetch(`${API_URL}/api/users/${currentUser.id}`, {
+                let url = `${API_URL}/api/users/${currentUser.id}`;
+                if (selectedCountry) {
+                    url += `?country=${selectedCountry}`;
+                }
+                
+                const response = await fetch(url, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -1811,6 +1991,7 @@
         }
         
         checkAuth();
+        loadCountries();
         loadProfiles();
     </script>
 </body>
