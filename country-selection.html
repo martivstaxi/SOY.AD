@@ -245,8 +245,8 @@
     
     <div class="container">
         <div class="header">
-            <h1>🌍 Ülkenizi Seçin</h1>
-            <p>Hangi ülkeden içerik görmek istersiniz?</p>
+            <h1 id="headerTitle">🌍 Ülkenizi Seçin</h1>
+            <p id="headerSubtitle">Hangi ülkeden içerik görmek istersiniz?</p>
         </div>
         
         <div class="search-container">
@@ -260,9 +260,133 @@
     
     <script>
         const API_URL = 'https://soy-ad-backend.onrender.com';
+        
+        // 50 dil için çeviri sistemi
+        const translations = {
+            tr: { title: '🌍 Ülkenizi Seçin', subtitle: 'Hangi ülkeden içerik görmek istersiniz?', search: 'Ülke ara...', continue: 'Devam Et', loading: 'Ülkeler yükleniyor...' },
+            en: { title: '🌍 Select Your Country', subtitle: 'Which country would you like to see content from?', search: 'Search country...', continue: 'Continue', loading: 'Loading countries...' },
+            de: { title: '🌍 Wählen Sie Ihr Land', subtitle: 'Aus welchem Land möchten Sie Inhalte sehen?', search: 'Land suchen...', continue: 'Weiter', loading: 'Länder werden geladen...' },
+            fr: { title: '🌍 Sélectionnez votre pays', subtitle: 'De quel pays souhaitez-vous voir du contenu?', search: 'Rechercher un pays...', continue: 'Continuer', loading: 'Chargement des pays...' },
+            es: { title: '🌍 Selecciona tu país', subtitle: '¿De qué país te gustaría ver contenido?', search: 'Buscar país...', continue: 'Continuar', loading: 'Cargando países...' },
+            it: { title: '🌍 Seleziona il tuo paese', subtitle: 'Da quale paese vorresti vedere i contenuti?', search: 'Cerca paese...', continue: 'Continua', loading: 'Caricamento paesi...' },
+            pt: { title: '🌍 Selecione seu país', subtitle: 'De qual país você gostaria de ver conteúdo?', search: 'Procurar país...', continue: 'Continuar', loading: 'Carregando países...' },
+            ru: { title: '🌍 Выберите свою страну', subtitle: 'Из какой страны вы хотите видеть контент?', search: 'Поиск страны...', continue: 'Продолжить', loading: 'Загрузка стран...' },
+            ja: { title: '🌍 国を選択', subtitle: 'どの国のコンテンツを見たいですか？', search: '国を検索...', continue: '続ける', loading: '国を読み込んでいます...' },
+            zh: { title: '🌍 选择您的国家', subtitle: '您想看哪个国家的内容？', search: '搜索国家...', continue: '继续', loading: '正在加载国家...' },
+            ar: { title: '🌍 اختر دولتك', subtitle: 'من أي دولة تريد رؤية المحتوى؟', search: 'ابحث عن دولة...', continue: 'متابعة', loading: 'جاري تحميل الدول...' },
+            hi: { title: '🌍 अपना देश चुनें', subtitle: 'आप किस देश की सामग्री देखना चाहेंगे?', search: 'देश खोजें...', continue: 'जारी रखें', loading: 'देश लोड हो रहे हैं...' },
+            ko: { title: '🌍 국가 선택', subtitle: '어느 나라의 콘텐츠를 보고 싶으신가요?', search: '국가 검색...', continue: '계속', loading: '국가를 불러오는 중...' },
+            nl: { title: '🌍 Selecteer uw land', subtitle: 'Uit welk land wilt u content zien?', search: 'Land zoeken...', continue: 'Doorgaan', loading: 'Landen laden...' },
+            pl: { title: '🌍 Wybierz swój kraj', subtitle: 'Z jakiego kraju chcesz widzieć treści?', search: 'Szukaj kraju...', continue: 'Kontynuuj', loading: 'Ładowanie krajów...' },
+            sv: { title: '🌍 Välj ditt land', subtitle: 'Från vilket land vill du se innehåll?', search: 'Sök land...', continue: 'Fortsätt', loading: 'Laddar länder...' },
+            no: { title: '🌍 Velg ditt land', subtitle: 'Fra hvilket land vil du se innhold?', search: 'Søk land...', continue: 'Fortsett', loading: 'Laster land...' },
+            da: { title: '🌍 Vælg dit land', subtitle: 'Fra hvilket land vil du se indhold?', search: 'Søg land...', continue: 'Fortsæt', loading: 'Indlæser lande...' },
+            fi: { title: '🌍 Valitse maasi', subtitle: 'Mistä maasta haluaisit nähdä sisältöä?', search: 'Hae maata...', continue: 'Jatka', loading: 'Ladataan maita...' },
+            cs: { title: '🌍 Vyberte svou zemi', subtitle: 'Ze které země chcete vidět obsah?', search: 'Hledat zemi...', continue: 'Pokračovat', loading: 'Načítání zemí...' },
+            uk: { title: '🌍 Виберіть свою країну', subtitle: 'З якої країни ви хочете бачити контент?', search: 'Пошук країни...', continue: 'Продовжити', loading: 'Завантаження країн...' },
+            ro: { title: '🌍 Selectați-vă țara', subtitle: 'Din ce țară ați dori să vedeți conținut?', search: 'Căutați țara...', continue: 'Continuați', loading: 'Se încarcă țările...' },
+            el: { title: '🌍 Επιλέξτε τη χώρα σας', subtitle: 'Από ποια χώρα θέλετε να δείτε περιεχόμενο;', search: 'Αναζήτηση χώρας...', continue: 'Συνέχεια', loading: 'Φόρτωση χωρών...' },
+            hu: { title: '🌍 Válaszd ki országodat', subtitle: 'Melyik országból szeretnél tartalmat látni?', search: 'Ország keresése...', continue: 'Folytatás', loading: 'Országok betöltése...' },
+            th: { title: '🌍 เลือกประเทศของคุณ', subtitle: 'คุณต้องการดูเนื้อหาจากประเทศใด?', search: 'ค้นหาประเทศ...', continue: 'ดำเนินการต่อ', loading: 'กำลังโหลดประเทศ...' },
+            vi: { title: '🌍 Chọn quốc gia của bạn', subtitle: 'Bạn muốn xem nội dung từ quốc gia nào?', search: 'Tìm kiếm quốc gia...', continue: 'Tiếp tục', loading: 'Đang tải quốc gia...' },
+            id: { title: '🌍 Pilih negara Anda', subtitle: 'Dari negara mana Anda ingin melihat konten?', search: 'Cari negara...', continue: 'Lanjutkan', loading: 'Memuat negara...' },
+            ms: { title: '🌍 Pilih negara anda', subtitle: 'Dari negara mana anda ingin melihat kandungan?', search: 'Cari negara...', continue: 'Teruskan', loading: 'Memuatkan negara...' },
+            bn: { title: '🌍 আপনার দেশ নির্বাচন করুন', subtitle: 'আপনি কোন দেশ থেকে বিষয়বস্তু দেখতে চান?', search: 'দেশ অনুসন্ধান করুন...', continue: 'চালিয়ে যান', loading: 'দেশ লোড হচ্ছে...' },
+            tl: { title: '🌍 Piliin ang iyong bansa', subtitle: 'Mula sa aling bansa mo gustong makita ang nilalaman?', search: 'Maghanap ng bansa...', continue: 'Magpatuloy', loading: 'Naglo-load ng mga bansa...' },
+            hr: { title: '🌍 Odaberite svoju zemlju', subtitle: 'Iz koje zemlje želite vidjeti sadržaj?', search: 'Pretraži zemlju...', continue: 'Nastavi', loading: 'Učitavanje zemalja...' },
+            he: { title: '🌍 בחר את המדינה שלך', subtitle: 'מאיזו מדינה תרצה לראות תוכן?', search: 'חפש מדינה...', continue: 'המשך', loading: 'טוען מדינות...' },
+            fa: { title: '🌍 کشور خود را انتخاب کنید', subtitle: 'از کدام کشور می‌خواهید محتوا ببینید?', search: 'جستجوی کشور...', continue: 'ادامه', loading: 'در حال بارگذاری کشورها...' },
+            ca: { title: '🌍 Selecciona el teu país', subtitle: 'De quin país vols veure contingut?', search: 'Cerca país...', continue: 'Continua', loading: 'Carregant països...' },
+            sk: { title: '🌍 Vyberte svoju krajinu', subtitle: 'Z ktorej krajiny chcete vidieť obsah?', search: 'Hľadať krajinu...', continue: 'Pokračovať', loading: 'Načítavanie krajín...' },
+            ur: { title: '🌍 اپنا ملک منتخب کریں', subtitle: 'آپ کس ملک سے مواد دیکھنا چاہیں گے؟', search: 'ملک تلاش کریں...', continue: 'جاری رکھیں', loading: 'ممالک لوڈ ہو رہے ہیں...' },
+            sr: { title: '🌍 Изаберите своју земљу', subtitle: 'Из које земље желите да видите садржај?', search: 'Претражи земљу...', continue: 'Настави', loading: 'Учитавање земаља...' },
+            bg: { title: '🌍 Изберете вашата страна', subtitle: 'От коя страна искате да виждате съдържание?', search: 'Търсене на страна...', continue: 'Продължи', loading: 'Зареждане на страни...' },
+            lt: { title: '🌍 Pasirinkite savo šalį', subtitle: 'Iš kurios šalies norėtumėte matyti turinį?', search: 'Ieškoti šalies...', continue: 'Tęsti', loading: 'Kraunamos šalys...' },
+            lv: { title: '🌍 Izvēlieties savu valsti', subtitle: 'No kuras valsts vēlaties redzēt saturu?', search: 'Meklēt valsti...', continue: 'Turpināt', loading: 'Ielādē valstis...' },
+            et: { title: '🌍 Valige oma riik', subtitle: 'Millisest riigist soovite sisu näha?', search: 'Otsi riiki...', continue: 'Jätka', loading: 'Riikide laadimine...' },
+            af: { title: '🌍 Kies jou land', subtitle: 'Uit watter land wil jy inhoud sien?', search: 'Soek land...', continue: 'Gaan voort', loading: 'Laai lande...' },
+            az: { title: '🌍 Ölkənizi seçin', subtitle: 'Hansı ölkədən məzmun görmək istərdiniz?', search: 'Ölkə axtarın...', continue: 'Davam et', loading: 'Ölkələr yüklənir...' },
+            uz: { title: '🌍 Mamlakatingizni tanlang', subtitle: 'Qaysi mamlakatdan tarkib ko\'rmoqchisiz?', search: 'Mamlakatni qidirish...', continue: 'Davom etish', loading: 'Mamlakatlar yuklanmoqda...' },
+            kk: { title: '🌍 Еліңізді таңдаңыз', subtitle: 'Қай елден контент көргіңіз келеді?', search: 'Елді іздеу...', continue: 'Жалғастыру', loading: 'Елдер жүктелуде...' },
+            ky: { title: '🌍 Өлкөңүздү тандаңыз', subtitle: 'Кайсы өлкөдөн контент көргүңүз келет?', search: 'Өлкөнү издөө...', continue: 'Улантуу', loading: 'Өлкөлөр жүктөлүүдө...' },
+            ka: { title: '🌍 აირჩიეთ თქვენი ქვეყანა', subtitle: 'რომელი ქვეყნიდან გსურთ შინაარსის ნახვა?', search: 'მოძებნეთ ქვეყანა...', continue: 'გაგრძელება', loading: 'იტვირთება ქვეყნები...' },
+            sw: { title: '🌍 Chagua nchi yako', subtitle: 'Unataka kuona maudhui kutoka nchi gani?', search: 'Tafuta nchi...', continue: 'Endelea', loading: 'Inapakia nchi...' },
+            zu: { title: '🌍 Khetha izwe lakho', subtitle: 'Ufuna ukubona okuqukethwe kuliphi izwe?', search: 'Sesha izwe...', continue: 'Qhubeka', loading: 'Ilayisha amazwe...' }
+        };
+        
+        // Çoklu dil arama için ülke isimleri
+        const countrySearchTerms = {
+            tr: ['türkiye', 'turkiye', 'turkey', 'turquie', 'turquia', 'турция', 'tc', 'turchia', 'トルコ', '土耳其'],
+            us: ['abd', 'usa', 'amerika', 'america', 'united states', 'états-unis', 'estados unidos', 'сша', 'америка', 'アメリカ', '美国'],
+            fr: ['fransa', 'france', 'francia', 'frankreich', 'франция', 'フランス', '法国'],
+            es: ['ispanya', 'spain', 'españa', 'espagne', 'spanien', 'испания', 'スペイン', '西班牙'],
+            it: ['italya', 'italy', 'italia', 'italie', 'italien', 'италия', 'イタリア', '意大利'],
+            mx: ['meksika', 'mexico', 'méxico', 'mexique', 'mexiko', 'мексика', 'メキシコ', '墨西哥'],
+            gb: ['ingiltere', 'birleşik krallık', 'uk', 'united kingdom', 'royaume-uni', 'reino unido', 'великобритания', 'англия', 'イギリス', '英国'],
+            de: ['almanya', 'germany', 'deutschland', 'allemagne', 'alemania', 'германия', 'ドイツ', '德国'],
+            gr: ['yunanistan', 'greece', 'grèce', 'grecia', 'griechenland', 'греция', 'ελλάδα', 'ギリシャ', '希腊'],
+            jp: ['japonya', 'japan', 'japon', 'japón', 'япония', '日本', 'nippon'],
+            cn: ['çin', 'china', 'chine', 'cina', 'китай', '中国', 'zhongguo'],
+            ru: ['rusya', 'russia', 'russie', 'rusia', 'russland', 'россия', 'ロシア', '俄罗斯'],
+            kr: ['güney kore', 'south korea', 'corée du sud', 'corea del sur', 'südkorea', 'южная корея', '韓国', '韩国'],
+            br: ['brezilya', 'brazil', 'brésil', 'brasil', 'brasilien', 'бразилия', 'ブラジル', '巴西'],
+            in: ['hindistan', 'india', 'inde', 'indien', 'индия', 'インド', '印度', 'भारत'],
+            au: ['avustralya', 'australia', 'australie', 'австралия', 'オーストラリア', '澳大利亚'],
+            ca: ['kanada', 'canada', 'canadá', 'канада', 'カナダ', '加拿大'],
+            ar: ['arjantin', 'argentina', 'argentine', 'argentinien', 'аргентина', 'アルゼンチン', '阿根廷']
+        };
+        
         let countries = [];
         let selectedCountry = null;
         let currentUser = null;
+        let currentLang = 'tr';
+        
+        // Cihaz dilini tespit et
+        function detectLanguage() {
+            const browserLang = navigator.language.toLowerCase();
+            
+            for (const code in translations) {
+                if (browserLang.startsWith(code)) {
+                    return code;
+                }
+            }
+            
+            return 'tr'; // varsayılan
+        }
+        
+        // Metinleri güncelle
+        function updateTexts(lang) {
+            if (!translations[lang]) return;
+            const t = translations[lang];
+            
+            document.getElementById('headerTitle').textContent = t.title;
+            document.getElementById('headerSubtitle').textContent = t.subtitle;
+            document.getElementById('countrySearch').placeholder = t.search;
+            document.getElementById('continueBtn').textContent = t.continue;
+            document.documentElement.lang = lang;
+        }
+        
+        // Ülke adını cihaz diline göre al
+        function getCountryName(iso, langCode) {
+            try {
+                const displayNames = new Intl.DisplayNames([langCode], { type: 'region' });
+                return displayNames.of(iso.toUpperCase());
+            } catch (e) {
+                return iso.toUpperCase();
+            }
+        }
+        
+        // Normalize arama metni (aksanları kaldır)
+        function normalizeText(text) {
+            return text.toLowerCase()
+                .replace(/[çğıöşü]/g, ch => ({ ç:'c', ğ:'g', ı:'i', ö:'o', ş:'s', ü:'u' }[ch] || ch))
+                .replace(/[áàäâ]/g, 'a')
+                .replace(/[éèëê]/g, 'e')
+                .replace(/[íìïî]/g, 'i')
+                .replace(/[óòöô]/g, 'o')
+                .replace(/[úùüû]/g, 'u')
+                .replace(/[ñ]/g, 'n');
+        }
         
         async function loadCountries() {
             try {
@@ -277,21 +401,33 @@
         
         function renderCountries(filter = '') {
             const list = document.getElementById('countryList');
+            const t = translations[currentLang];
             
             if (!countries || countries.length === 0) {
-                list.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">Ülkeler yükleniyor...</div>';
+                list.innerHTML = `<div style="padding: 20px; text-align: center; color: #999;">${t.loading}</div>`;
                 return;
             }
             
-            const filtered = countries.filter(c => 
-                c.name.toLowerCase().includes(filter.toLowerCase())
-            );
+            let filtered = countries;
+            
+            if (filter) {
+                const normalizedFilter = normalizeText(filter);
+                filtered = countries.filter(country => {
+                    // Mevcut dildeki ülke adında ara
+                    const currentName = normalizeText(getCountryName(country.code, currentLang));
+                    if (currentName.includes(normalizedFilter)) return true;
+                    
+                    // Çoklu dil alternatiflerinde ara
+                    const searchTerms = countrySearchTerms[country.code] || [];
+                    return searchTerms.some(term => normalizeText(term).includes(normalizedFilter));
+                });
+            }
             
             list.innerHTML = filtered.map(country => `
                 <div class="country-item ${selectedCountry === country.code ? 'selected' : ''}" 
                      onclick="selectCountry('${country.code}')">
                     <span class="country-flag">${country.flag}</span>
-                    <span class="country-name">${country.name}</span>
+                    <span class="country-name">${getCountryName(country.code, currentLang)}</span>
                 </div>
             `).join('');
         }
@@ -315,7 +451,6 @@
             continueBtn.textContent = 'Kaydediliyor...';
             
             try {
-                // Backend'e kaydet
                 const response = await fetch(`${API_URL}/api/user/update-country`, {
                     method: 'POST',
                     headers: {
@@ -331,11 +466,8 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // localStorage'ı güncelle
                     currentUser.country = selectedCountry;
                     localStorage.setItem('user', JSON.stringify(currentUser));
-                    
-                    // Ana sayfaya yönlendir
                     window.location.href = 'app.html';
                 } else {
                     throw new Error(data.error || 'Kayıt başarısız');
@@ -344,7 +476,7 @@
                 console.error('Error saving country:', error);
                 alert('Bir hata oluştu. Lütfen tekrar deneyin.');
                 continueBtn.disabled = false;
-                continueBtn.textContent = 'Devam Et';
+                continueBtn.textContent = translations[currentLang].continue;
             }
         }
         
@@ -359,14 +491,16 @@
             
             currentUser = JSON.parse(user);
             
-            // Eğer kullanıcı zaten ülke seçmişse, onu önceden seçili göster
             if (currentUser.country) {
                 selectedCountry = currentUser.country;
                 document.getElementById('continueBtn').disabled = false;
             }
         }
         
+        // Başlangıç
         checkAuth();
+        currentLang = detectLanguage();
+        updateTexts(currentLang);
         loadCountries();
     </script>
 </body>
