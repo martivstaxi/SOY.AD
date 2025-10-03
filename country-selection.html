@@ -1762,38 +1762,26 @@
         }
         
         // Ülke adını cihaz diline göre al
-        function getCountryName(iso, langCode) {
+        function getCountryName(country, langCode) {
+            const iso = country.code || country;
+            
             // countryNames objesinden ülke adını al
             if (countryNames[iso] && countryNames[iso][langCode]) {
                 return countryNames[iso][langCode];
             }
             
-            // Bulunamazsa fallback olarak Intl.DisplayNames kullan
-            try {
-                const displayNames = new Intl.DisplayNames([langCode], { type: 'region' });
-                return displayNames.of(iso.toUpperCase());
-            } catch (e) {
-                return iso.toUpperCase();
+            // Eğer yoksa İngilizce'yi dene
+            if (countryNames[iso] && countryNames[iso]['en']) {
+                return countryNames[iso]['en'];
             }
-        }
-        
-        // Normalize arama metni (aksanları kaldır)
-        function normalizeText(text) {
-            return text.toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/[çğıöşü]/g, ch => ({ ç:'c', ğ:'g', ı:'i', ö:'o', ş:'s', ü:'u' }[ch] || ch));
-        }
-        
-        async function loadCountries() {
-            try {
-                const response = await fetch(`${API_URL}/api/countries`);
-                const data = await response.json();
-                countries = data.countries;
-                renderCountries();
-            } catch (error) {
-                console.error('Error loading countries:', error);
+            
+            // En son çare olarak country.name varsa onu kullan
+            if (country.name) {
+                return country.name;
             }
+            
+            // Hiçbiri yoksa ISO kodunu büyük harfle döndür
+            return iso.toUpperCase();
         }
         
         function renderCountries(filter = '') {
@@ -1811,7 +1799,7 @@
                 const normalizedFilter = normalizeText(filter);
                 filtered = countries.filter(country => {
                     // Mevcut dildeki ülke adında ara
-                    const currentName = normalizeText(getCountryName(country.code, currentLang));
+                    const currentName = normalizeText(getCountryName(country, currentLang));
                     if (currentName.includes(normalizedFilter)) return true;
                     
                     // Çoklu dil alternatiflerinde ara
@@ -1824,7 +1812,7 @@
                 <div class="country-item ${selectedCountry === country.code ? 'selected' : ''}" 
                      onclick="selectCountry('${country.code}')">
                     <span class="country-flag">${country.flag}</span>
-                    <span class="country-name">${getCountryName(country.code, currentLang)}</span>
+                    <span class="country-name">${getCountryName(country, currentLang)}</span>
                 </div>
             `).join('');
         }
