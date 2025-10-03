@@ -310,8 +310,12 @@
         async function saveAndContinue() {
             if (!selectedCountry) return;
             
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.disabled = true;
+            continueBtn.textContent = 'Kaydediliyor...';
+            
             try {
-                // Kullanıcının seçtiği ülkeyi backend'e kaydet
+                // Backend'e kaydet
                 const response = await fetch(`${API_URL}/api/user/update-country`, {
                     method: 'POST',
                     headers: {
@@ -327,18 +331,20 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Kullanıcı bilgisini güncelle
+                    // localStorage'ı güncelle
                     currentUser.country = selectedCountry;
                     localStorage.setItem('user', JSON.stringify(currentUser));
                     
                     // Ana sayfaya yönlendir
                     window.location.href = 'app.html';
                 } else {
-                    alert('Ülke kaydedilemedi. Lütfen tekrar deneyin.');
+                    throw new Error(data.error || 'Kayıt başarısız');
                 }
             } catch (error) {
                 console.error('Error saving country:', error);
                 alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                continueBtn.disabled = false;
+                continueBtn.textContent = 'Devam Et';
             }
         }
         
