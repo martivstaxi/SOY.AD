@@ -835,38 +835,42 @@
             loginBtn.disabled = true;
             loginBtn.innerHTML = '<span class="loading"></span>';
             
-            try {
-                const response = await fetch(`${API_URL}/api/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
+        try {
+            const response = await fetch(`${API_URL}/api/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
                 
-                const data = await response.json();
+                successMsg.textContent = translations[currentLang].success;
+                successMsg.style.display = 'block';
                 
-                if (data.success) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    successMsg.textContent = translations[currentLang].success;
-                    successMsg.style.display = 'block';
-                    
-                    setTimeout(() => {
+                setTimeout(() => {
+                    // Eğer kullanıcının country'si yoksa ülke seçimine yönlendir
+                    if (!data.user.country || data.user.country === 'TR') {
                         window.location.href = 'country-selection.html';
-                    }, 1000);
-                } else {
-                    throw new Error(data.error || 'Login failed');
-                }
-            } catch (error) {
-                errorMsg.textContent = translations[currentLang].error;
-                errorMsg.style.display = 'block';
-                
-                loginBtn.disabled = false;
-                loginBtn.textContent = translations[currentLang].login;
+                    } else {
+                        window.location.href = 'app.html';
+                    }
+                }, 1000);
+            } else {
+                throw new Error(data.error || 'Login failed');
             }
-        });
+        } catch (error) {
+            errorMsg.textContent = translations[currentLang].error;
+            errorMsg.style.display = 'block';
+            
+            loginBtn.disabled = false;
+            loginBtn.textContent = translations[currentLang].login;
+        }
         
         if (window.innerWidth <= 480) {
             const inputs = document.querySelectorAll('input');
