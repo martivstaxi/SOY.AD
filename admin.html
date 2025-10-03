@@ -739,10 +739,21 @@
         }
         
         async function init() {
-            await loadUsers();
-            await loadMatches();
-            await loadSwipes();
-            updateStats();
+            try {
+                await loadUsers();
+                await loadMatches();
+                await loadSwipes();
+                updateStats();
+                
+                console.log('Yüklendi:', {
+                    users: users.length,
+                    matches: matches.length,
+                    swipes: swipes.length
+                });
+            } catch (error) {
+                console.error('Init error:', error);
+                showAlert('Veriler yüklenirken hata oluştu', 'error');
+            }
         }
         
         function switchTab(tab) {
