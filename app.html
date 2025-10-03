@@ -25,13 +25,14 @@
         /* Header */
         .header {
             background: white;
-            padding: 16px 24px;
+            padding: 16px 20px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: relative;
             z-index: 50;
+            gap: 10px;
         }
         
         .header h1 {
@@ -47,7 +48,8 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
         
         .header-buttons {
@@ -1064,8 +1066,9 @@
             }
             
             .logout-btn, .filter-btn, .profile-header-btn {
-                padding: 6px 15px;
-                font-size: 14px;
+                padding: 6px 12px;
+                font-size: 12px;
+                min-width: 60px;
             }
             
             .card-username-bottom {
