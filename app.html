@@ -1845,6 +1845,12 @@
             const loading = document.getElementById('loading');
             loading.style.display = 'flex';
             
+            // Kaydedilmiş ülkeyi kontrol et
+            const savedCountry = localStorage.getItem('selectedCountry');
+            if (savedCountry && !selectedCountry) {
+                selectedCountry = savedCountry;
+            }
+            
             try {
                 let url = `${API_URL}/api/users/${currentUser.id}`;
                 if (selectedCountry) {
