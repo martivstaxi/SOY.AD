@@ -1473,6 +1473,10 @@
             }
             
             currentUser = JSON.parse(user);
+            // Kullanıcının kayıtlı ülkesini default olarak ayarla
+            if (currentUser.country) {
+                selectedCountry = currentUser.country;
+            }
         }
         
         function detectLanguage() {
@@ -2268,7 +2272,6 @@
         }
         
         checkAuth();
-        setDefaultCountry();
         const detectedLang = detectLanguage();
         updateTexts(detectedLang);
         loadCountries();
