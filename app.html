@@ -1409,14 +1409,15 @@
         }
         
         function detectLanguage() {
-            const saved = localStorage.getItem('soyad-app-lang');
-            if (saved && translations[saved]) return saved;
-            
             const browser = navigator.language.toLowerCase();
+            
             for (const code in translations) {
-                if (browser.startsWith(code)) return code;
+                if (browser.startsWith(code)) {
+                    return code;
+                }
             }
-            return 'tr';
+            
+            return 'tr'; // varsayılan
         }
 
         function updateTexts(lang) {
