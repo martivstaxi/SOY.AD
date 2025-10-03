@@ -353,10 +353,10 @@
             
             currentUser = JSON.parse(user);
             
-            // Eğer kullanıcı zaten ülke seçmişse direkt app.html'e yönlendir
+            // Eğer kullanıcı zaten ülke seçmişse, onu önceden seçili göster
             if (currentUser.country) {
-                window.location.href = 'app.html';
-                return;
+                selectedCountry = currentUser.country;
+                document.getElementById('continueBtn').disabled = false;
             }
         }
         
