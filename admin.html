@@ -745,14 +745,15 @@
                 await loadSwipes();
                 updateStats();
                 
-                console.log('Yüklendi:', {
+                // Debug için
+                console.log('Loaded data:', {
                     users: users.length,
                     matches: matches.length,
                     swipes: swipes.length
                 });
             } catch (error) {
                 console.error('Init error:', error);
-                showAlert('Veriler yüklenirken hata oluştu', 'error');
+                showAlert('Veriler yüklenirken hata oluştu: ' + error.message, 'error');
             }
         }
         
@@ -781,11 +782,19 @@
                 const response = await fetch(`${API_URL}/api/admin/users`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
-                users = data.users;
+                users = data.users || [];
+                console.log('Users loaded:', users.length);
                 renderUsersTable();
             } catch (error) {
                 console.error('Error loading users:', error);
+                users = [];
+                showAlert('Kullanıcılar yüklenemedi: ' + error.message, 'error');
             }
         }
         
@@ -794,10 +803,18 @@
                 const response = await fetch(`${API_URL}/api/matches`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 matches = data.matches || [];
+                console.log('Matches loaded:', matches.length);
             } catch (error) {
                 console.error('Error loading matches:', error);
+                matches = [];
+                showAlert('Eşleşmeler yüklenemedi: ' + error.message, 'error');
             }
         }
         
@@ -806,34 +823,45 @@
                 const response = await fetch(`${API_URL}/api/admin/swipes`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 swipes = data.swipes || [];
+                console.log('Swipes loaded:', swipes.length);
             } catch (error) {
                 console.error('Error loading swipes:', error);
                 swipes = [];
+                showAlert('Swipe verileri yüklenemedi: ' + error.message, 'error');
             }
         }
         
         function getUserMatches(userId) {
             if (!matches || matches.length === 0) return [];
             
-            // user1_id ve user2_id kullan (user1 ve user2 değil)
+            const userIdInt = parseInt(userId);
             return matches.filter(m => {
                 const id1 = parseInt(m.user1_id);
                 const id2 = parseInt(m.user2_id);
-                const currentId = parseInt(userId);
-                return id1 === currentId || id2 === currentId;
+                return id1 === userIdInt || id2 === userIdInt;
             });
         }
         
         function getUserSwipes(userId, action) {
-            return swipes.filter(s => s.user_id === userId && s.action === action);
+            if (!swipes || swipes.length === 0) return [];
+            
+            const userIdInt = parseInt(userId);
+            return swipes.filter(s => {
+                return parseInt(s.user_id) === userIdInt && s.action === action;
+            });
         }
         
         function renderUsersTable() {
             const tbody = document.getElementById('usersTable');
             
-            if (users.length === 0) {
+            if (!users || users.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: #999;">Henüz kullanıcı yok</td></tr>`;
                 return;
             }
@@ -863,6 +891,47 @@
                             </div>
                         </td>
                     </tr>
+                `;
+            }).join('');
+        }
+        
+        function renderMatches() {
+            const grid = document.getElementById('matchesGrid');
+            
+            if (!matches || matches.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">💔</div>
+                        <p>Henüz eşleşme yok</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = matches.map(match => {
+                if (!match.user1_info || !match.user2_info) {
+                    console.warn('Match missing user info:', match);
+                    return '';
+                }
+                
+                const date = new Date(match.matched_at || match.created_at);
+                const formattedDate = date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+                
+                return `
+                    <div class="match-card">
+                        <div class="match-users">
+                            <div class="match-user">
+                                <img src="${match.user1_info.instagram_image}" alt="${match.user1_info.username}">
+                                <div class="match-user-name">@${match.user1_info.username}</div>
+                            </div>
+                            <div class="match-heart">💚</div>
+                            <div class="match-user">
+                                <img src="${match.user2_info.instagram_image}" alt="${match.user2_info.username}">
+                                <div class="match-user-name">@${match.user2_info.username}</div>
+                            </div>
+                        </div>
+                        <div class="match-date">Eşleşme: ${formattedDate}</div>
+                    </div>
                 `;
             }).join('');
         }
