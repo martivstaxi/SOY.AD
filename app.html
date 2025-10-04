@@ -1578,43 +1578,31 @@
         
         async function loadProfileData() {
             try {
-                const [matchesResponse, usersResponse] = await Promise.all([
+                const currentUserId = parseInt(currentUser.id);
+                
+                const [matchesResponse, likersResponse] = await Promise.all([
                     fetch(`${API_URL}/api/matches`, {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         }
                     }),
-                    fetch(`${API_URL}/api/admin/users`, {
+                    fetch(`${API_URL}/api/my-likers/${currentUserId}`, {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         }
                     })
                 ]);
                 
-                const [matchesData, usersData] = await Promise.all([
+                const [matchesData, likersData] = await Promise.all([
                     matchesResponse.json(),
-                    usersResponse.json()
+                    likersResponse.json()
                 ]);
-                
-                const currentUserId = parseInt(currentUser.id);
                 
                 userMatches = matchesData.matches.filter(m => 
                     m.user1_id === currentUserId || m.user2_id === currentUserId
                 );
                 
-                const matchedUserIds = userMatches.map(m => 
-                    m.user1_id === currentUserId ? m.user2_id : m.user1_id
-                );
-                
-                userLikers = [];
-                
-                usersData.users.forEach(user => {
-                    if (user.likes && user.likes.includes(currentUserId)) {
-                        if (!matchedUserIds.includes(user.id)) {
-                            userLikers.push(user);
-                        }
-                    }
-                });
+                userLikers = likersData.likers || [];
                 
                 renderProfileData();
             } catch (error) {
