@@ -1618,8 +1618,7 @@
             const t = translations[lang];
             
             if (userMatches.length > 0) {
-                const reversedMatches = [...userMatches].reverse();
-                matchesList.innerHTML = reversedMatches.map(match => {
+                matchesList.innerHTML = userMatches.map(match => {
                     const otherUser = match.user1_id === currentUserId ? match.user2_info : match.user1_info;
                     let instagramUrl = otherUser.instagram_url || 'https://instagram.com/' + otherUser.username;
                     if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
@@ -1645,8 +1644,7 @@
             
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
-                const reversedLikers = [...userLikers].reverse();
-                likersList.innerHTML = reversedLikers.map(user => `
+                likersList.innerHTML = userLikers.map(user => `
                     <div class="profile-item" onclick="showLikerApproval(${JSON.stringify(user).replace(/"/g, '&quot;')})">
                         <div class="profile-avatar-wrapper">
                             <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
