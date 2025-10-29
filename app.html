@@ -1672,7 +1672,36 @@
         function showLikerApproval(likerData) {
             currentLikerData = likerData;
             
-            document.getElementById('likerApprovalImage').src = likerData.instagram_image;
+            const likerImage = document.getElementById('likerApprovalImage');
+            likerImage.src = likerData.instagram_image;
+            
+            // Instagram URL'ini düzgün ayarla
+            let instagramUrl = likerData.instagram_url || `https://instagram.com/${likerData.username}`;
+            if (!instagramUrl.startsWith('http://') && !instagramUrl.startsWith('https://')) {
+                instagramUrl = 'https://' + instagramUrl;
+            }
+            
+            // Resme tıklama olayını ekle
+            likerImage.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const username = likerData.username;
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // Önce Instagram uygulamasını dene
+                    window.location.href = `instagram://user?username=${username}`;
+                    
+                    // Eğer uygulama yoksa web'e yönlendir
+                    setTimeout(() => {
+                        window.open(instagramUrl, '_blank');
+                    }, 500);
+                } else {
+                    window.open(instagramUrl, '_blank');
+                }
+            };
+            
             document.getElementById('likerApprovalUsername').textContent = `@${likerData.username}`;
             
             const modal = document.getElementById('likerApprovalModal');
@@ -1687,21 +1716,17 @@
                 instagramUrl = 'https://' + instagramUrl;
             }
             
-            const username = instagramUrl.split('/').pop();
+            const username = currentLikerData.username;
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (isMobile) {
-                const appUrl = `instagram://user?username=${username}`;
+                // Önce Instagram uygulamasını dene
+                window.location.href = `instagram://user?username=${username}`;
                 
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = appUrl;
-                document.body.appendChild(iframe);
-                
+                // Eğer uygulama yoksa web'e yönlendir
                 setTimeout(() => {
-                    document.body.removeChild(iframe);
-                }, 2000);
-                
+                    window.open(instagramUrl, '_blank');
+                }, 500);
             } else {
                 window.open(instagramUrl, '_blank');
             }
