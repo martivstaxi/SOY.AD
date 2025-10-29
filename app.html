@@ -1680,6 +1680,9 @@
         function showLikerApproval(likerData) {
             currentLikerData = likerData;
             
+        function showLikerApproval(likerData) {
+            currentLikerData = likerData;
+            
             const likerImage = document.getElementById('likerApprovalImage');
             likerImage.src = likerData.instagram_image;
             
@@ -1693,21 +1696,7 @@
             likerImage.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                const username = likerData.username;
-                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                
-                if (isMobile) {
-                    // Önce Instagram uygulamasını dene
-                    window.location.href = `instagram://user?username=${username}`;
-                    
-                    // Eğer uygulama yoksa web'e yönlendir
-                    setTimeout(() => {
-                        window.open(instagramUrl, '_blank');
-                    }, 500);
-                } else {
-                    window.open(instagramUrl, '_blank');
-                }
+                openLikerInstagram();
             };
             
             document.getElementById('likerApprovalUsername').textContent = `@${likerData.username}`;
