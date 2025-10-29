@@ -2249,8 +2249,15 @@
             }
         });
         
-        // Prevent bounce effect on iOS
+        // Prevent bounce effect on iOS (except for scrollable areas)
         document.addEventListener('touchmove', function(e) {
+            // Allow scroll in filter modal and profile modal
+            if (e.target.closest('.country-list') || 
+                e.target.closest('.profile-section') ||
+                e.target.closest('.filter-modal.active') ||
+                e.target.closest('.profile-modal.active')) {
+                return;
+            }
             e.preventDefault();
         }, { passive: false });
         
