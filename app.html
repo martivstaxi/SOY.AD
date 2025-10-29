@@ -2110,32 +2110,7 @@
                     profileBtn.href = instagramUrl;
                     profileBtn.onclick = function(e) {
                         e.preventDefault();
-                        const username = matchedUser?.username;
-                        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                        
-                        if (isMobile) {
-                            const appUrl = `instagram://user?username=${username}`;
-                            
-                            const iframe = document.createElement('iframe');
-                            iframe.style.display = 'none';
-                            iframe.src = appUrl;
-                            document.body.appendChild(iframe);
-                            
-                            setTimeout(() => {
-                                if (document.body.contains(iframe)) {
-                                    document.body.removeChild(iframe);
-                                }
-                            }, 100);
-                            
-                            setTimeout(() => {
-                                if (!document.hidden) {
-                                    window.location.href = instagramUrl;
-                                }
-                            }, 500);
-                        } else {
-                            window.open(instagramUrl, '_blank');
-                        }
-                        
+                        window.open(instagramUrl, '_blank');
                         setTimeout(() => {
                             closeMatchModal();
                         }, 1000);
