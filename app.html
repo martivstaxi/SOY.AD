@@ -1654,24 +1654,21 @@
                         <div class="profile-name">@${user.username}</div>
                     </div>
                 `).join('');
-                            } else {
-                                likersList.innerHTML = `
-                                    <div class="empty-profile-state">
-                                        <div class="empty-profile-state-icon">👀</div>
-                                        <p>${t.noLikers}</p>
-                                    </div>
-                                `;
-                            }
-                        }
+            } else {
+                likersList.innerHTML = `
+                    <div class="empty-profile-state">
+                        <div class="empty-profile-state-icon">👀</div>
+                        <p>${t.noLikers}</p>
+                    </div>
+                `;
+            }
+        }
         
         function closeLikerApproval() {
             document.getElementById('likerApprovalModal').style.display = 'none';
             currentLikerData = null;
         }
         
-        function showLikerApproval(likerData) {
-            currentLikerData = likerData;
-            
         function showLikerApproval(likerData) {
             currentLikerData = likerData;
             
@@ -1688,7 +1685,21 @@
             likerImage.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                openLikerInstagram();
+                
+                const username = likerData.username;
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // Önce Instagram uygulamasını dene
+                    window.location.href = `instagram://user?username=${username}`;
+                    
+                    // Eğer uygulama yoksa web'e yönlendir
+                    setTimeout(() => {
+                        window.open(instagramUrl, '_blank');
+                    }, 500);
+                } else {
+                    window.open(instagramUrl, '_blank');
+                }
             };
             
             document.getElementById('likerApprovalUsername').textContent = `@${likerData.username}`;
