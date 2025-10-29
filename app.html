@@ -2176,7 +2176,6 @@
         function openInstagram() {
             const card = document.querySelector('.card:last-child');
             let instagramUrl = null;
-            let username = null;
             
             if (card && card.dataset.instagramUrl) {
                 instagramUrl = card.dataset.instagramUrl;
@@ -2190,24 +2189,7 @@
                 instagramUrl = 'https://' + instagramUrl;
             }
             
-            username = instagramUrl.split('/').pop();
-            
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                const appUrl = `instagram://user?username=${username}`;
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = appUrl;
-                document.body.appendChild(iframe);
-                
-                setTimeout(() => {
-                    document.body.removeChild(iframe);
-                }, 2000);
-                
-            } else {
-                window.open(instagramUrl, '_blank');
-            }
+            window.open(instagramUrl, '_blank');
         }
         
         function showEmptyState() {
