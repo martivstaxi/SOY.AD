@@ -1646,31 +1646,23 @@
             
             const likersList = document.getElementById('likersList');
             if (userLikers.length > 0) {
-                likersList.innerHTML = userLikers.map((user, index) => `
-                    <div class="profile-item" data-liker-index="${index}">
+                likersList.innerHTML = userLikers.map(user => `
+                    <div class="profile-item" onclick="showLikerApproval(${JSON.stringify(user).replace(/"/g, '&quot;')})">
                         <div class="profile-avatar-wrapper">
                             <img src="${user.instagram_image}" alt="${user.username}" class="profile-avatar">
                         </div>
                         <div class="profile-name">@${user.username}</div>
                     </div>
                 `).join('');
-                
-                // Her bir profile item'a tıklama olayı ekle
-                likersList.querySelectorAll('.profile-item').forEach((item) => {
-                    const index = parseInt(item.dataset.likerIndex);
-                    item.onclick = function() {
-                        showLikerApproval(userLikers[index]);
-                    };
-                });
-            } else {
-                likersList.innerHTML = `
-                    <div class="empty-profile-state">
-                        <div class="empty-profile-state-icon">👀</div>
-                        <p>${t.noLikers}</p>
-                    </div>
-                `;
-            }
-        }
+                            } else {
+                                likersList.innerHTML = `
+                                    <div class="empty-profile-state">
+                                        <div class="empty-profile-state-icon">👀</div>
+                                        <p>${t.noLikers}</p>
+                                    </div>
+                                `;
+                            }
+                        }
         
         function closeLikerApproval() {
             document.getElementById('likerApprovalModal').style.display = 'none';
