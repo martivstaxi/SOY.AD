@@ -340,6 +340,34 @@
             box-shadow: 0 8px 20px rgba(67, 233, 123, 0.3);
         }
         
+        /* Instagram Embed Container */
+        .instagram-embed-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 25px auto;
+            max-width: 700px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .instagram-media {
+            background: white !important;
+            border: 0 !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            width: 100% !important;
+            max-width: 540px !important;
+            min-width: 326px !important;
+            display: block !important;
+        }
+        
         @media (max-width: 768px) {
             .section {
                 min-height: 100vh;
@@ -405,6 +433,11 @@
             
             .benefit-list {
                 padding: 0 10px;
+            }
+            
+            .instagram-embed-container {
+                padding: 20px;
+                max-width: 95%;
             }
         }
         
@@ -481,6 +514,14 @@
                 font-size: 14px;
                 padding: 10px 20px;
             }
+            
+            .instagram-embed-container {
+                padding: 15px;
+            }
+            
+            .instagram-media {
+                min-width: 280px !important;
+            }
         }
         
         @media (max-width: 380px) {
@@ -510,7 +551,20 @@
         <div class="orb orb3"></div>
     </div>
     
+    <!-- Instagram Video Section -->
     <section class="section">
+        <div class="instagram-embed-container">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DQycCLYDBZm/?igsh=bGgzdWZiaG1kcHgy" data-instgrm-version="14">
+                <a href="https://www.instagram.com/reel/DQycCLYDBZm/?igsh=bGgzdWZiaG1kcHgy" target="_blank">Instagram'da gönderiyi görüntüle</a>
+            </blockquote>
+        </div>
+        <div class="scroll-hint" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">
+            <span>Platform Nedir?</span>
+            <span>↓</span>
+        </div>
+    </section>
+    
+    <section class="section" id="section1">
         <div class="content-box">
             <div class="logo-icon">🪙</div>
             <h1>E-Ticaret Sayfaları İçin Karşılıklı Tanıtım Platformu</h1>
@@ -590,5 +644,15 @@
         </div>
     </section>
     
+    <script async src="//www.instagram.com/embed.js"></script>
+    
+    <script>
+        // Instagram embed'i yeniden yükle
+        window.addEventListener('load', function() {
+            if (window.instgrm) {
+                window.instgrm.Embeds.process();
+            }
+        });
+    </script>
 </body>
 </html>
