@@ -46,66 +46,12 @@
             background-size: 50px 50px;
             background-position: 0 0, 25px 25px;
         }
-        
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 24px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 26px;
-            font-weight: 800;
-            color: #0a0a0a;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background: #6366f1;
-            border-radius: 50%;
-        }
-        
-        .nav-link {
-            color: #0a0a0a;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 12px 28px;
-            background: #f4f4f5;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            font-size: 15px;
-        }
-        
-        .nav-link:hover {
-            background: #0a0a0a;
-            color: white;
-            transform: translateY(-2px);
-        }
+
         
         /* Container */
         .container {
             max-width: 1000px;
-            margin: 120px auto 0;
+            margin: 60px auto 0;
             padding: 60px 24px;
         }
         
@@ -188,6 +134,14 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+        
+        .video-description {
+            margin-top: 24px;
+            font-size: 17px;
+            color: #52525b;
+            line-height: 1.7;
+            text-align: center;
         }
         
         /* Info Cards */
@@ -375,32 +329,13 @@
         .cta-button:hover .cta-arrow {
             transform: translateX(4px);
         }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 60px 24px;
-            border-top: 1px solid #e4e4e7;
-            margin-top: 100px;
-        }
-        
-        .footer-logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0a0a0a;
-            margin-bottom: 12px;
-        }
-        
-        .footer-text {
-            color: #a1a1aa;
-            font-size: 14px;
-        }
+
         
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 padding: 40px 20px;
-                margin-top: 100px;
+                margin-top: 40px;
             }
             
             .hero {
@@ -460,10 +395,6 @@
         }
         
         @media (max-width: 480px) {
-            .header {
-                padding: 20px 0;
-            }
-            
             .hero-badge {
                 font-size: 12px;
                 padding: 6px 14px;
@@ -546,27 +477,15 @@
     <!-- Background Pattern -->
     <div class="bg-pattern"></div>
     
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <div></div>
-            <div></div>
-        </div>
-    </header>
-    
+
     <!-- Main Container -->
     <div class="container">
         <!-- Hero Section -->
         <section class="hero fade-in">
-            <div class="hero-badge">KARŞILIKLI TANITIM</div>
             <h1 class="hero-title">
                 E-Ticaret Sayfaları İçin<br>
                 <span>Karşılıklı Tanıtım</span> Platformu
             </h1>
-            <p class="hero-description">
-                İki e-ticaret sayfası birbirinin ürününü paylaşıyor.
-                Reklam harcaması olmadan tanıtım yapılıyor.
-            </p>
         </section>
         
         <!-- Video Section -->
@@ -579,6 +498,10 @@
                     allowfullscreen>
                 </iframe>
             </div>
+            <p class="video-description">
+                İki e-ticaret sayfası birbirinin ürününü paylaşıyor.
+                Reklam harcaması olmadan tanıtım yapılıyor.
+            </p>
         </section>
         
         <!-- Info Grid -->
@@ -643,12 +566,7 @@
             </a>
         </section>
     </div>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-logo">Soy.ad</div>
-        <p class="footer-text">© 2024 Tüm hakları saklıdır.</p>
-    </footer>
+</body>
     
     <script>
         // Fade in animation on scroll
