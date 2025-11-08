@@ -340,8 +340,8 @@
             box-shadow: 0 8px 20px rgba(67, 233, 123, 0.3);
         }
         
-        /* Instagram Embed Container */
-        .instagram-embed-container {
+        /* YouTube Video Container */
+        .video-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 32px;
@@ -350,22 +350,85 @@
             max-width: 700px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
                         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: relative;
             overflow: hidden;
         }
         
-        .instagram-media {
-            background: white !important;
-            border: 0 !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-            width: 100% !important;
-            max-width: 540px !important;
-            min-width: 326px !important;
-            display: block !important;
+        .video-title {
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.78%; /* 9:16 aspect ratio for shorts */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: #000;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+        }
+        
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 1;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .video-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff0050 0%, #ff4569 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .play-icon {
+            font-size: 18px;
         }
         
         @media (max-width: 768px) {
@@ -435,9 +498,18 @@
                 padding: 0 10px;
             }
             
-            .instagram-embed-container {
-                padding: 20px;
+            .video-container {
+                padding: 30px 20px;
                 max-width: 95%;
+            }
+            
+            .video-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            
+            .video-wrapper {
+                padding-bottom: 177.78%;
             }
         }
         
@@ -515,12 +587,17 @@
                 padding: 10px 20px;
             }
             
-            .instagram-embed-container {
-                padding: 15px;
+            .video-container {
+                padding: 25px 15px;
             }
             
-            .instagram-media {
-                min-width: 280px !important;
+            .video-title {
+                font-size: 18px;
+            }
+            
+            .video-badge {
+                font-size: 12px;
+                padding: 6px 12px;
             }
         }
         
@@ -541,6 +618,10 @@
                 font-size: 15px;
                 margin-bottom: 24px;
             }
+            
+            .video-container {
+                padding: 20px 12px;
+            }
         }
     </style>
 </head>
@@ -551,12 +632,26 @@
         <div class="orb orb3"></div>
     </div>
     
-    <!-- Instagram Video Section -->
+    <!-- YouTube Video Section -->
     <section class="section">
-        <div class="instagram-embed-container">
-            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DQycCLYDBZm/?igsh=bGgzdWZiaG1kcHgy" data-instgrm-version="14">
-                <a href="https://www.instagram.com/reel/DQycCLYDBZm/?igsh=bGgzdWZiaG1kcHgy" target="_blank">Instagram'da gönderiyi görüntüle</a>
-            </blockquote>
+        <div class="video-container">
+            <div class="video-badge">
+                <span class="play-icon">▶</span>
+                <span>Tanıtım Videosu</span>
+            </div>
+            <h2 class="video-title">Platform Nasıl Çalışıyor?</h2>
+            <div class="video-wrapper">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    <span>Video Yükleniyor...</span>
+                </div>
+                <iframe 
+                    id="youtube-video"
+                    src="https://www.youtube.com/embed/LHxc9hxyABU?autoplay=1&mute=1&loop=1&playlist=LHxc9hxyABU&controls=1&rel=0&modestbranding=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
         <div class="scroll-hint" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">
             <span>Platform Nedir?</span>
@@ -644,13 +739,29 @@
         </div>
     </section>
     
-    <script async src="//www.instagram.com/embed.js"></script>
-    
     <script>
-        // Instagram embed'i yeniden yükle
+        // Video yükleme göstergesini kaldır
         window.addEventListener('load', function() {
-            if (window.instgrm) {
-                window.instgrm.Embeds.process();
+            setTimeout(function() {
+                const loadingIndicator = document.querySelector('.loading-indicator');
+                if (loadingIndicator) {
+                    loadingIndicator.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingIndicator.style.display = 'none';
+                    }, 500);
+                }
+            }, 2000);
+        });
+        
+        // Video iframe yükleme kontrolü
+        const iframe = document.getElementById('youtube-video');
+        iframe.addEventListener('load', function() {
+            const loadingIndicator = document.querySelector('.loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.opacity = '0';
+                setTimeout(() => {
+                    loadingIndicator.style.display = 'none';
+                }, 500);
             }
         });
     </script>
