@@ -414,23 +414,6 @@
             to { transform: rotate(360deg); }
         }
         
-        .video-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #ff0050 0%, #ff4569 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .play-icon {
-            font-size: 18px;
-        }
-        
         @media (max-width: 768px) {
             .section {
                 min-height: 100vh;
@@ -594,11 +577,6 @@
             .video-title {
                 font-size: 18px;
             }
-            
-            .video-badge {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
         }
         
         @media (max-width: 380px) {
@@ -635,10 +613,6 @@
     <!-- YouTube Video Section -->
     <section class="section">
         <div class="video-container">
-            <div class="video-badge">
-                <span class="play-icon">▶</span>
-                <span>Tanıtım Videosu</span>
-            </div>
             <h2 class="video-title">Platform Nasıl Çalışıyor?</h2>
             <div class="video-wrapper">
                 <div class="loading-indicator">
@@ -647,14 +621,14 @@
                 </div>
                 <iframe 
                     id="youtube-video"
-                    src="https://www.youtube.com/embed/LHxc9hxyABU?autoplay=1&mute=0&loop=1&playlist=LHxc9hxyABU&controls=1&rel=0&modestbranding=1"
+                    src="https://www.youtube.com/embed/LHxc9hxyABU?autoplay=1&mute=1&loop=1&playlist=LHxc9hxyABU&controls=1&rel=0&modestbranding=1"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
             </div>
         </div>
         <div class="scroll-hint" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">
-            <span>Platform Nedir?</span>
+            <span>Soy.ad Nedir?</span>
             <span>↓</span>
         </div>
     </section>
@@ -662,8 +636,8 @@
     <section class="section" id="section1">
         <div class="content-box">
             <div class="logo-icon">🪙</div>
-            <h1>E-Ticaret Sayfaları İçin Karşılıklı Tanıtım Platformu</h1>
-            <p class="description">Reklam harcaması yapmadan etkili tanıtım yapın, organik büyüme kazanın</p>
+            <h1>E-Ticaret İçin Karşılıklı Tanıtım Platformu</h1>
+            <p class="description">İki sayfa birbirinin ürününü paylaşıyor. Reklam harcaması yok, organik büyüme var.</p>
         </div>
         <div class="scroll-hint" onclick="document.getElementById('section2').scrollIntoView({behavior: 'smooth'})">
             <span>Nasıl Çalışıyor?</span>
@@ -674,8 +648,25 @@
     <section class="section" id="section2">
         <div class="content-box">
             <div class="feature-icon">🤝</div>
-            <h2>Karşılıklı Ürün Tanıtımı</h2>
-            <p class="description">İki e-ticaret sayfası birbirinin beğendiği ürününü paylaşarak tanıtım yapıyor. Siz başka bir sayfanın ürününü paylaşıyorsunuz, o da sizin ürününüzü!</p>
+            <h2>Nasıl Çalışıyor?</h2>
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Platforma giriş yap</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-text">E-ticaret sayfalarını gör</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Uygun sayfaları beğen</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Karşılıklı beğeni gelirse işbirliği başlasın</div>
+                </div>
+            </div>
         </div>
         <div class="scroll-hint" onclick="document.getElementById('section3').scrollIntoView({behavior: 'smooth'})">
             <span>Faydaları</span>
@@ -686,56 +677,27 @@
     <section class="section" id="section3">
         <div class="content-box">
             <div class="feature-icon">📈</div>
-            <h2>Neler Kazanırsınız?</h2>
+            <h2>Neler Kazanırsın?</h2>
             <div class="benefit-list">
-                <div class="benefit-item">Her iki e-ticaret sayfası organik büyüme kazanıyor</div>
-                <div class="benefit-item">Yeni takipçiler ve yeni siparişler geliyor</div>
-                <div class="benefit-item">Reklam harcaması yapılmadan etkili tanıtım yapılıyor</div>
-                <div class="benefit-item">Hedef kitlenize ulaşan gerçek müşteriler buluyorsunuz</div>
+                <div class="benefit-item">Organik büyüme</div>
+                <div class="benefit-item">Yeni takipçi ve sipariş</div>
+                <div class="benefit-item">Sıfır reklam harcaması</div>
+                <div class="benefit-item">Gerçek hedef kitle</div>
             </div>
         </div>
         <div class="scroll-hint" onclick="document.getElementById('section4').scrollIntoView({behavior: 'smooth'})">
-            <span>Nasıl Başlar?</span>
+            <span>Hemen Başla</span>
             <span>↓</span>
         </div>
     </section>
     
     <section class="section" id="section4">
         <div class="content-box">
-            <div class="feature-icon">🎯</div>
-            <h2>Bu Tarz İşbirliği Nasıl Çalışıyor?</h2>
-            <div class="steps-list">
-                <div class="step-item">
-                    <div class="step-number">1</div>
-                    <div class="step-text">İşbirliği platformuna giriş yapıyorsunuz</div>
-                </div>
-                <div class="step-item">
-                    <div class="step-number">2</div>
-                    <div class="step-text">E-ticaret yapan sayfaları görüyorsunuz</div>
-                </div>
-                <div class="step-item">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Size uygun sayfaları beğeniyorsunuz</div>
-                </div>
-                <div class="step-item">
-                    <div class="step-number">4</div>
-                    <div class="step-text">Karşılıklı beğeni gelirse, beğendiğiniz ürünü satan bir sayfa ile işbirliği yapıyorsunuz</div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-hint" onclick="document.getElementById('section5').scrollIntoView({behavior: 'smooth'})">
-            <span>Fiyatlandırma</span>
-            <span>↓</span>
-        </div>
-    </section>
-    
-    <section class="section" id="section5">
-        <div class="content-box">
             <div class="feature-icon">✨</div>
-            <h2>Hemen Başlayın</h2>
+            <h2>Hemen Başla</h2>
             <div class="price-badge">İlk Ay Ücretsiz!</div>
-            <p class="description">Platforma katılmak ilk ay ücretsiz. Platformu beğenirseniz ikinci aydan ücretli devam edebilirsiniz.</p>
-            <a href="login.html" class="cta-button">Ücretsiz Deneyin ⟶</a>
+            <p class="description">Beğenirsen ikinci aydan devam et.</p>
+            <a href="login.html" class="cta-button">Ücretsiz Dene ⟶</a>
         </div>
     </section>
     
