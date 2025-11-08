@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soy.ad - E-Ticaret Tanıtım Platformu</title>
+    <title>Soy.ad - Karşılıklı Tanıtım Platformu</title>
     
-    <meta name="description" content="E-ticaret sayfaları için karşılıklı tanıtım platformu. İki e-ticaret sayfası birbirinin sayfasında beğendiği ürünü paylaşarak tanıtmaktadır.">
+    <meta name="description" content="Karşılıklı tanıtım platformu. İki sayfa birbirinin içeriğini paylaşarak tanıtmaktadır.">
     
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
     
@@ -232,27 +232,49 @@
         
         .benefit-item {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding: 14px;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 18px;
             background: white;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 16px;
             color: #52525b;
-            font-weight: 500;
             transition: all 0.2s ease;
+            border: 1px solid #e4e4e7;
         }
         
         .benefit-item:hover {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), rgba(139, 92, 246, 0.03));
             transform: translateX(4px);
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
         }
         
         .benefit-check {
-            color: #6366f1;
+            color: #10b981;
             font-weight: 700;
-            font-size: 20px;
+            font-size: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .benefit-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .benefit-title {
+            font-weight: 700;
+            color: #0a0a0a;
+            font-size: 17px;
+        }
+        
+        .benefit-desc {
+            font-size: 14px;
+            color: #71717a;
+            font-weight: 400;
         }
         
         /* Removed old benefit styles */
@@ -370,8 +392,15 @@
             }
             
             .benefit-item {
-                padding: 12px;
-                font-size: 15px;
+                padding: 14px;
+            }
+            
+            .benefit-title {
+                font-size: 16px;
+            }
+            
+            .benefit-desc {
+                font-size: 13px;
             }
             
             .video-section {
@@ -430,8 +459,15 @@
             }
             
             .benefit-item {
-                padding: 10px;
-                font-size: 14px;
+                padding: 12px;
+            }
+            
+            .benefit-title {
+                font-size: 15px;
+            }
+            
+            .benefit-desc {
+                font-size: 12px;
             }
             
             .cta-section {
@@ -480,11 +516,10 @@
         <!-- Hero Section -->
         <section class="hero fade-in">
             <h1 class="hero-title">
-                E-Ticaret Sayfaları İçin<br>
                 <span>Karşılıklı Tanıtım</span> Platformu
             </h1>
             <p class="hero-subtitle">
-                Birbirinizin ürünlerini paylaşın, yeni müşterilere ulaşın.
+                Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.
             </p>
         </section>
         
@@ -510,19 +545,19 @@
                 <div class="steps-container">
                     <div class="simple-step">
                         <div class="simple-step-number">1</div>
-                        <div class="simple-step-text">Platforma giriş yap</div>
+                        <div class="simple-step-text">Platforma giriş yapın</div>
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">2</div>
-                        <div class="simple-step-text">E-ticaret sayfalarını gör</div>
+                        <div class="simple-step-text">Diğer sayfaları görün</div>
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">3</div>
-                        <div class="simple-step-text">Uygun sayfaları beğen</div>
+                        <div class="simple-step-text">Size uygun sayfaları beğenin</div>
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">4</div>
-                        <div class="simple-step-text">Karşılıklı beğenide işbirliği başla</div>
+                        <div class="simple-step-text">Karşılıklı beğeni gelirse, işbirliği başlatın !</div>
                     </div>
                 </div>
             </section>
@@ -535,15 +570,24 @@
                 <div class="benefits-list">
                     <div class="benefit-item">
                         <span class="benefit-check">✓</span>
-                        <span>Organik büyüme</span>
+                        <div class="benefit-content">
+                            <span class="benefit-title">Organik Büyüme</span>
+                            <span class="benefit-desc">Gerçek takipçiler, gerçek etkileşim</span>
+                        </div>
                     </div>
                     <div class="benefit-item">
                         <span class="benefit-check">✓</span>
-                        <span>Yeni takipçi ve sipariş</span>
+                        <div class="benefit-content">
+                            <span class="benefit-title">Yeni Müşteriler</span>
+                            <span class="benefit-desc">Farklı kitlelere doğrudan erişim</span>
+                        </div>
                     </div>
                     <div class="benefit-item">
                         <span class="benefit-check">✓</span>
-                        <span>Reklam harcaması yok</span>
+                        <div class="benefit-content">
+                            <span class="benefit-title">Sıfır Reklam Bütçesi</span>
+                            <span class="benefit-desc">Sadece karşılıklı destek</span>
+                        </div>
                     </div>
                 </div>
             </section>
