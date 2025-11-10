@@ -3,18 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soy.ad - E-Ticaret Sayfaları İçin Karşılıklı Tanıtım Platformu</title>
-    
-    <meta name="description" content="E-ticaret sayfaları için karşılıklı ürün tanıtım platformu. Reklam harcaması yapmadan organik büyüme sağlayın, yeni takipçiler kazanın.">
-    <meta name="keywords" content="e-ticaret tanıtım, karşılıklı tanıtım, reklam harcaması olmadan, organik büyüme, e-ticaret işbirliği">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://soy.ad/">
-    <meta property="og:title" content="Soy.ad - E-Ticaret İçin Karşılıklı Tanıtım Platformu">
-    <meta property="og:description" content="Reklam harcaması yapmadan e-ticaret sayfanızı büyütün. Karşılıklı ürün tanıtımı ile yeni müşterilere ulaşın!">
-    
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
-    
+    <title>www.Soy.ad - Hoş Geldiniz</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -24,17 +13,20 @@
         }
         
         html {
-            scroll-behavior: smooth;
             height: 100%;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         
         body {
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #667eea;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .animated-bg {
@@ -45,15 +37,6 @@
             left: 0;
             pointer-events: none;
             z-index: 0;
-            background: linear-gradient(-45deg, #667eea, #d4af37, #764ba2, #4facfe, #5e72e4);
-            background-size: 500% 500%;
-            animation: gradientWave 10s ease infinite;
-        }
-        
-        @keyframes gradientWave {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
         .orb {
@@ -67,7 +50,7 @@
         .orb1 {
             width: 500px;
             height: 500px;
-            background: linear-gradient(135deg, #4facfe 0%, #00c9ff 100%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             top: -200px;
             right: -100px;
             animation-delay: 0s;
@@ -98,27 +81,27 @@
             66% { transform: translate(-20px, 20px) scale(0.9); }
         }
         
-        .section {
-            min-height: 100vh;
-            min-height: 100svh;
+        .wrapper {
+            min-height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 20px;
             position: relative;
             z-index: 1;
         }
         
-        .content-box {
+        .welcome-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             padding: 56px 48px;
             border-radius: 32px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
                         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            max-width: 700px;
             width: 100%;
-            text-align: center;
+            max-width: 460px;
+            position: relative;
+            z-index: 1;
             animation: slideUp 0.6s ease-out;
         }
         
@@ -133,23 +116,23 @@
             }
         }
         
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
         .logo-icon {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 20px;
-            margin: 0 auto 24px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 42px;
+            font-size: 36px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             animation: pulse 3s ease-in-out infinite;
-        }
-        
-        .feature-icon {
-            font-size: 64px;
-            margin-bottom: 24px;
         }
         
         @keyframes pulse {
@@ -157,127 +140,75 @@
             50% { transform: scale(1.05); }
         }
         
-        h1 {
+        .logo h1 {
             color: #1a1a2e;
-            font-size: 38px;
+            font-size: 36px;
             font-weight: 800;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
             letter-spacing: -1px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.3;
         }
         
-        h2 {
-            color: #1a1a2e;
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-        
-        .description {
-            color: #4b5563;
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 36px;
+        .logo p {
+            color: #6b7280;
+            font-size: 16px;
             font-weight: 500;
+            letter-spacing: 0.3px;
         }
         
-        .benefit-list {
-            text-align: left;
-            margin: 32px 0;
-            padding: 0 20px;
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 36px;
         }
         
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 16px;
-            color: #4b5563;
-            font-size: 17px;
+        .welcome-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0;
+            letter-spacing: -0.3px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 15px;
+            color: #6b7280;
             line-height: 1.6;
+            font-weight: 400;
         }
         
-        .benefit-item::before {
-            content: "✓";
-            color: #667eea;
-            font-weight: 800;
-            font-size: 24px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        
-        .steps-list {
-            text-align: left;
-            margin: 32px 0;
-            padding: 0 10px;
-        }
-        
-        .step-item {
+        .buttons-container {
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(102, 126, 234, 0.05);
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            flex-direction: column;
+            gap: 20px;
         }
         
-        .step-item:hover {
-            background: rgba(102, 126, 234, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .step-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: 800;
-            font-size: 18px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-right: 16px;
-        }
-        
-        .step-text {
-            color: #4b5563;
-            font-size: 17px;
-            line-height: 1.6;
-            padding-top: 6px;
-        }
-        
-        .highlight {
-            color: #667eea;
-            font-weight: 700;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 20px 48px;
+        .primary-btn {
+            width: 100%;
+            padding: 18px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             font-family: 'Outfit', sans-serif;
             letter-spacing: 0.5px;
-            text-decoration: none;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        .cta-button::before {
+        .primary-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -288,317 +219,246 @@
             transition: left 0.5s ease;
         }
         
-        .cta-button:hover::before {
+        .primary-btn:hover::before {
             left: 100%;
         }
         
-        .cta-button:hover {
+        .primary-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
         }
         
-        .cta-button:active {
-            transform: translateY(-1px) scale(0.98);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        .primary-btn:active {
+            transform: translateY(-1px);
         }
         
-        .scroll-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            font-weight: 600;
+        .secondary-btn {
+            width: 100%;
+            padding: 18px;
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .secondary-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .secondary-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-icon {
+            font-size: 20px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .divider-text {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .info-section {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 32px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .info-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+            display: flex;
             align-items: center;
             gap: 8px;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            z-index: 100;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
+        .info-icon {
+            color: #667eea;
+            font-size: 18px;
         }
         
-        .scroll-hint span {
-            font-size: 24px;
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
-        .price-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(67, 233, 123, 0.3);
-        }
-        
-        /* YouTube Video Container */
-        .video-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
-            padding: 40px;
-            margin: 25px auto;
-            max-width: 700px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .video-title {
-            color: #1a1a2e;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 177.78%; /* 9:16 aspect ratio for shorts */
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            background: #000;
-        }
-        
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 20px;
-        }
-        
-        .loading-indicator {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-            font-weight: 600;
+        .info-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 15px;
-            z-index: 1;
+            gap: 12px;
+            padding: 8px 0;
+            color: #6b7280;
+            font-size: 14px;
         }
         
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 768px) {
-            .section {
-                min-height: 100vh;
-                min-height: 100svh;
-                padding: 25px 20px;
-            }
-            
-            .scroll-hint {
-                bottom: 60px;
-            }
-            
-            .content-box {
-                padding: 40px 32px;
-                border-radius: 28px;
-                max-width: 95%;
-            }
-            
-            .logo-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 36px;
-                border-radius: 18px;
-            }
-            
-            h1 {
-                font-size: 28px;
-                margin-bottom: 20px;
-            }
-            
-            h2 {
-                font-size: 26px;
-                margin-bottom: 18px;
-            }
-            
-            .description {
-                font-size: 17px;
-                line-height: 1.65;
-                margin-bottom: 32px;
-            }
-            
-            .benefit-item {
-                font-size: 16px;
-            }
-            
-            .step-text {
-                font-size: 16px;
-            }
-            
-            .cta-button {
-                padding: 18px 40px;
-                font-size: 17px;
-                border-radius: 14px;
-            }
-            
-            .feature-icon {
-                font-size: 56px;
-                margin-bottom: 20px;
-            }
-            
-            .scroll-hint {
-                bottom: 35px;
-            }
-            
-            .benefit-list {
-                padding: 0 10px;
-            }
-            
-            .video-container {
-                padding: 30px 20px;
-                max-width: 95%;
-            }
-            
-            .video-title {
-                font-size: 20px;
-                margin-bottom: 15px;
-            }
-            
-            .video-wrapper {
-                padding-bottom: 177.78%;
-            }
+        .info-check {
+            color: #10b981;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
         }
         
         @media (max-width: 480px) {
-            .section {
-                min-height: 100vh;
-                min-height: 100svh;
-                padding: 20px 16px;
+            body {
+                overflow-y: scroll;
             }
             
-            .content-box {
-                padding: 36px 28px;
-                border-radius: 24px;
+            .orb {
+                filter: blur(40px);
+            }
+            
+            .wrapper {
+                padding: 20px;
+                min-height: 100vh;
+                min-height: -webkit-fill-available;
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+            
+            .welcome-container {
+                padding: 40px 28px;
+                border-radius: 28px;
+                max-width: 100%;
+                margin-bottom: 40px;
+            }
+            
+            .logo {
+                margin-bottom: 32px;
             }
             
             .logo-icon {
                 width: 64px;
                 height: 64px;
                 font-size: 32px;
-                border-radius: 16px;
-            }
-            
-            h1 {
-                font-size: 24px;
-                margin-bottom: 18px;
-            }
-            
-            h2 {
-                font-size: 22px;
                 margin-bottom: 16px;
             }
             
-            .description {
-                font-size: 16px;
-                margin-bottom: 28px;
+            .logo h1 {
+                font-size: 32px;
+                margin-bottom: 10px;
             }
             
-            .benefit-item {
-                font-size: 15px;
-                margin-bottom: 14px;
-            }
-            
-            .step-text {
+            .logo p {
                 font-size: 15px;
             }
             
-            .step-number {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
+            .welcome-text {
+                margin-bottom: 36px;
             }
             
-            .cta-button {
-                padding: 16px 36px;
-                font-size: 16px;
-                border-radius: 12px;
+            .welcome-title {
+                font-size: 24px;
+                margin-bottom: 12px;
             }
             
-            .feature-icon {
-                font-size: 52px;
-                margin-bottom: 18px;
-            }
-            
-            .scroll-hint {
-                bottom: 30px;
-                font-size: 12px;
-            }
-            
-            .scroll-hint span:last-child {
-                font-size: 20px;
-            }
-            
-            .price-badge {
+            .welcome-subtitle {
                 font-size: 14px;
-                padding: 10px 20px;
             }
             
-            .video-container {
-                padding: 25px 15px;
+            .primary-btn,
+            .secondary-btn {
+                padding: 17px;
+                font-size: 16px;
+                border-radius: 14px;
+                min-height: 56px;
             }
             
-            .video-title {
-                font-size: 18px;
+            .divider {
+                margin: 24px 0;
+            }
+            
+            .info-section {
+                padding: 16px;
+                margin-top: 24px;
+            }
+            
+            .info-title {
+                font-size: 14px;
+            }
+            
+            .info-item {
+                font-size: 13px;
             }
         }
         
-        @media (max-width: 380px) {
-            .content-box {
+        @media (max-width: 360px) {
+            .welcome-container {
                 padding: 32px 24px;
             }
             
-            h1 {
+            .logo-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+            }
+            
+            .logo h1 {
+                font-size: 28px;
+            }
+            
+            .logo p {
+                font-size: 14px;
+            }
+            
+            .welcome-title {
                 font-size: 22px;
             }
-            
-            h2 {
-                font-size: 20px;
+        }
+        
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
             }
             
-            .description {
-                font-size: 15px;
-                margin-bottom: 24px;
+            .wrapper {
+                min-height: -webkit-fill-available;
+            }
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+            .primary-btn,
+            .secondary-btn {
+                min-height: 52px;
             }
             
-            .video-container {
-                padding: 20px 12px;
+            .primary-btn:active,
+            .secondary-btn:active {
+                transform: scale(0.98);
             }
         }
     </style>
@@ -610,122 +470,96 @@
         <div class="orb orb3"></div>
     </div>
     
-    <!-- YouTube Video Section -->
-    <section class="section">
-        <div class="video-container">
-            <h2 class="video-title">Platform Nasıl Çalışıyor?</h2>
-            <div class="video-wrapper">
-                <div class="loading-indicator">
-                    <div class="loading-spinner"></div>
-                    <span>Video Yükleniyor...</span>
+    <div class="wrapper">
+        <div class="welcome-container">
+            <div class="logo">
+                <div class="logo-icon">🚀</div>
+                <h1>soy.ad</h1>
+            </div>
+            
+            <div class="welcome-text">
+            </div>
+            
+            <div class="buttons-container">
+                <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." 
+                   class="primary-btn" 
+                   target="_blank">
+                    <span>Yeni Hesap Oluştur</span>
+                </a>
+                
+                <div class="divider">
+                    <div class="divider-line"></div>
                 </div>
-                <iframe 
-                    id="youtube-video"
-                    src="https://www.youtube.com/embed/LHxc9hxyABU?autoplay=1&mute=0&loop=1&playlist=LHxc9hxyABU&controls=1&rel=0&modestbranding=1"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                
+                <a href="login.html" class="secondary-btn">
+                    <span>Kayıtlıyım</span>
+                </a>
             </div>
         </div>
-        <div class="scroll-hint" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">
-            <span>Soy.ad Nedir?</span>
-            <span>↓</span>
-        </div>
-    </section>
-    
-    <section class="section" id="section1">
-        <div class="content-box">
-            <div class="logo-icon">🪙</div>
-            <h1>E-Ticaret İçin Karşılıklı Tanıtım Platformu</h1>
-            <p class="description">İki sayfa birbirinin ürününü paylaşıyor. Reklam harcaması yok, organik büyüme var.</p>
-        </div>
-        <div class="scroll-hint" onclick="document.getElementById('section2').scrollIntoView({behavior: 'smooth'})">
-            <span>Nasıl Çalışıyor?</span>
-            <span>↓</span>
-        </div>
-    </section>
-    
-    <section class="section" id="section2">
-        <div class="content-box">
-            <div class="feature-icon">🤝</div>
-            <h2>Nasıl Çalışıyor?</h2>
-            <div class="steps-list">
-                <div class="step-item">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Platforma giriş yap</div>
-                </div>
-                <div class="step-item">
-                    <div class="step-number">2</div>
-                    <div class="step-text">E-ticaret sayfalarını gör</div>
-                </div>
-                <div class="step-item">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Uygun sayfaları beğen</div>
-                </div>
-                <div class="step-item">
-                    <div class="step-number">4</div>
-                    <div class="step-text">Karşılıklı beğeni gelirse, beğendiğiniz ürünü satan bir sayfa ile işbirliği yapıyorsunuz</div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-hint" onclick="document.getElementById('section3').scrollIntoView({behavior: 'smooth'})">
-            <span>Faydaları</span>
-            <span>↓</span>
-        </div>
-    </section>
-    
-    <section class="section" id="section3">
-        <div class="content-box">
-            <div class="feature-icon">📈</div>
-            <h2>Neler Kazanırsın?</h2>
-            <div class="benefit-list">
-                <div class="benefit-item">Organik büyüme</div>
-                <div class="benefit-item">Yeni takipçi ve sipariş</div>
-                <div class="benefit-item">Sıfır reklam harcaması</div>
-                <div class="benefit-item">Gerçek hedef kitle</div>
-            </div>
-        </div>
-        <div class="scroll-hint" onclick="document.getElementById('section4').scrollIntoView({behavior: 'smooth'})">
-            <span>Hemen Başla</span>
-            <span>↓</span>
-        </div>
-    </section>
-    
-    <section class="section" id="section4">
-        <div class="content-box">
-            <div class="feature-icon">✨</div>
-            <h2>Hemen Başla</h2>
-            <div class="price-badge">İlk Ay Ücretsiz!</div>
-            <p class="description">Beğenirsen ikinci aydan devam et.</p>
-            <a href="login.html" class="cta-button">Ücretsiz Dene ⟶</a>
-        </div>
-    </section>
+    </div>
     
     <script>
-        // Video yükleme göstergesini kaldır
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const loadingIndicator = document.querySelector('.loading-indicator');
-                if (loadingIndicator) {
-                    loadingIndicator.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingIndicator.style.display = 'none';
-                    }, 500);
-                }
-            }, 2000);
+        // Button animations
+        const buttons = document.querySelectorAll('.primary-btn, .secondary-btn');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
         });
         
-        // Video iframe yükleme kontrolü
-        const iframe = document.getElementById('youtube-video');
-        iframe.addEventListener('load', function() {
-            const loadingIndicator = document.querySelector('.loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.style.opacity = '0';
+        // Mobile touch feedback
+        if ('ontouchstart' in window) {
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        }
+        
+        // Page load animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.welcome-container');
+            if (container) {
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(30px)';
+                
                 setTimeout(() => {
-                    loadingIndicator.style.display = 'none';
-                }, 500);
+                    container.style.transition = 'all 0.6s ease';
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
+                }, 100);
             }
         });
+        
+        // Viewport height fix for mobile browsers
+        function setViewportHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
