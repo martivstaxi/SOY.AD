@@ -340,8 +340,9 @@
         .cta-button {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 16px 36px;
+            justify-content: center;
+            gap: 6px;
+            padding: 16px 28px;
             background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
             color: white;
             text-decoration: none;
@@ -352,6 +353,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
         }
         
         .cta-button::before {
@@ -493,10 +495,11 @@
             }
             
             .cta-button {
-                padding: 14px 28px;
+                padding: 14px 24px;
                 font-size: 15px;
-                width: 100%;
-                max-width: 250px;
+                display: inline-flex;
+                width: auto;
+                max-width: none;
             }
         }
         
@@ -588,10 +591,10 @@
             }
             
             .cta-button {
-                padding: 12px 24px;
+                padding: 12px 20px;
                 font-size: 14px;
-                width: 100%;
-                max-width: 220px;
+                display: inline-flex;
+                width: auto;
             }
         }
         
@@ -668,7 +671,7 @@
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">3</div>
-                        <div class="simple-step-text">Sana uygun sayfaları beğenin</div>
+                        <div class="simple-step-text">Size uygun sayfaları beğenin</div>
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">4</div>
@@ -712,11 +715,10 @@
         <section class="cta-section fade-in">
             <h2 class="cta-title">Başlayın</h2>
             <p class="cta-text">
-                İlk ay ücretsiz deneyin<br>
-                
+                İlk ay ücretsiz deneyin.
             </p>
             <a href="entry.html" class="cta-button">
-                Platform Girişi
+                Giriş Yap
                 <span class="cta-arrow">→</span>
             </a>
         </section>
