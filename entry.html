@@ -310,6 +310,71 @@
             position: relative;
         }
         
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .loading-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .loading-content {
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(102, 126, 234, 0.1);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .loading-text {
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            animation: pulse-text 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-text {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
         .btn-icon {
             font-size: 20px;
         }
@@ -513,6 +578,14 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Yükleniyor...</p>
+        </div>
+    </div>
+    
     <div class="animated-bg">
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
@@ -599,32 +672,55 @@
             });
             
             button.addEventListener('touchend', function(e) {
+                e.preventDefault();
                 const href = this.getAttribute('href');
                 const target = this.getAttribute('target');
                 const isSecondary = this.classList.contains('secondary-btn');
                 
-                setTimeout(() => {
-                    this.classList.remove('touch-active');
-                    this.style.transition = 'all 0.2s ease';
-                    this.style.transform = '';
+                // Show loading overlay immediately for secondary button
+                if (isSecondary && href && target !== '_blank') {
+                    const loadingOverlay = document.getElementById('loadingOverlay');
                     
-                    // Remove ripple after animation
-                    const ripple = this.querySelector('.ripple');
-                    if (ripple) {
-                        setTimeout(() => ripple.remove(), 400);
-                    }
-                    
-                    // Navigate after animation
-                    if (href) {
-                        if (target === '_blank') {
-                            window.open(href, '_blank');
-                        } else {
-                            window.location.href = href;
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                        this.style.transition = 'all 0.2s ease';
+                        this.style.transform = '';
+                        
+                        // Remove ripple
+                        const ripple = this.querySelector('.ripple');
+                        if (ripple) {
+                            ripple.remove();
                         }
-                    }
-                }, isSecondary ? 50 : 100);
-                
-                e.preventDefault();
+                        
+                        // Show loading overlay with animation
+                        loadingOverlay.classList.add('active');
+                        
+                        // Navigate after a brief moment to show the loading animation
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 200);
+                    }, 50);
+                } else {
+                    // Original behavior for primary button
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                        this.style.transition = 'all 0.2s ease';
+                        this.style.transform = '';
+                        
+                        const ripple = this.querySelector('.ripple');
+                        if (ripple) {
+                            setTimeout(() => ripple.remove(), 400);
+                        }
+                        
+                        if (href) {
+                            if (target === '_blank') {
+                                window.open(href, '_blank');
+                            } else {
+                                window.location.href = href;
+                            }
+                        }
+                    }, 100);
+                }
             });
             
             button.addEventListener('touchcancel', function() {
@@ -633,6 +729,28 @@
                 const ripple = this.querySelector('.ripple');
                 if (ripple) ripple.remove();
             });
+        });
+        
+        // Also handle regular clicks for desktop
+        document.querySelector('.secondary-btn').addEventListener('click', function(e) {
+            if (!('ontouchstart' in window)) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                
+                // Add visual feedback
+                this.style.transform = 'scale(0.95)';
+                this.style.transition = 'all 0.1s ease';
+                
+                setTimeout(() => {
+                    this.style.transform = '';
+                    loadingOverlay.classList.add('active');
+                    
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 200);
+                }, 100);
+            }
         });
         
         // Page load animation
