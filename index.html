@@ -64,8 +64,8 @@
         /* Container */
         .container {
             max-width: 1000px;
-            margin: 60px auto 0;
-            padding: 60px 24px;
+            margin: 30px auto 0;
+            padding: 30px 24px 60px;
             transform: translate3d(0,0,0);
             will-change: transform;
         }
@@ -74,49 +74,31 @@
         .hero {
             text-align: center;
             margin-bottom: 60px;
+            padding-top: 50px;
             position: relative;
         }
         
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 100px;
-            margin-bottom: 24px;
-            letter-spacing: 0.5px;
-        }
-        
         .hero-title {
-            font-size: clamp(36px, 5vw, 52px);
-            font-weight: 800;
-            color: #0a0a0a;
-            margin-bottom: 28px;
+            font-size: clamp(38px, 5.5vw, 52px);
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 24px;
             line-height: 1.2;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
         }
         
         .hero-title span {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #6366f1;
+            font-weight: 700;
         }
         
         .hero-subtitle {
-            font-size: 21px;
-            color: #52525b;
-            line-height: 1.7;
+            font-size: 20px;
+            color: #64748b;
+            line-height: 1.6;
             max-width: 600px;
             margin: 0 auto;
             font-weight: 400;
-        }
-        
-        .hero-subtitle .highlight-text {
-            color: #6366f1;
-            font-weight: 600;
         }
         
         /* Video Section */
@@ -420,19 +402,19 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 30px 16px;
-                margin-top: 30px;
+                padding: 20px 16px 30px;
+                margin-top: 15px;
                 max-width: 100%;
             }
             
             .hero {
                 margin-bottom: 40px;
+                padding-top: 30px;
             }
             
             .hero-title {
-                font-size: 28px;
-                margin-bottom: 16px;
-                line-height: 1.2;
+                font-size: 30px;
+                margin-bottom: 18px;
             }
             
             .hero-subtitle {
@@ -513,28 +495,23 @@
         
         @media (max-width: 480px) {
             .container {
-                padding: 20px 12px;
-                margin-top: 20px;
+                padding: 15px 12px 20px;
+                margin-top: 10px;
             }
             
             .hero {
                 margin-bottom: 30px;
-            }
-            
-            .hero-badge {
-                font-size: 12px;
-                padding: 6px 14px;
+                padding-top: 25px;
             }
             
             .hero-title {
-                font-size: 24px;
-                margin-bottom: 12px;
+                font-size: 26px;
+                margin-bottom: 16px;
             }
             
             .hero-subtitle {
                 font-size: 16px;
                 padding: 0 5px;
-                font-weight: 500;
             }
             
             .video-section {
@@ -655,7 +632,7 @@
         <!-- Hero Section -->
         <section class="hero fade-in">
             <h1 class="hero-title">
-                <span>Karşılıklı Tanıtım</span> Platformu
+                Karşılıklı Tanıtım <span>Platformu</span>
             </h1>
             <p class="hero-subtitle">
                 Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.
