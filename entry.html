@@ -310,76 +310,89 @@
             position: relative;
         }
         
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Button Loading State - Fun Animation */
+        .secondary-btn.loading {
+            pointer-events: none;
+            color: transparent !important;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .secondary-btn.loading::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid transparent;
+            border-top: 3px solid #667eea;
+            border-right: 3px solid #764ba2;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: spinFast 0.6s linear infinite;
+        }
+        
+        .secondary-btn.loading::after {
+            content: '';
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(102, 126, 234, 0.2) 20%,
+                rgba(118, 75, 162, 0.3) 50%,
+                rgba(102, 126, 234, 0.2) 80%,
+                transparent 100%
+            );
+            left: -100%;
+            top: 0;
+            animation: shimmer 1s ease infinite;
         }
         
-        .loading-overlay.active {
+        @keyframes spinFast {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
+        @keyframes shimmer {
+            to {
+                left: 100%;
+            }
+        }
+        
+        /* Fun bounce dots animation */
+        .bounce-dots {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
-            animation: fadeIn 0.2s ease forwards;
+            gap: 6px;
         }
         
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-        
-        .loading-content {
-            background: white;
-            padding: 32px 48px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(102, 126, 234, 0.1);
-            border-top: 3px solid #667eea;
+        .bounce-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
             border-radius: 50%;
-            margin: 0 auto 16px;
-            animation: spin 0.8s linear infinite;
+            animation: bounce 1.2s ease-in-out infinite;
         }
         
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
+        .bounce-dot:nth-child(1) { animation-delay: 0s; }
+        .bounce-dot:nth-child(2) { animation-delay: 0.2s; }
+        .bounce-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
             }
-        }
-        
-        .loading-text {
-            color: #667eea;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            margin: 0;
+            40% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
         }
         
         .btn-icon {
@@ -585,14 +598,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p class="loading-text">Yükleniyor...</p>
-        </div>
-    </div>
-    
     <div class="animated-bg">
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
@@ -684,10 +689,8 @@
                 const target = this.getAttribute('target');
                 const isSecondary = this.classList.contains('secondary-btn');
                 
-                // Show loading overlay immediately for secondary button
+                // Transform secondary button into loading state
                 if (isSecondary && href && target !== '_blank') {
-                    const loadingOverlay = document.getElementById('loadingOverlay');
-                    
                     setTimeout(() => {
                         this.classList.remove('touch-active');
                         this.style.transition = 'all 0.2s ease';
@@ -699,13 +702,23 @@
                             ripple.remove();
                         }
                         
-                        // Show loading overlay with animation
-                        loadingOverlay.classList.add('active');
+                        // Add loading class to button
+                        this.classList.add('loading');
                         
-                        // Navigate after a brief moment to show the loading animation
+                        // Add bounce dots animation
+                        const bounceDots = document.createElement('div');
+                        bounceDots.className = 'bounce-dots';
+                        bounceDots.innerHTML = `
+                            <span class="bounce-dot"></span>
+                            <span class="bounce-dot"></span>
+                            <span class="bounce-dot"></span>
+                        `;
+                        this.appendChild(bounceDots);
+                        
+                        // Navigate with replace to prevent back button issues
                         setTimeout(() => {
-                            window.location.href = href;
-                        }, 200);
+                            window.location.replace(href);
+                        }, 300);
                     }, 50);
                 } else {
                     // Original behavior for primary button
@@ -743,7 +756,6 @@
             if (!('ontouchstart' in window)) {
                 e.preventDefault();
                 const href = this.getAttribute('href');
-                const loadingOverlay = document.getElementById('loadingOverlay');
                 
                 // Add visual feedback
                 this.style.transform = 'scale(0.95)';
@@ -751,12 +763,35 @@
                 
                 setTimeout(() => {
                     this.style.transform = '';
-                    loadingOverlay.classList.add('active');
+                    this.classList.add('loading');
+                    
+                    // Add bounce dots
+                    const bounceDots = document.createElement('div');
+                    bounceDots.className = 'bounce-dots';
+                    bounceDots.innerHTML = `
+                        <span class="bounce-dot"></span>
+                        <span class="bounce-dot"></span>
+                        <span class="bounce-dot"></span>
+                    `;
+                    this.appendChild(bounceDots);
                     
                     setTimeout(() => {
-                        window.location.href = href;
-                    }, 200);
+                        window.location.replace(href);
+                    }, 300);
                 }, 100);
+            }
+        });
+        
+        // Clear any loading state on page show (for back button)
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                // Page was loaded from cache (back button)
+                const secondaryBtn = document.querySelector('.secondary-btn');
+                if (secondaryBtn) {
+                    secondaryBtn.classList.remove('loading');
+                    const dots = secondaryBtn.querySelector('.bounce-dots');
+                    if (dots) dots.remove();
+                }
             }
         });
         
