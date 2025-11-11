@@ -243,7 +243,7 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.15s ease;
             font-family: 'Outfit', sans-serif;
             letter-spacing: 0.3px;
             position: relative;
@@ -257,14 +257,18 @@
         }
         
         .secondary-btn:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            color: #5563d1;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.5);
         }
         
         .secondary-btn:active {
-            transform: translateY(0);
+            transform: scale(0.96);
+            transition: all 0.05s ease;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.25), rgba(118, 75, 162, 0.25));
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
         }
         
         /* Ripple effect for mobile touch */
@@ -291,9 +295,13 @@
         }
         
         .touch-active.secondary-btn {
-            background: rgba(102, 126, 234, 0.12) !important;
-            border-color: rgba(102, 126, 234, 0.5) !important;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2) !important;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3)) !important;
+            border-color: #667eea !important;
+            border-width: 2px !important;
+            color: #4451c0 !important;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35) !important;
+            transform: scale(0.94) !important;
+            transition: all 0.05s ease !important;
         }
         
         /* Ensure buttons are positioned relative for ripple */
@@ -494,10 +502,12 @@
             }
             
             .secondary-btn:active {
-                transform: scale(0.95);
-                background: rgba(102, 126, 234, 0.15) !important;
-                border-color: rgba(102, 126, 234, 0.6) !important;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2) !important;
+                transform: scale(0.92) !important;
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4)) !important;
+                border: 2px solid #5563d1 !important;
+                color: #3a47b8 !important;
+                box-shadow: 0 8px 24px rgba(102, 126, 234, 0.45) !important;
+                transition: all 0.05s ease !important;
             }
         }
     </style>
@@ -554,8 +564,15 @@
             button.addEventListener('touchstart', function(e) {
                 e.preventDefault();
                 this.classList.add('touch-active');
-                this.style.transition = 'all 0.1s ease';
-                this.style.transform = 'scale(0.93)';
+                
+                // Faster animation for secondary button
+                if (this.classList.contains('secondary-btn')) {
+                    this.style.transition = 'all 0.05s ease';
+                    this.style.transform = 'scale(0.92)';
+                } else {
+                    this.style.transition = 'all 0.1s ease';
+                    this.style.transform = 'scale(0.93)';
+                }
                 
                 // Add ripple effect
                 const ripple = document.createElement('span');
@@ -571,25 +588,30 @@
                 ripple.style.left = x + 'px';
                 ripple.style.top = y + 'px';
                 
-                // Haptic feedback if available
+                // Stronger haptic feedback for secondary button
                 if (window.navigator && window.navigator.vibrate) {
-                    window.navigator.vibrate(10);
+                    if (this.classList.contains('secondary-btn')) {
+                        window.navigator.vibrate(15);
+                    } else {
+                        window.navigator.vibrate(10);
+                    }
                 }
             });
             
             button.addEventListener('touchend', function(e) {
                 const href = this.getAttribute('href');
                 const target = this.getAttribute('target');
+                const isSecondary = this.classList.contains('secondary-btn');
                 
                 setTimeout(() => {
                     this.classList.remove('touch-active');
-                    this.style.transition = 'all 0.3s ease';
+                    this.style.transition = 'all 0.2s ease';
                     this.style.transform = '';
                     
                     // Remove ripple after animation
                     const ripple = this.querySelector('.ripple');
                     if (ripple) {
-                        setTimeout(() => ripple.remove(), 600);
+                        setTimeout(() => ripple.remove(), 400);
                     }
                     
                     // Navigate after animation
@@ -600,7 +622,7 @@
                             window.location.href = href;
                         }
                     }
-                }, 100);
+                }, isSecondary ? 50 : 100);
                 
                 e.preventDefault();
             });
