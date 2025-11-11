@@ -310,7 +310,7 @@
             position: relative;
         }
         
-        /* Button Loading State - Fun Animation */
+        /* Button Loading State - Enhanced Dots Animation */
         .secondary-btn.loading {
             pointer-events: none;
             color: transparent !important;
@@ -318,80 +318,60 @@
             overflow: hidden;
         }
         
-        .secondary-btn.loading::before {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 3px solid transparent;
-            border-top: 3px solid #667eea;
-            border-right: 3px solid #764ba2;
-            border-radius: 50%;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            animation: spinFast 0.6s linear infinite;
-        }
-        
-        .secondary-btn.loading::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%,
-                rgba(102, 126, 234, 0.2) 20%,
-                rgba(118, 75, 162, 0.3) 50%,
-                rgba(102, 126, 234, 0.2) 80%,
-                transparent 100%
-            );
-            left: -100%;
-            top: 0;
-            animation: shimmer 1s ease infinite;
-        }
-        
-        @keyframes spinFast {
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-        
-        @keyframes shimmer {
-            to {
-                left: 100%;
-            }
-        }
-        
-        /* Fun bounce dots animation */
+        /* Fun bounce dots animation - Enhanced */
         .bounce-dots {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
             display: flex;
-            gap: 6px;
+            gap: 8px;
         }
         
         .bounce-dot {
-            width: 8px;
-            height: 8px;
-            background: #667eea;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 50%;
-            animation: bounce 1.2s ease-in-out infinite;
+            animation: enhancedBounce 1.4s ease-in-out infinite;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
         
-        .bounce-dot:nth-child(1) { animation-delay: 0s; }
-        .bounce-dot:nth-child(2) { animation-delay: 0.2s; }
-        .bounce-dot:nth-child(3) { animation-delay: 0.4s; }
+        .bounce-dot:nth-child(1) { 
+            animation-delay: 0s;
+        }
+        .bounce-dot:nth-child(2) { 
+            animation-delay: 0.15s;
+        }
+        .bounce-dot:nth-child(3) { 
+            animation-delay: 0.3s;
+        }
         
-        @keyframes bounce {
-            0%, 80%, 100% {
-                transform: scale(0.8);
-                opacity: 0.5;
+        @keyframes enhancedBounce {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.4;
+            }
+            20% {
+                transform: translateY(-16px) scale(1.3);
+                opacity: 1;
+                box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
             }
             40% {
-                transform: scale(1.2);
-                opacity: 1;
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            60% {
+                transform: translateY(-8px) scale(1.1);
+                opacity: 0.8;
+            }
+            80% {
+                transform: translateY(0) scale(0.9);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.4;
             }
         }
         
