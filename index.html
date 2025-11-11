@@ -21,6 +21,8 @@
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
         }
         
         body {
@@ -29,22 +31,27 @@
             color: #0a0a0a;
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
         
-        /* Background Pattern */
-        .bg-pattern {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
-                repeating-linear-gradient(-45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
-            background-size: 50px 50px;
-            background-position: 0 0, 25px 25px;
+        /* Background Pattern - Desktop only for performance */
+        @media (min-width: 769px) {
+            .bg-pattern {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                opacity: 0.03;
+                background-image: 
+                    repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
+                    repeating-linear-gradient(-45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
+                background-size: 50px 50px;
+                background-position: 0 0, 25px 25px;
+            }
         }
 
         
@@ -91,7 +98,7 @@
         }
         
         .hero-subtitle {
-            font-size: 19px;
+            font-size: 21px;
             color: #52525b;
             line-height: 1.7;
             max-width: 600px;
@@ -109,6 +116,7 @@
             margin: 60px auto 80px;
             max-width: 420px;
             position: relative;
+            padding: 0 20px;
         }
         
         .video-decoration {
@@ -120,6 +128,13 @@
             top: 10px;
             left: 10px;
             z-index: -1;
+            display: none; /* Hide decoration on mobile for performance */
+        }
+        
+        @media (min-width: 768px) {
+            .video-decoration {
+                display: block;
+            }
         }
         
         .video-container {
@@ -129,7 +144,7 @@
             background: #0a0a0a;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .video-container iframe {
@@ -395,105 +410,55 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 40px 20px;
-                margin-top: 40px;
+                padding: 30px 16px;
+                margin-top: 30px;
+                max-width: 100%;
             }
             
             .hero {
-                margin-bottom: 60px;
-            }
-            
-            .hero-title {
-                font-size: 32px;
-                margin-bottom: 20px;
-            }
-            
-            .hero-subtitle {
-                font-size: 17px;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            
-            .info-card {
-                padding: 36px 28px;
-            }
-            
-            .card-title {
-                font-size: 22px;
-            }
-            
-            .simple-step {
-                padding: 14px;
-            }
-            
-            .simple-step-text {
-                font-size: 15px;
-            }
-            
-            .benefit-item {
-                padding: 14px;
-            }
-            
-            .benefit-title {
-                font-size: 16px;
-            }
-            
-            .benefit-desc {
-                font-size: 13px;
-            }
-            
-            .video-section {
-                margin: 40px auto 60px;
-            }
-            
-            .cta-section {
-                padding: 60px 28px;
-            }
-            
-            .cta-title {
-                font-size: 26px;
-            }
-            
-            .cta-text {
-                font-size: 16px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-badge {
-                font-size: 12px;
-                padding: 6px 14px;
+                margin-bottom: 40px;
             }
             
             .hero-title {
                 font-size: 28px;
+                margin-bottom: 16px;
+                line-height: 1.2;
             }
             
             .hero-subtitle {
-                font-size: 16px;
+                font-size: 18px;
+                padding: 0 10px;
+            }
+            
+            .video-section {
+                margin: 30px auto 50px;
+                max-width: 280px;
+                padding: 0;
+            }
+            
+            .video-container {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 16px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-bottom: 50px;
             }
             
             .info-card {
                 padding: 32px 24px;
+                border-radius: 20px;
             }
             
             .card-title {
                 font-size: 20px;
-                margin-bottom: 24px;
             }
             
             .simple-step {
                 padding: 12px;
-                gap: 12px;
-            }
-            
-            .simple-step-number {
-                width: 28px;
-                height: 28px;
-                font-size: 13px;
+                margin-bottom: 14px;
             }
             
             .simple-step-text {
@@ -501,7 +466,8 @@
             }
             
             .benefit-item {
-                padding: 12px;
+                padding: 14px;
+                margin-bottom: 14px;
             }
             
             .benefit-title {
@@ -509,16 +475,123 @@
             }
             
             .benefit-desc {
-                font-size: 12px;
+                font-size: 13px;
             }
             
             .cta-section {
-                padding: 48px 24px;
+                padding: 50px 20px;
+                border-radius: 20px;
+                margin-bottom: 40px;
+            }
+            
+            .cta-title {
+                font-size: 24px;
+            }
+            
+            .cta-text {
+                font-size: 15px;
             }
             
             .cta-button {
                 padding: 14px 28px;
                 font-size: 15px;
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 12px;
+                margin-top: 20px;
+            }
+            
+            .hero {
+                margin-bottom: 30px;
+            }
+            
+            .hero-badge {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+            
+            .hero-title {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+                padding: 0 5px;
+                font-weight: 500;
+            }
+            
+            .video-section {
+                margin: 20px auto 40px;
+                max-width: 240px;
+            }
+            
+            .video-container {
+                border-radius: 14px;
+            }
+            
+            .info-card {
+                padding: 28px 20px;
+            }
+            
+            .card-title {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+            
+            .simple-step {
+                padding: 10px;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            
+            .simple-step-number {
+                width: 26px;
+                height: 26px;
+                font-size: 12px;
+            }
+            
+            .simple-step-text {
+                font-size: 13px;
+            }
+            
+            .benefit-item {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .benefit-title {
+                font-size: 14px;
+            }
+            
+            .benefit-desc {
+                font-size: 12px;
+            }
+            
+            .cta-section {
+                padding: 40px 16px;
+                margin-bottom: 30px;
+            }
+            
+            .cta-title {
+                font-size: 22px;
+            }
+            
+            .cta-text {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+            
+            .cta-button {
+                padding: 12px 24px;
+                font-size: 14px;
+                width: 100%;
+                max-width: 220px;
             }
         }
         
@@ -561,7 +634,7 @@
                 <span>Karşılıklı Tanıtım</span> Platformu
             </h1>
             <p class="hero-subtitle">
-                Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın
+                Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.
             </p>
         </section>
         
@@ -595,7 +668,7 @@
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">3</div>
-                        <div class="simple-step-text">Size uygun sayfaları beğenin</div>
+                        <div class="simple-step-text">Sana uygun sayfaları beğenin</div>
                     </div>
                     <div class="simple-step">
                         <div class="simple-step-number">4</div>
@@ -614,20 +687,20 @@
                         <span class="benefit-check">✓</span>
                         <div class="benefit-content">
                             <span class="benefit-title">Organik Büyüme</span>
-                            <span class="benefit-desc">Gerçek hesaplarla etkileşim</span>
+                            <span class="benefit-desc">Gerçek takipçiler, gerçek etkileşim</span>
                         </div>
                     </div>
                     <div class="benefit-item">
                         <span class="benefit-check">✓</span>
                         <div class="benefit-content">
                             <span class="benefit-title">Yeni Müşteriler</span>
-                            <span class="benefit-desc">Farklı kitleye erişim</span>
+                            <span class="benefit-desc">Farklı kitlelere doğrudan erişim</span>
                         </div>
                     </div>
                     <div class="benefit-item">
                         <span class="benefit-check">✓</span>
                         <div class="benefit-content">
-                            <span class="benefit-title">Sıfır Reklam Harcaması</span>
+                            <span class="benefit-title">Sıfır Reklam Bütçesi</span>
                             <span class="benefit-desc">Sadece karşılıklı destek</span>
                         </div>
                     </div>
@@ -639,11 +712,11 @@
         <section class="cta-section fade-in">
             <h2 class="cta-title">Başlayın</h2>
             <p class="cta-text">
-                İlk ay ücretsiz kullanın.<br>
-                İkinci aydan ücretli devam edebilirsiniz.
+                İlk ay ücretsiz deneyin<br>
+                
             </p>
             <a href="entry.html" class="cta-button">
-                Platforma Giriş
+                Platform Girişi
                 <span class="cta-arrow">→</span>
             </a>
         </section>
