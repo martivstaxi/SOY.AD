@@ -481,9 +481,6 @@
             continueBtn.disabled = true;
             continueBtn.textContent = 'Kaydediliyor...';
             
-            // DEBUG: Ne gönderdiğimizi göster
-            alert(`API'ye gönderilen ülke kodu: ${selectedCountry}`);
-            
             try {
                 const response = await fetch(`${API_URL}/api/user/update-country`, {
                     method: 'POST',
@@ -498,9 +495,6 @@
                 });
                 
                 const data = await response.json();
-                
-                // DEBUG: API yanıtını göster
-                alert(`API Yanıtı: ${JSON.stringify(data)}`);
                 
                 if (data.success) {
                     currentUser.country = selectedCountry;
