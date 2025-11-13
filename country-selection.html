@@ -318,6 +318,58 @@
             zu: { title: '🌍 Khetha izwe lakho', subtitle: 'Ufuna ukubona okuqukethwe kuliphi izwe?', search: 'Sesha izwe...', continue: 'Qhubeka', loading: 'Ilayisha amazwe...' }
         };
         
+        // Dil gruplarına göre ülke önceliklendirme
+        const languagePriorityCountries = {
+            tr: ['TR', 'AZ', 'KZ', 'UZ', 'KG', 'TM'], // Türkçe konuşulan bölgeler
+            en: ['US', 'GB', 'AU', 'CA', 'NZ', 'IE', 'ZA', 'SG'], // İngilizce
+            ru: ['RU', 'BY', 'KZ', 'KG', 'UZ', 'TJ', 'AM', 'GE', 'MD', 'UA'], // Rusça
+            es: ['ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 'EC', 'CU', 'BO', 'DO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 'UY', 'GT'], // İspanyolca
+            ar: ['SA', 'AE', 'EG', 'IQ', 'DZ', 'SD', 'MA', 'YE', 'SY', 'TN', 'JO', 'LY', 'LB', 'PS', 'OM', 'KW', 'MR', 'QA', 'BH'], // Arapça
+            fr: ['FR', 'CA', 'BE', 'CH', 'MA', 'DZ', 'TN', 'SN', 'CI', 'ML', 'BF', 'NE', 'TD', 'MG', 'CM', 'CG', 'GA', 'HT', 'LU', 'MC'], // Fransızca
+            de: ['DE', 'AT', 'CH', 'LI', 'LU', 'BE'], // Almanca
+            pt: ['PT', 'BR', 'AO', 'MZ', 'GW', 'TL', 'GQ', 'MO', 'CV', 'ST'], // Portekizce
+            it: ['IT', 'CH', 'SM', 'VA'], // İtalyanca
+            zh: ['CN', 'TW', 'HK', 'MO', 'SG'], // Çince
+            ja: ['JP'], // Japonca
+            ko: ['KR', 'KP'], // Korece
+            hi: ['IN', 'NP', 'FJ'], // Hintçe
+            nl: ['NL', 'BE', 'SR', 'AW', 'CW'], // Hollandaca
+            pl: ['PL'], // Lehçe
+            sv: ['SE', 'FI', 'AX'], // İsveççe
+            no: ['NO', 'SJ'], // Norveççe
+            da: ['DK', 'GL', 'FO'], // Danca
+            fi: ['FI', 'SE'], // Fince
+            cs: ['CZ', 'SK'], // Çekçe
+            uk: ['UA'], // Ukraynaca
+            ro: ['RO', 'MD'], // Rumence
+            el: ['GR', 'CY'], // Yunanca
+            hu: ['HU'], // Macarca
+            th: ['TH'], // Tayca
+            vi: ['VN'], // Vietnamca
+            id: ['ID'], // Endonezce
+            ms: ['MY', 'BN', 'SG'], // Malayca
+            bn: ['BD', 'IN'], // Bengalce
+            tl: ['PH'], // Filipince
+            hr: ['HR', 'BA'], // Hırvatça
+            he: ['IL'], // İbranice
+            fa: ['IR', 'AF', 'TJ'], // Farsça
+            ur: ['PK', 'IN'], // Urduca
+            sr: ['RS', 'BA', 'ME'], // Sırpça
+            bg: ['BG'], // Bulgarca
+            sk: ['SK'], // Slovakça
+            lt: ['LT'], // Litvanca
+            lv: ['LV'], // Letonca
+            et: ['EE'], // Estonca
+            ka: ['GE'], // Gürcüce
+            az: ['AZ'], // Azerice
+            kk: ['KZ'], // Kazakça
+            uz: ['UZ'], // Özbekçe
+            ky: ['KG'], // Kırgızca
+            sw: ['KE', 'TZ', 'UG'], // Swahili
+            af: ['ZA', 'NA'], // Afrikanca
+            ca: ['ES', 'AD'] // Katalanca
+        };
+        
         // Çoklu dil arama için ülke isimleri
         const countrySearchTerms = {
             tr: ['türkiye', 'turkiye', 'turkey', 'turquie', 'turquia', 'турция', 'tc', 'turchia', 'トルコ', '土耳其'],
@@ -451,6 +503,33 @@
                     return searchTerms.some(term => normalizeText(term).includes(normalizedFilter));
                 });
             }
+            
+            // Dil grubuna göre sıralama yap
+            const priorityCountries = languagePriorityCountries[currentLang] || [];
+            
+            filtered.sort((a, b) => {
+                const aCode = a.code.toUpperCase();
+                const bCode = b.code.toUpperCase();
+                
+                const aPriority = priorityCountries.indexOf(aCode);
+                const bPriority = priorityCountries.indexOf(bCode);
+                
+                // Her ikisi de öncelikli listede varsa
+                if (aPriority !== -1 && bPriority !== -1) {
+                    return aPriority - bPriority;
+                }
+                
+                // Sadece a öncelikli listede varsa
+                if (aPriority !== -1) return -1;
+                
+                // Sadece b öncelikli listede varsa
+                if (bPriority !== -1) return 1;
+                
+                // İkisi de öncelikli değilse alfabetik sıralama
+                const aName = getCountryName(a.code, currentLang);
+                const bName = getCountryName(b.code, currentLang);
+                return aName.localeCompare(bName, currentLang);
+            });
             
             list.innerHTML = filtered.map(country => `
                 <div class="country-item ${selectedCountry === country.code ? 'selected' : ''}" 
