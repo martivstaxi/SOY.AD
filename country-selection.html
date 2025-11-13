@@ -267,7 +267,7 @@
         
         // 50 dil için çeviri sistemi
         const translations = {
-            tr: { title: '🌍 Ülkenizi Seçin', subtitle: 'Hangi ülkeden içerik görmek istersiniz?', search: 'Ülke ara...', continue: 'Devam Et', loading: 'Ülkeler yükleniyor...' },
+            tr: { title: '🌍 Ülkenizi Seçin', subtitle: 'Hangi ülkeden içerik görmek istersiniz?', search: 'Ülke ara...', continue: 'Devam Et', loading: 'Ülkeler yükleniyor...', autoRedirect: 'Türkiye otomatik seçildi, yönlendiriliyorsunuz...' },
             en: { title: '🌍 Select Your Country', subtitle: 'Which country would you like to see content from?', search: 'Search country...', continue: 'Continue', loading: 'Loading countries...' },
             de: { title: '🌍 Wählen Sie Ihr Land', subtitle: 'Aus welchem Land möchten Sie Inhalte sehen?', search: 'Land suchen...', continue: 'Weiter', loading: 'Länder werden geladen...' },
             fr: { title: '🌍 Sélectionnez votre pays', subtitle: 'De quel pays souhaitez-vous voir du contenu?', search: 'Rechercher un pays...', continue: 'Continuer', loading: 'Chargement des pays...' },
@@ -344,6 +344,7 @@
         let selectedCountry = null;
         let currentUser = null;
         let currentLang = 'tr';
+        let autoRedirecting = false;
         
         // Cihaz dilini tespit et
         function detectLanguage() {
@@ -405,9 +406,34 @@
                 const data = await response.json();
                 countries = data.countries;
                 renderCountries();
+                
+                // Eğer tarayıcı dili Türkçe ise otomatik Türkiye'yi seç ve devam et
+                if (currentLang === 'tr' && !currentUser.country) {
+                    autoSelectTurkeyAndContinue();
+                }
             } catch (error) {
                 console.error('Error loading countries:', error);
             }
+        }
+        
+        // Otomatik Türkiye seçimi ve devam
+        async function autoSelectTurkeyAndContinue() {
+            if (autoRedirecting) return;
+            autoRedirecting = true;
+            
+            // Türkiye'yi seç
+            selectedCountry = 'tr';
+            renderCountries();
+            
+            // Butonu aktif et ve mesajı güncelle
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.disabled = false;
+            continueBtn.textContent = translations[currentLang].autoRedirect || 'Türkiye otomatik seçildi, yönlendiriliyorsunuz...';
+            
+            // 1.5 saniye bekle ve devam et
+            setTimeout(() => {
+                saveAndContinue();
+            }, 1500);
         }
         
         function renderCountries(filter = '') {
@@ -449,13 +475,15 @@
         }
         
         function selectCountry(countryCode) {
+            if (autoRedirecting) return; // Otomatik yönlendirme sırasında manuel seçimi engelle
+            
             selectedCountry = countryCode;
             renderCountries(document.getElementById('countrySearch').value);
             document.getElementById('continueBtn').disabled = false;
         }
         
         async function saveAndContinue() {
-            if (!selectedCountry) return;
+            if (!selectedCountry || autoRedirecting) return;
             
             const continueBtn = document.getElementById('continueBtn');
             continueBtn.disabled = true;
@@ -488,6 +516,7 @@
                 alert('Bir hata oluştu. Lütfen tekrar deneyin.');
                 continueBtn.disabled = false;
                 continueBtn.textContent = translations[currentLang].continue;
+                autoRedirecting = false;
             }
         }
         
