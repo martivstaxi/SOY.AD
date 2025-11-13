@@ -523,11 +523,8 @@
             
             currentUser = JSON.parse(user);
             
-            // Debug için ekranda göster
-            const debugInfo = `
-Dil: ${currentLang}
-Kullanıcı Ülkesi: ${currentUser.country || 'YOK'}
-            `;
+            // HER DURUMDA GÖSTER - DEBUG
+            alert(`Tarayıcı Dili: ${navigator.language}\nAlgılanan Dil: ${currentLang}\nKayıtlı Ülke: ${currentUser.country || 'YOK'}`);
             
             if (currentUser.country) {
                 selectedCountry = currentUser.country;
@@ -540,9 +537,6 @@ Kullanıcı Ülkesi: ${currentUser.country || 'YOK'}
                     setTimeout(() => {
                         autoSelectTurkeyAndContinue();
                     }, 100);
-                } else {
-                    // Türkçe değilse debug bilgisini göster
-                    alert(debugInfo + '\nTürkçe değil, otomatik seçim yapılmıyor.');
                 }
             }
         }
