@@ -413,9 +413,16 @@
         
         // Otomatik Türkiye seçimi ve devam
         async function autoSelectTurkeyAndContinue() {
-            if (autoRedirecting) return;
+            console.log('autoSelectTurkeyAndContinue çağrıldı');
+            console.log('autoRedirecting:', autoRedirecting);
+            
+            if (autoRedirecting) {
+                console.log('Zaten yönlendirme yapılıyor, çıkılıyor');
+                return;
+            }
             autoRedirecting = true;
             
+            console.log('Türkiye seçiliyor...');
             // Türkiye'yi seç
             selectedCountry = 'tr';
             
@@ -424,6 +431,7 @@
             continueBtn.disabled = false;
             continueBtn.textContent = 'Türkiye seçildi, yönlendiriliyorsunuz...';
             
+            console.log('saveAndContinue çağrılıyor...');
             // Direkt kaydet ve devam et
             await saveAndContinue();
         }
@@ -475,7 +483,7 @@
         }
         
         async function saveAndContinue() {
-            if (!selectedCountry || autoRedirecting) return;
+            if (!selectedCountry) return;
             
             const continueBtn = document.getElementById('continueBtn');
             continueBtn.disabled = true;
@@ -516,20 +524,31 @@
             const token = localStorage.getItem('token');
             const user = localStorage.getItem('user');
             
+            console.log('checkAuth çalıştı');
+            console.log('currentLang:', currentLang);
+            console.log('token:', token ? 'var' : 'yok');
+            console.log('user:', user);
+            
             if (!token || !user) {
                 window.location.href = 'login.html';
                 return;
             }
             
             currentUser = JSON.parse(user);
+            console.log('currentUser:', currentUser);
+            console.log('currentUser.country:', currentUser.country);
             
             if (currentUser.country) {
                 selectedCountry = currentUser.country;
                 document.getElementById('continueBtn').disabled = false;
             } else {
                 // Kullanıcının ülkesi yoksa ve tarayıcı dili Türkçe ise otomatik Türkiye'yi seç
+                console.log('Ülke yok, dil kontrolü yapılıyor...');
                 if (currentLang === 'tr') {
-                    autoSelectTurkeyAndContinue();
+                    console.log('Türkçe tespit edildi! Otomatik seçim başlatılıyor...');
+                    setTimeout(() => {
+                        autoSelectTurkeyAndContinue();
+                    }, 100);
                 }
             }
         }
