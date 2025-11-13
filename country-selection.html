@@ -523,20 +523,17 @@
             
             currentUser = JSON.parse(user);
             
-            // HER DURUMDA GÖSTER - DEBUG
-            alert(`Tarayıcı Dili: ${navigator.language}\nAlgılanan Dil: ${currentLang}\nKayıtlı Ülke: ${currentUser.country || 'YOK'}`);
-            
-            if (currentUser.country) {
-                selectedCountry = currentUser.country;
-                document.getElementById('continueBtn').disabled = false;
+            // Tarayıcı dili Türkçe ise direkt Türkiye'yi seç ve devam et
+            if (currentLang === 'tr') {
+                document.getElementById('headerSubtitle').textContent = 'Türkiye otomatik seçiliyor...';
+                setTimeout(() => {
+                    autoSelectTurkeyAndContinue();
+                }, 100);
             } else {
-                // Kullanıcının ülkesi yoksa ve tarayıcı dili Türkçe ise otomatik Türkiye'yi seç
-                if (currentLang === 'tr') {
-                    // Ekranda bilgi göster
-                    document.getElementById('headerSubtitle').textContent = 'Türkiye otomatik seçiliyor...';
-                    setTimeout(() => {
-                        autoSelectTurkeyAndContinue();
-                    }, 100);
+                // Türkçe değilse normal ülke seçim ekranını göster
+                if (currentUser.country) {
+                    selectedCountry = currentUser.country;
+                    document.getElementById('continueBtn').disabled = false;
                 }
             }
         }
