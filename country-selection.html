@@ -416,8 +416,8 @@
             if (autoRedirecting) return;
             autoRedirecting = true;
             
-            // Türkiye'yi seç
-            selectedCountry = 'tr';
+            // Türkiye'yi seç (BÜYÜK HARF - API ile tutarlı)
+            selectedCountry = 'TR';
             
             // Butonu aktif et ve mesajı güncelle
             const continueBtn = document.getElementById('continueBtn');
@@ -481,6 +481,9 @@
             continueBtn.disabled = true;
             continueBtn.textContent = 'Kaydediliyor...';
             
+            // DEBUG: Ne gönderdiğimizi göster
+            alert(`API'ye gönderilen ülke kodu: ${selectedCountry}`);
+            
             try {
                 const response = await fetch(`${API_URL}/api/user/update-country`, {
                     method: 'POST',
@@ -495,6 +498,9 @@
                 });
                 
                 const data = await response.json();
+                
+                // DEBUG: API yanıtını göster
+                alert(`API Yanıtı: ${JSON.stringify(data)}`);
                 
                 if (data.success) {
                     currentUser.country = selectedCountry;
