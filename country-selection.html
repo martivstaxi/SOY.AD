@@ -22,6 +22,89 @@
             padding: 20px;
             padding-bottom: env(safe-area-inset-bottom);
         }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .bounce-dots {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .bounce-dot {
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            animation: enhancedBounce 1.4s ease-in-out infinite;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+        
+        .bounce-dot:nth-child(1) { 
+            animation-delay: 0s;
+        }
+        .bounce-dot:nth-child(2) { 
+            animation-delay: 0.15s;
+        }
+        .bounce-dot:nth-child(3) { 
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes enhancedBounce {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.4;
+            }
+            20% {
+                transform: translateY(-20px) scale(1.3);
+                opacity: 1;
+                box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4);
+            }
+            40% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            60% {
+                transform: translateY(-10px) scale(1.1);
+                opacity: 0.8;
+            }
+            80% {
+                transform: translateY(0) scale(0.9);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.4;
+            }
+        }
+        
+        /* Hide container initially */
+        .container {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .container.visible {
+            opacity: 1;
+        }
                 
         .animated-bg {
             position: fixed;
@@ -247,7 +330,16 @@
         <div class="orb orb3"></div>
     </div>
     
-    <div class="container">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="bounce-dots">
+            <span class="bounce-dot"></span>
+            <span class="bounce-dot"></span>
+            <span class="bounce-dot"></span>
+        </div>
+    </div>
+    
+    <div class="container" id="countryContainer">
         <div class="header">
             <h1 id="headerTitle">🌍 Ülkenizi Seçin</h1>
             <p id="headerSubtitle">Hangi ülkeden içerik görmek istersiniz?</p>
@@ -602,18 +694,17 @@
             
             currentUser = JSON.parse(user);
             
-            // Daha önce ülke seçimi yapılmışsa otomatik devam et
+            // Daha önce ülke seçimi yapılmışsa loading ekranı göster ve yönlendir
             if (currentUser.country) {
-                selectedCountry = currentUser.country;
-                document.getElementById('headerSubtitle').textContent = 'Önceki seçiminiz yükleniyor...';
-                document.getElementById('continueBtn').disabled = false;
-                
-                // Direkt app.html'e yönlendir
+                // Loading ekranı zaten görünüyor, sadece yönlendir
                 setTimeout(() => {
                     window.location.href = 'app.html';
-                }, 500);
+                }, 800);
                 return;
             }
+            
+            // Ülke seçimi yapılmamışsa loading'i gizle ve içeriği göster
+            hideLoadingScreen();
             
             // Ülke seçimi yapılmamışsa ve tarayıcı dili Türkçe ise otomatik Türkiye'yi seç
             if (currentLang === 'tr') {
@@ -622,6 +713,14 @@
                     autoSelectTurkeyAndContinue();
                 }, 100);
             }
+        }
+        
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const container = document.getElementById('countryContainer');
+            
+            loadingScreen.classList.add('hidden');
+            container.classList.add('visible');
         }
         
         // Başlangıç
