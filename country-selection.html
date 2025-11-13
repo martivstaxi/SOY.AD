@@ -406,11 +406,6 @@
                 const data = await response.json();
                 countries = data.countries;
                 renderCountries();
-                
-                // Eğer tarayıcı dili Türkçe ise otomatik Türkiye'yi seç ve devam et
-                if (currentLang === 'tr' && !currentUser.country) {
-                    autoSelectTurkeyAndContinue();
-                }
             } catch (error) {
                 console.error('Error loading countries:', error);
             }
@@ -423,17 +418,14 @@
             
             // Türkiye'yi seç
             selectedCountry = 'tr';
-            renderCountries();
             
             // Butonu aktif et ve mesajı güncelle
             const continueBtn = document.getElementById('continueBtn');
             continueBtn.disabled = false;
-            continueBtn.textContent = translations[currentLang].autoRedirect || 'Türkiye otomatik seçildi, yönlendiriliyorsunuz...';
+            continueBtn.textContent = 'Türkiye seçildi, yönlendiriliyorsunuz...';
             
-            // 1.5 saniye bekle ve devam et
-            setTimeout(() => {
-                saveAndContinue();
-            }, 1500);
+            // Direkt kaydet ve devam et
+            await saveAndContinue();
         }
         
         function renderCountries(filter = '') {
@@ -534,12 +526,17 @@
             if (currentUser.country) {
                 selectedCountry = currentUser.country;
                 document.getElementById('continueBtn').disabled = false;
+            } else {
+                // Kullanıcının ülkesi yoksa ve tarayıcı dili Türkçe ise otomatik Türkiye'yi seç
+                if (currentLang === 'tr') {
+                    autoSelectTurkeyAndContinue();
+                }
             }
         }
         
         // Başlangıç
-        checkAuth();
         currentLang = detectLanguage();
+        checkAuth();
         updateTexts(currentLang);
         loadCountries();
     </script>
