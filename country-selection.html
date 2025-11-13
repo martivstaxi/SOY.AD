@@ -602,18 +602,25 @@
             
             currentUser = JSON.parse(user);
             
-            // Tarayıcı dili Türkçe ise direkt Türkiye'yi seç ve devam et
+            // Daha önce ülke seçimi yapılmışsa otomatik devam et
+            if (currentUser.country) {
+                selectedCountry = currentUser.country;
+                document.getElementById('headerSubtitle').textContent = 'Önceki seçiminiz yükleniyor...';
+                document.getElementById('continueBtn').disabled = false;
+                
+                // Direkt app.html'e yönlendir
+                setTimeout(() => {
+                    window.location.href = 'app.html';
+                }, 500);
+                return;
+            }
+            
+            // Ülke seçimi yapılmamışsa ve tarayıcı dili Türkçe ise otomatik Türkiye'yi seç
             if (currentLang === 'tr') {
                 document.getElementById('headerSubtitle').textContent = 'Türkiye otomatik seçiliyor...';
                 setTimeout(() => {
                     autoSelectTurkeyAndContinue();
                 }, 100);
-            } else {
-                // Türkçe değilse normal ülke seçim ekranını göster
-                if (currentUser.country) {
-                    selectedCountry = currentUser.country;
-                    document.getElementById('continueBtn').disabled = false;
-                }
             }
         }
         
