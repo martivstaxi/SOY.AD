@@ -896,19 +896,19 @@
                         dot.style.transform = `translateY(${y}px)`;
                         dot.style.opacity = 0.6 + Math.abs(y) / 10;
                     });
-                    frame += 2; // Slower, calming speed
-                }, 40); // Update every 40ms for smooth, relaxed motion
+                    frame += 4; // Faster for visible cycles
+                }, 25); // Faster update for quicker animation
                 
                 // Haptic feedback for mobile
                 if (isMobile && window.navigator && window.navigator.vibrate) {
                     window.navigator.vibrate(15);
                 }
                 
-                // Navigate after animation
-                setTimeout(() => {
-                    clearInterval(animateDots);
-                    window.location.href = 'login.html';
-                }, 600);
+                // Navigate IMMEDIATELY - no delay
+                window.location.href = 'login.html';
+                
+                // Keep animation running while page loads
+                // Browser will naturally stop it when navigating
             });
             
             // Mobile touch feedback
