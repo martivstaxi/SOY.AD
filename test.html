@@ -859,56 +859,56 @@
                 if (button.disabled) return;
                 button.disabled = true;
                 
-                // Mobile specific - faster with animated dots
-                if (isMobile) {
-                    // Immediate visual feedback
-                    button.style.transform = 'scale(0.95)';
-                    button.style.background = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
-                    
-                    // Save original content
-                    const originalContent = button.innerHTML;
-                    
-                    // Add animated loading dots
-                    button.innerHTML = '';
-                    const dotsContainer = document.createElement('div');
-                    dotsContainer.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 6px; height: 100%;';
-                    
-                    // Create 3 dots with up-down animation
-                    for (let i = 0; i < 3; i++) {
-                        const dot = document.createElement('span');
-                        dot.style.cssText = `
-                            width: 10px;
-                            height: 10px;
-                            background: white;
-                            border-radius: 50%;
-                            display: inline-block;
-                            animation: jump-dot 1s ease-in-out ${i * 0.15}s infinite;
-                        `;
-                        dotsContainer.appendChild(dot);
-                    }
-                    
-                    button.appendChild(dotsContainer);
-                    
-                    // Quick haptic feedback if available
-                    if (window.navigator && window.navigator.vibrate) {
-                        window.navigator.vibrate(15);
-                    }
-                    
-                    // Navigate after short delay
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 400);
-                    
-                } else {
-                    // Desktop animation
-                    button.style.background = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
-                    const originalContent = button.innerHTML;
-                    button.innerHTML = 'Yükleniyor...';
-                    
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 300);
+                // Save original content
+                const originalContent = button.innerHTML;
+                
+                // Clear button and add animated dots (both mobile and desktop)
+                button.style.background = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
+                button.innerHTML = '';
+                
+                // Create dots container
+                const dotsContainer = document.createElement('div');
+                dotsContainer.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 6px; height: 100%;';
+                
+                // Create 3 animated dots
+                for (let i = 0; i < 3; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'loading-dot';
+                    dot.style.cssText = `
+                        width: 10px;
+                        height: 10px;
+                        background-color: white;
+                        border-radius: 50%;
+                        display: inline-block;
+                    `;
+                    dotsContainer.appendChild(dot);
                 }
+                
+                button.appendChild(dotsContainer);
+                
+                // Animate dots with JavaScript for mobile compatibility
+                let frame = 0;
+                const animateDots = setInterval(() => {
+                    const dots = button.querySelectorAll('.loading-dot');
+                    dots.forEach((dot, index) => {
+                        const offset = (frame + index * 20) % 60;
+                        const y = Math.sin(offset * Math.PI / 30) * 10;
+                        dot.style.transform = `translateY(${y}px)`;
+                        dot.style.opacity = 0.5 + Math.abs(y) / 20;
+                    });
+                    frame += 3;
+                }, 50);
+                
+                // Haptic feedback for mobile
+                if (isMobile && window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(15);
+                }
+                
+                // Navigate after animation
+                setTimeout(() => {
+                    clearInterval(animateDots);
+                    window.location.href = 'login.html';
+                }, 600);
             });
             
             // Mobile touch feedback
@@ -920,42 +920,16 @@
                 });
                 
                 ctaButton.addEventListener('touchend', function() {
-                    // Handled by click
+                    if (!this.disabled) {
+                        this.style.transform = 'scale(1)';
+                    }
                 });
             }
         }
         
-        // Add bounce dot animation CSS
+        // Add basic styles
         const animationStyle = document.createElement('style');
         animationStyle.textContent = `
-            @keyframes bounce-dot {
-                0%, 100% {
-                    transform: translateY(0);
-                    opacity: 0.6;
-                }
-                25% {
-                    transform: translateY(-12px);
-                    opacity: 1;
-                }
-                50% {
-                    transform: translateY(0);
-                    opacity: 0.6;
-                }
-                75% {
-                    transform: translateY(12px);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes jump-dot {
-                0%, 60%, 100% {
-                    transform: translateY(0);
-                }
-                30% {
-                    transform: translateY(-15px);
-                }
-            }
-            
             .cta-button {
                 min-height: 48px;
                 position: relative;
@@ -964,6 +938,10 @@
             .cta-button:disabled {
                 cursor: not-allowed;
                 opacity: 0.95;
+            }
+            
+            .loading-dot {
+                transition: transform 0.05s linear, opacity 0.05s linear;
             }
         `;
         document.head.appendChild(animationStyle);
