@@ -870,13 +870,13 @@
                 const dotsContainer = document.createElement('div');
                 dotsContainer.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 6px; height: 100%;';
                 
-                // Create 3 animated dots
-                for (let i = 0; i < 3; i++) {
+                // Create 4 animated dots
+                for (let i = 0; i < 4; i++) {
                     const dot = document.createElement('span');
                     dot.className = 'loading-dot';
                     dot.style.cssText = `
-                        width: 10px;
-                        height: 10px;
+                        width: 8px;
+                        height: 8px;
                         background-color: white;
                         border-radius: 50%;
                         display: inline-block;
@@ -891,13 +891,13 @@
                 const animateDots = setInterval(() => {
                     const dots = button.querySelectorAll('.loading-dot');
                     dots.forEach((dot, index) => {
-                        const offset = (frame + index * 10) % 30;
-                        const y = Math.sin(offset * Math.PI / 15) * 1.5; // Only 1.5px movement
+                        const offset = (frame + index * 25) % 100;
+                        const y = Math.sin(offset * Math.PI / 50) * 4; // 4px smooth movement
                         dot.style.transform = `translateY(${y}px)`;
-                        dot.style.opacity = 0.8 + Math.abs(y) / 7.5;
+                        dot.style.opacity = 0.6 + Math.abs(y) / 10;
                     });
-                    frame += 6; // Much faster
-                }, 20); // Update every 20ms for very smooth motion
+                    frame += 2; // Slower, calming speed
+                }, 40); // Update every 40ms for smooth, relaxed motion
                 
                 // Haptic feedback for mobile
                 if (isMobile && window.navigator && window.navigator.vibrate) {
