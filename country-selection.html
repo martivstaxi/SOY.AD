@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Soy.ad - Ülke Seçimi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>www.Soy.ad - Kayıt Ol</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,100 +12,23 @@
             box-sizing: border-box;
         }
         
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+        
         body {
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        
-        /* Loading Screen */
-        .loading-screen {
+            height: 100%;
             position: fixed;
+            width: 100%;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .bounce-dots {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .bounce-dot {
-            width: 14px;
-            height: 14px;
-            background: white;
-            border-radius: 50%;
-            animation: enhancedBounce 1.4s ease-in-out infinite;
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
-        }
-        
-        .bounce-dot:nth-child(1) { 
-            animation-delay: 0s;
-        }
-        .bounce-dot:nth-child(2) { 
-            animation-delay: 0.15s;
-        }
-        .bounce-dot:nth-child(3) { 
-            animation-delay: 0.3s;
-        }
-        
-        @keyframes enhancedBounce {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 0.4;
-            }
-            20% {
-                transform: translateY(-20px) scale(1.3);
-                opacity: 1;
-                box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4);
-            }
-            40% {
-                transform: translateY(0) scale(1);
-                opacity: 0.6;
-            }
-            60% {
-                transform: translateY(-10px) scale(1.1);
-                opacity: 0.8;
-            }
-            80% {
-                transform: translateY(0) scale(0.9);
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(0) scale(1);
-                opacity: 0.4;
-            }
-        }
-        
-        /* Hide container initially */
-        .container {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .container.visible {
-            opacity: 1;
-        }
-                
         .animated-bg {
             position: fixed;
             width: 100%;
@@ -158,19 +81,28 @@
             66% { transform: translate(-20px, 20px) scale(0.9); }
         }
         
-        .container {
-            background: white;
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 56px 48px;
             border-radius: 32px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
             width: 100%;
-            max-width: 500px;
+            max-width: 460px;
             position: relative;
             z-index: 1;
             animation: slideUp 0.6s ease-out;
-            overflow: hidden;
-            max-height: calc(90vh - env(safe-area-inset-bottom));
-            display: flex;
-            flex-direction: column;
         }
         
         @keyframes slideUp {
@@ -184,92 +116,330 @@
             }
         }
         
-        .header {
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo-icon {
+            width: 72px;
+            height: 72px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .logo h1 {
+            color: #1a1a2e;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo p {
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        
+        
+        .progress-container {
+            margin-bottom: 32px;
             text-align: center;
         }
         
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-        
-        .search-container {
-            padding: 20px;
-            border-bottom: 2px solid #e5e7eb;
-        }
-        
-        .search-input {
+        .progress-bar {
             width: 100%;
-            padding: 14px 18px;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 100px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 100px;
+            width: 25%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-text {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-step {
+            display: none;
+            animation: fadeSlideIn 0.5s ease-out;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .form-step.slide-out-left {
+            animation: slideOutLeft 0.3s ease-out;
+        }
+        
+        .form-step.slide-out-right {
+            animation: slideOutRight 0.3s ease-out;
+        }
+        
+        @keyframes slideOutLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .next-btn,
+        .back-step-btn {
+            padding: 18px;
+            border: none;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .next-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .next-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .next-btn:hover::before {
+            left: 100%;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+        }
+        
+        .next-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .back-step-btn {
+            background: rgba(107, 114, 128, 0.1);
+            color: #6b7280;
+            border: 2px solid #e5e7eb;
+            padding: 18px 20px;
+            min-width: 60px;
+            font-size: 20px;
+        }
+        
+        .back-step-btn:hover {
+            background: rgba(107, 114, 128, 0.15);
+            border-color: #d1d5db;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-step-btn:active {
+            transform: translateY(0);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.3px;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .phone-input-group {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .country-select {
+            min-width: 90px;
+            max-width: 110px;
+            padding: 15px 8px;
+            padding-right: 24px;
             border: 2px solid #e5e7eb;
             border-radius: 16px;
-            font-size: 16px;
+            font-size: 13px;
             font-family: 'Outfit', sans-serif;
             transition: all 0.3s ease;
             background: #f9fafb;
+            color: #1a1a2e;
+            font-weight: 500;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 6px center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
-        .search-input:focus {
+        .country-select:focus {
             outline: none;
             border-color: #667eea;
             background: white;
             box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
         
-        .country-list {
+        .phone-input-wrapper {
             flex: 1;
-            overflow-y: auto;
-            padding: 10px;
         }
         
-        .country-item {
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 2px solid transparent;
+        .input-wrapper {
+            position: relative;
         }
         
-        .country-item:hover {
-            background: #f5f6fa;
-            border-color: #667eea;
-            transform: translateX(5px);
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
         }
         
-        .country-item.selected {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: transparent;
-            transform: scale(1.02);
-        }
-        
-        .country-flag {
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-        
-        .country-name {
+        input {
+            width: 100%;
+            padding: 15px 18px 15px 52px;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
             font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+            color: #1a1a2e;
             font-weight: 500;
         }
         
-        .continue-btn {
-            margin: 20px;
-            margin-bottom: calc(50px + env(safe-area-inset-bottom));
-            padding: 16px;
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
+                        0 10px 30px rgba(102, 126, 234, 0.1);
+        }
+        
+        input:focus + .input-icon {
+            opacity: 1;
+            color: #667eea;
+        }
+        
+        input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+        
+        input:valid {
+            border-color: #10b981;
+        }
+        
+        button {
+            width: 100%;
+            padding: 18px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
@@ -279,46 +449,401 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            margin-top: 12px;
             font-family: 'Outfit', sans-serif;
             letter-spacing: 0.5px;
-            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
         }
         
-        .continue-btn:hover {
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
             transform: translateY(-3px);
             box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
         }
         
-        .continue-btn:disabled {
-            opacity: 0.5;
+        button:active {
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            opacity: 0.7;
             cursor: not-allowed;
             transform: none;
         }
         
-        @media (max-width: 768px) {
-            .container {
-                max-height: calc(85vh - env(safe-area-inset-bottom));
-                margin-bottom: env(safe-area-inset-bottom);
+        .error-message {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(67, 233, 123, 0.3);
+            animation: slideDown 0.5s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-modal.show {
+            display: flex;
+        }
+        
+        .success-modal-content {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 32px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .success-icon {
+            margin: 0 auto 30px;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .checkmark {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 4;
+            stroke: #10b981;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0 0 0 #10b981;
+            animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+        }
+        
+        .checkmark-path {
+            stroke-dasharray: 80;
+            stroke-dashoffset: 80;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+        
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0 0 0 60px #10b981;
+            }
+        }
+        
+        .success-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        
+        .success-text {
+            font-size: 18px;
+            color: #6b7280;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #667eea;
+            position: absolute;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                overflow-y: scroll;
             }
             
-            .header h1 {
-                font-size: 24px;
+            .orb {
+                filter: blur(40px);
             }
             
-            .header p {
+            .wrapper {
+                padding: 20px;
+                min-height: 100vh;
+                min-height: -webkit-fill-available;
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+            
+            .register-container {
+                padding: 40px 28px;
+                border-radius: 28px;
+                max-width: 100%;
+                margin-bottom: 40px;
+            }
+            
+            .logo {
+                margin-bottom: 32px;
+            }
+            
+            .progress-container {
+                margin-bottom: 24px;
+            }
+            
+            .progress-bar {
+                height: 6px;
+            }
+            
+            .progress-text {
+                font-size: 13px;
+                margin-top: 10px;
+            }
+            
+            .logo-icon {
+                width: 64px;
+                height: 64px;
+                font-size: 32px;
+                margin-bottom: 16px;
+            }
+            
+            .logo h1 {
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+            
+            .logo p {
+                font-size: 15px;
+            }
+            
+            .form-group {
+                margin-bottom: 20px;
+            }
+            
+            label {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            
+            input {
+                padding: 14px 16px 14px 50px;
+                font-size: 16px;
+                border-radius: 14px;
+            }
+            
+            .country-select {
+                min-width: 85px;
+                max-width: 100px;
+                padding: 14px 6px;
+                padding-right: 22px;
+                font-size: 12px;
+                border-radius: 14px;
+                background-position: right 4px center;
+            }
+            
+            .phone-input-group {
+                gap: 8px;
+            }
+            
+            .back-step-btn {
+                padding: 16px 18px;
+                min-width: 56px;
+                font-size: 18px;
+            }
+            
+            .success-modal-content {
+                padding: 50px 30px;
+                border-radius: 24px;
+            }
+            
+            .success-icon {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 24px;
+            }
+            
+            .success-title {
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+            
+            .success-text {
+                font-size: 16px;
+            }
+            
+            .input-icon {
+                font-size: 17px;
+                left: 16px;
+            }
+            
+            button {
+                padding: 17px;
+                font-size: 16px;
+                border-radius: 14px;
+                min-height: 56px;
+            }
+            
+            .next-btn,
+            .back-step-btn {
+                padding: 16px;
+                font-size: 16px;
+                border-radius: 14px;
+            }
+            
+            .button-group {
+                gap: 10px;
+            }
+            
+            .back-step-btn {
+                padding: 16px 20px;
+            }
+            
+            .error-message,
+            .success-message {
+                padding: 14px 18px;
+                font-size: 13px;
+                margin-top: 16px;
+                border-radius: 14px;
+            }
+            
+            .back-section {
+                margin-top: 24px;
+                padding-top: 24px;
+            }
+            
+            .back-text {
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+            
+            .back-btn {
+                padding: 11px 20px;
                 font-size: 14px;
             }
-            
-            .country-item {
-                padding: 14px 16px;
+        }
+        
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
             }
             
-            .country-flag {
-                font-size: 24px;
+            .wrapper {
+                min-height: -webkit-fill-available;
+            }
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+            input,
+            button {
+                min-height: 52px;
             }
             
-            .country-name {
-                font-size: 15px;
+            button:active {
+                transform: scale(0.98);
             }
         }
     </style>
@@ -330,404 +855,550 @@
         <div class="orb orb3"></div>
     </div>
     
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="bounce-dots">
-            <span class="bounce-dot"></span>
-            <span class="bounce-dot"></span>
-            <span class="bounce-dot"></span>
+    <div class="wrapper">
+        <div class="register-container">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">1/3</div>
+            </div>
+            
+            <div class="logo">
+                <div class="logo-icon">🚀</div>
+                <h1>soy.ad</h1>
+                <p id="stepTitle">Yeni Üyelik Başvurusu</p>
+            </div>
+            
+            <form id="registerForm">
+                <!-- Step 1: Instagram -->
+                <div class="form-step active" data-step="1">
+                    <div class="form-group">
+                        <label for="instagram">Instagram Kullanıcı Adı</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="instagram" name="instagram" required placeholder="@kullaniciadi" autocomplete="off">
+                            <div class="input-icon">📸</div>
+                        </div>
+                    </div>
+                    <button type="button" class="next-btn" data-next="2">Devam Et</button>
+                </div>
+                
+                <!-- Step 2: Email -->
+                <div class="form-step" data-step="2">
+                    <div class="form-group">
+                        <label for="email">E-posta Adresi</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" name="email" required placeholder="ornek@email.com" autocomplete="email">
+                            <div class="input-icon">📧</div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="back-step-btn" data-prev="1">← Geri</button>
+                        <button type="button" class="next-btn" data-next="3">Devam Et</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Telefon -->
+                <div class="form-step" data-step="3">
+                    <div class="form-group">
+                        <label for="phone">Telefon Numarası</label>
+                        <div class="phone-input-group">
+                            <select id="countryCode" class="country-select">
+                                <option value="+90" data-country="Turkey" selected>🇹🇷 Turkey</option>
+                                <option value="+93" data-country="Afghanistan">🇦🇫 Afghanistan</option>
+                                <option value="+355" data-country="Albania">🇦🇱 Albania</option>
+                                <option value="+213" data-country="Algeria">🇩🇿 Algeria</option>
+                                <option value="+376" data-country="Andorra">🇦🇩 Andorra</option>
+                                <option value="+244" data-country="Angola">🇦🇴 Angola</option>
+                                <option value="+54" data-country="Argentina">🇦🇷 Argentina</option>
+                                <option value="+374" data-country="Armenia">🇦🇲 Armenia</option>
+                                <option value="+61" data-country="Australia">🇦🇺 Australia</option>
+                                <option value="+43" data-country="Austria">🇦🇹 Austria</option>
+                                <option value="+994" data-country="Azerbaijan">🇦🇿 Azerbaijan</option>
+                                <option value="+973" data-country="Bahrain">🇧🇭 Bahrain</option>
+                                <option value="+880" data-country="Bangladesh">🇧🇩 Bangladesh</option>
+                                <option value="+375" data-country="Belarus">🇧🇾 Belarus</option>
+                                <option value="+32" data-country="Belgium">🇧🇪 Belgium</option>
+                                <option value="+501" data-country="Belize">🇧🇿 Belize</option>
+                                <option value="+229" data-country="Benin">🇧🇯 Benin</option>
+                                <option value="+975" data-country="Bhutan">🇧🇹 Bhutan</option>
+                                <option value="+591" data-country="Bolivia">🇧🇴 Bolivia</option>
+                                <option value="+387" data-country="Bosnia">🇧🇦 Bosnia</option>
+                                <option value="+267" data-country="Botswana">🇧🇼 Botswana</option>
+                                <option value="+55" data-country="Brazil">🇧🇷 Brazil</option>
+                                <option value="+673" data-country="Brunei">🇧🇳 Brunei</option>
+                                <option value="+359" data-country="Bulgaria">🇧🇬 Bulgaria</option>
+                                <option value="+226" data-country="Burkina Faso">🇧🇫 Burkina Faso</option>
+                                <option value="+257" data-country="Burundi">🇧🇮 Burundi</option>
+                                <option value="+855" data-country="Cambodia">🇰🇭 Cambodia</option>
+                                <option value="+237" data-country="Cameroon">🇨🇲 Cameroon</option>
+                                <option value="+1" data-country="Canada">🇨🇦 Canada</option>
+                                <option value="+238" data-country="Cape Verde">🇨🇻 Cape Verde</option>
+                                <option value="+236" data-country="Central African Republic">🇨🇫 C.A.R.</option>
+                                <option value="+235" data-country="Chad">🇹🇩 Chad</option>
+                                <option value="+56" data-country="Chile">🇨🇱 Chile</option>
+                                <option value="+86" data-country="China">🇨🇳 China</option>
+                                <option value="+57" data-country="Colombia">🇨🇴 Colombia</option>
+                                <option value="+269" data-country="Comoros">🇰🇲 Comoros</option>
+                                <option value="+242" data-country="Congo">🇨🇬 Congo</option>
+                                <option value="+506" data-country="Costa Rica">🇨🇷 Costa Rica</option>
+                                <option value="+385" data-country="Croatia">🇭🇷 Croatia</option>
+                                <option value="+53" data-country="Cuba">🇨🇺 Cuba</option>
+                                <option value="+357" data-country="Cyprus">🇨🇾 Cyprus</option>
+                                <option value="+420" data-country="Czech Republic">🇨🇿 Czech Rep.</option>
+                                <option value="+243" data-country="DR Congo">🇨🇩 DR Congo</option>
+                                <option value="+45" data-country="Denmark">🇩🇰 Denmark</option>
+                                <option value="+253" data-country="Djibouti">🇩🇯 Djibouti</option>
+                                <option value="+593" data-country="Ecuador">🇪🇨 Ecuador</option>
+                                <option value="+20" data-country="Egypt">🇪🇬 Egypt</option>
+                                <option value="+503" data-country="El Salvador">🇸🇻 El Salvador</option>
+                                <option value="+240" data-country="Equatorial Guinea">🇬🇶 Eq. Guinea</option>
+                                <option value="+291" data-country="Eritrea">🇪🇷 Eritrea</option>
+                                <option value="+372" data-country="Estonia">🇪🇪 Estonia</option>
+                                <option value="+251" data-country="Ethiopia">🇪🇹 Ethiopia</option>
+                                <option value="+679" data-country="Fiji">🇫🇯 Fiji</option>
+                                <option value="+358" data-country="Finland">🇫🇮 Finland</option>
+                                <option value="+33" data-country="France">🇫🇷 France</option>
+                                <option value="+241" data-country="Gabon">🇬🇦 Gabon</option>
+                                <option value="+220" data-country="Gambia">🇬🇲 Gambia</option>
+                                <option value="+995" data-country="Georgia">🇬🇪 Georgia</option>
+                                <option value="+49" data-country="Germany">🇩🇪 Germany</option>
+                                <option value="+233" data-country="Ghana">🇬🇭 Ghana</option>
+                                <option value="+30" data-country="Greece">🇬🇷 Greece</option>
+                                <option value="+502" data-country="Guatemala">🇬🇹 Guatemala</option>
+                                <option value="+224" data-country="Guinea">🇬🇳 Guinea</option>
+                                <option value="+245" data-country="Guinea-Bissau">🇬🇼 Guinea-Bis.</option>
+                                <option value="+592" data-country="Guyana">🇬🇾 Guyana</option>
+                                <option value="+509" data-country="Haiti">🇭🇹 Haiti</option>
+                                <option value="+504" data-country="Honduras">🇭🇳 Honduras</option>
+                                <option value="+852" data-country="Hong Kong">🇭🇰 Hong Kong</option>
+                                <option value="+36" data-country="Hungary">🇭🇺 Hungary</option>
+                                <option value="+354" data-country="Iceland">🇮🇸 Iceland</option>
+                                <option value="+91" data-country="India">🇮🇳 India</option>
+                                <option value="+62" data-country="Indonesia">🇮🇩 Indonesia</option>
+                                <option value="+98" data-country="Iran">🇮🇷 Iran</option>
+                                <option value="+964" data-country="Iraq">🇮🇶 Iraq</option>
+                                <option value="+353" data-country="Ireland">🇮🇪 Ireland</option>
+                                <option value="+972" data-country="Israel">🇮🇱 Israel</option>
+                                <option value="+39" data-country="Italy">🇮🇹 Italy</option>
+                                <option value="+225" data-country="Ivory Coast">🇨🇮 Ivory Coast</option>
+                                <option value="+81" data-country="Japan">🇯🇵 Japan</option>
+                                <option value="+962" data-country="Jordan">🇯🇴 Jordan</option>
+                                <option value="+7" data-country="Kazakhstan">🇰🇿 Kazakhstan</option>
+                                <option value="+254" data-country="Kenya">🇰🇪 Kenya</option>
+                                <option value="+965" data-country="Kuwait">🇰🇼 Kuwait</option>
+                                <option value="+996" data-country="Kyrgyzstan">🇰🇬 Kyrgyzstan</option>
+                                <option value="+856" data-country="Laos">🇱🇦 Laos</option>
+                                <option value="+371" data-country="Latvia">🇱🇻 Latvia</option>
+                                <option value="+961" data-country="Lebanon">🇱🇧 Lebanon</option>
+                                <option value="+266" data-country="Lesotho">🇱🇸 Lesotho</option>
+                                <option value="+231" data-country="Liberia">🇱🇷 Liberia</option>
+                                <option value="+218" data-country="Libya">🇱🇾 Libya</option>
+                                <option value="+423" data-country="Liechtenstein">🇱🇮 Liechtenst.</option>
+                                <option value="+370" data-country="Lithuania">🇱🇹 Lithuania</option>
+                                <option value="+352" data-country="Luxembourg">🇱🇺 Luxembourg</option>
+                                <option value="+853" data-country="Macau">🇲🇴 Macau</option>
+                                <option value="+389" data-country="Macedonia">🇲🇰 Macedonia</option>
+                                <option value="+261" data-country="Madagascar">🇲🇬 Madagascar</option>
+                                <option value="+265" data-country="Malawi">🇲🇼 Malawi</option>
+                                <option value="+60" data-country="Malaysia">🇲🇾 Malaysia</option>
+                                <option value="+960" data-country="Maldives">🇲🇻 Maldives</option>
+                                <option value="+223" data-country="Mali">🇲🇱 Mali</option>
+                                <option value="+356" data-country="Malta">🇲🇹 Malta</option>
+                                <option value="+222" data-country="Mauritania">🇲🇷 Mauritania</option>
+                                <option value="+230" data-country="Mauritius">🇲🇺 Mauritius</option>
+                                <option value="+52" data-country="Mexico">🇲🇽 Mexico</option>
+                                <option value="+373" data-country="Moldova">🇲🇩 Moldova</option>
+                                <option value="+377" data-country="Monaco">🇲🇨 Monaco</option>
+                                <option value="+976" data-country="Mongolia">🇲🇳 Mongolia</option>
+                                <option value="+382" data-country="Montenegro">🇲🇪 Montenegro</option>
+                                <option value="+212" data-country="Morocco">🇲🇦 Morocco</option>
+                                <option value="+258" data-country="Mozambique">🇲🇿 Mozambique</option>
+                                <option value="+95" data-country="Myanmar">🇲🇲 Myanmar</option>
+                                <option value="+264" data-country="Namibia">🇳🇦 Namibia</option>
+                                <option value="+977" data-country="Nepal">🇳🇵 Nepal</option>
+                                <option value="+31" data-country="Netherlands">🇳🇱 Netherlands</option>
+                                <option value="+64" data-country="New Zealand">🇳🇿 New Zealand</option>
+                                <option value="+505" data-country="Nicaragua">🇳🇮 Nicaragua</option>
+                                <option value="+227" data-country="Niger">🇳🇪 Niger</option>
+                                <option value="+234" data-country="Nigeria">🇳🇬 Nigeria</option>
+                                <option value="+850" data-country="North Korea">🇰🇵 N. Korea</option>
+                                <option value="+47" data-country="Norway">🇳🇴 Norway</option>
+                                <option value="+968" data-country="Oman">🇴🇲 Oman</option>
+                                <option value="+92" data-country="Pakistan">🇵🇰 Pakistan</option>
+                                <option value="+970" data-country="Palestine">🇵🇸 Palestine</option>
+                                <option value="+507" data-country="Panama">🇵🇦 Panama</option>
+                                <option value="+675" data-country="Papua New Guinea">🇵🇬 Papua N.G.</option>
+                                <option value="+595" data-country="Paraguay">🇵🇾 Paraguay</option>
+                                <option value="+51" data-country="Peru">🇵🇪 Peru</option>
+                                <option value="+63" data-country="Philippines">🇵🇭 Philippines</option>
+                                <option value="+48" data-country="Poland">🇵🇱 Poland</option>
+                                <option value="+351" data-country="Portugal">🇵🇹 Portugal</option>
+                                <option value="+974" data-country="Qatar">🇶🇦 Qatar</option>
+                                <option value="+40" data-country="Romania">🇷🇴 Romania</option>
+                                <option value="+7" data-country="Russia">🇷🇺 Russia</option>
+                                <option value="+250" data-country="Rwanda">🇷🇼 Rwanda</option>
+                                <option value="+966" data-country="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                                <option value="+221" data-country="Senegal">🇸🇳 Senegal</option>
+                                <option value="+381" data-country="Serbia">🇷🇸 Serbia</option>
+                                <option value="+248" data-country="Seychelles">🇸🇨 Seychelles</option>
+                                <option value="+232" data-country="Sierra Leone">🇸🇱 Sierra Leone</option>
+                                <option value="+65" data-country="Singapore">🇸🇬 Singapore</option>
+                                <option value="+421" data-country="Slovakia">🇸🇰 Slovakia</option>
+                                <option value="+386" data-country="Slovenia">🇸🇮 Slovenia</option>
+                                <option value="+252" data-country="Somalia">🇸🇴 Somalia</option>
+                                <option value="+27" data-country="South Africa">🇿🇦 South Africa</option>
+                                <option value="+82" data-country="South Korea">🇰🇷 South Korea</option>
+                                <option value="+211" data-country="South Sudan">🇸🇸 South Sudan</option>
+                                <option value="+34" data-country="Spain">🇪🇸 Spain</option>
+                                <option value="+94" data-country="Sri Lanka">🇱🇰 Sri Lanka</option>
+                                <option value="+249" data-country="Sudan">🇸🇩 Sudan</option>
+                                <option value="+597" data-country="Suriname">🇸🇷 Suriname</option>
+                                <option value="+268" data-country="Swaziland">🇸🇿 Swaziland</option>
+                                <option value="+46" data-country="Sweden">🇸🇪 Sweden</option>
+                                <option value="+41" data-country="Switzerland">🇨🇭 Switzerland</option>
+                                <option value="+963" data-country="Syria">🇸🇾 Syria</option>
+                                <option value="+886" data-country="Taiwan">🇹🇼 Taiwan</option>
+                                <option value="+992" data-country="Tajikistan">🇹🇯 Tajikistan</option>
+                                <option value="+255" data-country="Tanzania">🇹🇿 Tanzania</option>
+                                <option value="+66" data-country="Thailand">🇹🇭 Thailand</option>
+                                <option value="+228" data-country="Togo">🇹🇬 Togo</option>
+                                <option value="+676" data-country="Tonga">🇹🇴 Tonga</option>
+                                <option value="+216" data-country="Tunisia">🇹🇳 Tunisia</option>
+                                <option value="+993" data-country="Turkmenistan">🇹🇲 Turkmenistan</option>
+                                <option value="+256" data-country="Uganda">🇺🇬 Uganda</option>
+                                <option value="+380" data-country="Ukraine">🇺🇦 Ukraine</option>
+                                <option value="+971" data-country="United Arab Emirates">🇦🇪 UAE</option>
+                                <option value="+44" data-country="United Kingdom">🇬🇧 UK</option>
+                                <option value="+1" data-country="United States">🇺🇸 USA</option>
+                                <option value="+598" data-country="Uruguay">🇺🇾 Uruguay</option>
+                                <option value="+998" data-country="Uzbekistan">🇺🇿 Uzbekistan</option>
+                                <option value="+678" data-country="Vanuatu">🇻🇺 Vanuatu</option>
+                                <option value="+58" data-country="Venezuela">🇻🇪 Venezuela</option>
+                                <option value="+84" data-country="Vietnam">🇻🇳 Vietnam</option>
+                                <option value="+967" data-country="Yemen">🇾🇪 Yemen</option>
+                                <option value="+260" data-country="Zambia">🇿🇲 Zambia</option>
+                                <option value="+263" data-country="Zimbabwe">🇿🇼 Zimbabwe</option>
+                            </select>
+                            <div class="input-wrapper phone-input-wrapper">
+                                <input type="tel" id="phone" name="phone" required placeholder="555 123 45 67" autocomplete="tel">
+                                <div class="input-icon">📱</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="back-step-btn" data-prev="2">←</button>
+                        <button type="submit" id="submitBtn">Başvuru Gönder ✓</button>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="error-message" id="errorMsg"></div>
+            <div class="success-message" id="successMsg"></div>
         </div>
     </div>
     
-    <div class="container" id="countryContainer">
-        <div class="header">
-            <h1 id="headerTitle">🌍 Ülkenizi Seçin</h1>
-            <p id="headerSubtitle">Hangi ülkeden içerik görmek istersiniz?</p>
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-icon">
+                <svg viewBox="0 0 100 100" class="checkmark">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="4"/>
+                    <path fill="none" stroke="#10b981" stroke-width="4" d="M25,55 L40,70 L75,35" class="checkmark-path"/>
+                </svg>
+            </div>
+            <h2 class="success-title">🎉 Başarılı!</h2>
+            <p class="success-text">Başvurunuz başarıyla gönderildi.<br>Ekibimiz en kısa sürede sizinle iletişime geçecek.</p>
         </div>
-        
-        <div class="search-container">
-            <input type="text" id="countrySearch" class="search-input" placeholder="Ülke ara..." oninput="searchCountries()">
-        </div>
-        
-        <div class="country-list" id="countryList"></div>
-        
-        <button class="continue-btn" id="continueBtn" onclick="saveAndContinue()" disabled>Devam Et</button>
     </div>
     
     <script>
-        const API_URL = 'https://soy-ad-backend.onrender.com';
+        // EmailJS konfigürasyonu
+        const EMAILJS_SERVICE_ID = 'service_ocl60mr';
+        const EMAILJS_TEMPLATE_ID = 'template_xce75of';
+        const EMAILJS_PUBLIC_KEY = 'bMp0lFgKmxUIRSMcR';
         
-        // 50 dil için çeviri sistemi
-        const translations = {
-            tr: { title: '🌍 Ülkenizi Seçin', subtitle: 'Hangi ülkeden içerik görmek istersiniz?', search: 'Ülke ara...', continue: 'Devam Et', loading: 'Ülkeler yükleniyor...', autoRedirect: 'Türkiye otomatik seçildi, yönlendiriliyorsunuz...' },
-            en: { title: '🌍 Select Your Country', subtitle: 'Which country would you like to see content from?', search: 'Search country...', continue: 'Continue', loading: 'Loading countries...' },
-            de: { title: '🌍 Wählen Sie Ihr Land', subtitle: 'Aus welchem Land möchten Sie Inhalte sehen?', search: 'Land suchen...', continue: 'Weiter', loading: 'Länder werden geladen...' },
-            fr: { title: '🌍 Sélectionnez votre pays', subtitle: 'De quel pays souhaitez-vous voir du contenu?', search: 'Rechercher un pays...', continue: 'Continuer', loading: 'Chargement des pays...' },
-            es: { title: '🌍 Selecciona tu país', subtitle: '¿De qué país te gustaría ver contenido?', search: 'Buscar país...', continue: 'Continuar', loading: 'Cargando países...' },
-            it: { title: '🌍 Seleziona il tuo paese', subtitle: 'Da quale paese vorresti vedere i contenuti?', search: 'Cerca paese...', continue: 'Continua', loading: 'Caricamento paesi...' },
-            pt: { title: '🌍 Selecione seu país', subtitle: 'De qual país você gostaria de ver conteúdo?', search: 'Procurar país...', continue: 'Continuar', loading: 'Carregando países...' },
-            ru: { title: '🌍 Выберите свою страну', subtitle: 'Из какой страны вы хотите видеть контент?', search: 'Поиск страны...', continue: 'Продолжить', loading: 'Загрузка стран...' },
-            ja: { title: '🌍 国を選択', subtitle: 'どの国のコンテンツを見たいですか？', search: '国を検索...', continue: '続ける', loading: '国を読み込んでいます...' },
-            zh: { title: '🌍 选择您的国家', subtitle: '您想看哪个国家的内容？', search: '搜索国家...', continue: '继续', loading: '正在加载国家...' },
-            ar: { title: '🌍 اختر دولتك', subtitle: 'من أي دولة تريد رؤية المحتوى؟', search: 'ابحث عن دولة...', continue: 'متابعة', loading: 'جاري تحميل الدول...' },
-            hi: { title: '🌍 अपना देश चुनें', subtitle: 'आप किस देश की सामग्री देखना चाहेंगे?', search: 'देश खोजें...', continue: 'जारी रखें', loading: 'देश लोड हो रहे हैं...' },
-            ko: { title: '🌍 국가 선택', subtitle: '어느 나라의 콘텐츠를 보고 싶으신가요?', search: '국가 검색...', continue: '계속', loading: '국가를 불러오는 중...' },
-            nl: { title: '🌍 Selecteer uw land', subtitle: 'Uit welk land wilt u content zien?', search: 'Land zoeken...', continue: 'Doorgaan', loading: 'Landen laden...' },
-            pl: { title: '🌍 Wybierz swój kraj', subtitle: 'Z jakiego kraju chcesz widzieć treści?', search: 'Szukaj kraju...', continue: 'Kontynuuj', loading: 'Ładowanie krajów...' },
-            sv: { title: '🌍 Välj ditt land', subtitle: 'Från vilket land vill du se innehåll?', search: 'Sök land...', continue: 'Fortsätt', loading: 'Laddar länder...' },
-            no: { title: '🌍 Velg ditt land', subtitle: 'Fra hvilket land vil du se innhold?', search: 'Søk land...', continue: 'Fortsett', loading: 'Laster land...' },
-            da: { title: '🌍 Vælg dit land', subtitle: 'Fra hvilket land vil du se indhold?', search: 'Søg land...', continue: 'Fortsæt', loading: 'Indlæser lande...' },
-            fi: { title: '🌍 Valitse maasi', subtitle: 'Mistä maasta haluaisit nähdä sisältöä?', search: 'Hae maata...', continue: 'Jatka', loading: 'Ladataan maita...' },
-            cs: { title: '🌍 Vyberte svou zemi', subtitle: 'Ze které země chcete vidět obsah?', search: 'Hledat zemi...', continue: 'Pokračovat', loading: 'Načítání zemí...' },
-            uk: { title: '🌍 Виберіть свою країну', subtitle: 'З якої країни ви хочете бачити контент?', search: 'Пошук країни...', continue: 'Продовжити', loading: 'Завантаження країн...' },
-            ro: { title: '🌍 Selectați-vă țara', subtitle: 'Din ce țară ați dori să vedeți conținut?', search: 'Căutați țara...', continue: 'Continuați', loading: 'Se încarcă țările...' },
-            el: { title: '🌍 Επιλέξτε τη χώρα σας', subtitle: 'Από ποια χώρα θέλετε να δείτε περιεχόμενο;', search: 'Αναζήτηση χώρας...', continue: 'Συνέχεια', loading: 'Φόρτωση χωρών...' },
-            hu: { title: '🌍 Válaszd ki országodat', subtitle: 'Melyik országból szeretnél tartalmat látni?', search: 'Ország keresése...', continue: 'Folytatás', loading: 'Országok betöltése...' },
-            th: { title: '🌍 เลือกประเทศของคุณ', subtitle: 'คุณต้องการดูเนื้อหาจากประเทศใด?', search: 'ค้นหาประเทศ...', continue: 'ดำเนินการต่อ', loading: 'กำลังโหลดประเทศ...' },
-            vi: { title: '🌍 Chọn quốc gia của bạn', subtitle: 'Bạn muốn xem nội dung từ quốc gia nào?', search: 'Tìm kiếm quốc gia...', continue: 'Tiếp tục', loading: 'Đang tải quốc gia...' },
-            id: { title: '🌍 Pilih negara Anda', subtitle: 'Dari negara mana Anda ingin melihat konten?', search: 'Cari negara...', continue: 'Lanjutkan', loading: 'Memuat negara...' },
-            ms: { title: '🌍 Pilih negara anda', subtitle: 'Dari negara mana anda ingin melihat kandungan?', search: 'Cari negara...', continue: 'Teruskan', loading: 'Memuatkan negara...' },
-            bn: { title: '🌍 আপনার দেশ নির্বাচন করুন', subtitle: 'আপনি কোন দেশ থেকে বিষয়বস্তু দেখতে চান?', search: 'দেশ অনুসন্ধান করুন...', continue: 'চালিয়ে যান', loading: 'দেশ লোড হচ্ছে...' },
-            tl: { title: '🌍 Piliin ang iyong bansa', subtitle: 'Mula sa aling bansa mo gustong makita ang nilalaman?', search: 'Maghanap ng bansa...', continue: 'Magpatuloy', loading: 'Naglo-load ng mga bansa...' },
-            hr: { title: '🌍 Odaberite svoju zemlju', subtitle: 'Iz koje zemlje želite vidjeti sadržaj?', search: 'Pretraži zemlju...', continue: 'Nastavi', loading: 'Učitavanje zemalja...' },
-            he: { title: '🌍 בחר את המדינה שלך', subtitle: 'מאיזו מדינה תרצה לראות תוכן?', search: 'חפש מדינה...', continue: 'המשך', loading: 'טוען מדינות...' },
-            fa: { title: '🌍 کشور خود را انتخاب کنید', subtitle: 'از کدام کشور می‌خواهید محتوا ببینید?', search: 'جستجوی کشور...', continue: 'ادامه', loading: 'در حال بارگذاری کشورها...' },
-            ca: { title: '🌍 Selecciona el teu país', subtitle: 'De quin país vols veure contingut?', search: 'Cerca país...', continue: 'Continua', loading: 'Carregant països...' },
-            sk: { title: '🌍 Vyberte svoju krajinu', subtitle: 'Z ktorej krajiny chcete vidieť obsah?', search: 'Hľadať krajinu...', continue: 'Pokračovať', loading: 'Načítavanie krajín...' },
-            ur: { title: '🌍 اپنا ملک منتخب کریں', subtitle: 'آپ کس ملک سے مواد دیکھنا چاہیں گے؟', search: 'ملک تلاش کریں...', continue: 'جاری رکھیں', loading: 'ممالک لوڈ ہو رہے ہیں...' },
-            sr: { title: '🌍 Изаберите своју земљу', subtitle: 'Из које земље желите да видите садржај?', search: 'Претражи земљу...', continue: 'Настави', loading: 'Учитавање земаља...' },
-            bg: { title: '🌍 Изберете вашата страна', subtitle: 'От коя страна искате да виждате съдържание?', search: 'Търсене на страна...', continue: 'Продължи', loading: 'Зареждане на страни...' },
-            lt: { title: '🌍 Pasirinkite savo šalį', subtitle: 'Iš kurios šalies norėtumėte matyti turinį?', search: 'Ieškoti šalies...', continue: 'Tęsti', loading: 'Kraunamos šalys...' },
-            lv: { title: '🌍 Izvēlieties savu valsti', subtitle: 'No kuras valsts vēlaties redzēt saturu?', search: 'Meklēt valsti...', continue: 'Turpināt', loading: 'Ielādē valstis...' },
-            et: { title: '🌍 Valige oma riik', subtitle: 'Millisest riigist soovite sisu näha?', search: 'Otsi riiki...', continue: 'Jätka', loading: 'Riikide laadimine...' },
-            af: { title: '🌍 Kies jou land', subtitle: 'Uit watter land wil jy inhoud sien?', search: 'Soek land...', continue: 'Gaan voort', loading: 'Laai lande...' },
-            az: { title: '🌍 Ölkənizi seçin', subtitle: 'Hansı ölkədən məzmun görmək istərdiniz?', search: 'Ölkə axtarın...', continue: 'Davam et', loading: 'Ölkələr yüklənir...' },
-            uz: { title: '🌍 Mamlakatingizni tanlang', subtitle: 'Qaysi mamlakatdan tarkib ko\'rmoqchisiz?', search: 'Mamlakatni qidirish...', continue: 'Davom etish', loading: 'Mamlakatlar yuklanmoqda...' },
-            kk: { title: '🌍 Еліңізді таңдаңыз', subtitle: 'Қай елден контент көргіңіз келеді?', search: 'Елді іздеу...', continue: 'Жалғастыру', loading: 'Елдер жүктелуде...' },
-            ky: { title: '🌍 Өлкөңүздү тандаңыз', subtitle: 'Кайсы өлкөдөн контент көргүңүз келет?', search: 'Өлкөнү издөө...', continue: 'Улантуу', loading: 'Өлкөлөр жүктөлүүдө...' },
-            ka: { title: '🌍 აირჩიეთ თქვენი ქვეყანა', subtitle: 'რომელი ქვეყნიდან გსურთ შინაარსის ნახვა?', search: 'მოძებნეთ ქვეყანა...', continue: 'გაგრძელება', loading: 'იტვირთება ქვეყნები...' },
-            sw: { title: '🌍 Chagua nchi yako', subtitle: 'Unataka kuona maudhui kutoka nchi gani?', search: 'Tafuta nchi...', continue: 'Endelea', loading: 'Inapakia nchi...' },
-            zu: { title: '🌍 Khetha izwe lakho', subtitle: 'Ufuna ukubona okuqukethwe kuliphi izwe?', search: 'Sesha izwe...', continue: 'Qhubeka', loading: 'Ilayisha amazwe...' }
-        };
+        // EmailJS kütüphanesini yükle
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+            script.onload = function() {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            };
+            document.head.appendChild(script);
+        })();
         
-        // Dil gruplarına göre ülke önceliklendirme
-        const languagePriorityCountries = {
-            tr: ['TR', 'AZ', 'KZ', 'UZ', 'KG', 'TM'], // Türkçe konuşulan bölgeler
-            en: ['US', 'GB', 'AU', 'CA', 'NZ', 'IE', 'ZA', 'SG'], // İngilizce
-            ru: ['RU', 'BY', 'KZ', 'KG', 'UZ', 'TJ', 'AM', 'GE', 'MD', 'UA'], // Rusça
-            es: ['ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 'EC', 'CU', 'BO', 'DO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 'UY', 'GT'], // İspanyolca
-            ar: ['SA', 'AE', 'EG', 'IQ', 'DZ', 'SD', 'MA', 'YE', 'SY', 'TN', 'JO', 'LY', 'LB', 'PS', 'OM', 'KW', 'MR', 'QA', 'BH'], // Arapça
-            fr: ['FR', 'CA', 'BE', 'CH', 'MA', 'DZ', 'TN', 'SN', 'CI', 'ML', 'BF', 'NE', 'TD', 'MG', 'CM', 'CG', 'GA', 'HT', 'LU', 'MC'], // Fransızca
-            de: ['DE', 'AT', 'CH', 'LI', 'LU', 'BE'], // Almanca
-            pt: ['PT', 'BR', 'AO', 'MZ', 'GW', 'TL', 'GQ', 'MO', 'CV', 'ST'], // Portekizce
-            it: ['IT', 'CH', 'SM', 'VA'], // İtalyanca
-            zh: ['CN', 'TW', 'HK', 'MO', 'SG'], // Çince
-            ja: ['JP'], // Japonca
-            ko: ['KR', 'KP'], // Korece
-            hi: ['IN', 'NP', 'FJ'], // Hintçe
-            nl: ['NL', 'BE', 'SR', 'AW', 'CW'], // Hollandaca
-            pl: ['PL'], // Lehçe
-            sv: ['SE', 'FI', 'AX'], // İsveççe
-            no: ['NO', 'SJ'], // Norveççe
-            da: ['DK', 'GL', 'FO'], // Danca
-            fi: ['FI', 'SE'], // Fince
-            cs: ['CZ', 'SK'], // Çekçe
-            uk: ['UA'], // Ukraynaca
-            ro: ['RO', 'MD'], // Rumence
-            el: ['GR', 'CY'], // Yunanca
-            hu: ['HU'], // Macarca
-            th: ['TH'], // Tayca
-            vi: ['VN'], // Vietnamca
-            id: ['ID'], // Endonezce
-            ms: ['MY', 'BN', 'SG'], // Malayca
-            bn: ['BD', 'IN'], // Bengalce
-            tl: ['PH'], // Filipince
-            hr: ['HR', 'BA'], // Hırvatça
-            he: ['IL'], // İbranice
-            fa: ['IR', 'AF', 'TJ'], // Farsça
-            ur: ['PK', 'IN'], // Urduca
-            sr: ['RS', 'BA', 'ME'], // Sırpça
-            bg: ['BG'], // Bulgarca
-            sk: ['SK'], // Slovakça
-            lt: ['LT'], // Litvanca
-            lv: ['LV'], // Letonca
-            et: ['EE'], // Estonca
-            ka: ['GE'], // Gürcüce
-            az: ['AZ'], // Azerice
-            kk: ['KZ'], // Kazakça
-            uz: ['UZ'], // Özbekçe
-            ky: ['KG'], // Kırgızca
-            sw: ['KE', 'TZ', 'UG'], // Swahili
-            af: ['ZA', 'NA'], // Afrikanca
-            ca: ['ES', 'AD'] // Katalanca
-        };
+        let currentStep = 1;
+        const totalSteps = 3;
         
-        // Çoklu dil arama için ülke isimleri
-        const countrySearchTerms = {
-            tr: ['türkiye', 'turkiye', 'turkey', 'turquie', 'turquia', 'турция', 'tc', 'turchia', 'トルコ', '土耳其'],
-            us: ['abd', 'usa', 'amerika', 'america', 'united states', 'états-unis', 'estados unidos', 'сша', 'америка', 'アメリカ', '美国'],
-            fr: ['fransa', 'france', 'francia', 'frankreich', 'франция', 'フランス', '法国'],
-            es: ['ispanya', 'spain', 'españa', 'espagne', 'spanien', 'испания', 'スペイン', '西班牙'],
-            it: ['italya', 'italy', 'italia', 'italie', 'italien', 'италия', 'イタリア', '意大利'],
-            mx: ['meksika', 'mexico', 'méxico', 'mexique', 'mexiko', 'мексика', 'メキシコ', '墨西哥'],
-            gb: ['ingiltere', 'birleşik krallık', 'uk', 'united kingdom', 'royaume-uni', 'reino unido', 'великобритания', 'англия', 'イギリス', '英国'],
-            de: ['almanya', 'germany', 'deutschland', 'allemagne', 'alemania', 'германия', 'ドイツ', '德国'],
-            gr: ['yunanistan', 'greece', 'grèce', 'grecia', 'griechenland', 'греция', 'ελλάδα', 'ギリシャ', '希腊'],
-            jp: ['japonya', 'japan', 'japon', 'japón', 'япония', '日本', 'nippon'],
-            cn: ['çin', 'china', 'chine', 'cina', 'китай', '中国', 'zhongguo'],
-            ru: ['rusya', 'russia', 'russie', 'rusia', 'russland', 'россия', 'ロシア', '俄罗斯'],
-            kr: ['güney kore', 'south korea', 'corée du sud', 'corea del sur', 'südkorea', 'южная корея', '韓国', '韩国'],
-            br: ['brezilya', 'brazil', 'brésil', 'brasil', 'brasilien', 'бразилия', 'ブラジル', '巴西'],
-            in: ['hindistan', 'india', 'inde', 'indien', 'индия', 'インド', '印度', 'भारत'],
-            au: ['avustralya', 'australia', 'australie', 'австралия', 'オーストラリア', '澳大利亚'],
-            ca: ['kanada', 'canada', 'canadá', 'канада', 'カナダ', '加拿大'],
-            ar: ['arjantin', 'argentina', 'argentine', 'argentinien', 'аргентина', 'アルゼンチン', '阿根廷']
-        };
+        // Progress bar güncelleme
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = currentStep + '/' + totalSteps;
+        }
         
-        let countries = [];
-        let selectedCountry = null;
-        let currentUser = null;
-        let currentLang = 'tr';
-        let autoRedirecting = false;
-        
-        // Cihaz dilini tespit et
-        function detectLanguage() {
-            const browserLang = navigator.language.toLowerCase();
+        // Adım değiştirme
+        function goToStep(stepNumber, direction = 'forward') {
+            const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const nextStepEl = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
             
-            for (const code in translations) {
-                if (browserLang.startsWith(code)) {
-                    return code;
-                }
+            if (!nextStepEl) return;
+            
+            // Animasyon yönü
+            if (direction === 'forward') {
+                currentStepEl.classList.add('slide-out-left');
+            } else {
+                currentStepEl.classList.add('slide-out-right');
             }
             
-            return 'tr'; // varsayılan
-        }
-        
-        // Metinleri güncelle
-        function updateTexts(lang) {
-            if (!translations[lang]) return;
-            const t = translations[lang];
-            
-            document.getElementById('headerTitle').textContent = t.title;
-            document.getElementById('headerSubtitle').textContent = t.subtitle;
-            document.getElementById('countrySearch').placeholder = t.search;
-            document.getElementById('continueBtn').textContent = t.continue;
-            document.documentElement.lang = lang;
-        }
-        
-        // Ülke adını cihaz diline göre al
-        function getCountryName(iso, langCode) {
-            try {
-                // Intl.DisplayNames API'si otomatik olarak ülke adlarını çevirir
-                const displayNames = new Intl.DisplayNames([langCode], { type: 'region' });
-                return displayNames.of(iso.toUpperCase());
-            } catch (e) {
-                // Fallback: İngilizce dene
-                try {
-                    const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
-                    return displayNames.of(iso.toUpperCase());
-                } catch (err) {
-                    return iso.toUpperCase();
-                }
-            }
-        }
-        
-        // Normalize arama metni (aksanları kaldır)
-        function normalizeText(text) {
-            return text.toLowerCase()
-                .replace(/[çğıöşü]/g, ch => ({ ç:'c', ğ:'g', ı:'i', ö:'o', ş:'s', ü:'u' }[ch] || ch))
-                .replace(/[áàäâ]/g, 'a')
-                .replace(/[éèëê]/g, 'e')
-                .replace(/[íìïî]/g, 'i')
-                .replace(/[óòöô]/g, 'o')
-                .replace(/[úùüû]/g, 'u')
-                .replace(/[ñ]/g, 'n');
-        }
-        
-        async function loadCountries() {
-            try {
-                const response = await fetch(`${API_URL}/api/countries`);
-                const data = await response.json();
-                countries = data.countries;
-                renderCountries();
-            } catch (error) {
-                console.error('Error loading countries:', error);
-            }
-        }
-        
-        // Otomatik Türkiye seçimi ve devam
-        async function autoSelectTurkeyAndContinue() {
-            if (autoRedirecting) return;
-            autoRedirecting = true;
-            
-            // Türkiye'yi seç (BÜYÜK HARF - API ile tutarlı)
-            selectedCountry = 'TR';
-            
-            // Butonu aktif et ve mesajı güncelle
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.disabled = false;
-            continueBtn.textContent = 'Türkiye seçildi, yönlendiriliyorsunuz...';
-            
-            // Direkt kaydet ve devam et
-            await saveAndContinue();
-        }
-        
-        function renderCountries(filter = '') {
-            const list = document.getElementById('countryList');
-            const t = translations[currentLang];
-            
-            if (!countries || countries.length === 0) {
-                list.innerHTML = `<div style="padding: 20px; text-align: center; color: #999;">${t.loading}</div>`;
-                return;
-            }
-            
-            let filtered = countries;
-            
-            if (filter) {
-                const normalizedFilter = normalizeText(filter);
-                filtered = countries.filter(country => {
-                    // Mevcut dildeki ülke adında ara
-                    const currentName = normalizeText(getCountryName(country.code, currentLang));
-                    if (currentName.includes(normalizedFilter)) return true;
-                    
-                    // Çoklu dil alternatiflerinde ara
-                    const searchTerms = countrySearchTerms[country.code] || [];
-                    return searchTerms.some(term => normalizeText(term).includes(normalizedFilter));
-                });
-            }
-            
-            // Dil grubuna göre sıralama yap
-            const priorityCountries = languagePriorityCountries[currentLang] || [];
-            
-            filtered.sort((a, b) => {
-                const aCode = a.code.toUpperCase();
-                const bCode = b.code.toUpperCase();
+            setTimeout(() => {
+                currentStepEl.classList.remove('active', 'slide-out-left', 'slide-out-right');
+                nextStepEl.classList.add('active');
+                currentStep = stepNumber;
+                updateProgress();
                 
-                const aPriority = priorityCountries.indexOf(aCode);
-                const bPriority = priorityCountries.indexOf(bCode);
+                // Yeni input'a focus
+                const input = nextStepEl.querySelector('input');
+                if (input) {
+                    setTimeout(() => input.focus(), 100);
+                }
+            }, 300);
+        }
+        
+        // Validasyon fonksiyonları
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function validateInstagram(instagram) {
+            return instagram.startsWith('@') && instagram.length >= 2;
+        }
+        
+        // "Devam Et" butonları
+        document.querySelectorAll('.next-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const step = parseInt(this.dataset.next);
+                const currentStepEl = this.closest('.form-step');
+                const input = currentStepEl.querySelector('input');
+                const errorMsg = document.getElementById('errorMsg');
                 
-                // Her ikisi de öncelikli listede varsa
-                if (aPriority !== -1 && bPriority !== -1) {
-                    return aPriority - bPriority;
+                errorMsg.style.display = 'none';
+                
+                // Validasyon
+                if (currentStep === 1 && !validateInstagram(input.value)) {
+                    errorMsg.textContent = 'Geçerli bir Instagram kullanıcı adı giriniz';
+                    errorMsg.style.display = 'block';
+                    input.focus();
+                    return;
                 }
                 
-                // Sadece a öncelikli listede varsa
-                if (aPriority !== -1) return -1;
+                if (currentStep === 2 && !validateEmail(input.value)) {
+                    errorMsg.textContent = 'Geçerli bir e-posta adresi giriniz';
+                    errorMsg.style.display = 'block';
+                    input.focus();
+                    return;
+                }
                 
-                // Sadece b öncelikli listede varsa
-                if (bPriority !== -1) return 1;
-                
-                // İkisi de öncelikli değilse alfabetik sıralama
-                const aName = getCountryName(a.code, currentLang);
-                const bName = getCountryName(b.code, currentLang);
-                return aName.localeCompare(bName, currentLang);
+                goToStep(step, 'forward');
             });
-            
-            list.innerHTML = filtered.map(country => `
-                <div class="country-item ${selectedCountry === country.code ? 'selected' : ''}" 
-                     onclick="selectCountry('${country.code}')">
-                    <span class="country-flag">${country.flag}</span>
-                    <span class="country-name">${getCountryName(country.code, currentLang)}</span>
-                </div>
-            `).join('');
+        });
+        
+        // "Geri" butonları
+        document.querySelectorAll('.back-step-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const step = parseInt(this.dataset.prev);
+                document.getElementById('errorMsg').style.display = 'none';
+                goToStep(step, 'backward');
+            });
+        });
+        
+        // Enter tuşu ile devam
+        document.querySelectorAll('.form-step input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const step = parseInt(this.closest('.form-step').dataset.step);
+                    const nextBtn = this.closest('.form-step').querySelector('.next-btn');
+                    if (nextBtn) {
+                        nextBtn.click();
+                    } else if (step === totalSteps) {
+                        document.getElementById('registerForm').dispatchEvent(new Event('submit'));
+                    }
+                }
+            });
+        });
+        
+        let isKeyboardOpen = false;
+        
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                const currentHeight = window.visualViewport.height;
+                const windowHeight = window.innerHeight;
+                
+                if (currentHeight < windowHeight * 0.75 && !isKeyboardOpen) {
+                    isKeyboardOpen = true;
+                    document.body.style.height = `${currentHeight}px`;
+                } else if (currentHeight >= windowHeight * 0.75 && isKeyboardOpen) {
+                    isKeyboardOpen = false;
+                    document.body.style.height = '100%';
+                }
+            });
         }
         
-        function searchCountries() {
-            const search = document.getElementById('countrySearch').value;
-            renderCountries(search);
+        // Instagram kullanıcı adı otomatik formatlama (lowercase ve @)
+        document.getElementById('instagram').addEventListener('input', function(e) {
+            let value = e.target.value.toLowerCase().trim(); // Küçük harfe çevir
+            if (value && !value.startsWith('@')) {
+                value = '@' + value;
+            }
+            e.target.value = value;
+        });
+        
+        // Telefon numarası formatlama
+        document.getElementById('phone').addEventListener('input', function(e) {
+            // Sadece rakamları al
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // 0 ile başlıyorsa kaldır
+            if (value.startsWith('0')) {
+                value = value.substring(1);
+            }
+            
+            // Formatla (örn: 555 123 45 67)
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = value;
+                } else if (value.length <= 6) {
+                    value = value.slice(0, 3) + ' ' + value.slice(3);
+                } else if (value.length <= 8) {
+                    value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6);
+                } else {
+                    value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 8) + ' ' + value.slice(8, 10);
+                }
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Confetti oluşturma fonksiyonu
+        function createConfetti() {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#43e97b', '#38f9d7'];
+            const confettiCount = 50;
+            const modal = document.getElementById('successModal');
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                modal.appendChild(confetti);
+                
+                // Confetti'yi 3 saniye sonra temizle
+                setTimeout(() => confetti.remove(), 3000);
+            }
         }
         
-        function selectCountry(countryCode) {
-            if (autoRedirecting) return; // Otomatik yönlendirme sırasında manuel seçimi engelle
+        // Form gönderimi
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            selectedCountry = countryCode;
-            renderCountries(document.getElementById('countrySearch').value);
-            document.getElementById('continueBtn').disabled = false;
-        }
-        
-        async function saveAndContinue() {
-            if (!selectedCountry) return;
+            const instagram = document.getElementById('instagram').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const countryCode = document.getElementById('countryCode').value;
+            const phone = document.getElementById('phone').value.replace(/\s/g, '');
+            const fullPhone = countryCode + phone;
             
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.disabled = true;
-            continueBtn.textContent = 'Kaydediliyor...';
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            errorMsg.style.display = 'none';
+            
+            // Telefon validasyonu
+            if (phone.length < 7) {
+                errorMsg.textContent = 'Geçerli bir telefon numarası giriniz';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>';
             
             try {
-                const response = await fetch(`${API_URL}/api/user/update-country`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        userId: currentUser.id,
-                        country: selectedCountry
-                    })
-                });
+                // EmailJS ile email gönder
+                const templateParams = {
+                    instagram: instagram,
+                    email: email,
+                    phone: fullPhone,
+                    submission_date: new Date().toLocaleString('tr-TR')
+                };
                 
-                const data = await response.json();
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    templateParams
+                );
                 
-                if (data.success) {
-                    currentUser.country = selectedCountry;
-                    localStorage.setItem('user', JSON.stringify(currentUser));
-                    window.location.href = 'app.html';
-                } else {
-                    throw new Error(data.error || 'Kayıt başarısız');
-                }
+                // Progress bar'ı 100% yap
+                document.getElementById('progressFill').style.width = '100%';
+                
+                // Success modal'ı göster
+                setTimeout(() => {
+                    document.getElementById('successModal').classList.add('show');
+                    createConfetti();
+                    
+                    // Formu temizle
+                    document.getElementById('registerForm').reset();
+                    
+                    // 4 saniye sonra ana sayfaya yönlendir
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 4000);
+                }, 500);
+                
             } catch (error) {
-                console.error('Error saving country:', error);
-                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-                continueBtn.disabled = false;
-                continueBtn.textContent = translations[currentLang].continue;
-                autoRedirecting = false;
+                console.error('Email gönderme hatası:', error);
+                errorMsg.textContent = '✕ Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.';
+                errorMsg.style.display = 'block';
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Başvuru Gönder ✓';
             }
+        });
+        
+        // Mobil klavye açıldığında input'a scroll
+        if (window.innerWidth <= 480) {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                    }, 300);
+                });
+            });
         }
         
-        function checkAuth() {
-            const token = localStorage.getItem('token');
-            const user = localStorage.getItem('user');
-            
-            if (!token || !user) {
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            currentUser = JSON.parse(user);
-            
-            // Daha önce ülke seçimi yapılmışsa loading ekranı göster ve yönlendir
-            if (currentUser.country) {
-                // Loading ekranı zaten görünüyor, sadece yönlendir
+        // Sayfa yüklenme animasyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.register-container');
+            if (container) {
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(30px)';
+                
                 setTimeout(() => {
-                    window.location.href = 'app.html';
-                }, 800);
-                return;
-            }
-            
-            // Ülke seçimi yapılmamışsa loading'i gizle ve içeriği göster
-            hideLoadingScreen();
-            
-            // Ülke seçimi yapılmamışsa ve tarayıcı dili Türkçe ise otomatik Türkiye'yi seç
-            if (currentLang === 'tr') {
-                document.getElementById('headerSubtitle').textContent = 'Türkiye otomatik seçiliyor...';
-                setTimeout(() => {
-                    autoSelectTurkeyAndContinue();
+                    container.style.transition = 'all 0.6s ease';
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
                 }, 100);
             }
-        }
-        
-        function hideLoadingScreen() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const container = document.getElementById('countryContainer');
-            
-            loadingScreen.classList.add('hidden');
-            container.classList.add('visible');
-        }
-        
-        // Başlangıç
-        currentLang = detectLanguage();
-        checkAuth();
-        updateTexts(currentLang);
-        loadCountries();
+        });
     </script>
 </body>
 </html>
