@@ -20,6 +20,8 @@
         html {
             -webkit-font-smoothing: antialiased;
             -webkit-overflow-scrolling: touch;
+            overscroll-behavior: none;
+            touch-action: pan-y;
         }
         
         body {
@@ -30,6 +32,8 @@
             font-size: 17px;
             font-weight: 400;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: none;
         }
         
         /* Typography System - 3 Sizes */
@@ -75,19 +79,13 @@
             font-weight: 500;
             transition: opacity 0.3s;
             border-radius: 18px;
+            background: transparent;
+            border: 1px solid #d2d2d7;
         }
         
         .nav-link:hover {
             opacity: 0.6;
-        }
-        
-        .nav-link.primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-        }
-        
-        .nav-link.primary:hover {
-            opacity: 0.9;
+            border-color: #1d1d1f;
         }
         
         /* Hero */
@@ -131,7 +129,7 @@
         
         .video-content-grid {
             display: grid;
-            grid-template-columns: 400px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 32px;
             align-items: start;
         }
@@ -144,6 +142,7 @@
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+            pointer-events: auto;
         }
         
         .video-container iframe {
@@ -153,17 +152,36 @@
             width: 100%;
             height: 100%;
             border: none;
+            pointer-events: auto;
+        }
+        
+        /* Mobile touch fix */
+        @media (max-width: 768px) {
+            .video-wrapper {
+                pointer-events: none;
+                touch-action: none;
+            }
+            
+            .video-container {
+                pointer-events: none;
+                touch-action: none;
+            }
+            
+            .video-container iframe {
+                pointer-events: auto;
+                touch-action: auto;
+            }
         }
         
         .content-cards {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
         }
         
         .content-card {
             background: #fbfbfd;
-            padding: 32px;
+            padding: 48px;
             border-radius: 18px;
             border: 1px solid #d2d2d7;
         }
@@ -173,26 +191,27 @@
             line-height: 1.2;
             font-weight: 700;
             color: #1d1d1f;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
         
         .step-list,
         .benefit-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 24px;
         }
         
         .step-item,
         .benefit-item {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 20px;
+            padding: 4px 0;
         }
         
         .step-number {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
             border-radius: 50%;
@@ -206,15 +225,15 @@
         
         .step-text {
             font-size: 17px;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 400;
             color: #1d1d1f;
-            padding-top: 6px;
+            padding-top: 8px;
         }
         
         .benefit-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: #34c759;
             color: #ffffff;
             border-radius: 50%;
@@ -228,20 +247,20 @@
         
         .benefit-content {
             flex: 1;
-            padding-top: 4px;
+            padding-top: 6px;
         }
         
         .benefit-title {
             font-size: 17px;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 600;
             color: #1d1d1f;
-            margin-bottom: 2px;
+            margin-bottom: 6px;
         }
         
         .benefit-desc {
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 400;
             color: #6e6e73;
         }
@@ -249,9 +268,9 @@
         /* CTA */
         .cta-section {
             text-align: center;
-            padding: 60px 22px;
+            padding: 80px 22px;
             max-width: 1024px;
-            margin: 0 auto 60px;
+            margin: 0 auto 80px;
             background: #f5f5f7;
             border-radius: 18px;
         }
@@ -261,20 +280,20 @@
             line-height: 1.2;
             font-weight: 700;
             color: #1d1d1f;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
         }
         
         .cta-subtitle {
             font-size: 17px;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 400;
             color: #6e6e73;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
         
         .cta-buttons {
             display: flex;
-            gap: 16px;
+            gap: 20px;
             justify-content: center;
         }
         
@@ -290,37 +309,25 @@
             border: none;
             cursor: pointer;
             font-family: inherit;
-        }
-        
-        .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
         }
         
-        .btn-primary:hover {
+        .btn:hover {
             opacity: 0.9;
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: #667eea;
-            border: 1px solid #667eea;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(102, 126, 234, 0.1);
+            transform: scale(1.02);
         }
         
         /* Footer */
         .footer {
             background: #f5f5f7;
-            padding: 20px 22px;
+            padding: 40px 22px;
             text-align: center;
         }
         
         .footer-text {
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 400;
             color: #6e6e73;
         }
@@ -374,22 +381,27 @@
             }
             
             .content-cards {
-                gap: 12px;
+                gap: 16px;
             }
             
             .content-card {
-                padding: 24px 20px;
+                padding: 36px 24px;
             }
             
             .card-title {
                 font-size: 32px;
-                margin-bottom: 20px;
+                margin-bottom: 28px;
+            }
+            
+            .step-list,
+            .benefit-list {
+                gap: 20px;
             }
             
             .step-number,
             .benefit-icon {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
                 font-size: 14px;
             }
             
@@ -406,21 +418,23 @@
             }
             
             .cta-section {
-                padding: 50px 16px;
-                margin-bottom: 40px;
+                padding: 60px 16px;
+                margin-bottom: 60px;
             }
             
             .cta-title {
                 font-size: 32px;
+                margin-bottom: 16px;
             }
             
             .cta-subtitle {
                 font-size: 17px;
+                margin-bottom: 36px;
             }
             
             .cta-buttons {
                 flex-direction: column;
-                gap: 12px;
+                gap: 16px;
             }
             
             .btn {
@@ -438,7 +452,6 @@
             <div class="logo">Soy.ad</div>
             <div class="nav-links">
                 <a href="entry.html" class="nav-link">Giriş Yap</a>
-                <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="nav-link primary" target="_blank">Hesap Oluştur</a>
             </div>
         </div>
     </nav>
@@ -521,8 +534,7 @@
         <h2 class="cta-title">Başlayın</h2>
         <p class="cta-subtitle">İlk ay ücretsiz deneyin.</p>
         <div class="cta-buttons">
-            <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="btn btn-primary" target="_blank">Hesap Oluştur</a>
-            <a href="entry.html" class="btn btn-secondary">Giriş Yap</a>
+            <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="btn" target="_blank">Hesap Oluştur</a>
         </div>
     </section>
     
