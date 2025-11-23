@@ -116,7 +116,7 @@
         
         /* Video Section */
         .video-section {
-            margin: 0 auto 50px;
+            margin: 0 auto 60px;
             max-width: 420px;
             position: relative;
             padding: 0 22px;
@@ -143,23 +143,6 @@
             width: 100%;
             height: 100%;
             border: none;
-        }
-        
-        /* Description Section */
-        .description-section {
-            text-align: center;
-            margin: 0 auto 70px;
-            padding: 0 22px;
-        }
-        
-        .description-text {
-            font-size: 28px;
-            color: #1d1d1f;
-            line-height: 1.28571;
-            font-weight: 500;
-            letter-spacing: -0.003em;
-            max-width: 900px;
-            margin: 0 auto;
         }
         
         /* Info Cards */
@@ -199,6 +182,18 @@
             letter-spacing: -0.003em;
             padding-bottom: 16px;
             border-bottom: 2px solid #e5e5e7;
+        }
+        
+        .card-description {
+            font-size: 19px;
+            color: #1d1d1f;
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+        }
+        
+        .description-card {
+            grid-column: 1 / -1;
         }
         
         .card-text {
@@ -406,7 +401,7 @@
             }
             
             .video-section {
-                margin: 0 auto 35px;
+                margin: 0 auto 40px;
                 max-width: 280px;
                 padding: 0;
             }
@@ -414,14 +409,6 @@
             .video-container {
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                 border-radius: 16px;
-            }
-            
-            .description-section {
-                margin-bottom: 50px;
-            }
-            
-            .description-text {
-                font-size: 21px;
             }
             
             .info-grid {
@@ -440,6 +427,10 @@
                 font-size: 24px;
                 margin-bottom: 20px;
                 padding-bottom: 14px;
+            }
+            
+            .card-description {
+                font-size: 17px;
             }
             
             .simple-step {
@@ -491,11 +482,11 @@
             
             .video-section {
                 max-width: 240px;
-                margin: 0 auto 25px;
+                margin: 0 auto 30px;
             }
             
-            .description-text {
-                font-size: 19px;
+            .card-description {
+                font-size: 16px;
             }
             
             .card-title {
@@ -586,15 +577,16 @@
             </div>
         </section>
         
-        <!-- Description -->
-        <section class="description-section">
-            <p class="description-text">
-                Instagram sayfaları arası işbirliği platformu. Size uygun sayfaları seçin, tek tıkla teklif gönderin. Karşılıklı beğeni gelirse, hikaye paylaşımıyla organik tanıtım yapın.
-            </p>
-        </section>
-        
         <!-- Info Grid -->
         <div class="info-grid">
+            <!-- Platform Description Card -->
+            <section class="info-card description-card fade-in">
+                <h2 class="card-title">Soy.ad Nedir?</h2>
+                <p class="card-description">
+                    İstediğiniz Instagram sayfasına tek tıkla teklif gönderin. Hikaye paylaşımıyla karşılıklı tanıtım yapın ve yeni takipçilere ulaşın.
+                </p>
+            </section>
+            
             <!-- How It Works -->
             <section class="info-card fade-in">
                 <h2 class="card-title">Nasıl Çalışır?</h2>
