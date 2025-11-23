@@ -138,23 +138,24 @@
         
         .video-content-grid {
             display: grid;
-            grid-template-columns: 320px 1fr;
+            grid-template-columns: 420px 1fr;
             gap: 32px;
             align-items: start;
         }
         
         .video-wrapper {
             position: relative;
+            max-width: 420px;
         }
         
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
+            padding-bottom: 177.78%;
             background: #000000;
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
         
         .video-container iframe {
@@ -376,7 +377,7 @@
             }
             
             .video-container {
-                max-width: 320px;
+                max-width: 280px;
                 margin: 0 auto;
             }
             
@@ -446,7 +447,7 @@
         
         @media (max-width: 480px) {
             .video-container {
-                max-width: 280px;
+                max-width: 240px;
             }
         }
         
