@@ -149,7 +149,7 @@
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
+            gap: 32px;
             margin-bottom: 60px;
         }
         
@@ -194,6 +194,7 @@
         
         .description-card {
             grid-column: 1 / -1;
+            margin-bottom: 12px;
         }
         
         .card-text {
@@ -413,7 +414,7 @@
             
             .info-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 24px;
                 margin-bottom: 50px;
             }
             
@@ -421,6 +422,10 @@
                 padding: 32px 24px;
                 border-radius: 16px;
                 border-width: 2px;
+            }
+            
+            .description-card {
+                margin-bottom: 8px;
             }
             
             .card-title {
@@ -776,6 +781,97 @@
             }
         `;
         document.head.appendChild(pulseStyle);
+    </script>
+    
+    <script>
+        // Translation System - Auto-detect and translate
+        const translations = {
+            tr: { title: 'Karşılıklı Tanıtım', subtitle: 'Platformu', cardTitle1: 'Soy.ad Nedir?', cardDesc: 'İstediğiniz Instagram sayfasına tek tıkla teklif gönderin. Hikaye paylaşımıyla karşılıklı tanıtım yapın ve yeni takipçilere ulaşın.', cardTitle2: 'Nasıl Çalışır?', step1: 'Platforma giriş yapın', step2: 'Size uygun sayfaları beğenin', step3: 'Karşılıklı beğeni geldiğinde, işbirliği başlatın!', cardTitle3: 'Sizin Kazancınız', benefit1Title: 'Organik Büyüme', benefit1Desc: 'Gerçek takipçiler, gerçek etkileşim', benefit2Title: 'Yeni Müşteriler', benefit2Desc: 'Farklı kitlelere doğrudan erişim', benefit3Title: 'Reklam Harcaması: 0 TL', benefit3Desc: 'Sadece karşılıklı destek', ctaTitle: 'Başlayın', ctaText: 'İlk ay ücretsiz deneyin.', ctaBtn: 'Hesap Oluştur', navBtn: 'Giriş Yap' },
+            en: { title: 'Mutual Promotion', subtitle: 'Platform', cardTitle1: 'What is Soy.ad?', cardDesc: 'Send collaboration offers to any Instagram page with one click. Make mutual promotions through story sharing and reach new followers.', cardTitle2: 'How It Works?', step1: 'Log in to the platform', step2: 'Like pages that suit you', step3: 'When mutual likes arrive, start collaboration!', cardTitle3: 'Your Benefits', benefit1Title: 'Organic Growth', benefit1Desc: 'Real followers, real engagement', benefit2Title: 'New Customers', benefit2Desc: 'Direct access to different audiences', benefit3Title: 'Ad Spend: $0', benefit3Desc: 'Just mutual support', ctaTitle: 'Get Started', ctaText: 'Try free for the first month.', ctaBtn: 'Create Account', navBtn: 'Sign In' },
+            de: { title: 'Gegenseitige Förderung', subtitle: 'Plattform', cardTitle1: 'Was ist Soy.ad?', cardDesc: 'Senden Sie mit einem Klick Kooperationsangebote an jede Instagram-Seite. Machen Sie gegenseitige Werbung durch Story-Sharing und erreichen Sie neue Follower.', cardTitle2: 'Wie funktioniert es?', step1: 'Melden Sie sich auf der Plattform an', step2: 'Liken Sie Seiten, die zu Ihnen passen', step3: 'Wenn gegenseitige Likes eintreffen, starten Sie die Zusammenarbeit!', cardTitle3: 'Ihre Vorteile', benefit1Title: 'Organisches Wachstum', benefit1Desc: 'Echte Follower, echtes Engagement', benefit2Title: 'Neue Kunden', benefit2Desc: 'Direkter Zugang zu verschiedenen Zielgruppen', benefit3Title: 'Werbeausgaben: 0€', benefit3Desc: 'Nur gegenseitige Unterstützung', ctaTitle: 'Loslegen', ctaText: 'Testen Sie den ersten Monat kostenlos.', ctaBtn: 'Konto erstellen', navBtn: 'Anmelden' },
+            fr: { title: 'Promotion Mutuelle', subtitle: 'Plateforme', cardTitle1: 'Qu\'est-ce que Soy.ad?', cardDesc: 'Envoyez des offres de collaboration à n\'importe quelle page Instagram en un clic. Faites des promotions mutuelles par le partage de stories et atteignez de nouveaux abonnés.', cardTitle2: 'Comment ça marche?', step1: 'Connectez-vous à la plateforme', step2: 'Aimez les pages qui vous conviennent', step3: 'Lorsque des likes mutuels arrivent, lancez la collaboration!', cardTitle3: 'Vos Avantages', benefit1Title: 'Croissance Organique', benefit1Desc: 'Vrais abonnés, vrai engagement', benefit2Title: 'Nouveaux Clients', benefit2Desc: 'Accès direct à différents publics', benefit3Title: 'Dépenses Publicitaires: 0€', benefit3Desc: 'Juste un soutien mutuel', ctaTitle: 'Commencer', ctaText: 'Essayez gratuitement le premier mois.', ctaBtn: 'Créer un Compte', navBtn: 'Se Connecter' },
+            es: { title: 'Promoción Mutua', subtitle: 'Plataforma', cardTitle1: '¿Qué es Soy.ad?', cardDesc: 'Envía ofertas de colaboración a cualquier página de Instagram con un clic. Haz promociones mutuas compartiendo historias y alcanza nuevos seguidores.', cardTitle2: '¿Cómo Funciona?', step1: 'Inicia sesión en la plataforma', step2: 'Dale me gusta a páginas que te gusten', step3: 'Cuando lleguen los me gusta mutuos, ¡comienza la colaboración!', cardTitle3: 'Tus Beneficios', benefit1Title: 'Crecimiento Orgánico', benefit1Desc: 'Seguidores reales, compromiso real', benefit2Title: 'Nuevos Clientes', benefit2Desc: 'Acceso directo a diferentes audiencias', benefit3Title: 'Gasto en Publicidad: 0€', benefit3Desc: 'Solo apoyo mutuo', ctaTitle: 'Empezar', ctaText: 'Prueba gratis el primer mes.', ctaBtn: 'Crear Cuenta', navBtn: 'Iniciar Sesión' },
+            it: { title: 'Promozione Reciproca', subtitle: 'Piattaforma', cardTitle1: 'Cos\'è Soy.ad?', cardDesc: 'Invia offerte di collaborazione a qualsiasi pagina Instagram con un clic. Fai promozioni reciproche condividendo storie e raggiungi nuovi follower.', cardTitle2: 'Come Funziona?', step1: 'Accedi alla piattaforma', step2: 'Metti mi piace alle pagine che ti piacciono', step3: 'Quando arrivano i mi piace reciproci, inizia la collaborazione!', cardTitle3: 'I Tuoi Vantaggi', benefit1Title: 'Crescita Organica', benefit1Desc: 'Follower reali, coinvolgimento reale', benefit2Title: 'Nuovi Clienti', benefit2Desc: 'Accesso diretto a diversi pubblici', benefit3Title: 'Spesa Pubblicitaria: 0€', benefit3Desc: 'Solo supporto reciproco', ctaTitle: 'Inizia', ctaText: 'Prova gratis il primo mese.', ctaBtn: 'Crea Account', navBtn: 'Accedi' },
+            pt: { title: 'Promoção Mútua', subtitle: 'Plataforma', cardTitle1: 'O que é Soy.ad?', cardDesc: 'Envie ofertas de colaboração para qualquer página do Instagram com um clique. Faça promoções mútuas compartilhando histórias e alcance novos seguidores.', cardTitle2: 'Como Funciona?', step1: 'Faça login na plataforma', step2: 'Curta páginas que combinam com você', step3: 'Quando as curtidas mútuas chegarem, inicie a colaboração!', cardTitle3: 'Seus Benefícios', benefit1Title: 'Crescimento Orgânico', benefit1Desc: 'Seguidores reais, engajamento real', benefit2Title: 'Novos Clientes', benefit2Desc: 'Acesso direto a diferentes públicos', benefit3Title: 'Gasto com Anúncios: 0€', benefit3Desc: 'Apenas suporte mútuo', ctaTitle: 'Começar', ctaText: 'Experimente grátis no primeiro mês.', ctaBtn: 'Criar Conta', navBtn: 'Entrar' },
+            ru: { title: 'Взаимное Продвижение', subtitle: 'Платформа', cardTitle1: 'Что такое Soy.ad?', cardDesc: 'Отправляйте предложения о сотрудничестве на любую страницу Instagram одним щелчком мыши. Делайте взаимные промо через обмен историями и достигайте новых подписчиков.', cardTitle2: 'Как это работает?', step1: 'Войдите на платформу', step2: 'Лайкайте подходящие вам страницы', step3: 'Когда придут взаимные лайки, начинайте сотрудничество!', cardTitle3: 'Ваши Преимущества', benefit1Title: 'Органический Рост', benefit1Desc: 'Реальные подписчики, реальное вовлечение', benefit2Title: 'Новые Клиенты', benefit2Desc: 'Прямой доступ к разным аудиториям', benefit3Title: 'Расходы на Рекламу: 0₽', benefit3Desc: 'Только взаимная поддержка', ctaTitle: 'Начать', ctaText: 'Попробуйте бесплатно первый месяц.', ctaBtn: 'Создать Аккаунт', navBtn: 'Войти' },
+            ja: { title: '相互プロモーション', subtitle: 'プラットフォーム', cardTitle1: 'Soy.adとは？', cardDesc: 'ワンクリックで任意のInstagramページにコラボレーションオファーを送信。ストーリー共有を通じて相互プロモーションを行い、新しいフォロワーにリーチ。', cardTitle2: '使い方', step1: 'プラットフォームにログイン', step2: 'あなたに合ったページをいいね', step3: '相互いいねが来たら、コラボレーション開始！', cardTitle3: 'あなたのメリット', benefit1Title: 'オーガニック成長', benefit1Desc: '本物のフォロワー、本物のエンゲージメント', benefit2Title: '新規顧客', benefit2Desc: '異なるオーディエンスへの直接アクセス', benefit3Title: '広告費：0円', benefit3Desc: '相互サポートのみ', ctaTitle: '始める', ctaText: '初月無料でお試しください。', ctaBtn: 'アカウント作成', navBtn: 'ログイン' },
+            zh: { title: '互惠推广', subtitle: '平台', cardTitle1: '什么是Soy.ad？', cardDesc: '一键向任何Instagram页面发送合作提案。通过故事分享进行互惠推广，接触新粉丝。', cardTitle2: '如何运作？', step1: '登录平台', step2: '点赞适合您的页面', step3: '收到互相点赞后，开始合作！', cardTitle3: '您的收益', benefit1Title: '有机增长', benefit1Desc: '真实粉丝，真实互动', benefit2Title: '新客户', benefit2Desc: '直接接触不同受众', benefit3Title: '广告支出：0元', benefit3Desc: '仅互相支持', ctaTitle: '开始', ctaText: '首月免费试用。', ctaBtn: '创建账户', navBtn: '登录' },
+            ar: { title: 'الترويج المتبادل', subtitle: 'منصة', cardTitle1: 'ما هو Soy.ad؟', cardDesc: 'أرسل عروض التعاون إلى أي صفحة إنستغرام بنقرة واحدة. قم بالترويج المتبادل من خلال مشاركة القصص والوصول إلى متابعين جدد.', cardTitle2: 'كيف يعمل؟', step1: 'سجل الدخول إلى المنصة', step2: 'أعجب بالصفحات التي تناسبك', step3: 'عندما تصل الإعجابات المتبادلة، ابدأ التعاون!', cardTitle3: 'فوائدك', benefit1Title: 'نمو عضوي', benefit1Desc: 'متابعون حقيقيون، تفاعل حقيقي', benefit2Title: 'عملاء جدد', benefit2Desc: 'وصول مباشر لجماهير مختلفة', benefit3Title: 'إنفاق إعلاني: 0', benefit3Desc: 'فقط الدعم المتبادل', ctaTitle: 'ابدأ', ctaText: 'جرب مجانًا للشهر الأول.', ctaBtn: 'إنشاء حساب', navBtn: 'تسجيل الدخول' },
+            hi: { title: 'पारस्परिक प्रचार', subtitle: 'मंच', cardTitle1: 'Soy.ad क्या है?', cardDesc: 'एक क्लिक से किसी भी Instagram पेज पर सहयोग प्रस्ताव भेजें। स्टोरी शेयरिंग के माध्यम से पारस्परिक प्रचार करें और नए फॉलोअर्स तक पहुंचें।', cardTitle2: 'यह कैसे काम करता है?', step1: 'प्लेटफ़ॉर्म में लॉगिन करें', step2: 'अपने लिए उपयुक्त पेजों को लाइक करें', step3: 'जब पारस्परिक लाइक आएं, सहयोग शुरू करें!', cardTitle3: 'आपके लाभ', benefit1Title: 'जैविक विकास', benefit1Desc: 'वास्तविक फॉलोअर्स, वास्तविक जुड़ाव', benefit2Title: 'नए ग्राहक', benefit2Desc: 'विभिन्न दर्शकों तक सीधी पहुंच', benefit3Title: 'विज्ञापन खर्च: 0', benefit3Desc: 'केवल पारस्परिक समर्थन', ctaTitle: 'शुरू करें', ctaText: 'पहले महीने मुफ्त में आज़माएं।', ctaBtn: 'खाता बनाएं', navBtn: 'साइन इन' },
+            ko: { title: '상호 홍보', subtitle: '플랫폼', cardTitle1: 'Soy.ad란?', cardDesc: '클릭 한 번으로 모든 Instagram 페이지에 협업 제안을 보내세요. 스토리 공유를 통해 상호 홍보하고 새로운 팔로워에게 도달하세요.', cardTitle2: '어떻게 작동하나요?', step1: '플랫폼에 로그인', step2: '마음에 드는 페이지에 좋아요', step3: '상호 좋아요가 오면 협업 시작!', cardTitle3: '귀하의 이점', benefit1Title: '유기적 성장', benefit1Desc: '진짜 팔로워, 진짜 참여', benefit2Title: '새로운 고객', benefit2Desc: '다양한 청중에게 직접 액세스', benefit3Title: '광고 지출: 0원', benefit3Desc: '상호 지원만', ctaTitle: '시작하기', ctaText: '첫 달 무료 체험.', ctaBtn: '계정 만들기', navBtn: '로그인' },
+            nl: { title: 'Wederzijdse Promotie', subtitle: 'Platform', cardTitle1: 'Wat is Soy.ad?', cardDesc: 'Stuur samenwerkingsaanbiedingen naar elke Instagram-pagina met één klik. Maak wederzijdse promoties via het delen van verhalen en bereik nieuwe volgers.', cardTitle2: 'Hoe werkt het?', step1: 'Log in op het platform', step2: 'Vind pagina\'s leuk die bij je passen', step3: 'Wanneer wederzijdse likes binnenkomen, start de samenwerking!', cardTitle3: 'Jouw Voordelen', benefit1Title: 'Organische Groei', benefit1Desc: 'Echte volgers, echte betrokkenheid', benefit2Title: 'Nieuwe Klanten', benefit2Desc: 'Directe toegang tot verschillende doelgroepen', benefit3Title: 'Advertentie-uitgaven: €0', benefit3Desc: 'Alleen wederzijdse ondersteuning', ctaTitle: 'Begin', ctaText: 'Probeer de eerste maand gratis.', ctaBtn: 'Account Aanmaken', navBtn: 'Inloggen' },
+            pl: { title: 'Wzajemna Promocja', subtitle: 'Platforma', cardTitle1: 'Czym jest Soy.ad?', cardDesc: 'Wysyłaj oferty współpracy na dowolną stronę Instagram jednym kliknięciem. Promuj się wzajemnie poprzez udostępnianie historii i docieraj do nowych obserwujących.', cardTitle2: 'Jak to działa?', step1: 'Zaloguj się na platformę', step2: 'Polub strony, które Ci odpowiadają', step3: 'Gdy przyjdą wzajemne polubienia, rozpocznij współpracę!', cardTitle3: 'Twoje Korzyści', benefit1Title: 'Organiczny Wzrost', benefit1Desc: 'Prawdziwi obserwujący, prawdziwe zaangażowanie', benefit2Title: 'Nowi Klienci', benefit2Desc: 'Bezpośredni dostęp do różnych odbiorców', benefit3Title: 'Wydatki na Reklamy: 0 zł', benefit3Desc: 'Tylko wzajemne wsparcie', ctaTitle: 'Rozpocznij', ctaText: 'Wypróbuj za darmo przez pierwszy miesiąc.', ctaBtn: 'Utwórz Konto', navBtn: 'Zaloguj się' },
+            sv: { title: 'Ömsesidig Marknadsföring', subtitle: 'Plattform', cardTitle1: 'Vad är Soy.ad?', cardDesc: 'Skicka samarbetserbjudanden till vilken Instagram-sida som helst med ett klick. Gör ömsesidig marknadsföring genom att dela berättelser och nå nya följare.', cardTitle2: 'Hur fungerar det?', step1: 'Logga in på plattformen', step2: 'Gilla sidor som passar dig', step3: 'När ömsesidiga gillanden kommer, starta samarbetet!', cardTitle3: 'Dina Fördelar', benefit1Title: 'Organisk Tillväxt', benefit1Desc: 'Riktiga följare, riktigt engagemang', benefit2Title: 'Nya Kunder', benefit2Desc: 'Direkt tillgång till olika målgrupper', benefit3Title: 'Annonssutgifter: 0 kr', benefit3Desc: 'Bara ömsesidigt stöd', ctaTitle: 'Kom igång', ctaText: 'Prova gratis första månaden.', ctaBtn: 'Skapa Konto', navBtn: 'Logga in' }
+        };
+
+        function detectLanguage() {
+            const saved = localStorage.getItem('soyad-lang');
+            if (saved && translations[saved]) return saved;
+            
+            const browserLang = navigator.language.toLowerCase();
+            for (const code in translations) {
+                if (browserLang.startsWith(code)) return code;
+            }
+            return 'tr';
+        }
+
+        function translatePage(lang) {
+            if (!translations[lang]) return;
+            
+            const t = translations[lang];
+            
+            // Hero
+            const heroTitleParts = document.querySelector('.hero-title').childNodes;
+            heroTitleParts[0].textContent = t.title + ' ';
+            heroTitleParts[1].textContent = t.subtitle;
+            
+            // Cards
+            const cardTitles = document.querySelectorAll('.card-title');
+            const cardDescriptions = document.querySelectorAll('.card-description');
+            
+            if (cardTitles[0]) cardTitles[0].textContent = t.cardTitle1;
+            if (cardDescriptions[0]) cardDescriptions[0].textContent = t.cardDesc;
+            if (cardTitles[1]) cardTitles[1].textContent = t.cardTitle2;
+            if (cardTitles[2]) cardTitles[2].textContent = t.cardTitle3;
+            
+            // Steps
+            const stepTexts = document.querySelectorAll('.simple-step-text');
+            if (stepTexts[0]) stepTexts[0].textContent = t.step1;
+            if (stepTexts[1]) stepTexts[1].textContent = t.step2;
+            if (stepTexts[2]) stepTexts[2].textContent = t.step3;
+            
+            // Benefits
+            const benefitTitles = document.querySelectorAll('.benefit-title');
+            const benefitDescs = document.querySelectorAll('.benefit-desc');
+            if (benefitTitles[0]) benefitTitles[0].textContent = t.benefit1Title;
+            if (benefitDescs[0]) benefitDescs[0].textContent = t.benefit1Desc;
+            if (benefitTitles[1]) benefitTitles[1].textContent = t.benefit2Title;
+            if (benefitDescs[1]) benefitDescs[1].textContent = t.benefit2Desc;
+            if (benefitTitles[2]) benefitTitles[2].textContent = t.benefit3Title;
+            if (benefitDescs[2]) benefitDescs[2].textContent = t.benefit3Desc;
+            
+            // CTA
+            const ctaTitle = document.querySelector('.cta-title');
+            const ctaText = document.querySelector('.cta-text');
+            const ctaButton = document.querySelector('.cta-button');
+            const navLink = document.querySelector('.nav-link');
+            
+            if (ctaTitle) ctaTitle.textContent = t.ctaTitle;
+            if (ctaText) ctaText.textContent = t.ctaText;
+            if (ctaButton) ctaButton.childNodes[0].textContent = t.ctaBtn + ' ';
+            if (navLink) navLink.textContent = t.navBtn;
+            
+            // Update page title
+            document.title = `Soy.ad - ${t.title} ${t.subtitle}`;
+            document.documentElement.lang = lang;
+            localStorage.setItem('soyad-lang', lang);
+        }
+
+        // Auto-detect and translate on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const detectedLang = detectLanguage();
+            translatePage(detectedLang);
+        });
     </script>
 </body>
 </html>
