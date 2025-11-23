@@ -9,7 +9,7 @@
     
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,19 +18,24 @@
         }
         
         html {
-            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            -webkit-overflow-scrolling: touch;
         }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
             background: #ffffff;
             color: #1d1d1f;
-            line-height: 1.47059;
+            line-height: 1.5;
             font-size: 17px;
             font-weight: 400;
+            overflow-x: hidden;
         }
+        
+        /* Typography System - 3 Sizes */
+        /* Large: 32px - Başlıklar */
+        /* Medium: 17px - Gövde metni */
+        /* Small: 14px - Detaylar */
         
         /* Navigation */
         .nav {
@@ -45,15 +50,14 @@
         .nav-content {
             max-width: 1024px;
             margin: 0 auto;
-            padding: 0 22px;
-            height: 44px;
+            padding: 12px 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .logo {
-            font-size: 21px;
+            font-size: 17px;
             font-weight: 600;
             color: #1d1d1f;
         }
@@ -64,11 +68,11 @@
         }
         
         .nav-link {
-            padding: 4px 16px;
+            padding: 8px 20px;
             color: #1d1d1f;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 400;
+            font-weight: 500;
             transition: opacity 0.3s;
             border-radius: 18px;
         }
@@ -95,70 +99,33 @@
         }
         
         .hero-title {
-            font-size: 56px;
-            line-height: 1.07143;
+            font-size: 32px;
+            line-height: 1.2;
             font-weight: 700;
-            letter-spacing: -0.005em;
             color: #1d1d1f;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .hero-subtitle {
-            font-size: 28px;
-            line-height: 1.14286;
-            font-weight: 400;
-            letter-spacing: 0.007em;
+            font-size: 32px;
+            line-height: 1.2;
+            font-weight: 700;
             color: #1d1d1f;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         
         .hero-description {
-            font-size: 21px;
-            line-height: 1.381;
+            font-size: 17px;
+            line-height: 1.5;
             font-weight: 400;
-            letter-spacing: 0.011em;
             color: #6e6e73;
             margin-bottom: 30px;
         }
         
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 980px;
-            font-size: 17px;
-            line-height: 1.17648;
-            font-weight: 400;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-        }
-        
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: #667eea;
-            border: 1px solid #667eea;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-        
-        /* Video + Content Combined Section */
+        /* Video + Content Section */
         .video-content-section {
             max-width: 1024px;
-            margin: 0 auto 100px;
+            margin: 0 auto 80px;
             padding: 0 22px;
         }
         
@@ -196,18 +163,17 @@
         
         .content-card {
             background: #fbfbfd;
-            padding: 48px;
+            padding: 32px;
             border-radius: 18px;
             border: 1px solid #d2d2d7;
         }
         
         .card-title {
             font-size: 32px;
-            line-height: 1.125;
+            line-height: 1.2;
             font-weight: 700;
-            letter-spacing: 0.004em;
             color: #1d1d1f;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
         
         .step-list,
@@ -234,13 +200,13 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
             flex-shrink: 0;
         }
         
         .step-text {
             font-size: 17px;
-            line-height: 1.47059;
+            line-height: 1.5;
             font-weight: 400;
             color: #1d1d1f;
             padding-top: 6px;
@@ -256,7 +222,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 14px;
             flex-shrink: 0;
         }
         
@@ -266,8 +232,8 @@
         }
         
         .benefit-title {
-            font-size: 19px;
-            line-height: 1.42105;
+            font-size: 17px;
+            line-height: 1.5;
             font-weight: 600;
             color: #1d1d1f;
             margin-bottom: 2px;
@@ -275,7 +241,7 @@
         
         .benefit-desc {
             font-size: 14px;
-            line-height: 1.42859;
+            line-height: 1.5;
             font-weight: 400;
             color: #6e6e73;
         }
@@ -283,36 +249,66 @@
         /* CTA */
         .cta-section {
             text-align: center;
-            padding: 80px 22px;
+            padding: 60px 22px;
             max-width: 1024px;
-            margin: 0 auto;
+            margin: 0 auto 60px;
             background: #f5f5f7;
             border-radius: 18px;
-            margin-bottom: 80px;
         }
         
         .cta-title {
-            font-size: 48px;
-            line-height: 1.08349;
+            font-size: 32px;
+            line-height: 1.2;
             font-weight: 700;
-            letter-spacing: -0.003em;
             color: #1d1d1f;
             margin-bottom: 12px;
         }
         
         .cta-subtitle {
-            font-size: 21px;
-            line-height: 1.381;
+            font-size: 17px;
+            line-height: 1.5;
             font-weight: 400;
-            letter-spacing: 0.011em;
             color: #6e6e73;
             margin-bottom: 32px;
         }
         
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-size: 17px;
+            line-height: 1.2;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
         }
         
         /* Footer */
@@ -323,8 +319,8 @@
         }
         
         .footer-text {
-            font-size: 12px;
-            line-height: 1.33337;
+            font-size: 14px;
+            line-height: 1.5;
             font-weight: 400;
             color: #6e6e73;
         }
@@ -337,37 +333,34 @@
         }
         
         @media (max-width: 768px) {
+            body {
+                font-size: 17px;
+            }
+            
             .nav-content {
-                padding: 0 16px;
+                padding: 12px 16px;
             }
             
             .logo {
-                font-size: 18px;
+                font-size: 17px;
             }
             
             .nav-link {
-                font-size: 12px;
-                padding: 4px 12px;
+                font-size: 14px;
+                padding: 8px 20px;
             }
             
             .hero {
                 padding: 40px 16px 20px;
             }
             
-            .hero-eyebrow {
-                font-size: 15px;
-            }
-            
-            .hero-title {
-                font-size: 40px;
-            }
-            
+            .hero-title,
             .hero-subtitle {
-                font-size: 24px;
+                font-size: 32px;
             }
             
             .hero-description {
-                font-size: 19px;
+                font-size: 17px;
             }
             
             .video-content-section {
@@ -377,6 +370,7 @@
             
             .video-content-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
             
             .content-cards {
@@ -384,23 +378,23 @@
             }
             
             .content-card {
-                padding: 32px 24px;
+                padding: 24px 20px;
             }
             
             .card-title {
-                font-size: 28px;
-                margin-bottom: 24px;
+                font-size: 32px;
+                margin-bottom: 20px;
             }
             
             .step-number,
             .benefit-icon {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
                 font-size: 14px;
             }
             
             .step-text {
-                font-size: 15px;
+                font-size: 17px;
             }
             
             .benefit-title {
@@ -408,54 +402,30 @@
             }
             
             .benefit-desc {
-                font-size: 13px;
+                font-size: 14px;
             }
             
             .cta-section {
-                padding: 60px 16px;
-                margin-bottom: 60px;
+                padding: 50px 16px;
+                margin-bottom: 40px;
             }
             
             .cta-title {
-                font-size: 36px;
+                font-size: 32px;
             }
             
             .cta-subtitle {
-                font-size: 19px;
+                font-size: 17px;
             }
             
             .cta-buttons {
                 flex-direction: column;
                 gap: 12px;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 32px;
-            }
             
-            .hero-subtitle {
-                font-size: 21px;
-            }
-            
-            .hero-description {
-                font-size: 17px;
-            }
-            
-            .content-card {
-                padding: 28px 20px;
-            }
-            
-            .card-title {
-                font-size: 24px;
-            }
-            
-            .cta-title {
-                font-size: 28px;
-            }
-            
-            .cta-subtitle {
+            .btn {
+                width: 100%;
+                padding: 14px 24px;
                 font-size: 17px;
             }
         }
@@ -480,10 +450,10 @@
         <p class="hero-description">Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.</p>
     </section>
     
-    <!-- Video + Content Combined -->
+    <!-- Video + Content -->
     <section class="video-content-section">
         <div class="video-content-grid">
-            <!-- Video on Left -->
+            <!-- Video -->
             <div class="video-wrapper">
                 <div class="video-container">
                     <iframe 
@@ -494,7 +464,7 @@
                 </div>
             </div>
             
-            <!-- Cards on Right -->
+            <!-- Cards -->
             <div class="content-cards">
                 <!-- How It Works -->
                 <div class="content-card">
