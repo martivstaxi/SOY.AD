@@ -2,113 +2,116 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>www.Soy.ad - Kayıt Ol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soy.ad - Kayıt Ol</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
             height: 100%;
-            overflow: hidden;
         }
         
         body {
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.47059;
+            overflow-x: hidden;
             overflow-y: auto;
+            width: 100%;
+            min-height: 100%;
+            position: relative;
             -webkit-overflow-scrolling: touch;
         }
         
-        .animated-bg {
-            position: fixed;
-            width: 100%;
-            height: 100%;
+        /* Navigation Bar */
+        .nav {
+            position: sticky;
             top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 0;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
         
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            animation: float 20s ease-in-out infinite;
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .orb1 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            top: -200px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-        
-        .orb2 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            bottom: -150px;
-            left: -100px;
-            animation-delay: 7s;
-        }
-        
-        .orb3 {
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 14s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-        
-        .wrapper {
-            min-height: 100%;
+        .nav-back {
+            padding: 8px 16px;
+            color: #0071e3;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
+            gap: 4px;
         }
         
+        .nav-back:hover {
+            background: rgba(0, 113, 227, 0.08);
+        }
+        
+        .nav-link {
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border-radius: 12px;
+            background: #0071e3;
+        }
+        
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+        
+        /* Container */
+        .wrapper {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 52px 22px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Register Container */
         .register-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 56px 48px;
-            border-radius: 32px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
             width: 100%;
-            max-width: 460px;
-            position: relative;
-            z-index: 1;
-            animation: slideUp 0.6s ease-out;
+            max-width: 440px;
+            animation: fadeIn 0.6s ease-out;
         }
         
-        @keyframes slideUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -116,111 +119,73 @@
             }
         }
         
-        .logo {
+        /* Hero Section */
+        .register-hero {
             text-align: center;
             margin-bottom: 40px;
         }
         
-        .logo-icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            animation: pulse 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .logo h1 {
-            color: #1a1a2e;
-            font-size: 36px;
-            font-weight: 800;
+        .register-title {
+            font-size: 48px;
+            font-weight: 600;
+            color: #1d1d1f;
+            line-height: 1.08333;
+            letter-spacing: -0.003em;
             margin-bottom: 12px;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
-        .logo p {
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
+        .register-subtitle {
+            font-size: 21px;
+            color: #6e6e73;
+            line-height: 1.38095;
+            font-weight: 400;
+            letter-spacing: 0.011em;
         }
         
-        
-        .progress-container {
+        /* Progress Bar */
+        .progress-section {
             margin-bottom: 32px;
-            text-align: center;
         }
         
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: #e5e7eb;
+            height: 4px;
+            background: #e5e5e7;
             border-radius: 100px;
             overflow: hidden;
-            position: relative;
             margin-bottom: 12px;
         }
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0071e3;
             border-radius: 100px;
-            width: 25%;
+            width: 33.33%;
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
         }
         
         .progress-text {
-            color: #667eea;
+            color: #86868b;
             font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            font-weight: 400;
+            text-align: center;
+            letter-spacing: -0.016em;
         }
         
+        /* Form Steps */
         .form-step {
             display: none;
-            animation: fadeSlideIn 0.5s ease-out;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .form-step.active {
             display: block;
         }
         
-        @keyframes fadeSlideIn {
+        @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(30px);
+                transform: translateX(20px);
             }
             to {
                 opacity: 1;
@@ -228,406 +193,199 @@
             }
         }
         
-        .form-step.slide-out-left {
-            animation: slideOutLeft 0.3s ease-out;
-        }
-        
-        .form-step.slide-out-right {
-            animation: slideOutRight 0.3s ease-out;
-        }
-        
-        @keyframes slideOutLeft {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-        }
-        
-        @keyframes slideOutRight {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-        }
-        
-        .button-group {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 12px;
-            margin-top: 12px;
-        }
-        
-        .next-btn,
-        .back-step-btn {
-            padding: 18px;
-            border: none;
-            border-radius: 16px;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .next-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-        
-        .next-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .next-btn:hover::before {
-            left: 100%;
-        }
-        
-        .next-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
-        }
-        
-        .next-btn:active {
-            transform: translateY(-1px);
-        }
-        
-        .back-step-btn {
-            background: rgba(107, 114, 128, 0.1);
-            color: #6b7280;
-            border: 2px solid #e5e7eb;
-            padding: 18px 20px;
-            min-width: 60px;
-            font-size: 20px;
-        }
-        
-        .back-step-btn:hover {
-            background: rgba(107, 114, 128, 0.15);
-            border-color: #d1d5db;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .back-step-btn:active {
-            transform: translateY(0);
+        /* Form Card */
+        .form-card {
+            background: #f5f5f7;
+            border-radius: 18px;
+            padding: 40px;
+            margin-bottom: 20px;
         }
         
         .form-group {
             margin-bottom: 24px;
-            position: relative;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
         }
         
         label {
             display: block;
-            margin-bottom: 10px;
-            color: #374151;
+            margin-bottom: 8px;
+            color: #1d1d1f;
             font-weight: 600;
-            font-size: 15px;
-            letter-spacing: -0.3px;
+            font-size: 17px;
+            letter-spacing: -0.022em;
         }
         
-        .input-wrapper {
-            position: relative;
+        /* Input Styles */
+        input,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 17px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            background: #ffffff;
+            color: #1d1d1f;
+            letter-spacing: -0.022em;
+            -webkit-appearance: none;
+            appearance: none;
         }
         
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+        
+        input::placeholder {
+            color: #86868b;
+        }
+        
+        /* Phone Input Group */
         .phone-input-group {
             display: flex;
-            gap: 10px;
-            align-items: stretch;
+            gap: 12px;
         }
         
         .country-select {
+            width: 110px;
             flex-shrink: 0;
-            width: 85px;
-            padding: 16px 10px;
-            padding-right: 26px;
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            font-size: 15px;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: white;
-            color: #1a1a2e;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+            padding-right: 32px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%2386868b' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 8px center;
-            background-size: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-        
-        .country-select:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-        }
-        
-        .country-select:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
-                        0 4px 12px rgba(102, 126, 234, 0.2);
+            background-position: right 12px center;
+            cursor: pointer;
         }
         
         .phone-input-container {
             flex: 1;
-            position: relative;
         }
         
-        .phone-input-container input {
-            width: 100%;
-            padding: 16px 18px;
-            padding-left: 18px;
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            font-size: 17px;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: white;
-            color: #1a1a2e;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        /* Button Group */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
         }
         
-        .phone-input-container input::placeholder {
-            color: #9ca3af;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-        
-        .phone-input-container input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
-                        0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-        
-        .phone-input-container input:valid {
-            border-color: #10b981;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
-        }
-        
-        .phone-input-wrapper {
-            flex: 1;
-        }
-        
-        .input-wrapper {
-            position: relative;
-        }
-        
-        .input-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            opacity: 0.5;
-            transition: all 0.3s ease;
-        }
-        
-        input {
-            width: 100%;
-            padding: 15px 18px 15px 52px;
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            font-size: 16px;
-            font-family: 'Outfit', sans-serif;
-            transition: all 0.3s ease;
-            background: #f9fafb;
-            color: #1a1a2e;
-            font-weight: 500;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
-                        0 10px 30px rgba(102, 126, 234, 0.1);
-        }
-        
-        input:focus + .input-icon {
-            opacity: 1;
-            color: #667eea;
-        }
-        
-        input::placeholder {
-            color: #9ca3af;
-            font-weight: 400;
-        }
-        
-        input:valid {
-            border-color: #10b981;
-        }
-        
-        button {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .btn {
+            padding: 14px 22px;
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             font-size: 17px;
-            font-weight: 700;
+            font-weight: 400;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            margin-top: 12px;
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            letter-spacing: -0.022em;
+            white-space: nowrap;
         }
         
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
+        .btn-primary {
+            flex: 1;
+            background: #0071e3;
+            color: white;
         }
         
-        button:hover::before {
-            left: 100%;
+        .btn-primary:hover {
+            background: #0077ed;
         }
         
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+        .btn-primary:active {
+            transform: scale(0.98);
         }
         
-        button:active {
-            transform: translateY(-1px);
+        .btn-secondary {
+            width: 52px;
+            background: #e8e8ed;
+            color: #1d1d1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        button:disabled {
-            opacity: 0.7;
+        .btn-secondary:hover {
+            background: #d2d2d7;
+        }
+        
+        .btn-secondary:active {
+            transform: scale(0.95);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
+        }
+        
+        /* Messages */
+        .message {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.016em;
         }
         
         .error-message {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 20px;
-            display: none;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
-            animation: shake 0.5s ease;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            background: #fff5f5;
+            color: #c41e3a;
+            border: 1px solid #ffd4dc;
         }
         
         .success-message {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 20px;
-            display: none;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(67, 233, 123, 0.3);
-            animation: slideDown 0.5s ease;
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
         }
         
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
+        /* Success Modal */
         .success-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
+            z-index: 10000;
+            padding: 20px;
         }
         
         .success-modal.show {
             display: flex;
+            animation: fadeIn 0.3s ease;
         }
         
         .success-modal-content {
             background: white;
             padding: 60px 50px;
-            border-radius: 32px;
+            border-radius: 24px;
             text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+            max-width: 460px;
+            width: 100%;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
             animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
         }
         
         @keyframes scaleIn {
-            0% {
-                transform: scale(0.5);
+            from {
+                transform: scale(0.8);
                 opacity: 0;
             }
-            100% {
+            to {
                 transform: scale(1);
                 opacity: 1;
             }
@@ -635,8 +393,8 @@
         
         .success-icon {
             margin: 0 auto 30px;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
         }
         
         .checkmark {
@@ -644,17 +402,22 @@
             height: 100%;
             border-radius: 50%;
             display: block;
-            stroke-width: 4;
-            stroke: #10b981;
+            stroke-width: 3;
+            stroke: #0071e3;
             stroke-miterlimit: 10;
-            box-shadow: inset 0 0 0 #10b981;
-            animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+            animation: fillCircle 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+        }
+        
+        .checkmark-circle {
+            stroke-dasharray: 315;
+            stroke-dashoffset: 315;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
         
         .checkmark-path {
             stroke-dasharray: 80;
             stroke-dashoffset: 80;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards;
         }
         
         @keyframes stroke {
@@ -663,491 +426,463 @@
             }
         }
         
+        @keyframes fillCircle {
+            100% {
+                box-shadow: inset 0 0 0 60px #0071e3;
+            }
+        }
+        
         @keyframes scale {
             0%, 100% {
                 transform: none;
             }
             50% {
-                transform: scale3d(1.1, 1.1, 1);
-            }
-        }
-        
-        @keyframes fill {
-            100% {
-                box-shadow: inset 0 0 0 60px #10b981;
+                transform: scale3d(1.05, 1.05, 1);
             }
         }
         
         .success-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            font-size: 40px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            letter-spacing: -0.003em;
+            line-height: 1.1;
         }
         
         .success-text {
-            font-size: 18px;
-            color: #6b7280;
-            line-height: 1.6;
-            font-weight: 500;
+            font-size: 19px;
+            color: #6e6e73;
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: 0.012em;
         }
         
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #667eea;
-            position: absolute;
-            animation: confetti-fall 3s ease-out forwards;
+        /* Loading Spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
         }
         
-        @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
-        @media (max-width: 480px) {
-            body {
-                overflow-y: scroll;
-            }
-            
-            .orb {
-                filter: blur(40px);
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 16px;
+                height: 48px;
             }
             
             .wrapper {
-                padding: 20px;
-                min-height: 100vh;
-                min-height: -webkit-fill-available;
-                align-items: flex-start;
-                padding-top: 40px;
+                padding: 40px 16px 60px;
             }
             
-            .register-container {
-                padding: 40px 28px;
-                border-radius: 28px;
-                max-width: 100%;
-                margin-bottom: 40px;
-            }
-            
-            .logo {
+            .register-hero {
                 margin-bottom: 32px;
             }
             
-            .progress-container {
-                margin-bottom: 24px;
+            .register-title {
+                font-size: 40px;
             }
             
-            .progress-bar {
-                height: 6px;
+            .register-subtitle {
+                font-size: 19px;
             }
             
-            .progress-text {
-                font-size: 13px;
-                margin-top: 10px;
-            }
-            
-            .logo-icon {
-                width: 64px;
-                height: 64px;
-                font-size: 32px;
-                margin-bottom: 16px;
-            }
-            
-            .logo h1 {
-                font-size: 32px;
-                margin-bottom: 10px;
-            }
-            
-            .logo p {
-                font-size: 15px;
-            }
-            
-            .form-group {
-                margin-bottom: 20px;
-            }
-            
-            label {
-                font-size: 13px;
-                margin-bottom: 8px;
-            }
-            
-            input {
-                padding: 14px 16px 14px 50px;
-                font-size: 16px;
-                border-radius: 14px;
+            .form-card {
+                padding: 32px 24px;
+                border-radius: 16px;
             }
             
             .country-select {
-                width: 80px;
-                padding: 15px 8px;
-                padding-right: 24px;
-                font-size: 14px;
-                border-radius: 14px;
-                background-position: right 6px center;
-                background-size: 9px;
-            }
-            
-            .phone-input-group {
-                gap: 8px;
-            }
-            
-            .phone-input-container input {
-                padding: 15px 16px;
-                font-size: 16px;
-                border-radius: 14px;
-                letter-spacing: 0.3px;
-            }
-            
-            .back-step-btn {
-                padding: 16px 18px;
-                min-width: 56px;
-                font-size: 18px;
+                width: 100px;
             }
             
             .success-modal-content {
                 padding: 50px 30px;
-                border-radius: 24px;
+                border-radius: 20px;
             }
             
             .success-icon {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
                 margin-bottom: 24px;
             }
             
             .success-title {
-                font-size: 28px;
-                margin-bottom: 12px;
+                font-size: 32px;
             }
             
             .success-text {
-                font-size: 16px;
-            }
-            
-            .input-icon {
                 font-size: 17px;
-                left: 16px;
-            }
-            
-            button {
-                padding: 17px;
-                font-size: 16px;
-                border-radius: 14px;
-                min-height: 56px;
-            }
-            
-            .next-btn,
-            .back-step-btn {
-                padding: 16px;
-                font-size: 16px;
-                border-radius: 14px;
-            }
-            
-            .button-group {
-                gap: 10px;
-            }
-            
-            .back-step-btn {
-                padding: 16px 20px;
-            }
-            
-            .error-message,
-            .success-message {
-                padding: 14px 18px;
-                font-size: 13px;
-                margin-top: 16px;
-                border-radius: 14px;
-            }
-            
-            .back-section {
-                margin-top: 24px;
-                padding-top: 24px;
-            }
-            
-            .back-text {
-                font-size: 13px;
-                margin-bottom: 12px;
-            }
-            
-            .back-btn {
-                padding: 11px 20px;
-                font-size: 14px;
             }
         }
         
-        @supports (-webkit-touch-callout: none) {
-            body {
-                height: -webkit-fill-available;
+        @media (max-width: 480px) {
+            .register-title {
+                font-size: 36px;
             }
             
-            .wrapper {
-                min-height: -webkit-fill-available;
+            .register-subtitle {
+                font-size: 17px;
             }
-        }
-        
-        @media (hover: none) and (pointer: coarse) {
+            
+            .form-card {
+                padding: 28px 20px;
+            }
+            
+            label {
+                font-size: 15px;
+            }
+            
             input,
-            button {
-                min-height: 52px;
+            select,
+            .btn {
+                font-size: 16px;
             }
             
-            button:active {
-                transform: scale(0.98);
+            .country-select {
+                width: 90px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg">
-        <div class="orb orb1"></div>
-        <div class="orb orb2"></div>
-        <div class="orb orb3"></div>
-    </div>
-    
+    <!-- Navigation Bar -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-back">← Ana Sayfa</a>
+            <a href="login.html" class="nav-link">Giriş Yap</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
     <div class="wrapper">
         <div class="register-container">
+            <!-- Hero -->
+            <div class="register-hero">
+                <h1 class="register-title">Aramıza Katılın</h1>
+                <p class="register-subtitle">Üyelik başvurunuzu tamamlayın</p>
+            </div>
+            
             <!-- Progress Bar -->
-            <div class="progress-container">
+            <div class="progress-section">
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="progress-text" id="progressText">1/3</div>
+                <div class="progress-text" id="progressText">Adım 1/3</div>
             </div>
             
-            <div class="logo">
-                <div class="logo-icon">🚀</div>
-                <h1>soy.ad</h1>
-                <p id="stepTitle">Yeni Üyelik Başvurusu</p>
-            </div>
-            
+            <!-- Form -->
             <form id="registerForm">
                 <!-- Step 1: Instagram -->
                 <div class="form-step active" data-step="1">
-                    <div class="form-group">
-                        <label for="instagram">Instagram Kullanıcı Adı</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="instagram" name="instagram" required placeholder="@kullaniciadi" autocomplete="off">
-                            <div class="input-icon">📸</div>
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="instagram">Instagram Kullanıcı Adı</label>
+                            <input 
+                                type="text" 
+                                id="instagram" 
+                                name="instagram" 
+                                required 
+                                placeholder="@kullaniciadi"
+                                autocomplete="off"
+                            >
+                        </div>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-primary" data-next="2">Devam Et</button>
                         </div>
                     </div>
-                    <button type="button" class="next-btn" data-next="2">Devam Et</button>
                 </div>
                 
                 <!-- Step 2: Email -->
                 <div class="form-step" data-step="2">
-                    <div class="form-group">
-                        <label for="email">E-posta Adresi</label>
-                        <div class="input-wrapper">
-                            <input type="email" id="email" name="email" required placeholder="ornek@email.com" autocomplete="email">
-                            <div class="input-icon">📧</div>
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="email">E-posta Adresi</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                placeholder="ornek@email.com"
+                                autocomplete="email"
+                            >
                         </div>
-                    </div>
-                    <div class="button-group">
-                        <button type="button" class="back-step-btn" data-prev="1">← Geri</button>
-                        <button type="button" class="next-btn" data-next="3">Devam Et</button>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-secondary" data-prev="1">←</button>
+                            <button type="button" class="btn btn-primary" data-next="3">Devam Et</button>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Step 3: Telefon -->
+                <!-- Step 3: Phone -->
                 <div class="form-step" data-step="3">
-                    <div class="form-group">
-                        <label for="phone">Telefon Numarası</label>
-                        <div class="phone-input-group">
-                            <select id="countryCode" class="country-select">
-                                <option value="+90" data-country="Turkey" selected>🇹🇷 +90</option>
-                                <option value="+1" data-country="United States">🇺🇸 +1</option>
-                                <option value="+61" data-country="Australia">🇦🇺 +61</option>
-                                <option value="+93" data-country="Afghanistan">🇦🇫 +93</option>
-                                <option value="+355" data-country="Albania">🇦🇱 +355</option>
-                                <option value="+213" data-country="Algeria">🇩🇿 +213</option>
-                                <option value="+376" data-country="Andorra">🇦🇩 +376</option>
-                                <option value="+244" data-country="Angola">🇦🇴 +244</option>
-                                <option value="+54" data-country="Argentina">🇦🇷 +54</option>
-                                <option value="+374" data-country="Armenia">🇦🇲 +374</option>
-                                <option value="+43" data-country="Austria">🇦🇹 +43</option>
-                                <option value="+994" data-country="Azerbaijan">🇦🇿 +994</option>
-                                <option value="+973" data-country="Bahrain">🇧🇭 +973</option>
-                                <option value="+880" data-country="Bangladesh">🇧🇩 +880</option>
-                                <option value="+375" data-country="Belarus">🇧🇾 +375</option>
-                                <option value="+32" data-country="Belgium">🇧🇪 +32</option>
-                                <option value="+501" data-country="Belize">🇧🇿 +501</option>
-                                <option value="+229" data-country="Benin">🇧🇯 +229</option>
-                                <option value="+975" data-country="Bhutan">🇧🇹 +975</option>
-                                <option value="+591" data-country="Bolivia">🇧🇴 +591</option>
-                                <option value="+387" data-country="Bosnia and Herzegovina">🇧🇦 +387</option>
-                                <option value="+267" data-country="Botswana">🇧🇼 +267</option>
-                                <option value="+55" data-country="Brazil">🇧🇷 +55</option>
-                                <option value="+673" data-country="Brunei">🇧🇳 +673</option>
-                                <option value="+359" data-country="Bulgaria">🇧🇬 +359</option>
-                                <option value="+226" data-country="Burkina Faso">🇧🇫 +226</option>
-                                <option value="+257" data-country="Burundi">🇧🇮 +257</option>
-                                <option value="+855" data-country="Cambodia">🇰🇭 +855</option>
-                                <option value="+237" data-country="Cameroon">🇨🇲 +237</option>
-                                <option value="+1" data-country="Canada">🇨🇦 +1</option>
-                                <option value="+238" data-country="Cape Verde">🇨🇻 +238</option>
-                                <option value="+236" data-country="Central African Republic">🇨🇫 +236</option>
-                                <option value="+235" data-country="Chad">🇹🇩 +235</option>
-                                <option value="+56" data-country="Chile">🇨🇱 +56</option>
-                                <option value="+86" data-country="China">🇨🇳 +86</option>
-                                <option value="+57" data-country="Colombia">🇨🇴 +57</option>
-                                <option value="+269" data-country="Comoros">🇰🇲 +269</option>
-                                <option value="+242" data-country="Congo">🇨🇬 +242</option>
-                                <option value="+506" data-country="Costa Rica">🇨🇷 +506</option>
-                                <option value="+385" data-country="Croatia">🇭🇷 +385</option>
-                                <option value="+53" data-country="Cuba">🇨🇺 +53</option>
-                                <option value="+357" data-country="Cyprus">🇨🇾 +357</option>
-                                <option value="+420" data-country="Czech Republic">🇨🇿 +420</option>
-                                <option value="+243" data-country="Democratic Republic of Congo">🇨🇩 +243</option>
-                                <option value="+45" data-country="Denmark">🇩🇰 +45</option>
-                                <option value="+253" data-country="Djibouti">🇩🇯 +253</option>
-                                <option value="+593" data-country="Ecuador">🇪🇨 +593</option>
-                                <option value="+20" data-country="Egypt">🇪🇬 +20</option>
-                                <option value="+503" data-country="El Salvador">🇸🇻 +503</option>
-                                <option value="+240" data-country="Equatorial Guinea">🇬🇶 +240</option>
-                                <option value="+291" data-country="Eritrea">🇪🇷 +291</option>
-                                <option value="+372" data-country="Estonia">🇪🇪 +372</option>
-                                <option value="+251" data-country="Ethiopia">🇪🇹 +251</option>
-                                <option value="+679" data-country="Fiji">🇫🇯 +679</option>
-                                <option value="+358" data-country="Finland">🇫🇮 +358</option>
-                                <option value="+33" data-country="France">🇫🇷 +33</option>
-                                <option value="+241" data-country="Gabon">🇬🇦 +241</option>
-                                <option value="+220" data-country="Gambia">🇬🇲 +220</option>
-                                <option value="+995" data-country="Georgia">🇬🇪 +995</option>
-                                <option value="+49" data-country="Germany">🇩🇪 +49</option>
-                                <option value="+233" data-country="Ghana">🇬🇭 +233</option>
-                                <option value="+30" data-country="Greece">🇬🇷 +30</option>
-                                <option value="+502" data-country="Guatemala">🇬🇹 +502</option>
-                                <option value="+224" data-country="Guinea">🇬🇳 +224</option>
-                                <option value="+245" data-country="Guinea-Bissau">🇬🇼 +245</option>
-                                <option value="+592" data-country="Guyana">🇬🇾 +592</option>
-                                <option value="+509" data-country="Haiti">🇭🇹 +509</option>
-                                <option value="+504" data-country="Honduras">🇭🇳 +504</option>
-                                <option value="+852" data-country="Hong Kong">🇭🇰 +852</option>
-                                <option value="+36" data-country="Hungary">🇭🇺 +36</option>
-                                <option value="+354" data-country="Iceland">🇮🇸 +354</option>
-                                <option value="+91" data-country="India">🇮🇳 +91</option>
-                                <option value="+62" data-country="Indonesia">🇮🇩 +62</option>
-                                <option value="+98" data-country="Iran">🇮🇷 +98</option>
-                                <option value="+964" data-country="Iraq">🇮🇶 +964</option>
-                                <option value="+353" data-country="Ireland">🇮🇪 +353</option>
-                                <option value="+972" data-country="Israel">🇮🇱 +972</option>
-                                <option value="+39" data-country="Italy">🇮🇹 +39</option>
-                                <option value="+225" data-country="Ivory Coast">🇨🇮 +225</option>
-                                <option value="+81" data-country="Japan">🇯🇵 +81</option>
-                                <option value="+962" data-country="Jordan">🇯🇴 +962</option>
-                                <option value="+7" data-country="Kazakhstan">🇰🇿 +7</option>
-                                <option value="+254" data-country="Kenya">🇰🇪 +254</option>
-                                <option value="+965" data-country="Kuwait">🇰🇼 +965</option>
-                                <option value="+996" data-country="Kyrgyzstan">🇰🇬 +996</option>
-                                <option value="+856" data-country="Laos">🇱🇦 +856</option>
-                                <option value="+371" data-country="Latvia">🇱🇻 +371</option>
-                                <option value="+961" data-country="Lebanon">🇱🇧 +961</option>
-                                <option value="+266" data-country="Lesotho">🇱🇸 +266</option>
-                                <option value="+231" data-country="Liberia">🇱🇷 +231</option>
-                                <option value="+218" data-country="Libya">🇱🇾 +218</option>
-                                <option value="+423" data-country="Liechtenstein">🇱🇮 +423</option>
-                                <option value="+370" data-country="Lithuania">🇱🇹 +370</option>
-                                <option value="+352" data-country="Luxembourg">🇱🇺 +352</option>
-                                <option value="+853" data-country="Macau">🇲🇴 +853</option>
-                                <option value="+389" data-country="Macedonia">🇲🇰 +389</option>
-                                <option value="+261" data-country="Madagascar">🇲🇬 +261</option>
-                                <option value="+265" data-country="Malawi">🇲🇼 +265</option>
-                                <option value="+60" data-country="Malaysia">🇲🇾 +60</option>
-                                <option value="+960" data-country="Maldives">🇲🇻 +960</option>
-                                <option value="+223" data-country="Mali">🇲🇱 +223</option>
-                                <option value="+356" data-country="Malta">🇲🇹 +356</option>
-                                <option value="+222" data-country="Mauritania">🇲🇷 +222</option>
-                                <option value="+230" data-country="Mauritius">🇲🇺 +230</option>
-                                <option value="+52" data-country="Mexico">🇲🇽 +52</option>
-                                <option value="+373" data-country="Moldova">🇲🇩 +373</option>
-                                <option value="+377" data-country="Monaco">🇲🇨 +377</option>
-                                <option value="+976" data-country="Mongolia">🇲🇳 +976</option>
-                                <option value="+382" data-country="Montenegro">🇲🇪 +382</option>
-                                <option value="+212" data-country="Morocco">🇲🇦 +212</option>
-                                <option value="+258" data-country="Mozambique">🇲🇿 +258</option>
-                                <option value="+95" data-country="Myanmar">🇲🇲 +95</option>
-                                <option value="+264" data-country="Namibia">🇳🇦 +264</option>
-                                <option value="+977" data-country="Nepal">🇳🇵 +977</option>
-                                <option value="+31" data-country="Netherlands">🇳🇱 +31</option>
-                                <option value="+64" data-country="New Zealand">🇳🇿 +64</option>
-                                <option value="+505" data-country="Nicaragua">🇳🇮 +505</option>
-                                <option value="+227" data-country="Niger">🇳🇪 +227</option>
-                                <option value="+234" data-country="Nigeria">🇳🇬 +234</option>
-                                <option value="+850" data-country="North Korea">🇰🇵 +850</option>
-                                <option value="+47" data-country="Norway">🇳🇴 +47</option>
-                                <option value="+968" data-country="Oman">🇴🇲 +968</option>
-                                <option value="+92" data-country="Pakistan">🇵🇰 +92</option>
-                                <option value="+970" data-country="Palestine">🇵🇸 +970</option>
-                                <option value="+507" data-country="Panama">🇵🇦 +507</option>
-                                <option value="+675" data-country="Papua New Guinea">🇵🇬 +675</option>
-                                <option value="+595" data-country="Paraguay">🇵🇾 +595</option>
-                                <option value="+51" data-country="Peru">🇵🇪 +51</option>
-                                <option value="+63" data-country="Philippines">🇵🇭 +63</option>
-                                <option value="+48" data-country="Poland">🇵🇱 +48</option>
-                                <option value="+351" data-country="Portugal">🇵🇹 +351</option>
-                                <option value="+974" data-country="Qatar">🇶🇦 +974</option>
-                                <option value="+40" data-country="Romania">🇷🇴 +40</option>
-                                <option value="+7" data-country="Russia">🇷🇺 +7</option>
-                                <option value="+250" data-country="Rwanda">🇷🇼 +250</option>
-                                <option value="+966" data-country="Saudi Arabia">🇸🇦 +966</option>
-                                <option value="+221" data-country="Senegal">🇸🇳 +221</option>
-                                <option value="+381" data-country="Serbia">🇷🇸 +381</option>
-                                <option value="+248" data-country="Seychelles">🇸🇨 +248</option>
-                                <option value="+232" data-country="Sierra Leone">🇸🇱 +232</option>
-                                <option value="+65" data-country="Singapore">🇸🇬 +65</option>
-                                <option value="+421" data-country="Slovakia">🇸🇰 +421</option>
-                                <option value="+386" data-country="Slovenia">🇸🇮 +386</option>
-                                <option value="+252" data-country="Somalia">🇸🇴 +252</option>
-                                <option value="+27" data-country="South Africa">🇿🇦 +27</option>
-                                <option value="+82" data-country="South Korea">🇰🇷 +82</option>
-                                <option value="+211" data-country="South Sudan">🇸🇸 +211</option>
-                                <option value="+34" data-country="Spain">🇪🇸 +34</option>
-                                <option value="+94" data-country="Sri Lanka">🇱🇰 +94</option>
-                                <option value="+249" data-country="Sudan">🇸🇩 +249</option>
-                                <option value="+597" data-country="Suriname">🇸🇷 +597</option>
-                                <option value="+268" data-country="Swaziland">🇸🇿 +268</option>
-                                <option value="+46" data-country="Sweden">🇸🇪 +46</option>
-                                <option value="+41" data-country="Switzerland">🇨🇭 +41</option>
-                                <option value="+963" data-country="Syria">🇸🇾 +963</option>
-                                <option value="+886" data-country="Taiwan">🇹🇼 +886</option>
-                                <option value="+992" data-country="Tajikistan">🇹🇯 +992</option>
-                                <option value="+255" data-country="Tanzania">🇹🇿 +255</option>
-                                <option value="+66" data-country="Thailand">🇹🇭 +66</option>
-                                <option value="+228" data-country="Togo">🇹🇬 +228</option>
-                                <option value="+676" data-country="Tonga">🇹🇴 +676</option>
-                                <option value="+216" data-country="Tunisia">🇹🇳 +216</option>
-                                <option value="+993" data-country="Turkmenistan">🇹🇲 +993</option>
-                                <option value="+256" data-country="Uganda">🇺🇬 +256</option>
-                                <option value="+380" data-country="Ukraine">🇺🇦 +380</option>
-                                <option value="+971" data-country="United Arab Emirates">🇦🇪 +971</option>
-                                <option value="+44" data-country="United Kingdom">🇬🇧 +44</option>
-                                <option value="+598" data-country="Uruguay">🇺🇾 +598</option>
-                                <option value="+998" data-country="Uzbekistan">🇺🇿 +998</option>
-                                <option value="+678" data-country="Vanuatu">🇻🇺 +678</option>
-                                <option value="+58" data-country="Venezuela">🇻🇪 +58</option>
-                                <option value="+84" data-country="Vietnam">🇻🇳 +84</option>
-                                <option value="+967" data-country="Yemen">🇾🇪 +967</option>
-                                <option value="+260" data-country="Zambia">🇿🇲 +260</option>
-                                <option value="+263" data-country="Zimbabwe">🇿🇼 +263</option>
-                            </select>
-                            <div class="phone-input-container">
-                                <input type="tel" id="phone" name="phone" required placeholder="555 123 45 67" autocomplete="tel">
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="phone">Telefon Numarası</label>
+                            <div class="phone-input-group">
+                                <select id="countryCode" class="country-select">
+                                    <option value="+93">🇦🇫 +93</option>
+                                    <option value="+355">🇦🇱 +355</option>
+                                    <option value="+213">🇩🇿 +213</option>
+                                    <option value="+1684">🇦🇸 +1684</option>
+                                    <option value="+376">🇦🇩 +376</option>
+                                    <option value="+244">🇦🇴 +244</option>
+                                    <option value="+1264">🇦🇮 +1264</option>
+                                    <option value="+672">🇦🇶 +672</option>
+                                    <option value="+1268">🇦🇬 +1268</option>
+                                    <option value="+54">🇦🇷 +54</option>
+                                    <option value="+374">🇦🇲 +374</option>
+                                    <option value="+297">🇦🇼 +297</option>
+                                    <option value="+61">🇦🇺 +61</option>
+                                    <option value="+43">🇦🇹 +43</option>
+                                    <option value="+994">🇦🇿 +994</option>
+                                    <option value="+1242">🇧🇸 +1242</option>
+                                    <option value="+973">🇧🇭 +973</option>
+                                    <option value="+880">🇧🇩 +880</option>
+                                    <option value="+1246">🇧🇧 +1246</option>
+                                    <option value="+375">🇧🇾 +375</option>
+                                    <option value="+32">🇧🇪 +32</option>
+                                    <option value="+501">🇧🇿 +501</option>
+                                    <option value="+229">🇧🇯 +229</option>
+                                    <option value="+1441">🇧🇲 +1441</option>
+                                    <option value="+975">🇧🇹 +975</option>
+                                    <option value="+591">🇧🇴 +591</option>
+                                    <option value="+387">🇧🇦 +387</option>
+                                    <option value="+267">🇧🇼 +267</option>
+                                    <option value="+55">🇧🇷 +55</option>
+                                    <option value="+246">🇮🇴 +246</option>
+                                    <option value="+673">🇧🇳 +673</option>
+                                    <option value="+359">🇧🇬 +359</option>
+                                    <option value="+226">🇧🇫 +226</option>
+                                    <option value="+257">🇧🇮 +257</option>
+                                    <option value="+855">🇰🇭 +855</option>
+                                    <option value="+237">🇨🇲 +237</option>
+                                    <option value="+1">🇨🇦 +1</option>
+                                    <option value="+238">🇨🇻 +238</option>
+                                    <option value="+1345">🇰🇾 +1345</option>
+                                    <option value="+236">🇨🇫 +236</option>
+                                    <option value="+235">🇹🇩 +235</option>
+                                    <option value="+56">🇨🇱 +56</option>
+                                    <option value="+86">🇨🇳 +86</option>
+                                    <option value="+61">🇨🇽 +61</option>
+                                    <option value="+57">🇨🇴 +57</option>
+                                    <option value="+269">🇰🇲 +269</option>
+                                    <option value="+242">🇨🇬 +242</option>
+                                    <option value="+243">🇨🇩 +243</option>
+                                    <option value="+682">🇨🇰 +682</option>
+                                    <option value="+506">🇨🇷 +506</option>
+                                    <option value="+225">🇨🇮 +225</option>
+                                    <option value="+385">🇭🇷 +385</option>
+                                    <option value="+53">🇨🇺 +53</option>
+                                    <option value="+357">🇨🇾 +357</option>
+                                    <option value="+420">🇨🇿 +420</option>
+                                    <option value="+45">🇩🇰 +45</option>
+                                    <option value="+253">🇩🇯 +253</option>
+                                    <option value="+1767">🇩🇲 +1767</option>
+                                    <option value="+1809">🇩🇴 +1809</option>
+                                    <option value="+593">🇪🇨 +593</option>
+                                    <option value="+20">🇪🇬 +20</option>
+                                    <option value="+503">🇸🇻 +503</option>
+                                    <option value="+240">🇬🇶 +240</option>
+                                    <option value="+291">🇪🇷 +291</option>
+                                    <option value="+372">🇪🇪 +372</option>
+                                    <option value="+251">🇪🇹 +251</option>
+                                    <option value="+500">🇫🇰 +500</option>
+                                    <option value="+298">🇫🇴 +298</option>
+                                    <option value="+679">🇫🇯 +679</option>
+                                    <option value="+358">🇫🇮 +358</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+594">🇬🇫 +594</option>
+                                    <option value="+689">🇵🇫 +689</option>
+                                    <option value="+241">🇬🇦 +241</option>
+                                    <option value="+220">🇬🇲 +220</option>
+                                    <option value="+995">🇬🇪 +995</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+233">🇬🇭 +233</option>
+                                    <option value="+350">🇬🇮 +350</option>
+                                    <option value="+30">🇬🇷 +30</option>
+                                    <option value="+299">🇬🇱 +299</option>
+                                    <option value="+1473">🇬🇩 +1473</option>
+                                    <option value="+590">🇬🇵 +590</option>
+                                    <option value="+1671">🇬🇺 +1671</option>
+                                    <option value="+502">🇬🇹 +502</option>
+                                    <option value="+224">🇬🇳 +224</option>
+                                    <option value="+245">🇬🇼 +245</option>
+                                    <option value="+592">🇬🇾 +592</option>
+                                    <option value="+509">🇭🇹 +509</option>
+                                    <option value="+504">🇭🇳 +504</option>
+                                    <option value="+852">🇭🇰 +852</option>
+                                    <option value="+36">🇭🇺 +36</option>
+                                    <option value="+354">🇮🇸 +354</option>
+                                    <option value="+91">🇮🇳 +91</option>
+                                    <option value="+62">🇮🇩 +62</option>
+                                    <option value="+98">🇮🇷 +98</option>
+                                    <option value="+964">🇮🇶 +964</option>
+                                    <option value="+353">🇮🇪 +353</option>
+                                    <option value="+972">🇮🇱 +972</option>
+                                    <option value="+39">🇮🇹 +39</option>
+                                    <option value="+1876">🇯🇲 +1876</option>
+                                    <option value="+81">🇯🇵 +81</option>
+                                    <option value="+962">🇯🇴 +962</option>
+                                    <option value="+7">🇰🇿 +7</option>
+                                    <option value="+254">🇰🇪 +254</option>
+                                    <option value="+686">🇰🇮 +686</option>
+                                    <option value="+850">🇰🇵 +850</option>
+                                    <option value="+82">🇰🇷 +82</option>
+                                    <option value="+965">🇰🇼 +965</option>
+                                    <option value="+996">🇰🇬 +996</option>
+                                    <option value="+856">🇱🇦 +856</option>
+                                    <option value="+371">🇱🇻 +371</option>
+                                    <option value="+961">🇱🇧 +961</option>
+                                    <option value="+266">🇱🇸 +266</option>
+                                    <option value="+231">🇱🇷 +231</option>
+                                    <option value="+218">🇱🇾 +218</option>
+                                    <option value="+423">🇱🇮 +423</option>
+                                    <option value="+370">🇱🇹 +370</option>
+                                    <option value="+352">🇱🇺 +352</option>
+                                    <option value="+853">🇲🇴 +853</option>
+                                    <option value="+389">🇲🇰 +389</option>
+                                    <option value="+261">🇲🇬 +261</option>
+                                    <option value="+265">🇲🇼 +265</option>
+                                    <option value="+60">🇲🇾 +60</option>
+                                    <option value="+960">🇲🇻 +960</option>
+                                    <option value="+223">🇲🇱 +223</option>
+                                    <option value="+356">🇲🇹 +356</option>
+                                    <option value="+692">🇲🇭 +692</option>
+                                    <option value="+596">🇲🇶 +596</option>
+                                    <option value="+222">🇲🇷 +222</option>
+                                    <option value="+230">🇲🇺 +230</option>
+                                    <option value="+262">🇾🇹 +262</option>
+                                    <option value="+52">🇲🇽 +52</option>
+                                    <option value="+691">🇫🇲 +691</option>
+                                    <option value="+373">🇲🇩 +373</option>
+                                    <option value="+377">🇲🇨 +377</option>
+                                    <option value="+976">🇲🇳 +976</option>
+                                    <option value="+382">🇲🇪 +382</option>
+                                    <option value="+1664">🇲🇸 +1664</option>
+                                    <option value="+212">🇲🇦 +212</option>
+                                    <option value="+258">🇲🇿 +258</option>
+                                    <option value="+95">🇲🇲 +95</option>
+                                    <option value="+264">🇳🇦 +264</option>
+                                    <option value="+674">🇳🇷 +674</option>
+                                    <option value="+977">🇳🇵 +977</option>
+                                    <option value="+31">🇳🇱 +31</option>
+                                    <option value="+687">🇳🇨 +687</option>
+                                    <option value="+64">🇳🇿 +64</option>
+                                    <option value="+505">🇳🇮 +505</option>
+                                    <option value="+227">🇳🇪 +227</option>
+                                    <option value="+234">🇳🇬 +234</option>
+                                    <option value="+683">🇳🇺 +683</option>
+                                    <option value="+672">🇳🇫 +672</option>
+                                    <option value="+1670">🇲🇵 +1670</option>
+                                    <option value="+47">🇳🇴 +47</option>
+                                    <option value="+968">🇴🇲 +968</option>
+                                    <option value="+92">🇵🇰 +92</option>
+                                    <option value="+680">🇵🇼 +680</option>
+                                    <option value="+970">🇵🇸 +970</option>
+                                    <option value="+507">🇵🇦 +507</option>
+                                    <option value="+675">🇵🇬 +675</option>
+                                    <option value="+595">🇵🇾 +595</option>
+                                    <option value="+51">🇵🇪 +51</option>
+                                    <option value="+63">🇵🇭 +63</option>
+                                    <option value="+48">🇵🇱 +48</option>
+                                    <option value="+351">🇵🇹 +351</option>
+                                    <option value="+1787">🇵🇷 +1787</option>
+                                    <option value="+974">🇶🇦 +974</option>
+                                    <option value="+262">🇷🇪 +262</option>
+                                    <option value="+40">🇷🇴 +40</option>
+                                    <option value="+7">🇷🇺 +7</option>
+                                    <option value="+250">🇷🇼 +250</option>
+                                    <option value="+290">🇸🇭 +290</option>
+                                    <option value="+1869">🇰🇳 +1869</option>
+                                    <option value="+1758">🇱🇨 +1758</option>
+                                    <option value="+508">🇵🇲 +508</option>
+                                    <option value="+1784">🇻🇨 +1784</option>
+                                    <option value="+685">🇼🇸 +685</option>
+                                    <option value="+378">🇸🇲 +378</option>
+                                    <option value="+239">🇸🇹 +239</option>
+                                    <option value="+966">🇸🇦 +966</option>
+                                    <option value="+221">🇸🇳 +221</option>
+                                    <option value="+381">🇷🇸 +381</option>
+                                    <option value="+248">🇸🇨 +248</option>
+                                    <option value="+232">🇸🇱 +232</option>
+                                    <option value="+65">🇸🇬 +65</option>
+                                    <option value="+421">🇸🇰 +421</option>
+                                    <option value="+386">🇸🇮 +386</option>
+                                    <option value="+677">🇸🇧 +677</option>
+                                    <option value="+252">🇸🇴 +252</option>
+                                    <option value="+27">🇿🇦 +27</option>
+                                    <option value="+211">🇸🇸 +211</option>
+                                    <option value="+34">🇪🇸 +34</option>
+                                    <option value="+94">🇱🇰 +94</option>
+                                    <option value="+249">🇸🇩 +249</option>
+                                    <option value="+597">🇸🇷 +597</option>
+                                    <option value="+268">🇸🇿 +268</option>
+                                    <option value="+46">🇸🇪 +46</option>
+                                    <option value="+41">🇨🇭 +41</option>
+                                    <option value="+963">🇸🇾 +963</option>
+                                    <option value="+886">🇹🇼 +886</option>
+                                    <option value="+992">🇹🇯 +992</option>
+                                    <option value="+255">🇹🇿 +255</option>
+                                    <option value="+66">🇹🇭 +66</option>
+                                    <option value="+670">🇹🇱 +670</option>
+                                    <option value="+228">🇹🇬 +228</option>
+                                    <option value="+690">🇹🇰 +690</option>
+                                    <option value="+676">🇹🇴 +676</option>
+                                    <option value="+1868">🇹🇹 +1868</option>
+                                    <option value="+216">🇹🇳 +216</option>
+                                    <option value="+90" selected>🇹🇷 +90</option>
+                                    <option value="+993">🇹🇲 +993</option>
+                                    <option value="+1649">🇹🇨 +1649</option>
+                                    <option value="+688">🇹🇻 +688</option>
+                                    <option value="+256">🇺🇬 +256</option>
+                                    <option value="+380">🇺🇦 +380</option>
+                                    <option value="+971">🇦🇪 +971</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+598">🇺🇾 +598</option>
+                                    <option value="+998">🇺🇿 +998</option>
+                                    <option value="+678">🇻🇺 +678</option>
+                                    <option value="+58">🇻🇪 +58</option>
+                                    <option value="+84">🇻🇳 +84</option>
+                                    <option value="+1284">🇻🇬 +1284</option>
+                                    <option value="+1340">🇻🇮 +1340</option>
+                                    <option value="+681">🇼🇫 +681</option>
+                                    <option value="+967">🇾🇪 +967</option>
+                                    <option value="+260">🇿🇲 +260</option>
+                                    <option value="+263">🇿🇼 +263</option>
+                                </select>
+                                <div class="phone-input-container">
+                                    <input 
+                                        type="tel" 
+                                        id="phone" 
+                                        name="phone" 
+                                        required 
+                                        placeholder="555 123 45 67"
+                                        autocomplete="tel"
+                                    >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="button-group">
-                        <button type="button" class="back-step-btn" data-prev="2">←</button>
-                        <button type="submit" id="submitBtn">Başvuru Gönder ✓</button>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-secondary" data-prev="2">←</button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Başvuru Gönder</button>
+                        </div>
                     </div>
                 </div>
             </form>
             
-            <div class="error-message" id="errorMsg"></div>
-            <div class="success-message" id="successMsg"></div>
+            <div class="message error-message" id="errorMsg"></div>
+            <div class="message success-message" id="successMsg"></div>
         </div>
     </div>
     
@@ -1156,22 +891,22 @@
         <div class="success-modal-content">
             <div class="success-icon">
                 <svg viewBox="0 0 100 100" class="checkmark">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="4"/>
-                    <path fill="none" stroke="#10b981" stroke-width="4" d="M25,55 L40,70 L75,35" class="checkmark-path"/>
+                    <circle cx="50" cy="50" r="45" fill="none" class="checkmark-circle"/>
+                    <path fill="none" d="M25,50 L40,65 L75,30" class="checkmark-path"/>
                 </svg>
             </div>
-            <h2 class="success-title">🎉 Başarılı!</h2>
-            <p class="success-text">Başvurunuz başarıyla gönderildi.<br>Ekibimiz en kısa sürede sizinle iletişime geçecek.</p>
+            <h2 class="success-title">Başarılı!</h2>
+            <p class="success-text">Başvurunuz alındı.<br>En kısa sürede sizinle iletişime geçeceğiz.</p>
         </div>
     </div>
     
     <script>
-        // EmailJS konfigürasyonu
+        // EmailJS Configuration
         const EMAILJS_SERVICE_ID = 'service_ocl60mr';
         const EMAILJS_TEMPLATE_ID = 'template_xce75of';
         const EMAILJS_PUBLIC_KEY = 'bMp0lFgKmxUIRSMcR';
         
-        // EmailJS kütüphanesini yükle
+        // Load EmailJS
         (function() {
             const script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
@@ -1184,42 +919,33 @@
         let currentStep = 1;
         const totalSteps = 3;
         
-        // Progress bar güncelleme
+        // Update Progress
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('progressText').textContent = currentStep + '/' + totalSteps;
+            document.getElementById('progressText').textContent = `Adım ${currentStep}/${totalSteps}`;
         }
         
-        // Adım değiştirme
-        function goToStep(stepNumber, direction = 'forward') {
+        // Go to Step
+        function goToStep(stepNumber) {
             const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
             const nextStepEl = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
             
             if (!nextStepEl) return;
             
-            // Animasyon yönü
-            if (direction === 'forward') {
-                currentStepEl.classList.add('slide-out-left');
-            } else {
-                currentStepEl.classList.add('slide-out-right');
-            }
+            currentStepEl.classList.remove('active');
+            nextStepEl.classList.add('active');
+            currentStep = stepNumber;
+            updateProgress();
             
-            setTimeout(() => {
-                currentStepEl.classList.remove('active', 'slide-out-left', 'slide-out-right');
-                nextStepEl.classList.add('active');
-                currentStep = stepNumber;
-                updateProgress();
-                
-                // Yeni input'a focus
-                const input = nextStepEl.querySelector('input');
-                if (input) {
-                    setTimeout(() => input.focus(), 100);
-                }
-            }, 300);
+            // Focus on input
+            const input = nextStepEl.querySelector('input');
+            if (input) {
+                setTimeout(() => input.focus(), 100);
+            }
         }
         
-        // Validasyon fonksiyonları
+        // Validation
         function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
@@ -1228,8 +954,8 @@
             return instagram.startsWith('@') && instagram.length >= 2;
         }
         
-        // "Devam Et" butonları
-        document.querySelectorAll('.next-btn').forEach(btn => {
+        // Next Buttons
+        document.querySelectorAll('.btn-primary[data-next]').forEach(btn => {
             btn.addEventListener('click', function() {
                 const step = parseInt(this.dataset.next);
                 const currentStepEl = this.closest('.form-step');
@@ -1238,7 +964,7 @@
                 
                 errorMsg.style.display = 'none';
                 
-                // Validasyon
+                // Validation
                 if (currentStep === 1 && !validateInstagram(input.value)) {
                     errorMsg.textContent = 'Geçerli bir Instagram kullanıcı adı giriniz';
                     errorMsg.style.display = 'block';
@@ -1253,72 +979,50 @@
                     return;
                 }
                 
-                goToStep(step, 'forward');
+                goToStep(step);
             });
         });
         
-        // "Geri" butonları
-        document.querySelectorAll('.back-step-btn').forEach(btn => {
+        // Back Buttons
+        document.querySelectorAll('.btn-secondary[data-prev]').forEach(btn => {
             btn.addEventListener('click', function() {
                 const step = parseInt(this.dataset.prev);
                 document.getElementById('errorMsg').style.display = 'none';
-                goToStep(step, 'backward');
+                goToStep(step);
             });
         });
         
-        // Enter tuşu ile devam
+        // Enter Key
         document.querySelectorAll('.form-step input').forEach(input => {
             input.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const step = parseInt(this.closest('.form-step').dataset.step);
-                    const nextBtn = this.closest('.form-step').querySelector('.next-btn');
+                    const nextBtn = this.closest('.form-step').querySelector('.btn-primary');
                     if (nextBtn) {
                         nextBtn.click();
-                    } else if (step === totalSteps) {
-                        document.getElementById('registerForm').dispatchEvent(new Event('submit'));
                     }
                 }
             });
         });
         
-        let isKeyboardOpen = false;
-        
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', () => {
-                const currentHeight = window.visualViewport.height;
-                const windowHeight = window.innerHeight;
-                
-                if (currentHeight < windowHeight * 0.75 && !isKeyboardOpen) {
-                    isKeyboardOpen = true;
-                    document.body.style.height = `${currentHeight}px`;
-                } else if (currentHeight >= windowHeight * 0.75 && isKeyboardOpen) {
-                    isKeyboardOpen = false;
-                    document.body.style.height = '100%';
-                }
-            });
-        }
-        
-        // Instagram kullanıcı adı otomatik formatlama (lowercase ve @)
+        // Instagram Auto-format
         document.getElementById('instagram').addEventListener('input', function(e) {
-            let value = e.target.value.toLowerCase().trim(); // Küçük harfe çevir
+            let value = e.target.value.toLowerCase().trim();
             if (value && !value.startsWith('@')) {
                 value = '@' + value;
             }
             e.target.value = value;
         });
         
-        // Telefon numarası formatlama
+        // Phone Formatting
         document.getElementById('phone').addEventListener('input', function(e) {
-            // Sadece rakamları al
             let value = e.target.value.replace(/\D/g, '');
             
-            // 0 ile başlıyorsa kaldır
             if (value.startsWith('0')) {
                 value = value.substring(1);
             }
             
-            // Formatla (örn: 555 123 45 67)
             if (value.length > 0) {
                 if (value.length <= 3) {
                     value = value;
@@ -1334,27 +1038,7 @@
             e.target.value = value;
         });
         
-        // Confetti oluşturma fonksiyonu
-        function createConfetti() {
-            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#43e97b', '#38f9d7'];
-            const confettiCount = 50;
-            const modal = document.getElementById('successModal');
-            
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                modal.appendChild(confetti);
-                
-                // Confetti'yi 3 saniye sonra temizle
-                setTimeout(() => confetti.remove(), 3000);
-            }
-        }
-        
-        // Form gönderimi
+        // Form Submit
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -1369,7 +1053,6 @@
             
             errorMsg.style.display = 'none';
             
-            // Telefon validasyonu
             if (phone.length < 7) {
                 errorMsg.textContent = 'Geçerli bir telefon numarası giriniz';
                 errorMsg.style.display = 'block';
@@ -1380,7 +1063,6 @@
             submitBtn.innerHTML = '<span class="loading"></span>';
             
             try {
-                // EmailJS ile email gönder
                 const templateParams = {
                     instagram: instagram,
                     email: email,
@@ -1394,63 +1076,29 @@
                     templateParams
                 );
                 
-                // Progress bar'ı 100% yap
                 document.getElementById('progressFill').style.width = '100%';
                 
-                // Success modal'ı göster
                 setTimeout(() => {
                     document.getElementById('successModal').classList.add('show');
-                    createConfetti();
-                    
-                    // Formu temizle
                     document.getElementById('registerForm').reset();
                     
-                    // 4 saniye sonra ana sayfaya yönlendir
                     setTimeout(() => {
                         window.location.href = 'index.html';
-                    }, 4000);
-                }, 500);
+                    }, 3000);
+                }, 300);
                 
             } catch (error) {
-                console.error('Email gönderme hatası:', error);
-                errorMsg.textContent = '✕ Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.';
+                console.error('Email error:', error);
+                errorMsg.textContent = 'Bir hata oluştu. Lütfen tekrar deneyiniz.';
                 errorMsg.style.display = 'block';
                 
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Başvuru Gönder ✓';
+                submitBtn.textContent = 'Başvuru Gönder';
             }
         });
         
-        // Mobil klavye açıldığında input'a scroll
-        if (window.innerWidth <= 480) {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    setTimeout(() => {
-                        this.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center',
-                            inline: 'nearest'
-                        });
-                    }, 300);
-                });
-            });
-        }
-        
-        // Sayfa yüklenme animasyonu
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.register-container');
-            if (container) {
-                container.style.opacity = '0';
-                container.style.transform = 'translateY(30px)';
-                
-                setTimeout(() => {
-                    container.style.transition = 'all 0.6s ease';
-                    container.style.opacity = '1';
-                    container.style.transform = 'translateY(0)';
-                }, 100);
-            }
-        });
+        // Initialize
+        updateProgress();
     </script>
 </body>
 </html>
