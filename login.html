@@ -527,7 +527,7 @@
         
         const translations = {
             tr: { flag: '🇹🇷', name: 'TR', rtl: false, subtitle: 'İşbirliği Ağı', username: 'Kullanıcı Adı', password: 'Şifre', login: 'Giriş Yap', registerText: 'Yeni Üye olmak için', registerBtn: 'Başvurun', success: '✓ Giriş başarılı! Yönlendiriliyorsunuz...', error: '✕ Bir hata oluştu. Lütfen tekrar deneyin.' },
-            en: { flag: '🇬🇧', name: 'EN', subtitle: 'Collaboration Network', username: 'Username', password: 'Password', login: 'Sign In', registerText: 'New member?', registerBtn: 'Apply', success: '✓ Login successful! Redirecting...', error: '✕ An error occurred. Please try again.' },
+            en: { flag: '🇬🇧', name: 'EN', subtitle: 'Collaboration Network', username: 'Username', password: 'Password', login: 'Sign In', pageTitle: 'Sign In', backHome: 'Home', registerText: 'New member?', registerBtn: 'Apply', success: '✓ Login successful! Redirecting...', error: '✕ An error occurred. Please try again.' },
             de: { flag: '🇩🇪', name: 'DE', subtitle: 'Kooperationsnetzwerk', username: 'Benutzername', password: 'Passwort', login: 'Anmelden', registerText: 'Neues Mitglied?', registerBtn: 'Bewerben', success: '✓ Anmeldung erfolgreich! Weiterleitung...', error: '✕ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.' },
             fr: { flag: '🇫🇷', name: 'FR', subtitle: 'Réseau de Collaboration', username: 'Nom d\'utilisateur', password: 'Mot de passe', login: 'Se connecter', registerText: 'Nouveau membre?', registerBtn: 'Postuler', success: '✓ Connexion réussie! Redirection...', error: '✕ Une erreur s\'est produite. Veuillez réessayer.' },
             es: { flag: '🇪🇸', name: 'ES', subtitle: 'Red de Colaboración', username: 'Usuario', password: 'Contraseña', login: 'Iniciar sesión', registerText: '¿Nuevo miembro?', registerBtn: 'Aplicar', success: '✓ Inicio de sesión exitoso! Redirigiendo...', error: '✕ Ocurrió un error. Por favor, inténtalo de nuevo.' },
@@ -602,7 +602,9 @@
                 document.documentElement.setAttribute('dir', 'ltr');
                 document.body.style.direction = 'ltr';
             }
-            
+
+            document.querySelector('.login-title').textContent = t.pageTitle;
+            document.querySelector('.nav-back').textContent = '← ' + t.backHome;
             document.getElementById('subtitle').textContent = t.subtitle;
             document.getElementById('usernameLabel').textContent = t.username;
             document.getElementById('passwordLabel').textContent = t.password;
