@@ -9,132 +9,174 @@
     
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
         
         html {
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
         }
         
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
             background: #ffffff;
-            color: #0a0a0a;
-            line-height: 1.6;
-            overflow-x: hidden;
-            overflow-y: auto;
-            width: 100%;
-            min-height: 100%;
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: none;
-            touch-action: pan-y;
-        }
-        
-        /* Background Pattern - Desktop only for performance */
-        @media (min-width: 769px) {
-            .bg-pattern {
-                position: fixed;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                z-index: -1;
-                opacity: 0.03;
-                background-image: 
-                    repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
-                    repeating-linear-gradient(-45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
-                background-size: 50px 50px;
-                background-position: 0 0, 25px 25px;
-            }
-        }
-
-        
-        /* Container */
-        .container {
-            max-width: 1000px;
-            margin: 30px auto 0;
-            padding: 30px 24px 60px;
-            transform: translate3d(0,0,0);
-            will-change: transform;
-        }
-        
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: 60px;
-            padding-top: 50px;
-            position: relative;
-        }
-        
-        .hero-title {
-            font-size: clamp(38px, 5.5vw, 52px);
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 24px;
-            line-height: 1.2;
-            letter-spacing: -0.5px;
-        }
-        
-        .hero-title span {
-            color: #6366f1;
-            font-weight: 700;
-        }
-        
-        .hero-subtitle {
-            font-size: 20px;
-            color: #64748b;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
+            color: #1d1d1f;
+            line-height: 1.47059;
+            font-size: 17px;
             font-weight: 400;
         }
         
-        /* Video Section */
-        .video-section {
-            margin: 60px auto 80px;
-            max-width: 420px;
-            position: relative;
-            padding: 0 20px;
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
         
-        .video-decoration {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid #e4e4e7;
-            border-radius: 20px;
-            top: 10px;
-            left: 10px;
-            z-index: -1;
-            display: none; /* Hide decoration on mobile for performance */
+        .nav-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        @media (min-width: 768px) {
-            .video-decoration {
-                display: block;
-            }
+        .logo {
+            font-size: 21px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .nav-link {
+            padding: 4px 16px;
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: opacity 0.3s;
+            border-radius: 18px;
+        }
+        
+        .nav-link:hover {
+            opacity: 0.6;
+        }
+        
+        .nav-link.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+        }
+        
+        .nav-link.primary:hover {
+            opacity: 0.9;
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 22px 30px;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 56px;
+            line-height: 1.07143;
+            font-weight: 700;
+            letter-spacing: -0.005em;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+        }
+        
+        .hero-subtitle {
+            font-size: 28px;
+            line-height: 1.14286;
+            font-weight: 400;
+            letter-spacing: 0.007em;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+        }
+        
+        .hero-description {
+            font-size: 21px;
+            line-height: 1.381;
+            font-weight: 400;
+            letter-spacing: 0.011em;
+            color: #6e6e73;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-size: 17px;
+            line-height: 1.17648;
+            font-weight: 400;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Video + Content Combined Section */
+        .video-content-section {
+            max-width: 1024px;
+            margin: 0 auto 100px;
+            padding: 0 22px;
+        }
+        
+        .video-content-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 32px;
+            align-items: start;
         }
         
         .video-container {
             position: relative;
             width: 100%;
             padding-bottom: 177.78%;
-            background: #0a0a0a;
-            border-radius: 20px;
+            background: #000000;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
         }
         
         .video-container iframe {
@@ -146,387 +188,223 @@
             border: none;
         }
         
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 32px;
-            margin-bottom: 80px;
+        .content-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         
-        .info-card {
-            background: #fafafa;
+        .content-card {
+            background: #fbfbfd;
             padding: 48px;
-            border-radius: 24px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #f4f4f5;
-            transition: all 0.3s ease;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-        }
-        
-        .card-accent {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #6366f1, #8b5cf6);
+            border-radius: 18px;
+            border: 1px solid #d2d2d7;
         }
         
         .card-title {
-            font-size: 26px;
+            font-size: 32px;
+            line-height: 1.125;
             font-weight: 700;
-            color: #0a0a0a;
+            letter-spacing: 0.004em;
+            color: #1d1d1f;
             margin-bottom: 32px;
-            letter-spacing: -0.5px;
         }
         
-        .card-text {
-            font-size: 17px;
-            color: #52525b;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        
-        /* Simple Steps */
-        .simple-step {
+        .step-list,
+        .benefit-list {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 16px;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: white;
-            border-radius: 12px;
-            transition: all 0.2s ease;
         }
         
-        .simple-step:hover {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
-            transform: translateX(4px);
-        }
-        
-        .simple-step-number {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-        
-        .simple-step-text {
-            font-size: 16px;
-            color: #52525b;
-            font-weight: 500;
-        }
-        
-        /* Benefits List */
-        .benefits-list {
-            margin-top: 24px;
-        }
-        
+        .step-item,
         .benefit-item {
             display: flex;
             align-items: flex-start;
             gap: 16px;
-            margin-bottom: 20px;
-            padding: 18px;
-            background: white;
-            border-radius: 14px;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
             font-size: 16px;
-            color: #52525b;
-            transition: all 0.2s ease;
-            border: 1px solid #e4e4e7;
-        }
-        
-        .benefit-item:hover {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), rgba(139, 92, 246, 0.03));
-            transform: translateX(4px);
-            border-color: rgba(99, 102, 241, 0.2);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
-        }
-        
-        .benefit-check {
-            color: #10b981;
-            font-weight: 700;
-            font-size: 24px;
             flex-shrink: 0;
-            margin-top: 2px;
+        }
+        
+        .step-text {
+            font-size: 17px;
+            line-height: 1.47059;
+            font-weight: 400;
+            color: #1d1d1f;
+            padding-top: 6px;
+        }
+        
+        .benefit-icon {
+            width: 32px;
+            height: 32px;
+            background: #34c759;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
         }
         
         .benefit-content {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+            flex: 1;
+            padding-top: 4px;
         }
         
         .benefit-title {
-            font-weight: 700;
-            color: #0a0a0a;
-            font-size: 17px;
+            font-size: 19px;
+            line-height: 1.42105;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 2px;
         }
         
         .benefit-desc {
             font-size: 14px;
-            color: #71717a;
+            line-height: 1.42859;
             font-weight: 400;
+            color: #6e6e73;
         }
         
-        /* Removed old benefit styles */
-        .benefits-grid {
-            display: none;
-        }
-        
-        .benefit-card {
-            display: none;
-        }
-        
-        .benefit-icon {
-            display: none;
-        }
-        
-        .benefit-text {
-            display: none;
-        }
-
-        
-        /* CTA Section */
+        /* CTA */
         .cta-section {
             text-align: center;
-            padding: 80px 40px;
-            background: #fafafa;
-            border-radius: 24px;
-            margin-bottom: 60px;
+            padding: 80px 22px;
+            max-width: 1024px;
+            margin: 0 auto;
+            background: #f5f5f7;
+            border-radius: 18px;
+            margin-bottom: 80px;
         }
         
         .cta-title {
-            font-size: 32px;
+            font-size: 48px;
+            line-height: 1.08349;
             font-weight: 700;
-            color: #0a0a0a;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.003em;
+            color: #1d1d1f;
+            margin-bottom: 12px;
         }
         
-        .cta-text {
-            font-size: 18px;
-            color: #52525b;
-            line-height: 1.7;
-            margin-bottom: 36px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .cta-subtitle {
+            font-size: 21px;
+            line-height: 1.381;
+            font-weight: 400;
+            letter-spacing: 0.011em;
+            color: #6e6e73;
+            margin-bottom: 32px;
         }
         
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
             justify-content: center;
-            gap: 6px;
-            padding: 16px 28px;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            white-space: nowrap;
-            transform: perspective(1px) translateZ(0);
-            backface-visibility: hidden;
         }
         
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s ease;
+        /* Footer */
+        .footer {
+            background: #f5f5f7;
+            padding: 20px 22px;
+            text-align: center;
         }
         
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+        .footer-text {
+            font-size: 12px;
+            line-height: 1.33337;
+            font-weight: 400;
+            color: #6e6e73;
         }
         
-        .cta-button.clicked::after {
-            width: 300px;
-            height: 300px;
-            opacity: 0;
-        }
-        
-        /* Success animation */
-        @keyframes successPulse {
-            0% {
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
-            50% {
-                box-shadow: 0 4px 30px rgba(99, 102, 241, 0.6);
-            }
-            100% {
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        /* Responsive */
+        @media (max-width: 1068px) {
+            .video-content-grid {
+                grid-template-columns: 1fr;
             }
         }
         
-        .cta-button.success {
-            animation: successPulse 0.5s ease;
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-        
-        /* Mobile specific button states */
         @media (max-width: 768px) {
-            .cta-button {
-                transform: scale(1);
-                transition: all 0.2s ease;
+            .nav-content {
+                padding: 0 16px;
             }
             
-            .cta-button:active {
-                transform: scale(0.92);
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-                box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+            .logo {
+                font-size: 18px;
             }
             
-            .cta-button.touching {
-                animation: touchResponse 0.3s ease;
-            }
-            
-            @keyframes touchResponse {
-                0% { transform: scale(1); }
-                50% { transform: scale(0.95) rotateZ(0.5deg); }
-                100% { transform: scale(1); }
-            }
-        }
-        
-        /* Mobile-friendly hover states */
-        @media (hover: hover) {
-            .cta-button:hover {
-                transform: translateY(-3px) scale(1.02);
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            }
-            
-            .cta-button:hover::before {
-                left: 100%;
-            }
-            
-            .cta-button:hover .cta-arrow {
-                transform: translateX(4px);
-            }
-        }
-        
-        /* Mobile touch states */
-        @media (hover: none) {
-            .cta-button {
-                -webkit-tap-highlight-color: transparent;
-                touch-action: manipulation;
-            }
-            
-            .cta-button:active {
-                transform: scale(0.95);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            }
-        }
-        
-        .cta-button:active {
-            transform: translateY(-1px) scale(0.98);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            transition: all 0.1s ease;
-        }
-        
-        .cta-arrow {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px 30px;
-                margin-top: 15px;
-                max-width: 100%;
+            .nav-link {
+                font-size: 12px;
+                padding: 4px 12px;
             }
             
             .hero {
-                margin-bottom: 40px;
-                padding-top: 30px;
+                padding: 40px 16px 20px;
+            }
+            
+            .hero-eyebrow {
+                font-size: 15px;
             }
             
             .hero-title {
-                font-size: 30px;
-                margin-bottom: 18px;
+                font-size: 40px;
             }
             
             .hero-subtitle {
-                font-size: 18px;
-                padding: 0 10px;
+                font-size: 24px;
             }
             
-            .video-section {
-                margin: 30px auto 50px;
-                max-width: 280px;
-                padding: 0;
+            .hero-description {
+                font-size: 19px;
             }
             
-            .video-container {
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                border-radius: 16px;
+            .video-content-section {
+                margin-bottom: 60px;
+                padding: 0 16px;
             }
             
-            .info-grid {
+            .video-content-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-                margin-bottom: 50px;
             }
             
-            .info-card {
+            .content-cards {
+                gap: 12px;
+            }
+            
+            .content-card {
                 padding: 32px 24px;
-                border-radius: 20px;
             }
             
             .card-title {
-                font-size: 20px;
+                font-size: 28px;
+                margin-bottom: 24px;
             }
             
-            .simple-step {
-                padding: 12px;
-                margin-bottom: 14px;
-            }
-            
-            .simple-step-text {
+            .step-number,
+            .benefit-icon {
+                width: 28px;
+                height: 28px;
                 font-size: 14px;
             }
             
-            .benefit-item {
-                padding: 14px;
-                margin-bottom: 14px;
+            .step-text {
+                font-size: 15px;
             }
             
             .benefit-title {
-                font-size: 15px;
+                font-size: 17px;
             }
             
             .benefit-desc {
@@ -534,417 +412,153 @@
             }
             
             .cta-section {
-                padding: 50px 20px;
-                border-radius: 20px;
-                margin-bottom: 40px;
+                padding: 60px 16px;
+                margin-bottom: 60px;
             }
             
             .cta-title {
-                font-size: 24px;
+                font-size: 36px;
             }
             
-            .cta-text {
-                font-size: 15px;
+            .cta-subtitle {
+                font-size: 19px;
             }
             
-            .cta-button {
-                padding: 14px 24px;
-                font-size: 15px;
-                display: inline-flex;
-                width: auto;
-                max-width: none;
+            .cta-buttons {
+                flex-direction: column;
+                gap: 12px;
             }
         }
         
         @media (max-width: 480px) {
-            .container {
-                padding: 15px 12px 20px;
-                margin-top: 10px;
-            }
-            
-            .hero {
-                margin-bottom: 30px;
-                padding-top: 25px;
-            }
-            
             .hero-title {
-                font-size: 26px;
-                margin-bottom: 16px;
+                font-size: 32px;
             }
             
             .hero-subtitle {
-                font-size: 16px;
-                padding: 0 5px;
+                font-size: 21px;
             }
             
-            .video-section {
-                margin: 20px auto 40px;
-                max-width: 240px;
+            .hero-description {
+                font-size: 17px;
             }
             
-            .video-container {
-                border-radius: 14px;
-            }
-            
-            .info-card {
+            .content-card {
                 padding: 28px 20px;
             }
             
             .card-title {
-                font-size: 18px;
-                margin-bottom: 20px;
-            }
-            
-            .simple-step {
-                padding: 10px;
-                gap: 10px;
-                margin-bottom: 12px;
-            }
-            
-            .simple-step-number {
-                width: 26px;
-                height: 26px;
-                font-size: 12px;
-            }
-            
-            .simple-step-text {
-                font-size: 13px;
-            }
-            
-            .benefit-item {
-                padding: 12px;
-                margin-bottom: 12px;
-            }
-            
-            .benefit-title {
-                font-size: 14px;
-            }
-            
-            .benefit-desc {
-                font-size: 12px;
-            }
-            
-            .cta-section {
-                padding: 40px 16px;
-                margin-bottom: 30px;
+                font-size: 24px;
             }
             
             .cta-title {
-                font-size: 22px;
+                font-size: 28px;
             }
             
-            .cta-text {
-                font-size: 14px;
-                margin-bottom: 24px;
+            .cta-subtitle {
+                font-size: 17px;
             }
-            
-            .cta-button {
-                padding: 12px 20px;
-                font-size: 14px;
-                display: inline-flex;
-                width: auto;
-            }
-        }
-        
-        /* Animations - Desktop only */
-        @media (min-width: 769px) {
-            .fade-in {
-                opacity: 0;
-                transform: translateY(20px);
-                animation: fadeInUp 0.6s ease forwards;
-            }
-            
-            @keyframes fadeInUp {
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .info-card:nth-child(1) { animation-delay: 0.1s; }
-            .info-card:nth-child(2) { animation-delay: 0.2s; }
-        }
-        
-        /* Mobile - No animations */
-        @media (max-width: 768px) {
-            .fade-in {
-                opacity: 1 !important;
-                transform: none !important;
-                animation: none !important;
-            }
-            
-            * {
-                animation-duration: 0s !important;
-                transition-duration: 0s !important;
-            }
-        }
-        
-        /* Smooth scroll for sections */
-        section {
-            scroll-margin-top: 100px;
         }
     </style>
 </head>
 <body>
-    <!-- Background Pattern -->
-    <div class="bg-pattern"></div>
-    
-
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero fade-in">
-            <h1 class="hero-title">
-                Karşılıklı Tanıtım <span>Platformu</span>
-            </h1>
-            <p class="hero-subtitle">
-                Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.
-            </p>
-        </section>
-        
-        <!-- Video Section -->
-        <section class="video-section fade-in">
-            <div class="video-decoration"></div>
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/LHxc9hxyABU?autoplay=0&mute=0&loop=0&controls=1&rel=0&modestbranding=1"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">Soy.ad</div>
+            <div class="nav-links">
+                <a href="entry.html" class="nav-link">Giriş Yap</a>
+                <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="nav-link primary" target="_blank">Hesap Oluştur</a>
             </div>
-        </section>
-        
-        <!-- Info Grid -->
-        <div class="info-grid">
-            <!-- How It Works -->
-            <section class="info-card fade-in">
-                <div class="card-accent"></div>
-                <h2 class="card-title">Nasıl Çalışır?</h2>
-                
-                <div class="steps-container">
-                    <div class="simple-step">
-                        <div class="simple-step-number">1</div>
-                        <div class="simple-step-text">Platforma giriş yapın</div>
-                    </div>
-                    <div class="simple-step">
-                        <div class="simple-step-number">2</div>
-                        <div class="simple-step-text">Size uygun sayfaları beğenin</div>
-                    </div>
-                    <div class="simple-step">
-                        <div class="simple-step-number">3</div>
-                        <div class="simple-step-text">Karşılıklı beğeni geldiğinde, işbirliği başlatın!</div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Benefits -->
-            <section class="info-card fade-in">
-                <div class="card-accent"></div>
-                <h2 class="card-title">Ne Kazanırsınız?</h2>
-                
-                <div class="benefits-list">
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <div class="benefit-content">
-                            <span class="benefit-title">Organik Büyüme</span>
-                            <span class="benefit-desc">Gerçek takipçiler, gerçek etkileşim</span>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <div class="benefit-content">
-                            <span class="benefit-title">Yeni Müşteriler</span>
-                            <span class="benefit-desc">Farklı kitlelere doğrudan erişim</span>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <div class="benefit-content">
-                            <span class="benefit-title">Sıfır Reklam Bütçesi</span>
-                            <span class="benefit-desc">Sadece karşılıklı destek</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
-        
-        <!-- CTA Section -->
-        <section class="cta-section fade-in">
-            <h2 class="cta-title">Başlayın</h2>
-            <p class="cta-text">
-                İlk ay ücretsiz deneyin.
-            </p>
-            <a href="login.html" class="cta-button">
-                Giriş Yap
-                <span class="cta-arrow">→</span>
-            </a>
-        </section>
-    </div>
-</body>
+    </nav>
     
-    <script>
-        // Detect mobile device
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-        
-        // Disable animations on mobile for better performance (except button)
-        if (isMobile) {
-            // Remove all animations except button
-            const style = document.createElement('style');
-            style.textContent = `
-                *:not(.cta-button) {
-                    animation: none !important;
-                    transition: none !important;
-                }
-                .fade-in {
-                    opacity: 1 !important;
-                    transform: none !important;
-                }
-            `;
-            document.head.appendChild(style);
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="hero-title">Karşılıklı Tanıtım</h1>
+        <h2 class="hero-subtitle">Platformu</h2>
+        <p class="hero-description">Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.</p>
+    </section>
+    
+    <!-- Video + Content Combined -->
+    <section class="video-content-section">
+        <div class="video-content-grid">
+            <!-- Video on Left -->
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/vEqmmIzt6xE?autoplay=0&mute=0&loop=0&controls=1&rel=0&modestbranding=1"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
             
-            // Make all fade-in elements visible immediately
-            document.querySelectorAll('.fade-in').forEach(el => {
-                el.style.opacity = '1';
-                el.style.transform = 'none';
-            });
-            
-            // Improve scroll performance
-            document.addEventListener('touchstart', function() {}, {passive: true});
-            document.addEventListener('touchmove', function() {}, {passive: true});
-            document.addEventListener('wheel', function() {}, {passive: true});
-            
-        } else {
-            // Desktop animations only
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.fade-in').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'all 0.6s ease';
-                observer.observe(el);
-            });
-            
-            // Desktop only - Smooth parallax effect for hero
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero');
-                if (hero && scrolled < 500) {
-                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-                    hero.style.opacity = 1 - (scrolled / 500);
-                }
-            });
-        }
-        
-        // Enhanced button animations for all devices
-        const ctaButton = document.querySelector('.cta-button');
-        if (ctaButton) {
-            // Click animation
-            ctaButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                const button = this;
+            <!-- Cards on Right -->
+            <div class="content-cards">
+                <!-- How It Works -->
+                <div class="content-card">
+                    <h3 class="card-title">Nasıl Çalışır?</h3>
+                    <div class="step-list">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Platforma giriş yapın</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Size uygun sayfaları beğenin</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Karşılıklı beğeni geldiğinde, işbirliği başlatın!</div>
+                        </div>
+                    </div>
+                </div>
                 
-                // Prevent multiple clicks
-                if (button.disabled) return;
-                button.disabled = true;
-                
-                // Save original content
-                const originalContent = button.innerHTML;
-                
-                // Clear button and add animated dots (both mobile and desktop)
-                button.style.background = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
-                button.innerHTML = '';
-                
-                // Create dots container
-                const dotsContainer = document.createElement('div');
-                dotsContainer.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 6px; height: 100%;';
-                
-                // Create 4 animated dots
-                for (let i = 0; i < 4; i++) {
-                    const dot = document.createElement('span');
-                    dot.className = 'loading-dot';
-                    dot.style.cssText = `
-                        width: 8px;
-                        height: 8px;
-                        background-color: white;
-                        border-radius: 50%;
-                        display: inline-block;
-                    `;
-                    dotsContainer.appendChild(dot);
-                }
-                
-                button.appendChild(dotsContainer);
-                
-                // Animate dots with JavaScript for mobile compatibility
-                let frame = 0;
-                const animateDots = setInterval(() => {
-                    const dots = button.querySelectorAll('.loading-dot');
-                    dots.forEach((dot, index) => {
-                        const offset = (frame + index * 25) % 100;
-                        const y = Math.sin(offset * Math.PI / 50) * 4; // 4px smooth movement
-                        dot.style.transform = `translateY(${y}px)`;
-                        dot.style.opacity = 0.6 + Math.abs(y) / 10;
-                    });
-                    frame += 4; // Faster for visible cycles
-                }, 25); // Faster update for quicker animation
-                
-                // Haptic feedback for mobile
-                if (isMobile && window.navigator && window.navigator.vibrate) {
-                    window.navigator.vibrate(15);
-                }
-                
-                // Navigate IMMEDIATELY - no delay
-                window.location.href = 'login.html';
-                
-                // Keep animation running while page loads
-                // Browser will naturally stop it when navigating
-            });
-            
-            // Mobile touch feedback
-            if (isMobile) {
-                ctaButton.addEventListener('touchstart', function() {
-                    if (!this.disabled) {
-                        this.style.transform = 'scale(0.98)';
-                    }
-                });
-                
-                ctaButton.addEventListener('touchend', function() {
-                    if (!this.disabled) {
-                        this.style.transform = 'scale(1)';
-                    }
-                });
-            }
-        }
-        
-        // Add basic styles
-        const animationStyle = document.createElement('style');
-        animationStyle.textContent = `
-            .cta-button {
-                min-height: 48px;
-                position: relative;
-            }
-            
-            .cta-button:disabled {
-                cursor: not-allowed;
-                opacity: 0.95;
-            }
-            
-            .loading-dot {
-                transition: transform 0.05s linear, opacity 0.05s linear;
-            }
-        `;
-        document.head.appendChild(animationStyle);
-    </script>
+                <!-- Benefits -->
+                <div class="content-card">
+                    <h3 class="card-title">Sizin Kazancınız</h3>
+                    <div class="benefit-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✓</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Organik Büyüme</div>
+                                <div class="benefit-desc">Gerçek takipçiler, gerçek etkileşim</div>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✓</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Yeni Müşteriler</div>
+                                <div class="benefit-desc">Farklı kitlelere doğrudan erişim</div>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✓</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Reklam Harcaması: 0 TL</div>
+                                <div class="benefit-desc">Sadece karşılıklı destek</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="cta-title">Başlayın</h2>
+        <p class="cta-subtitle">İlk ay ücretsiz deneyin.</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="btn btn-primary" target="_blank">Hesap Oluştur</a>
+            <a href="entry.html" class="btn btn-secondary">Giriş Yap</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2024 Soy.ad Tüm hakları saklıdır.</p>
+    </footer>
 </body>
 </html>
