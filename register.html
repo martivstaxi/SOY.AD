@@ -1223,6 +1223,108 @@
             }
         });
         
+        // Language System
+        let currentLang = 'tr';
+
+        function detectLang() {
+            const saved = localStorage.getItem('soyad-lang');
+            if (saved && translations[saved]) return saved;
+            
+            const browser = navigator.language.toLowerCase();
+            for (const code in translations) {
+                if (browser.startsWith(code)) return code;
+            }
+            return 'tr';
+        }
+
+        function updateLanguage(lang) {
+            if (!translations[lang]) return;
+            
+            currentLang = lang;
+            const t = translations[lang];
+            
+            // RTL Support
+            if (t.rtl) {
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.body.style.direction = 'rtl';
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.body.style.direction = 'ltr';
+            }
+            
+            // Update all texts
+            document.querySelector('.register-title').textContent = t.title;
+            document.querySelector('.register-subtitle').textContent = t.subtitle;
+            document.querySelector('label[for="instagram"]').textContent = t.instagram;
+            document.querySelector('label[for="email"]').textContent = t.email;
+            document.querySelector('label[for="phone"]').textContent = t.phone;
+            document.querySelector('.success-title').textContent = t.successTitle;
+            document.querySelector('.success-text').innerHTML = t.successText;
+            document.querySelector('.nav-back').textContent = '← ' + t.navBack;
+            document.querySelector('.nav-link').textContent = t.navLogin;
+            
+            // Update buttons
+            document.querySelectorAll('.btn-primary[data-next]').forEach(btn => {
+                btn.textContent = t.continue;
+            });
+            document.getElementById('submitBtn').textContent = t.submit;
+            
+            // Update progress text
+            document.getElementById('progressText').textContent = t.step + ' ' + currentStep + '/' + totalSteps;
+            
+            // Update placeholders
+            document.getElementById('instagram').placeholder = '@' + t.instagram.toLowerCase();
+            document.getElementById('email').placeholder = 'example@email.com';
+            document.getElementById('phone').placeholder = '555 123 45 67';
+            
+            // Update language selector
+            document.getElementById('langFlag').textContent = t.flag;
+            document.getElementById('langName').textContent = t.name;
+            document.title = `Soy.ad - ${t.title}`;
+            
+            document.documentElement.lang = lang;
+            localStorage.setItem('soyad-lang', lang);
+            
+            document.querySelectorAll('.lang-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.lang === lang);
+            });
+        }
+
+        function initLanguageSelector() {
+            const langList = document.getElementById('langList');
+            const langBtn = document.getElementById('langBtn');
+            
+            for (const [code, lang] of Object.entries(translations)) {
+                const item = document.createElement('div');
+                item.className = 'lang-item';
+                item.dataset.lang = code;
+                item.innerHTML = `<span>${lang.flag}</span><span>${lang.name}</span>`;
+                item.onclick = function() {
+                    updateLanguage(code);
+                    langList.classList.remove('show');
+                };
+                langList.appendChild(item);
+            }
+            
+            langBtn.onclick = function(e) {
+                e.stopPropagation();
+                langList.classList.toggle('show');
+            };
+            
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.lang-select')) {
+                    langList.classList.remove('show');
+                }
+            });
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initLanguageSelector();
+            const detectedLang = detectLang();
+            updateLanguage(detectedLang);
+        });
+        
         // Initialize
         updateProgress();
     </script>
