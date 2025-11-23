@@ -2,24 +2,50 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>www.Soy.ad - Giriş</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soy.ad - Giriş</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
             height: 100%;
-            overflow: hidden;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.47059;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            min-height: 100%;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] {
+            direction: rtl;
         }
         
         [dir="rtl"] .lang-select {
             right: auto;
-            left: 30px;
+            left: 22px;
         }
         
         [dir="rtl"] .lang-list {
@@ -27,650 +53,472 @@
             left: 0;
         }
         
-        body {
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            position: fixed;
-            width: 100%;
+        /* Navigation Bar */
+        .nav {
+            position: sticky;
             top: 0;
-            left: 0;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
         
-        .animated-bg {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 0;
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            animation: float 20s ease-in-out infinite;
+        .nav-back {
+            padding: 8px 16px;
+            color: #0071e3;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
         
-        .orb1 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            top: -200px;
-            right: -100px;
-            animation-delay: 0s;
+        .nav-back:hover {
+            background: rgba(0, 113, 227, 0.08);
         }
         
-        .orb2 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            bottom: -150px;
-            left: -100px;
-            animation-delay: 7s;
-        }
-        
-        .orb3 {
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 14s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-        
+        /* Language Selector */
         .lang-select {
             position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 100;
+            top: 60px;
+            right: 22px;
+            z-index: 9998;
             display: none;
         }
         
         .lang-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: #f5f5f7;
+            border: 1px solid #d2d2d7;
             border-radius: 12px;
-            padding: 10px 16px;
+            padding: 8px 14px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-            transition: all .3s ease;
-            color: white;
-            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s ease;
+            color: #1d1d1f;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
         }
         
         .lang-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-            background: rgba(255, 255, 255, 0.3);
+            background: #e8e8ed;
+            border-color: #b8b8bd;
         }
         
         .lang-list {
             position: absolute;
             top: calc(100% + 8px);
             right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border: 1px solid #d2d2d7;
             border-radius: 12px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
             max-height: 320px;
             overflow-y: auto;
             display: none;
-            min-width: 160px;
+            min-width: 140px;
         }
         
         .lang-list.show {
             display: block;
-            animation: fadeIn .3s ease;
+            animation: fadeIn 0.2s ease;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(-8px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
         
         .lang-item {
-            padding: 10px 16px;
+            padding: 10px 14px;
             cursor: pointer;
-            transition: background .2s;
+            transition: background 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 14px;
-            color: #334155;
+            color: #1d1d1f;
+            font-weight: 400;
         }
         
         .lang-item:hover {
-            background: rgba(103, 126, 234, 0.1);
-            color: #667eea;
+            background: #f5f5f7;
         }
         
         .lang-item.active {
-            background: #667eea;
+            background: #0071e3;
             color: white;
         }
         
+        /* Container */
         .wrapper {
-            min-height: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 52px 22px 80px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
         }
         
+        /* Login Container */
         .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 56px 48px;
-            border-radius: 32px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
             width: 100%;
-            max-width: 460px;
-            position: relative;
-            z-index: 1;
-            animation: slideUp 0.6s ease-out;
+            max-width: 440px;
+            animation: fadeIn 0.6s ease-out;
         }
         
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .logo {
+        /* Hero Section */
+        .login-hero {
             text-align: center;
             margin-bottom: 40px;
         }
         
-        .logo-icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            animation: pulse 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .logo h1 {
-            color: #1a1a2e;
-            font-size: 36px;
-            font-weight: 800;
+        .login-title {
+            font-size: 48px;
+            font-weight: 600;
+            color: #1d1d1f;
+            line-height: 1.08333;
+            letter-spacing: -0.003em;
             margin-bottom: 12px;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
-        .logo p {
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
+        .login-subtitle {
+            font-size: 21px;
+            color: #6e6e73;
+            line-height: 1.38095;
+            font-weight: 400;
+            letter-spacing: 0.011em;
+        }
+        
+        /* Form Card */
+        .form-card {
+            background: #f5f5f7;
+            border-radius: 18px;
+            padding: 40px;
+            margin-bottom: 20px;
         }
         
         .form-group {
-            margin-bottom: 28px;
-            position: relative;
+            margin-bottom: 24px;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
         }
         
         label {
             display: block;
-            margin-bottom: 12px;
-            color: #374151;
+            margin-bottom: 8px;
+            color: #1d1d1f;
             font-weight: 600;
-            font-size: 15px;
-            letter-spacing: -0.3px;
+            font-size: 17px;
+            letter-spacing: -0.022em;
         }
         
-        .input-wrapper {
-            position: relative;
-        }
-        
-        .input-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            opacity: 0.5;
-            transition: all 0.3s ease;
-        }
-        
+        /* Input Styles */
         input {
             width: 100%;
-            padding: 16px 18px 16px 52px;
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            font-size: 16px;
-            font-family: 'Outfit', sans-serif;
-            transition: all 0.3s ease;
-            background: #f9fafb;
-            color: #1a1a2e;
-            font-weight: 500;
+            padding: 14px 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 17px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            background: #ffffff;
+            color: #1d1d1f;
+            letter-spacing: -0.022em;
+            -webkit-appearance: none;
+            appearance: none;
         }
         
         input:focus {
             outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
-                        0 10px 30px rgba(102, 126, 234, 0.1);
-        }
-        
-        input:focus + .input-icon {
-            opacity: 1;
-            color: #667eea;
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
         }
         
         input::placeholder {
-            color: #9ca3af;
-            font-weight: 400;
+            color: #86868b;
         }
         
-        button {
+        /* Button */
+        .btn-primary {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 14px 22px;
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             font-size: 17px;
-            font-weight: 700;
+            font-weight: 400;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            margin-top: 12px;
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            letter-spacing: -0.022em;
+            background: #0071e3;
+            color: white;
+            margin-top: 28px;
         }
         
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
+        .btn-primary:hover {
+            background: #0077ed;
         }
         
-        button:hover::before {
-            left: 100%;
+        .btn-primary:active {
+            transform: scale(0.98);
         }
         
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
-        }
-        
-        button:active {
-            transform: translateY(-1px);
-        }
-        
-        button:disabled {
-            opacity: 0.7;
+        .btn-primary:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
         
+        /* Register Section */
         .register-section {
             text-align: center;
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 2px solid #e5e7eb;
+            padding: 32px 40px;
+            background: #f5f5f7;
+            border-radius: 18px;
         }
         
         .register-text {
-            color: #6b7280;
-            font-size: 15px;
+            color: #1d1d1f;
+            font-size: 17px;
             margin-bottom: 16px;
-            font-weight: 500;
+            font-weight: 400;
+            letter-spacing: -0.022em;
         }
         
         .register-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: transparent;
-            color: #667eea;
-            border: 2px solid #667eea;
-            border-radius: 14px;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 20px;
+            background: #ffffff;
+            color: #0071e3;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 400;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-family: 'Outfit', sans-serif;
-        }
-        
-        .register-btn::after {
-            content: '→';
-            transition: transform 0.3s ease;
+            transition: all 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            letter-spacing: -0.016em;
         }
         
         .register-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-        
-        .register-btn:hover::after {
-            transform: translateX(4px);
+            background: #e8e8ed;
+            border-color: #b8b8bd;
         }
         
         .register-btn:active {
-            transform: translateY(0);
+            transform: scale(0.98);
+        }
+        
+        /* Messages */
+        .message {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.016em;
         }
         
         .error-message {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 24px;
-            display: none;
-            text-align: center;
-            font-size: 15px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
-            animation: shake 0.5s ease;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            background: #fff5f5;
+            color: #c41e3a;
+            border: 1px solid #ffd4dc;
         }
         
         .success-message {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 24px;
-            display: none;
-            text-align: center;
-            font-size: 15px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(67, 233, 123, 0.3);
-            animation: slideDown 0.5s ease;
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
         }
         
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
+        /* Loading Spinner */
         .loading {
             display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255,255,255,.3);
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: white;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.6s linear infinite;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
-        @media (max-width: 480px) {
-            body {
-                overflow-y: scroll;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 16px;
+                height: 48px;
+            }
+            
+            .wrapper {
+                padding: 40px 16px 60px;
             }
             
             .lang-select {
-                top: 20px;
-                right: 20px;
+                top: 64px;
+                right: 16px;
             }
             
             [dir="rtl"] .lang-select {
-                right: auto;
-                left: 20px;
-            }
-            
-            .orb {
-                filter: blur(40px);
-            }
-            
-            .wrapper {
-                padding: 20px;
-                min-height: 100vh;
-                min-height: -webkit-fill-available;
-                align-items: flex-start;
-                padding-top: 40px;
-            }
-            
-            .login-container {
-                padding: 40px 28px;
-                border-radius: 28px;
-                max-width: 100%;
-                margin-bottom: 40px;
-            }
-            
-            .logo {
-                margin-bottom: 32px;
-            }
-            
-            .logo-icon {
-                width: 64px;
-                height: 64px;
-                font-size: 32px;
-                margin-bottom: 16px;
-            }
-            
-            .logo h1 {
-                font-size: 32px;
-                margin-bottom: 10px;
-            }
-            
-            .logo p {
-                font-size: 15px;
-            }
-            
-            .form-group {
-                margin-bottom: 24px;
-            }
-            
-            label {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-            
-            input {
-                padding: 15px 16px 15px 50px;
-                font-size: 16px;
-                border-radius: 14px;
-            }
-            
-            .input-icon {
-                font-size: 18px;
                 left: 16px;
             }
             
-            button {
-                padding: 17px;
-                font-size: 16px;
-                border-radius: 14px;
-                min-height: 56px;
+            .login-hero {
+                margin-bottom: 32px;
             }
             
-            .error-message,
-            .success-message {
-                padding: 14px 18px;
-                font-size: 14px;
-                margin-top: 20px;
-                border-radius: 14px;
+            .login-title {
+                font-size: 40px;
+            }
+            
+            .login-subtitle {
+                font-size: 19px;
+            }
+            
+            .form-card {
+                padding: 32px 24px;
+                border-radius: 16px;
             }
             
             .register-section {
-                margin-top: 28px;
-                padding-top: 28px;
-            }
-            
-            .register-text {
-                font-size: 14px;
-                margin-bottom: 14px;
-            }
-            
-            .register-btn {
-                padding: 13px 24px;
-                font-size: 15px;
-            }
-        }
-        
-        @media (max-width: 360px) {
-            .login-container {
-                padding: 32px 24px;
-            }
-            
-            .logo-icon {
-                width: 56px;
-                height: 56px;
-                font-size: 28px;
-            }
-            
-            .logo h1 {
-                font-size: 28px;
-            }
-            
-            .logo p {
-                font-size: 14px;
-            }
-        }
-        
-        @supports (-webkit-touch-callout: none) {
-            body {
-                height: -webkit-fill-available;
-            }
-            
-            .wrapper {
-                min-height: -webkit-fill-available;
-            }
-        }
-        
-        @media (hover: none) and (pointer: coarse) {
-            input,
-            button {
-                min-height: 52px;
-            }
-            
-            button:active {
-                transform: scale(0.98);
+                padding: 28px 24px;
+                border-radius: 16px;
             }
         }
         
         @media (max-width: 480px) {
-            input:focus {
-                position: relative;
-                z-index: 10;
+            .login-title {
+                font-size: 36px;
+            }
+            
+            .login-subtitle {
+                font-size: 17px;
+            }
+            
+            .form-card {
+                padding: 28px 20px;
+            }
+            
+            label {
+                font-size: 15px;
+            }
+            
+            input,
+            .btn-primary {
+                font-size: 16px;
+            }
+            
+            .register-section {
+                padding: 24px 20px;
+            }
+            
+            .register-text {
+                font-size: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg">
-        <div class="orb orb1"></div>
-        <div class="orb orb2"></div>
-        <div class="orb orb3"></div>
-    </div>
+    <!-- Navigation Bar -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-back">← Ana Sayfa</a>
+        </div>
+    </nav>
     
+    <!-- Language Selector -->
     <div class="lang-select">
         <button class="lang-btn" id="langBtn">
             <span id="langFlag">🇹🇷</span>
             <span id="langName">TR</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                <path d="M3 5L6 8L9 5"/>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+                <path d="M1 1l4 4 4-4"/>
             </svg>
         </button>
         <div class="lang-list" id="langList"></div>
     </div>
-    
+
+    <!-- Main Container -->
     <div class="wrapper">
         <div class="login-container">
-            <div class="logo">
-                <div class="logo-icon">🚀</div>
-                <h1>soy.ad</h1>
-                <p id="subtitle">İşbirliği Ağı</p>
+            <!-- Hero -->
+            <div class="login-hero">
+                <h1 class="login-title">Giriş Yap</h1>
+                <p class="login-subtitle" id="subtitle">İşbirliği Ağı</p>
             </div>
             
+            <!-- Form -->
             <form id="loginForm">
-                <div class="form-group">
-                    <label for="username" id="usernameLabel">Kullanıcı Adı</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="username" name="username" required autocomplete="username">
-                        <div class="input-icon">👤</div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label for="username" id="usernameLabel">Kullanıcı Adı</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            required 
+                            placeholder="Kullanıcı adı"
+                            autocomplete="username"
+                        >
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password" id="passwordLabel">Şifre</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="password" name="password" required autocomplete="current-password">
-                        <div class="input-icon">🔒</div>
+                    
+                    <div class="form-group">
+                        <label for="password" id="passwordLabel">Şifre</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required 
+                            placeholder="••••••••"
+                            autocomplete="current-password"
+                        >
                     </div>
+                    
+                    <button type="submit" class="btn-primary" id="loginBtn">Giriş Yap</button>
                 </div>
-                
-                <button type="submit" id="loginBtn">Giriş Yap</button>
             </form>
             
+            <!-- Register Section -->
             <div class="register-section">
                 <p class="register-text" id="registerText">Yeni Üye olmak için</p>
-                <a href="https://wa.me/905319600216?text=Merhaba,%20soy.ad%20platformuna%20kayıt%20olmak%20istiyorum." class="register-btn" target="_blank" id="registerBtn">İletişime geçin</a>
+                <a href="register.html" class="register-btn" id="registerBtn">Başvurun</a>
             </div>
             
-            <div class="error-message" id="errorMsg"></div>
-            <div class="success-message" id="successMsg"></div>
+            <div class="message error-message" id="errorMsg"></div>
+            <div class="message success-message" id="successMsg"></div>
         </div>
     </div>
     
@@ -678,73 +526,57 @@
         const API_URL = 'https://soy-ad-backend.onrender.com';
         
         const translations = {
-            tr: { flag: '🇹🇷', name: 'TR', rtl: false, subtitle: 'İşbirliği Ağı', username: 'Kullanıcı Adı', password: 'Şifre', login: 'Giriş Yap', registerText: 'Yeni Üye olmak için', registerBtn: 'İletişime geçin', success: '✓ Giriş başarılı! Yönlendiriliyorsunuz...', error: '✕ Bir hata oluştu. Lütfen tekrar deneyin.' },
-            en: { flag: '🇬🇧', name: 'EN', subtitle: 'Collaboration Network', username: 'Username', password: 'Password', login: 'Sign In', registerText: 'New member?', registerBtn: 'Contact us', success: '✓ Login successful! Redirecting...', error: '✕ An error occurred. Please try again.' },
-            de: { flag: '🇩🇪', name: 'DE', subtitle: 'Kooperationsnetzwerk', username: 'Benutzername', password: 'Passwort', login: 'Anmelden', registerText: 'Neues Mitglied?', registerBtn: 'Kontaktieren Sie uns', success: '✓ Anmeldung erfolgreich! Weiterleitung...', error: '✕ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.' },
-            fr: { flag: '🇫🇷', name: 'FR', subtitle: 'Réseau de Collaboration', username: 'Nom d\'utilisateur', password: 'Mot de passe', login: 'Se connecter', registerText: 'Nouveau membre?', registerBtn: 'Contactez-nous', success: '✓ Connexion réussie! Redirection...', error: '✕ Une erreur s\'est produite. Veuillez réessayer.' },
-            es: { flag: '🇪🇸', name: 'ES', subtitle: 'Red de Colaboración', username: 'Usuario', password: 'Contraseña', login: 'Iniciar sesión', registerText: '¿Nuevo miembro?', registerBtn: 'Contáctenos', success: '✓ Inicio de sesión exitoso! Redirigiendo...', error: '✕ Ocurrió un error. Por favor, inténtalo de nuevo.' },
-            it: { flag: '🇮🇹', name: 'IT', subtitle: 'Rete di Collaborazione', username: 'Nome utente', password: 'Password', login: 'Accedi', registerText: 'Nuovo membro?', registerBtn: 'Contattaci', success: '✓ Accesso riuscito! Reindirizzamento...', error: '✕ Si è verificato un errore. Riprova.' },
-            pt: { flag: '🇵🇹', name: 'PT', subtitle: 'Rede de Colaboração', username: 'Nome de usuário', password: 'Senha', login: 'Entrar', registerText: 'Novo membro?', registerBtn: 'Entre em contato', success: '✓ Login bem-sucedido! Redirecionando...', error: '✕ Ocorreu um erro. Por favor, tente novamente.' },
-            ru: { flag: '🇷🇺', name: 'RU', subtitle: 'Сеть Сотрудничества', username: 'Имя пользователя', password: 'Пароль', login: 'Войти', registerText: 'Новый участник?', registerBtn: 'Свяжитесь с нами', success: '✓ Вход выполнен! Перенаправление...', error: '✕ Произошла ошибка. Пожалуйста, попробуйте еще раз.' },
-            ja: { flag: '🇯🇵', name: 'JA', subtitle: 'コラボレーションネットワーク', username: 'ユーザー名', password: 'パスワード', login: 'ログイン', registerText: '新規メンバー？', registerBtn: 'お問い合わせ', success: '✓ ログイン成功！リダイレクト中...', error: '✕ エラーが発生しました。もう一度お試しください。' },
-            zh: { flag: '🇨🇳', name: 'ZH', subtitle: '协作网络', username: '用户名', password: '密码', login: '登录', registerText: '新成员？', registerBtn: '联系我们', success: '✓ 登录成功！正在跳转...', error: '✕ 发生错误。请重试。' },
-            ar: { flag: '🇸🇦', name: 'AR', rtl: true, subtitle: 'شبكة التعاون', username: 'اسم المستخدم', password: 'كلمة المرور', login: 'تسجيل الدخول', registerText: 'عضو جديد؟', registerBtn: 'اتصل بنا', success: '✓ تم تسجيل الدخول بنجاح! جارٍ التوجيه...', error: '✕ حدث خطأ. يرجى المحاولة مرة أخرى.' },
-            hi: { flag: '🇮🇳', name: 'HI', subtitle: 'सहयोग नेटवर्क', username: 'उपयोगकर्ता नाम', password: 'पासवर्ड', login: 'साइन इन', registerText: 'नया सदस्य?', registerBtn: 'हमसे संपर्क करें', success: '✓ लॉगिन सफल! रीडायरेक्ट हो रहा है...', error: '✕ एक त्रुटि हुई। कृपया पुनः प्रयास करें।' },
-            ko: { flag: '🇰🇷', name: 'KO', subtitle: '협업 네트워크', username: '사용자 이름', password: '비밀번호', login: '로그인', registerText: '신규 회원?', registerBtn: '문의하기', success: '✓ 로그인 성공! 리디렉션 중...', error: '✕ 오류가 발생했습니다. 다시 시도해주세요.' },
-            nl: { flag: '🇳🇱', name: 'NL', subtitle: 'Samenwerkingsnetwerk', username: 'Gebruikersnaam', password: 'Wachtwoord', login: 'Inloggen', registerText: 'Nieuw lid?', registerBtn: 'Neem contact op', success: '✓ Succesvol ingelogd! Doorsturen...', error: '✕ Er is een fout opgetreden. Probeer het opnieuw.' },
-            pl: { flag: '🇵🇱', name: 'PL', subtitle: 'Sieć Współpracy', username: 'Nazwa użytkownika', password: 'Hasło', login: 'Zaloguj się', registerText: 'Nowy członek?', registerBtn: 'Skontaktuj się', success: '✓ Logowanie pomyślne! Przekierowanie...', error: '✕ Wystąpił błąd. Spróbuj ponownie.' },
-            sv: { flag: '🇸🇪', name: 'SV', subtitle: 'Samarbetsnätverk', username: 'Användarnamn', password: 'Lösenord', login: 'Logga in', registerText: 'Ny medlem?', registerBtn: 'Kontakta oss', success: '✓ Inloggning lyckades! Omdirigerar...', error: '✕ Ett fel uppstod. Försök igen.' },
-            no: { flag: '🇳🇴', name: 'NO', subtitle: 'Samarbeidsnettverk', username: 'Brukernavn', password: 'Passord', login: 'Logg inn', registerText: 'Nytt medlem?', registerBtn: 'Kontakt oss', success: '✓ Innlogging vellykket! Omdirigerer...', error: '✕ En feil oppstod. Vennligst prøv igjen.' },
-            da: { flag: '🇩🇰', name: 'DA', subtitle: 'Samarbejdsnetværk', username: 'Brugernavn', password: 'Adgangskode', login: 'Log ind', registerText: 'Nyt medlem?', registerBtn: 'Kontakt os', success: '✓ Login succesfuld! Omdirigerer...', error: '✕ Der opstod en fejl. Prøv venligst igen.' },
-            fi: { flag: '🇫🇮', name: 'FI', subtitle: 'Yhteistyöverkosto', username: 'Käyttäjänimi', password: 'Salasana', login: 'Kirjaudu', registerText: 'Uusi jäsen?', registerBtn: 'Ota yhteyttä', success: '✓ Kirjautuminen onnistui! Uudelleenohjataan...', error: '✕ Tapahtui virhe. Yritä uudelleen.' },
-            cs: { flag: '🇨🇿', name: 'CS', subtitle: 'Síť Spolupráce', username: 'Uživatelské jméno', password: 'Heslo', login: 'Přihlásit se', registerText: 'Nový člen?', registerBtn: 'Kontaktujte nás', success: '✓ Přihlášení úspěšné! Přesměrování...', error: '✕ Došlo k chybě. Zkuste to prosím znovu.' },
-            uk: { flag: '🇺🇦', name: 'UK', subtitle: 'Мережа Співпраці', username: 'Ім\'я користувача', password: 'Пароль', login: 'Увійти', registerText: 'Новий учасник?', registerBtn: 'Зв\'яжіться з нами', success: '✓ Вхід виконано! Перенаправлення...', error: '✕ Сталася помилка. Будь ласка, спробуйте ще раз.' },
-            ro: { flag: '🇷🇴', name: 'RO', subtitle: 'Rețea de Colaborare', username: 'Nume utilizator', password: 'Parolă', login: 'Conectare', registerText: 'Membru nou?', registerBtn: 'Contactați-ne', success: '✓ Autentificare reușită! Redirecționare...', error: '✕ A apărut o eroare. Vă rugăm să încercați din nou.' },
-            el: { flag: '🇬🇷', name: 'EL', subtitle: 'Δίκτυο Συνεργασίας', username: 'Όνομα χρήστη', password: 'Κωδικός πρόσβασης', login: 'Σύνδεση', registerText: 'Νέο μέλος;', registerBtn: 'Επικοινωνήστε μαζί μας', success: '✓ Επιτυχής σύνδεση! Ανακατεύθυνση...', error: '✕ Προέκυψε σφάλμα. Παρακαλώ δοκιμάστε ξανά.' },
-            hu: { flag: '🇭🇺', name: 'HU', subtitle: 'Együttműködési Hálózat', username: 'Felhasználónév', password: 'Jelszó', login: 'Bejelentkezés', registerText: 'Új tag?', registerBtn: 'Lépjen kapcsolatba', success: '✓ Sikeres bejelentkezés! Átirányítás...', error: '✕ Hiba történt. Kérjük, próbálja újra.' },
-            th: { flag: '🇹🇭', name: 'TH', subtitle: 'เครือข่ายความร่วมมือ', username: 'ชื่อผู้ใช้', password: 'รหัสผ่าน', login: 'เข้าสู่ระบบ', registerText: 'สมาชิกใหม่?', registerBtn: 'ติดต่อเรา', success: '✓ เข้าสู่ระบบสำเร็จ! กำลังเปลี่ยนเส้นทาง...', error: '✕ เกิดข้อผิดพลาด กรุณาลองอีกครั้ง' },
-            vi: { flag: '🇻🇳', name: 'VI', subtitle: 'Mạng Hợp Tác', username: 'Tên người dùng', password: 'Mật khẩu', login: 'Đăng nhập', registerText: 'Thành viên mới?', registerBtn: 'Liên hệ chúng tôi', success: '✓ Đăng nhập thành công! Đang chuyển hướng...', error: '✕ Đã xảy ra lỗi. Vui lòng thử lại.' },
-            id: { flag: '🇮🇩', name: 'ID', subtitle: 'Jaringan Kolaborasi', username: 'Nama pengguna', password: 'Kata sandi', login: 'Masuk', registerText: 'Anggota baru?', registerBtn: 'Hubungi kami', success: '✓ Login berhasil! Mengalihkan...', error: '✕ Terjadi kesalahan. Silakan coba lagi.' },
-            ms: { flag: '🇲🇾', name: 'MS', subtitle: 'Rangkaian Kerjasama', username: 'Nama pengguna', password: 'Kata laluan', login: 'Log masuk', registerText: 'Ahli baharu?', registerBtn: 'Hubungi kami', success: '✓ Log masuk berjaya! Mengalihkan...', error: '✕ Ralat berlaku. Sila cuba lagi.' },
-            bn: { flag: '🇧🇩', name: 'BN', subtitle: 'সহযোগিতা নেটওয়ার্ক', username: 'ব্যবহারকারীর নাম', password: 'পাসওয়ার্ড', login: 'সাইন ইন', registerText: 'নতুন সদস্য?', registerBtn: 'আমাদের সাথে যোগাযোগ করুন', success: '✓ লগইন সফল! রিডাইরেক্ট করা হচ্ছে...', error: '✕ একটি ত্রুটি ঘটেছে৷ আবার চেষ্টা করুন।' },
-            tl: { flag: '🇵🇭', name: 'TL', subtitle: 'Network ng Pakikipagtulungan', username: 'Username', password: 'Password', login: 'Mag-sign in', registerText: 'Bagong miyembro?', registerBtn: 'Makipag-ugnayan sa amin', success: '✓ Matagumpay na pag-login! Nagre-redirect...', error: '✕ May naganap na error. Pakisubukan muli.' },
-            hr: { flag: '🇭🇷', name: 'HR', subtitle: 'Mreža Suradnje', username: 'Korisničko ime', password: 'Lozinka', login: 'Prijava', registerText: 'Novi član?', registerBtn: 'Kontaktirajte nas', success: '✓ Uspješna prijava! Preusmjeravanje...', error: '✕ Došlo je do greške. Pokušajte ponovno.' },
-            he: { flag: '🇮🇱', name: 'HE', rtl: true, subtitle: 'רשת שיתוף פעולה', username: 'שם משתמש', password: 'סיסמה', login: 'התחברות', registerText: 'חבר חדש?', registerBtn: 'צור קשר', success: '✓ התחברות הצליחה! מפנה...', error: '✕ אירעה שגיאה. אנא נסה שנית.' },
-            fa: { flag: '🇮🇷', name: 'FA', rtl: true, subtitle: 'شبکه همکاری', username: 'نام کاربری', password: 'رمز عبور', login: 'ورود', registerText: 'عضو جدید؟', registerBtn: 'تماس با ما', success: '✓ ورود موفق! در حال هدایت...', error: '✕ خطایی رخ داد. لطفا دوباره تلاش کنید.' },
-            ca: { flag: '🇪🇸', name: 'CA', subtitle: 'Xarxa de Col·laboració', username: 'Nom d\'usuari', password: 'Contrasenya', login: 'Inicia sessió', registerText: 'Nou membre?', registerBtn: 'Contacta\'ns', success: '✓ Inici de sessió reeixit! Redirigint...', error: '✕ S\'ha produït un error. Torna-ho a provar.' },
-            sk: { flag: '🇸🇰', name: 'SK', subtitle: 'Sieť Spolupráce', username: 'Používateľské meno', password: 'Heslo', login: 'Prihlásiť sa', registerText: 'Nový člen?', registerBtn: 'Kontaktujte nás', success: '✓ Prihlásenie úspešné! Presmerovanie...', error: '✕ Došlo k chybe. Skúste to prosím znova.' },
-            ur: { flag: '🇵🇰', name: 'UR', rtl: true, subtitle: 'تعاون کا نیٹ ورک', username: 'صارف کا نام', password: 'پاس ورڈ', login: 'سائن ان', registerText: 'نیا رکن؟', registerBtn: 'ہم سے رابطہ کریں', success: '✓ لاگ ان کامیاب! ری ڈائریکٹ ہو رہا ہے...', error: '✕ ایک خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔' },
-            sr: { flag: '🇷🇸', name: 'SR', subtitle: 'Mreža Saradnje', username: 'Korisničko ime', password: 'Lozinka', login: 'Prijavite se', registerText: 'Novi član?', registerBtn: 'Kontaktirajte nas', success: '✓ Uspešna prijava! Preusmeravanje...', error: '✕ Došlo je do greške. Pokušajte ponovo.' },
-            bg: { flag: '🇧🇬', name: 'BG', subtitle: 'Мрежа за Сътрудничество', username: 'Потребителско име', password: 'Парола', login: 'Влезте', registerText: 'Нов член?', registerBtn: 'Свържете се с нас', success: '✓ Успешен вход! Пренасочване...', error: '✕ Възникна грешка. Моля, опитайте отново.' },
-            lt: { flag: '🇱🇹', name: 'LT', subtitle: 'Bendradarbiavimo Tinklas', username: 'Vartotojo vardas', password: 'Slaptažodis', login: 'Prisijungti', registerText: 'Naujas narys?', registerBtn: 'Susisiekite su mumis', success: '✓ Prisijungimas sėkmingas! Peradresuojama...', error: '✕ Įvyko klaida. Bandykite dar kartą.' },
-            lv: { flag: '🇱🇻', name: 'LV', subtitle: 'Sadarbības Tīkls', username: 'Lietotājvārds', password: 'Parole', login: 'Pieslēgties', registerText: 'Jauns biedrs?', registerBtn: 'Sazinieties ar mums', success: '✓ Pieteikšanās veiksmīga! Pārvirzīšana...', error: '✕ Radās kļūda. Lūdzu, mēģiniet vēlreiz.' },
-            et: { flag: '🇪🇪', name: 'ET', subtitle: 'Koostöövõrgustik', username: 'Kasutajanimi', password: 'Parool', login: 'Logi sisse', registerText: 'Uus liige?', registerBtn: 'Võtke meiega ühendust', success: '✓ Sisselogimine õnnestus! Ümbersuunamine...', error: '✕ Ilmnes viga. Palun proovige uuesti.' },
-            af: { flag: '🇿🇦', name: 'AF', subtitle: 'Samewerkingsnetwerk', username: 'Gebruikersnaam', password: 'Wagwoord', login: 'Teken in', registerText: 'Nuwe lid?', registerBtn: 'Kontak ons', success: '✓ Suksesvolle aanmelding! Herverwys...', error: '✕ \'n Fout het voorgekom. Probeer asseblief weer.' },
-            az: { flag: '🇦🇿', name: 'AZ', subtitle: 'Əməkdaşlıq Şəbəkəsi', username: 'İstifadəçi adı', password: 'Şifrə', login: 'Daxil ol', registerText: 'Yeni üzv?', registerBtn: 'Bizimlə əlaqə saxlayın', success: '✓ Giriş uğurlu! Yönləndirilir...', error: '✕ Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.' },
-            uz: { flag: '🇺🇿', name: 'UZ', subtitle: 'Hamkorlik Tarmog\'i', username: 'Foydalanuvchi nomi', password: 'Parol', login: 'Kirish', registerText: 'Yangi a\'zo?', registerBtn: 'Biz bilan bog\'laning', success: '✓ Kirish muvaffaqiyatli! Yo\'naltirilmoqda...', error: '✕ Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.' },
-            kk: { flag: '🇰🇿', name: 'KK', subtitle: 'Ынтымақтастық Желісі', username: 'Пайдаланушы аты', password: 'Құпия сөз', login: 'Кіру', registerText: 'Жаңа мүше?', registerBtn: 'Бізбен байланысыңыз', success: '✓ Кіру сәтті! Қайта бағыттау...', error: '✕ Қате орын алды. Қайталап көріңіз.' },
-            ky: { flag: '🇰🇬', name: 'KY', subtitle: 'Кызматташуу Тармагы', username: 'Колдонуучу аты', password: 'Сыр сөз', login: 'Кирүү', registerText: 'Жаңы мүчө?', registerBtn: 'Биз менен байланышыңыз', success: '✓ Кирүү ийгиликтүү! Багыттоо...', error: '✕ Ката кетти. Кайра аракет кылыңыз.' },
-            ka: { flag: '🇬🇪', name: 'KA', subtitle: 'თანამშრომლობის ქსელი', username: 'მომხმარებლის სახელი', password: 'პაროლი', login: 'შესვლა', registerText: 'ახალი წევრი?', registerBtn: 'დაგვიკავშირდით', success: '✓ წარმატებული შესვლა! გადამისამართება...', error: '✕ მოხდა შეცდომა. გთხოვთ სცადოთ ხელახლა.' },
-            sw: { flag: '🇰🇪', name: 'SW', subtitle: 'Mtandao wa Ushirikiano', username: 'Jina la mtumiaji', password: 'Nenosiri', login: 'Ingia', registerText: 'Mwanachama mpya?', registerBtn: 'Wasiliana nasi', success: '✓ Kuingia kumefanikiwa! Kuongoza upya...', error: '✕ Hitilafu imetokea. Tafadhali jaribu tena.' }
+            tr: { flag: '🇹🇷', name: 'TR', rtl: false, subtitle: 'İşbirliği Ağı', username: 'Kullanıcı Adı', password: 'Şifre', login: 'Giriş Yap', registerText: 'Yeni Üye olmak için', registerBtn: 'Başvurun', success: '✓ Giriş başarılı! Yönlendiriliyorsunuz...', error: '✕ Bir hata oluştu. Lütfen tekrar deneyin.' },
+            en: { flag: '🇬🇧', name: 'EN', subtitle: 'Collaboration Network', username: 'Username', password: 'Password', login: 'Sign In', registerText: 'New member?', registerBtn: 'Apply', success: '✓ Login successful! Redirecting...', error: '✕ An error occurred. Please try again.' },
+            de: { flag: '🇩🇪', name: 'DE', subtitle: 'Kooperationsnetzwerk', username: 'Benutzername', password: 'Passwort', login: 'Anmelden', registerText: 'Neues Mitglied?', registerBtn: 'Bewerben', success: '✓ Anmeldung erfolgreich! Weiterleitung...', error: '✕ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.' },
+            fr: { flag: '🇫🇷', name: 'FR', subtitle: 'Réseau de Collaboration', username: 'Nom d\'utilisateur', password: 'Mot de passe', login: 'Se connecter', registerText: 'Nouveau membre?', registerBtn: 'Postuler', success: '✓ Connexion réussie! Redirection...', error: '✕ Une erreur s\'est produite. Veuillez réessayer.' },
+            es: { flag: '🇪🇸', name: 'ES', subtitle: 'Red de Colaboración', username: 'Usuario', password: 'Contraseña', login: 'Iniciar sesión', registerText: '¿Nuevo miembro?', registerBtn: 'Aplicar', success: '✓ Inicio de sesión exitoso! Redirigiendo...', error: '✕ Ocurrió un error. Por favor, inténtalo de nuevo.' },
+            it: { flag: '🇮🇹', name: 'IT', subtitle: 'Rete di Collaborazione', username: 'Nome utente', password: 'Password', login: 'Accedi', registerText: 'Nuovo membro?', registerBtn: 'Candidati', success: '✓ Accesso riuscito! Reindirizzamento...', error: '✕ Si è verificato un errore. Riprova.' },
+            pt: { flag: '🇵🇹', name: 'PT', subtitle: 'Rede de Colaboração', username: 'Nome de usuário', password: 'Senha', login: 'Entrar', registerText: 'Novo membro?', registerBtn: 'Aplicar', success: '✓ Login bem-sucedido! Redirecionando...', error: '✕ Ocorreu um erro. Por favor, tente novamente.' },
+            ru: { flag: '🇷🇺', name: 'RU', subtitle: 'Сеть Сотрудничества', username: 'Имя пользователя', password: 'Пароль', login: 'Войти', registerText: 'Новый участник?', registerBtn: 'Подать заявку', success: '✓ Вход выполнен! Перенаправление...', error: '✕ Произошла ошибка. Пожалуйста, попробуйте еще раз.' },
+            ja: { flag: '🇯🇵', name: 'JA', subtitle: 'コラボレーションネットワーク', username: 'ユーザー名', password: 'パスワード', login: 'ログイン', registerText: '新規メンバー？', registerBtn: '応募する', success: '✓ ログイン成功！リダイレクト中...', error: '✕ エラーが発生しました。もう一度お試しください。' },
+            zh: { flag: '🇨🇳', name: 'ZH', subtitle: '协作网络', username: '用户名', password: '密码', login: '登录', registerText: '新成员？', registerBtn: '申请', success: '✓ 登录成功！正在跳转...', error: '✕ 发生错误。请重试。' },
+            ar: { flag: '🇸🇦', name: 'AR', rtl: true, subtitle: 'شبكة التعاون', username: 'اسم المستخدم', password: 'كلمة المرور', login: 'تسجيل الدخول', registerText: 'عضو جديد؟', registerBtn: 'تقديم الطلب', success: '✓ تم تسجيل الدخول بنجاح! جارٍ التوجيه...', error: '✕ حدث خطأ. يرجى المحاولة مرة أخرى.' },
+            hi: { flag: '🇮🇳', name: 'HI', subtitle: 'सहयोग नेटवर्क', username: 'उपयोगकर्ता नाम', password: 'पासवर्ड', login: 'साइन इन', registerText: 'नया सदस्य?', registerBtn: 'आवेदन करें', success: '✓ लॉगिन सफल! रीडायरेक्ट हो रहा है...', error: '✕ एक त्रुटि हुई। कृपया पुनः प्रयास करें।' },
+            ko: { flag: '🇰🇷', name: 'KO', subtitle: '협업 네트워크', username: '사용자 이름', password: '비밀번호', login: '로그인', registerText: '신규 회원?', registerBtn: '신청하기', success: '✓ 로그인 성공! 리디렉션 중...', error: '✕ 오류가 발생했습니다. 다시 시도해주세요.' },
+            nl: { flag: '🇳🇱', name: 'NL', subtitle: 'Samenwerkingsnetwerk', username: 'Gebruikersnaam', password: 'Wachtwoord', login: 'Inloggen', registerText: 'Nieuw lid?', registerBtn: 'Aanmelden', success: '✓ Succesvol ingelogd! Doorsturen...', error: '✕ Er is een fout opgetreden. Probeer het opnieuw.' },
+            pl: { flag: '🇵🇱', name: 'PL', subtitle: 'Sieć Współpracy', username: 'Nazwa użytkownika', password: 'Hasło', login: 'Zaloguj się', registerText: 'Nowy członek?', registerBtn: 'Aplikuj', success: '✓ Logowanie pomyślne! Przekierowanie...', error: '✕ Wystąpił błąd. Spróbuj ponownie.' },
+            sv: { flag: '🇸🇪', name: 'SV', subtitle: 'Samarbetsnätverk', username: 'Användarnamn', password: 'Lösenord', login: 'Logga in', registerText: 'Ny medlem?', registerBtn: 'Ansök', success: '✓ Inloggning lyckades! Omdirigerar...', error: '✕ Ett fel uppstod. Försök igen.' },
+            no: { flag: '🇳🇴', name: 'NO', subtitle: 'Samarbeidsnettverk', username: 'Brukernavn', password: 'Passord', login: 'Logg inn', registerText: 'Nytt medlem?', registerBtn: 'Søk', success: '✓ Innlogging vellykket! Omdirigerer...', error: '✕ En feil oppstod. Vennligst prøv igjen.' },
+            da: { flag: '🇩🇰', name: 'DA', subtitle: 'Samarbejdsnetværk', username: 'Brugernavn', password: 'Adgangskode', login: 'Log ind', registerText: 'Nyt medlem?', registerBtn: 'Ansøg', success: '✓ Login succesfuld! Omdirigerer...', error: '✕ Der opstod en fejl. Prøv venligst igen.' },
+            fi: { flag: '🇫🇮', name: 'FI', subtitle: 'Yhteistyöverkosto', username: 'Käyttäjänimi', password: 'Salasana', login: 'Kirjaudu', registerText: 'Uusi jäsen?', registerBtn: 'Hae', success: '✓ Kirjautuminen onnistui! Uudelleenohjataan...', error: '✕ Tapahtui virhe. Yritä uudelleen.' },
+            cs: { flag: '🇨🇿', name: 'CS', subtitle: 'Síť Spolupráce', username: 'Uživatelské jméno', password: 'Heslo', login: 'Přihlásit se', registerText: 'Nový člen?', registerBtn: 'Přihlásit se', success: '✓ Přihlášení úspěšné! Přesměrování...', error: '✕ Došlo k chybě. Zkuste to prosím znovu.' },
+            uk: { flag: '🇺🇦', name: 'UK', subtitle: 'Мережа Співпраці', username: 'Ім\'я користувача', password: 'Пароль', login: 'Увійти', registerText: 'Новий учасник?', registerBtn: 'Подати заявку', success: '✓ Вхід виконано! Перенаправлення...', error: '✕ Сталася помилка. Будь ласка, спробуйте ще раз.' },
+            ro: { flag: '🇷🇴', name: 'RO', subtitle: 'Rețea de Colaborare', username: 'Nume utilizator', password: 'Parolă', login: 'Conectare', registerText: 'Membru nou?', registerBtn: 'Aplicați', success: '✓ Autentificare reușită! Redirecționare...', error: '✕ A apărut o eroare. Vă rugăm să încercați din nou.' },
+            el: { flag: '🇬🇷', name: 'EL', subtitle: 'Δίκτυο Συνεργασίας', username: 'Όνομα χρήστη', password: 'Κωδικός πρόσβασης', login: 'Σύνδεση', registerText: 'Νέο μέλος;', registerBtn: 'Αίτηση', success: '✓ Επιτυχής σύνδεση! Ανακατεύθυνση...', error: '✕ Προέκυψε σφάλμα. Παρακαλώ δοκιμάστε ξανά.' },
+            hu: { flag: '🇭🇺', name: 'HU', subtitle: 'Együttműködési Hálózat', username: 'Felhasználónév', password: 'Jelszó', login: 'Bejelentkezés', registerText: 'Új tag?', registerBtn: 'Jelentkezés', success: '✓ Sikeres bejelentkezés! Átirányítás...', error: '✕ Hiba történt. Kérjük, próbálja újra.' },
+            th: { flag: '🇹🇭', name: 'TH', subtitle: 'เครือข่ายความร่วมมือ', username: 'ชื่อผู้ใช้', password: 'รหัสผ่าน', login: 'เข้าสู่ระบบ', registerText: 'สมาชิกใหม่?', registerBtn: 'สมัคร', success: '✓ เข้าสู่ระบบสำเร็จ! กำลังเปลี่ยนเส้นทาง...', error: '✕ เกิดข้อผิดพลาด กรุณาลองอีกครั้ง' },
+            vi: { flag: '🇻🇳', name: 'VI', subtitle: 'Mạng Hợp Tác', username: 'Tên người dùng', password: 'Mật khẩu', login: 'Đăng nhập', registerText: 'Thành viên mới?', registerBtn: 'Đăng ký', success: '✓ Đăng nhập thành công! Đang chuyển hướng...', error: '✕ Đã xảy ra lỗi. Vui lòng thử lại.' },
+            id: { flag: '🇮🇩', name: 'ID', subtitle: 'Jaringan Kolaborasi', username: 'Nama pengguna', password: 'Kata sandi', login: 'Masuk', registerText: 'Anggota baru?', registerBtn: 'Daftar', success: '✓ Login berhasil! Mengalihkan...', error: '✕ Terjadi kesalahan. Silakan coba lagi.' },
+            ms: { flag: '🇲🇾', name: 'MS', subtitle: 'Rangkaian Kerjasama', username: 'Nama pengguna', password: 'Kata laluan', login: 'Log masuk', registerText: 'Ahli baharu?', registerBtn: 'Mohon', success: '✓ Log masuk berjaya! Mengalihkan...', error: '✕ Ralat berlaku. Sila cuba lagi.' },
+            bn: { flag: '🇧🇩', name: 'BN', subtitle: 'সহযোগিতা নেটওয়ার্ক', username: 'ব্যবহারকারীর নাম', password: 'পাসওয়ার্ড', login: 'সাইন ইন', registerText: 'নতুন সদস্য?', registerBtn: 'আবেদন করুন', success: '✓ লগইন সফল! রিডাইরেক্ট করা হচ্ছে...', error: '✕ একটি ত্রুটি ঘটেছে৷ আবার চেষ্টা করুন।' },
+            tl: { flag: '🇵🇭', name: 'TL', subtitle: 'Network ng Pakikipagtulungan', username: 'Username', password: 'Password', login: 'Mag-sign in', registerText: 'Bagong miyembro?', registerBtn: 'Mag-apply', success: '✓ Matagumpay na pag-login! Nagre-redirect...', error: '✕ May naganap na error. Pakisubukan muli.' },
+            hr: { flag: '🇭🇷', name: 'HR', subtitle: 'Mreža Suradnje', username: 'Korisničko ime', password: 'Lozinka', login: 'Prijava', registerText: 'Novi član?', registerBtn: 'Prijavite se', success: '✓ Uspješna prijava! Preusmjeravanje...', error: '✕ Došlo je do greške. Pokušajte ponovno.' },
+            he: { flag: '🇮🇱', name: 'HE', rtl: true, subtitle: 'רשת שיתוף פעולה', username: 'שם משתמש', password: 'סיסמה', login: 'התחברות', registerText: 'חבר חדש?', registerBtn: 'הגש מועמדות', success: '✓ התחברות הצליחה! מפנה...', error: '✕ אירעה שגיאה. אנא נסה שנית.' },
+            fa: { flag: '🇮🇷', name: 'FA', rtl: true, subtitle: 'شبکه همکاری', username: 'نام کاربری', password: 'رمز عبور', login: 'ورود', registerText: 'عضو جدید؟', registerBtn: 'درخواست', success: '✓ ورود موفق! در حال هدایت...', error: '✕ خطایی رخ داد. لطفا دوباره تلاش کنید.' },
+            ca: { flag: '🇪🇸', name: 'CA', subtitle: 'Xarxa de Col·laboració', username: 'Nom d\'usuari', password: 'Contrasenya', login: 'Inicia sessió', registerText: 'Nou membre?', registerBtn: 'Sol·licita', success: '✓ Inici de sessió reeixit! Redirigint...', error: '✕ S\'ha produït un error. Torna-ho a provar.' },
+            sk: { flag: '🇸🇰', name: 'SK', subtitle: 'Sieť Spolupráce', username: 'Používateľské meno', password: 'Heslo', login: 'Prihlásiť sa', registerText: 'Nový člen?', registerBtn: 'Prihlásiť sa', success: '✓ Prihlásenie úspešné! Presmerovanie...', error: '✕ Došlo k chybe. Skúste to prosím znova.' },
+            ur: { flag: '🇵🇰', name: 'UR', rtl: true, subtitle: 'تعاون کا نیٹ ورک', username: 'صارف کا نام', password: 'پاس ورڈ', login: 'سائن ان', registerText: 'نیا رکن؟', registerBtn: 'درخواست دیں', success: '✓ لاگ ان کامیاب! ری ڈائریکٹ ہو رہا ہے...', error: '✕ ایک خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔' },
+            sr: { flag: '🇷🇸', name: 'SR', subtitle: 'Mreža Saradnje', username: 'Korisničko ime', password: 'Lozinka', login: 'Prijavite se', registerText: 'Novi član?', registerBtn: 'Prijavite se', success: '✓ Uspešna prijava! Preusmeravanje...', error: '✕ Došlo je do greške. Pokušajte ponovo.' },
+            bg: { flag: '🇧🇬', name: 'BG', subtitle: 'Мрежа за Сътрудничество', username: 'Потребителско име', password: 'Парола', login: 'Влезте', registerText: 'Нов член?', registerBtn: 'Кандидатствайте', success: '✓ Успешен вход! Пренасочване...', error: '✕ Възникна грешка. Моля, опитайте отново.' },
+            lt: { flag: '🇱🇹', name: 'LT', subtitle: 'Bendradarbiavimo Tinklas', username: 'Vartotojo vardas', password: 'Slaptažodis', login: 'Prisijungti', registerText: 'Naujas narys?', registerBtn: 'Kreiptis', success: '✓ Prisijungimas sėkmingas! Peradresuojama...', error: '✕ Įvyko klaida. Bandykite dar kartą.' },
+            lv: { flag: '🇱🇻', name: 'LV', subtitle: 'Sadarbības Tīkls', username: 'Lietotājvārds', password: 'Parole', login: 'Pieslēgties', registerText: 'Jauns biedrs?', registerBtn: 'Pieteikties', success: '✓ Pieteikšanās veiksmīga! Pārvirzīšana...', error: '✕ Radās kļūda. Lūdzu, mēģiniet vēlreiz.' },
+            et: { flag: '🇪🇪', name: 'ET', subtitle: 'Koostöövõrgustik', username: 'Kasutajanimi', password: 'Parool', login: 'Logi sisse', registerText: 'Uus liige?', registerBtn: 'Kandideeri', success: '✓ Sisselogimine õnnestus! Ümbersuunamine...', error: '✕ Ilmnes viga. Palun proovige uuesti.' },
+            af: { flag: '🇿🇦', name: 'AF', subtitle: 'Samewerkingsnetwerk', username: 'Gebruikersnaam', password: 'Wagwoord', login: 'Teken in', registerText: 'Nuwe lid?', registerBtn: 'Aansoek doen', success: '✓ Suksesvolle aanmelding! Herverwys...', error: '✕ \'n Fout het voorgekom. Probeer asseblief weer.' },
+            az: { flag: '🇦🇿', name: 'AZ', subtitle: 'Əməkdaşlıq Şəbəkəsi', username: 'İstifadəçi adı', password: 'Şifrə', login: 'Daxil ol', registerText: 'Yeni üzv?', registerBtn: 'Müraciət edin', success: '✓ Giriş uğurlu! Yönləndirilir...', error: '✕ Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.' },
+            uz: { flag: '🇺🇿', name: 'UZ', subtitle: 'Hamkorlik Tarmog\'i', username: 'Foydalanuvchi nomi', password: 'Parol', login: 'Kirish', registerText: 'Yangi a\'zo?', registerBtn: 'Ariza topshiring', success: '✓ Kirish muvaffaqiyatli! Yo\'naltirilmoqda...', error: '✕ Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.' },
+            kk: { flag: '🇰🇿', name: 'KK', subtitle: 'Ынтымақтастық Желісі', username: 'Пайдаланушы аты', password: 'Құпия сөз', login: 'Кіру', registerText: 'Жаңа мүше?', registerBtn: 'Өтініш беру', success: '✓ Кіру сәтті! Қайта бағыттау...', error: '✕ Қате орын алды. Қайталап көріңіз.' },
+            ky: { flag: '🇰🇬', name: 'KY', subtitle: 'Кызматташуу Тармагы', username: 'Колдонуучу аты', password: 'Сыр сөз', login: 'Кирүү', registerText: 'Жаңы мүчө?', registerBtn: 'Арыз берүү', success: '✓ Кирүү ийгиликтүү! Багыттоо...', error: '✕ Ката кетти. Кайра аракет кылыңыз.' },
+            ka: { flag: '🇬🇪', name: 'KA', subtitle: 'თანამშრომლობის ქსელი', username: 'მომხმარებლის სახელი', password: 'პაროლი', login: 'შესვლა', registerText: 'ახალი წევრი?', registerBtn: 'განაცხადი', success: '✓ წარმატებული შესვლა! გადამისამართება...', error: '✕ მოხდა შეცდომა. გთხოვთ სცადოთ ხელახლა.' },
+            sw: { flag: '🇰🇪', name: 'SW', subtitle: 'Mtandao wa Ushirikiano', username: 'Jina la mtumiaji', password: 'Nenosiri', login: 'Ingia', registerText: 'Mwanachama mpya?', registerBtn: 'Omba', success: '✓ Kuingia kumefanikiwa! Kuongoza upya...', error: '✕ Hitilafu imetokea. Tafadhali jaribu tena.' }
         };
 
         let currentLang = 'tr';
-        let isKeyboardOpen = false;
-        
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', () => {
-                const currentHeight = window.visualViewport.height;
-                const windowHeight = window.innerHeight;
-                
-                if (currentHeight < windowHeight * 0.75 && !isKeyboardOpen) {
-                    isKeyboardOpen = true;
-                    document.body.style.height = `${currentHeight}px`;
-                } else if (currentHeight >= windowHeight * 0.75 && isKeyboardOpen) {
-                    isKeyboardOpen = false;
-                    document.body.style.height = '100%';
-                }
-            });
-        }
 
         function detectLang() {
             const saved = localStorage.getItem('soyad-lang');
@@ -781,7 +613,7 @@
             document.getElementById('password').placeholder = '••••••••';
             document.getElementById('langFlag').textContent = t.flag;
             document.getElementById('langName').textContent = t.name;
-            document.title = `www.Soy.ad - ${t.login}`;
+            document.title = `Soy.ad - ${t.login}`;
             
             document.documentElement.lang = lang;
             localStorage.setItem('soyad-lang', lang);
@@ -835,57 +667,42 @@
             loginBtn.disabled = true;
             loginBtn.innerHTML = '<span class="loading"></span>';
             
-        try {
-            const response = await fetch(`${API_URL}/api/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                
-                successMsg.textContent = translations[currentLang].success;
-                successMsg.style.display = 'block';
-                
-                setTimeout(() => {
-                    // Eğer kullanıcının country'si yoksa ülke seçimine yönlendir
-                    if (!data.user.country || data.user.country === 'TR') {
-                        window.location.href = 'country-selection.html';
-                    } else {
-                        window.location.href = 'app.html';
-                    }
-                }, 1000);
-            } else {
-                throw new Error(data.error || 'Login failed');
-            }
-        } catch (error) {
-            errorMsg.textContent = translations[currentLang].error;
-            errorMsg.style.display = 'block';
-            
-            loginBtn.disabled = false;
-            loginBtn.textContent = translations[currentLang].login;
-        }
-    }); 
-        if (window.innerWidth <= 480) {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    setTimeout(() => {
-                        this.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center',
-                            inline: 'nearest'
-                        });
-                    }, 300);
+            try {
+                const response = await fetch(`${API_URL}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
                 });
-            });
-        }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    successMsg.textContent = translations[currentLang].success;
+                    successMsg.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        if (!data.user.country || data.user.country === 'TR') {
+                            window.location.href = 'country-selection.html';
+                        } else {
+                            window.location.href = 'app.html';
+                        }
+                    }, 1000);
+                } else {
+                    throw new Error(data.error || 'Login failed');
+                }
+            } catch (error) {
+                errorMsg.textContent = translations[currentLang].error;
+                errorMsg.style.display = 'block';
+                
+                loginBtn.disabled = false;
+                loginBtn.textContent = translations[currentLang].login;
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
             initLanguageSelector();
