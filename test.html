@@ -73,10 +73,10 @@
         }
         
         .nav-link {
-            padding: 4px 16px;
+            padding: 8px 20px;
             color: #1d1d1f;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 400;
             transition: opacity 0.3s;
             border-radius: 12px;
@@ -98,7 +98,7 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             padding-top: 52px;
             position: relative;
         }
@@ -107,7 +107,6 @@
             font-size: 56px;
             font-weight: 600;
             color: #1d1d1f;
-            margin-bottom: 6px;
             line-height: 1.07143;
             letter-spacing: -0.005em;
         }
@@ -117,19 +116,9 @@
             font-weight: 600;
         }
         
-        .hero-subtitle {
-            font-size: 28px;
-            color: #6e6e73;
-            line-height: 1.14286;
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 400;
-            letter-spacing: 0.007em;
-        }
-        
         /* Video Section */
         .video-section {
-            margin: 40px auto 60px;
+            margin: 0 auto 40px;
             max-width: 420px;
             position: relative;
             padding: 0 22px;
@@ -156,6 +145,23 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+        
+        /* Description Section */
+        .description-section {
+            text-align: center;
+            margin: 0 auto 60px;
+            padding: 0 22px;
+        }
+        
+        .description-text {
+            font-size: 21px;
+            color: #6e6e73;
+            line-height: 1.381;
+            font-weight: 400;
+            letter-spacing: 0.011em;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         /* Info Cards */
@@ -379,8 +385,8 @@
             }
             
             .nav-link {
-                font-size: 12px;
-                padding: 4px 14px;
+                font-size: 13px;
+                padding: 7px 18px;
             }
             
             .container {
@@ -388,22 +394,16 @@
             }
             
             .hero {
-                margin-bottom: 40px;
+                margin-bottom: 30px;
                 padding-top: 40px;
             }
             
             .hero-title {
                 font-size: 40px;
-                margin-bottom: 10px;
-            }
-            
-            .hero-subtitle {
-                font-size: 21px;
-                padding: 0 10px;
             }
             
             .video-section {
-                margin: 30px auto 50px;
+                margin: 0 auto 30px;
                 max-width: 280px;
                 padding: 0;
             }
@@ -411,6 +411,14 @@
             .video-container {
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                 border-radius: 16px;
+            }
+            
+            .description-section {
+                margin-bottom: 40px;
+            }
+            
+            .description-text {
+                font-size: 17px;
             }
             
             .info-grid {
@@ -476,12 +484,13 @@
                 font-size: 32px;
             }
             
-            .hero-subtitle {
-                font-size: 19px;
-            }
-            
             .video-section {
                 max-width: 240px;
+                margin: 0 auto 20px;
+            }
+            
+            .description-text {
+                font-size: 15px;
             }
             
             .cta-title {
@@ -544,9 +553,6 @@
             <h1 class="hero-title">
                 Karşılıklı Tanıtım <span>Platformu</span>
             </h1>
-            <p class="hero-subtitle">
-                Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.
-            </p>
         </section>
         
         <!-- Video Section -->
@@ -558,6 +564,13 @@
                     allowfullscreen>
                 </iframe>
             </div>
+        </section>
+        
+        <!-- Description -->
+        <section class="description-section">
+            <p class="description-text">
+                Birbirinizin içeriklerini paylaşın, yeni müşterilere ulaşın.
+            </p>
         </section>
         
         <!-- Info Grid -->
