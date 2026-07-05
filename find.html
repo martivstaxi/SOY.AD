@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Soy.ad — Ortak Kanal Bulucu</title>
+<style>
+  :root{
+    --ink:#1d1d1f; --sub:#6e6e73; --line:#d2d2d7; --line2:#e5e5e7;
+    --bg:#f5f5f7; --card:#ffffff; --blue:#0071e3; --blue2:#0077ed;
+    --good:#1a7f37; --warn:#8a6d00; --chip:#f0f0f3;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Inter','SF Pro Display',
+      'Segoe UI',Roboto,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.5;
+    padding:0 20px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+
+  /* Header */
+  header{text-align:center;padding:56px 0 12px}
+  .logo{font-size:30px;font-weight:700;letter-spacing:-.02em}
+  .logo span{color:var(--blue)}
+  .tag{color:var(--sub);font-size:16px;margin-top:6px}
+
+  /* Search */
+  .search{
+    background:var(--card);border-radius:20px;box-shadow:var(--shadow);
+    padding:22px;margin-top:26px;
+  }
+  .search label{font-size:13px;color:var(--sub);font-weight:600;display:block;margin-bottom:8px}
+  .row{display:flex;gap:10px}
+  input[type=text]{
+    flex:1;font-size:16px;padding:14px 16px;border:1px solid var(--line);
+    border-radius:12px;background:#fbfbfd;color:var(--ink);outline:none;
+    transition:border-color .15s,box-shadow .15s;
+  }
+  input[type=text]:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.12)}
+  button.go{
+    font-size:16px;font-weight:600;padding:14px 22px;border:none;border-radius:12px;
+    background:var(--blue);color:#fff;cursor:pointer;white-space:nowrap;
+    transition:background .15s,transform .05s;
+  }
+  button.go:hover{background:var(--blue2)}
+  button.go:active{transform:scale(.98)}
+  button.go:disabled{background:#a9c9f2;cursor:default}
+  .hint{font-size:12.5px;color:var(--sub);margin-top:10px}
+  .keyline{font-size:12px;color:var(--sub);margin-top:12px;display:flex;align-items:center;gap:8px}
+  .keyline a{color:var(--blue);cursor:pointer;text-decoration:none}
+
+  /* Progress */
+  .progress{display:none;margin-top:22px;background:var(--card);border-radius:16px;
+    box-shadow:var(--shadow);padding:20px 22px}
+  .progress.on{display:block}
+  .pbar{height:6px;background:var(--line2);border-radius:3px;overflow:hidden;margin-top:12px}
+  .pfill{height:100%;width:15%;background:var(--blue);border-radius:3px;
+    transition:width .5s ease}
+  .pstage{font-size:14px;font-weight:600}
+  .pmeta{font-size:12.5px;color:var(--sub);margin-top:2px}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);
+    border-top-color:var(--blue);border-radius:50%;animation:sp 1s linear infinite;
+    vertical-align:-2px;margin-right:8px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  /* Target */
+  .target{display:none;align-items:center;gap:14px;margin-top:26px;
+    background:linear-gradient(180deg,#fff,#fbfbfd);border:1px solid var(--line2);
+    border-radius:16px;padding:16px 18px}
+  .target.on{display:flex}
+  .target img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:var(--line2)}
+  .target .nm{font-weight:700;font-size:17px}
+  .target .mt{font-size:13px;color:var(--sub)}
+  .deliver{margin-left:auto}
+  .deliver button{font-size:13px;font-weight:600;padding:9px 14px;border-radius:10px;
+    border:1px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer}
+  .deliver button:hover{background:#f0f7ff}
+
+  /* Result cards */
+  .results{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);
+    padding:16px 18px;display:flex;gap:14px;align-items:flex-start;
+    opacity:0;transform:translateY(8px);animation:rise .4s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .card .rank{font-size:13px;font-weight:700;color:var(--sub);width:20px;flex:none;padding-top:14px}
+  .card img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--line2);flex:none}
+  .card .body{flex:1;min-width:0}
+  .card .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .card .name{font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+  .card .subs{font-size:13px;color:var(--sub);font-weight:600}
+  .match{margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);
+    background:#eaf3fe;border-radius:20px;padding:4px 11px;white-space:nowrap}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .chip{font-size:11.5px;color:var(--sub);background:var(--chip);border-radius:20px;padding:3px 10px}
+  .contact{margin-top:11px;border-top:1px solid var(--line2);padding-top:11px;
+    display:flex;flex-direction:column;gap:7px}
+  .crow{display:flex;align-items:center;gap:8px;font-size:13.5px;flex-wrap:wrap}
+  .crow .lab{color:var(--sub);width:64px;flex:none;font-size:12px}
+  .crow a{color:var(--blue);text-decoration:none;word-break:break-all}
+  .crow a:hover{text-decoration:underline}
+  .copy{font-size:11px;border:1px solid var(--line);background:#fff;border-radius:8px;
+    padding:3px 9px;cursor:pointer;color:var(--sub)}
+  .copy:hover{border-color:var(--blue);color:var(--blue)}
+  .nomail{color:var(--warn);font-size:12.5px}
+  .open{font-size:12px;color:var(--blue);text-decoration:none;font-weight:600}
+
+  .err{display:none;margin-top:22px;background:#fff4f4;border:1px solid #f3c9c9;
+    color:#a1201f;border-radius:14px;padding:16px 18px;font-size:14px}
+  .err.on{display:block}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:40px}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(30px);
+    background:#1d1d1f;color:#fff;padding:11px 20px;border-radius:12px;font-size:14px;
+    opacity:0;transition:.3s;pointer-events:none;z-index:50}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media(max-width:560px){
+    .row{flex-direction:column}
+    header{padding:40px 0 8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">Soy<span>.</span>ad</div>
+    <div class="tag">Kanalına ortak video partneri bul — aynı niş, benzer boyut.</div>
+  </header>
+
+  <div class="search">
+    <label for="url">YouTube kanalı (link, @handle veya isim)</label>
+    <div class="row">
+      <input id="url" type="text" placeholder="https://youtube.com/@kanaladi  •  @kanaladi"
+             autocomplete="off" spellcheck="false">
+      <button class="go" id="go">Ortak Bul</button>
+    </div>
+    <div class="hint">Bir YouTuber gir; aynı nişte ve benzer abone sayısında,
+      birlikte video çekmeye ideal 5 kanalı iletişim bilgisiyle çıkarır.</div>
+    <div class="keyline">
+      <span id="keystate">🔑 Operatör anahtarı gerekli.</span>
+      <a id="setkey">Anahtarı gir / değiştir</a>
+    </div>
+  </div>
+
+  <div class="progress" id="progress">
+    <div class="pstage"><span class="spin"></span><span id="pstage">Başlatılıyor…</span></div>
+    <div class="pmeta" id="pmeta"></div>
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <div class="target" id="target">
+    <img id="tImg" alt="">
+    <div>
+      <div class="nm" id="tName"></div>
+      <div class="mt" id="tMeta"></div>
+    </div>
+    <div class="deliver">
+      <button id="deliverBtn">📋 Teslim mesajını kopyala</button>
+    </div>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <footer>Soy.ad · dahili operatör aracı</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://duflat-production.up.railway.app';
+const $ = s => document.querySelector(s);
+let lastData = null;
+
+/* ---------- operator key ---------- */
+function getKey(){ return localStorage.getItem('soy_key') || ''; }
+function refreshKeyState(){
+  const k = getKey();
+  $('#keystate').textContent = k ? '🔑 Anahtar kayıtlı.' : '🔑 Operatör anahtarı gerekli.';
+}
+$('#setkey').onclick = () => {
+  const cur = getKey();
+  const v = prompt('Operatör anahtarı (X-Soy-Key):', cur);
+  if (v !== null){ localStorage.setItem('soy_key', v.trim()); refreshKeyState(); toast('Anahtar kaydedildi'); }
+};
+refreshKeyState();
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 1800);
+}
+function copy(text, label){
+  navigator.clipboard.writeText(text).then(()=>toast((label||'Kopyalandı')+' ✓'));
+}
+
+/* ---------- helpers ---------- */
+const STAGE_PCT = {target:20, search:40, score:55, enrich:75, done:100};
+function esc(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function igHandle(url){
+  const m = (url||'').match(/instagram\.com\/([^/?]+)/i); return m ? '@'+m[1] : url;
+}
+
+/* ---------- run ---------- */
+$('#go').onclick = run;
+$('#url').addEventListener('keydown', e => { if(e.key==='Enter') run(); });
+
+async function run(){
+  const url = $('#url').value.trim();
+  if(!url){ toast('Bir kanal gir'); return; }
+  const key = getKey();
+  if(!key){ $('#setkey').click(); return; }
+
+  // reset UI
+  $('#go').disabled = true;
+  $('#err').classList.remove('on');
+  $('#target').classList.remove('on');
+  $('#results').innerHTML = '';
+  $('#progress').classList.add('on');
+  setStage('Başlatılıyor…', '', 10);
+
+  try{
+    const startRes = await fetch(API + '/soy/find-partners/start', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Soy-Key':key},
+      body: JSON.stringify({ url, max_results:5, deep_contact:true })
+    });
+    if(startRes.status === 401){ throw new Error('Anahtar geçersiz. Sağ üstten doğru anahtarı gir.'); }
+    const start = await startRes.json();
+    if(!start.job_id){ throw new Error(start.error || 'İş başlatılamadı'); }
+    await poll(start.job_id, key);
+  }catch(e){
+    showErr(e.message || String(e));
+  }finally{
+    $('#go').disabled = false;
+  }
+}
+
+async function poll(jobId, key){
+  for(let i=0;i<200;i++){
+    await new Promise(r=>setTimeout(r, 2500));
+    let s;
+    try{
+      const r = await fetch(API + '/soy/find-partners/status?job=' + encodeURIComponent(jobId),
+                            { headers:{'X-Soy-Key':key} });
+      s = await r.json();
+    }catch(e){ continue; } // transient network — keep polling
+
+    const label = s.stage_label || 'Çalışıyor…';
+    let meta = '';
+    if(s.stage === 'enrich' && s.total) meta = `${s.cur+1}/${s.total} kanal işleniyor`;
+    else if(s.stage === 'search' && s.cur) meta = `${s.cur} aday bulundu`;
+    setStage(label, meta, STAGE_PCT[s.stage] || 50);
+
+    if(s.status === 'done'){ render(s.result); return; }
+    if(s.status === 'error'){ throw new Error((s.result && s.result.error) || s.error || 'Hata'); }
+  }
+  throw new Error('Zaman aşımı — çok uzun sürdü.');
+}
+
+function setStage(label, meta, pct){
+  $('#pstage').textContent = label;
+  $('#pmeta').textContent = meta || '';
+  $('#pfill').style.width = (pct||10) + '%';
+}
+
+function showErr(msg){
+  $('#progress').classList.remove('on');
+  $('#err').textContent = '⚠️ ' + msg;
+  $('#err').classList.add('on');
+}
+
+/* ---------- render ---------- */
+function render(data){
+  $('#progress').classList.remove('on');
+  if(!data || !data.ok){ showErr((data && data.error) || 'Sonuç yok'); return; }
+  lastData = data;
+
+  const t = data.target;
+  $('#tImg').src = t.thumbnail || '';
+  $('#tName').textContent = t.name;
+  $('#tMeta').textContent = `${t.subscribers_h} abone · ${(t.topics||[]).slice(0,3).join(' · ')||'—'}`;
+  $('#target').classList.add('on');
+
+  const box = $('#results');
+  box.innerHTML = '';
+  if(!data.partners.length){
+    box.innerHTML = '<div class="err on">Bu niş + boyut için uygun ortak bulunamadı. Daha farklı/daha büyük bir kanal deneyin.</div>';
+    return;
+  }
+  data.partners.forEach((p, i) => box.appendChild(cardEl(p, i)));
+}
+
+function cardEl(p, i){
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.style.animationDelay = (i*70) + 'ms';
+
+  const chips = (p.reasons||[]).map(r=>`<span class="chip">${esc(r)}</span>`).join('');
+  const c = p.contact || {};
+
+  let contactRows = '';
+  if(c.email){
+    contactRows += `<div class="crow"><span class="lab">E-posta</span>
+      <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>
+      <button class="copy" data-copy="${esc(c.email)}">kopyala</button></div>`;
+  }
+  if(c.instagram){
+    contactRows += `<div class="crow"><span class="lab">Instagram</span>
+      <a href="${esc(c.instagram)}" target="_blank" rel="noopener">${esc(igHandle(c.instagram))}</a>
+      <button class="copy" data-copy="${esc(c.instagram)}">kopyala</button></div>`;
+  }
+  const otherSoc = Object.entries(c.socials||{}).filter(([k])=>k!=='instagram');
+  if(otherSoc.length){
+    contactRows += `<div class="crow"><span class="lab">Diğer</span>` +
+      otherSoc.map(([k,v])=>`<a href="${esc(v)}" target="_blank" rel="noopener">${esc(k)}</a>`).join(' · ') +
+      `</div>`;
+  }
+  if(c.agency && c.agency.name){
+    contactRows += `<div class="crow"><span class="lab">Ajans</span>
+      <span>${esc(c.agency.name)}${c.agency.email?(' · '+esc(c.agency.email)):''}</span></div>`;
+  }
+  if(!c.email && !c.instagram && !otherSoc.length){
+    contactRows = `<div class="crow"><span class="nomail">Doğrudan iletişim bulunamadı — kanaldan mesaj gönder.</span></div>`;
+  }
+
+  el.innerHTML = `
+    <div class="rank">${i+1}</div>
+    <img src="${esc(p.thumbnail||'')}" alt="">
+    <div class="body">
+      <div class="top">
+        <span class="name">${esc(p.name)}</span>
+        <span class="subs">${esc(p.subscribers_h)} abone</span>
+        <span class="match">%${p.match} uyum</span>
+      </div>
+      <div class="chips">${chips}
+        <span class="chip">niş %${p.niche}</span></div>
+      <div class="contact">${contactRows}
+        <div class="crow"><a class="open" href="${esc(p.url)}" target="_blank" rel="noopener">Kanalı aç ↗</a></div>
+      </div>
+    </div>`;
+  el.querySelectorAll('.copy').forEach(b=>b.onclick=()=>copy(b.dataset.copy,'Kopyalandı'));
+  return el;
+}
+
+/* ---------- deliver message (GTM: "5 kanal buldum") ---------- */
+$('#deliverBtn').onclick = () => {
+  if(!lastData) return;
+  const t = lastData.target;
+  const lines = [];
+  lines.push(`Merhaba! ${t.name} kanalınla ortak video çekebilecek, aynı nişte ve benzer boyutta ${lastData.partners.length} kanal buldum:`);
+  lines.push('');
+  lastData.partners.forEach((p,i)=>{
+    let contact = p.contact?.email || (p.contact?.instagram?('IG '+igHandle(p.contact.instagram)):'') || 'iletişim: kanaldan';
+    lines.push(`${i+1}. ${p.name} — ${p.subscribers_h} abone`);
+    lines.push(`   ${p.url}`);
+    lines.push(`   İletişim: ${contact}`);
+  });
+  lines.push('');
+  lines.push('İşbirliği kurmak istersen tam listeyi + ulaşma metnini hazırlayabilirim.');
+  copy(lines.join('\n'), 'Teslim mesajı kopyalandı');
+};
+</script>
+</body>
+</html>
