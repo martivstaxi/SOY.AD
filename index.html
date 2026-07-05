@@ -1,909 +1,369 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soy.ad - Karşılıklı Tanıtım Platformu</title>
-    
-    <meta name="description" content="Karşılıklı tanıtım platformu. İki sayfa birbirinin içeriğini paylaşarak tanıtmaktadır.">
-    
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
-            background: #ffffff;
-            color: #1d1d1f;
-            line-height: 1.47059;
-            overflow-x: hidden;
-            overflow-y: auto;
-            width: 100%;
-            min-height: 100%;
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: none;
-            touch-action: pan-y;
-        }
-        
-        /* Apple style - no background pattern */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Soy.ad — Ortak Kanal Bulucu</title>
+<style>
+  :root{
+    --ink:#1d1d1f; --sub:#6e6e73; --line:#d2d2d7; --line2:#e5e5e7;
+    --bg:#f5f5f7; --card:#ffffff; --blue:#0071e3; --blue2:#0077ed;
+    --good:#1a7f37; --warn:#8a6d00; --chip:#f0f0f3;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Inter','SF Pro Display',
+      'Segoe UI',Roboto,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.5;
+    padding:0 20px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
 
-        /* Navigation Bar */
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-            background: rgba(255, 255, 255, 0.72);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-        }
-        
-        .nav-content {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 0 22px;
-            height: 44px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-        
-        .nav-link {
-            padding: 8px 20px;
-            color: #1d1d1f;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 400;
-            transition: all 0.2s ease;
-            border-radius: 12px;
-            background: #0071e3;
-            color: #fff;
-        }
-        
-        .nav-link:hover {
-            opacity: 0.8;
-        }
-        
-        .nav-link:active {
-            transform: scale(0.95);
-            opacity: 0.7;
-        }
-        
-        /* Container */
-        .container {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 0 22px;
-        }
-        
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-top: 52px;
-            position: relative;
-        }
-        
-        .hero-title {
-            font-size: 64px;
-            font-weight: 600;
-            color: #1d1d1f;
-            line-height: 1.07143;
-            letter-spacing: -0.005em;
-        }
-        
-        .hero-title span {
-            color: #0071e3;
-            font-weight: 600;
-        }
-        
-        /* Video Section */
-        .video-section {
-            margin: 0 auto 60px;
-            max-width: 420px;
-            position: relative;
-            padding: 0 22px;
-        }
-        
-        .video-decoration {
-            display: none;
-        }
-        
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 177.78%;
-            background: #000000;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 32px;
-            margin-bottom: 60px;
-        }
-        
-        .info-card {
-            background: #f5f5f7;
-            padding: 40px;
-            border-radius: 18px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            border: 2px solid #e5e5e7;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-        
-        .info-card:hover {
-            transform: translateY(-2px);
-            border-color: #d2d2d7;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-        }
-        
-        .card-accent {
-            display: none;
-        }
-        
-        .card-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 24px;
-            letter-spacing: -0.003em;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e5e5e7;
-        }
-        
-        .card-description {
-            font-size: 19px;
-            color: #1d1d1f;
-            line-height: 1.47059;
-            font-weight: 400;
-            letter-spacing: -0.022em;
-        }
-        
-        .description-card {
-            grid-column: 1 / -1;
-            margin-bottom: 12px;
-        }
-        
-        .card-text {
-            font-size: 17px;
-            color: #52525b;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        
-        /* Simple Steps */
-        .simple-step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding: 12px;
-            background: white;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-        }
-        
-        .simple-step:hover {
-            background: rgba(0, 113, 227, 0.05);
-            transform: translateX(2px);
-        }
-        
-        .simple-step-number {
-            width: 28px;
-            height: 28px;
-            background: #0071e3;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 13px;
-            flex-shrink: 0;
-        }
-        
-        .simple-step-text {
-            font-size: 19px;
-            color: #1d1d1f;
-            font-weight: 400;
-            line-height: 1.47059;
-            letter-spacing: -0.022em;
-        }
-        
-        /* Benefits List */
-        .benefits-list {
-            margin-top: 20px;
-        }
-        
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding: 12px;
-            background: white;
-            border-radius: 12px;
-            font-size: 19px;
-            color: #1d1d1f;
-            transition: all 0.2s ease;
-        }
-        
-        .benefit-item:hover {
-            background: rgba(0, 113, 227, 0.05);
-            transform: translateX(2px);
-        }
-        
-        .benefit-check {
-            color: #0071e3;
-            font-weight: 600;
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-        
-        .benefit-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
-        .benefit-title {
-            font-weight: 600;
-            color: #1d1d1f;
-            font-size: 19px;
-            line-height: 1.47059;
-            letter-spacing: -0.022em;
-        }
-        
-        .benefit-desc {
-            font-size: 15px;
-            color: #6e6e73;
-            font-weight: 400;
-            line-height: 1.42859;
-            letter-spacing: -0.016em;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 68px 22px;
-            background: #f5f5f7;
-            border-radius: 18px;
-            margin-bottom: 80px;
-        }
-        
-        .cta-title {
-            font-size: 48px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 10px;
-            letter-spacing: -0.003em;
-            line-height: 1.1;
-        }
-        
-        .cta-text {
-            font-size: 24px;
-            color: #6e6e73;
-            line-height: 1.33333;
-            margin-bottom: 28px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 400;
-            letter-spacing: 0.007em;
-        }
-        
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 14px 26px;
-            background: #0071e3;
-            color: white;
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 19px;
-            border-radius: 980px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            white-space: nowrap;
-            letter-spacing: -0.022em;
-        }
-        
-        /* Mobile-friendly hover states */
-        @media (hover: hover) {
-            .cta-button:hover {
-                background: #0077ed;
-                transform: translateY(-2px);
-            }
-        }
-        
-        /* Mobile touch states */
-        @media (hover: none) {
-            .cta-button {
-                -webkit-tap-highlight-color: transparent;
-                touch-action: manipulation;
-            }
-            
-            .cta-button:active {
-                background: #0077ed;
-                transform: scale(0.96);
-            }
-        }
-        
-        .cta-button:active {
-            transform: scale(0.96);
-            background: #0077ed;
-            transition: all 0.1s ease;
-        }
-        
-        .cta-arrow {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  /* Header */
+  header{text-align:center;padding:56px 0 12px}
+  .logo{font-size:30px;font-weight:700;letter-spacing:-.02em}
+  .logo span{color:var(--blue)}
+  .tag{color:var(--sub);font-size:16px;margin-top:6px}
 
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-content {
-                padding: 0 16px;
-                height: 48px;
-            }
-            
-            .nav-link {
-                font-size: 13px;
-                padding: 7px 18px;
-            }
-            
-            .container {
-                padding: 0 16px;
-            }
-            
-            .hero {
-                margin-bottom: 30px;
-                padding-top: 40px;
-            }
-            
-            .hero-title {
-                font-size: 48px;
-            }
-            
-            .video-section {
-                margin: 0 auto 40px;
-                max-width: 280px;
-                padding: 0;
-            }
-            
-            .video-container {
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                border-radius: 16px;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-                margin-bottom: 50px;
-            }
-            
-            .info-card {
-                padding: 32px 24px;
-                border-radius: 16px;
-                border-width: 2px;
-            }
-            
-            .description-card {
-                margin-bottom: 8px;
-            }
-            
-            .card-title {
-                font-size: 24px;
-                margin-bottom: 20px;
-                padding-bottom: 14px;
-            }
-            
-            .card-description {
-                font-size: 17px;
-            }
-            
-            .simple-step {
-                padding: 10px;
-                margin-bottom: 12px;
-            }
-            
-            .simple-step-text {
-                font-size: 17px;
-            }
-            
-            .benefit-item {
-                padding: 10px;
-                margin-bottom: 12px;
-            }
-            
-            .benefit-title {
-                font-size: 17px;
-            }
-            
-            .benefit-desc {
-                font-size: 14px;
-            }
-            
-            .cta-section {
-                padding: 50px 20px;
-                border-radius: 16px;
-                margin-bottom: 50px;
-            }
-            
-            .cta-title {
-                font-size: 36px;
-            }
-            
-            .cta-text {
-                font-size: 19px;
-            }
-            
-            .cta-button {
-                padding: 12px 24px;
-                font-size: 17px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 40px;
-            }
-            
-            .video-section {
-                max-width: 240px;
-                margin: 0 auto 30px;
-            }
-            
-            .card-description {
-                font-size: 16px;
-            }
-            
-            .card-title {
-                font-size: 21px;
-            }
-            
-            .simple-step-text {
-                font-size: 16px;
-            }
-            
-            .benefit-title {
-                font-size: 16px;
-            }
-            
-            .cta-title {
-                font-size: 32px;
-            }
-            
-            .cta-text {
-                font-size: 17px;
-            }
-        }
-        
-        /* Animations - Desktop only */
-        @media (min-width: 769px) {
-            .fade-in {
-                opacity: 0;
-                transform: translateY(20px);
-                animation: fadeInUp 0.6s ease forwards;
-            }
-            
-            @keyframes fadeInUp {
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .info-card:nth-child(1) { animation-delay: 0.1s; }
-            .info-card:nth-child(2) { animation-delay: 0.2s; }
-        }
-        
-        /* Mobile - No animations */
-        @media (max-width: 768px) {
-            .fade-in {
-                opacity: 1 !important;
-                transform: none !important;
-                animation: none !important;
-            }
-            
-            * {
-                animation-duration: 0s !important;
-                transition-duration: 0s !important;
-            }
-        }
-        
-        /* Smooth scroll for sections */
-        section {
-            scroll-margin-top: 100px;
-        }
-    </style>
+  /* Search */
+  .search{
+    background:var(--card);border-radius:20px;box-shadow:var(--shadow);
+    padding:22px;margin-top:26px;
+  }
+  .search label{font-size:13px;color:var(--sub);font-weight:600;display:block;margin-bottom:8px}
+  .row{display:flex;gap:10px}
+  input[type=text]{
+    flex:1;font-size:16px;padding:14px 16px;border:1px solid var(--line);
+    border-radius:12px;background:#fbfbfd;color:var(--ink);outline:none;
+    transition:border-color .15s,box-shadow .15s;
+  }
+  input[type=text]:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.12)}
+  button.go{
+    font-size:16px;font-weight:600;padding:14px 22px;border:none;border-radius:12px;
+    background:var(--blue);color:#fff;cursor:pointer;white-space:nowrap;
+    transition:background .15s,transform .05s;
+  }
+  button.go:hover{background:var(--blue2)}
+  button.go:active{transform:scale(.98)}
+  button.go:disabled{background:#a9c9f2;cursor:default}
+  .hint{font-size:12.5px;color:var(--sub);margin-top:10px}
+  .keyline{font-size:12px;color:var(--sub);margin-top:12px;display:flex;align-items:center;gap:8px}
+  .keyline a{color:var(--blue);cursor:pointer;text-decoration:none}
+
+  /* Progress */
+  .progress{display:none;margin-top:22px;background:var(--card);border-radius:16px;
+    box-shadow:var(--shadow);padding:20px 22px}
+  .progress.on{display:block}
+  .pbar{height:6px;background:var(--line2);border-radius:3px;overflow:hidden;margin-top:12px}
+  .pfill{height:100%;width:15%;background:var(--blue);border-radius:3px;
+    transition:width .5s ease}
+  .pstage{font-size:14px;font-weight:600}
+  .pmeta{font-size:12.5px;color:var(--sub);margin-top:2px}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);
+    border-top-color:var(--blue);border-radius:50%;animation:sp 1s linear infinite;
+    vertical-align:-2px;margin-right:8px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  /* Target */
+  .target{display:none;align-items:center;gap:14px;margin-top:26px;
+    background:linear-gradient(180deg,#fff,#fbfbfd);border:1px solid var(--line2);
+    border-radius:16px;padding:16px 18px}
+  .target.on{display:flex}
+  .target img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:var(--line2)}
+  .target .nm{font-weight:700;font-size:17px}
+  .target .mt{font-size:13px;color:var(--sub)}
+  .deliver{margin-left:auto}
+  .deliver button{font-size:13px;font-weight:600;padding:9px 14px;border-radius:10px;
+    border:1px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer}
+  .deliver button:hover{background:#f0f7ff}
+
+  /* Result cards */
+  .results{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);
+    padding:16px 18px;display:flex;gap:14px;align-items:flex-start;
+    opacity:0;transform:translateY(8px);animation:rise .4s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .card .rank{font-size:13px;font-weight:700;color:var(--sub);width:20px;flex:none;padding-top:14px}
+  .card img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--line2);flex:none}
+  .card .body{flex:1;min-width:0}
+  .card .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .card .name{font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+  .card .subs{font-size:13px;color:var(--sub);font-weight:600}
+  .match{margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);
+    background:#eaf3fe;border-radius:20px;padding:4px 11px;white-space:nowrap}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .chip{font-size:11.5px;color:var(--sub);background:var(--chip);border-radius:20px;padding:3px 10px}
+  .contact{margin-top:11px;border-top:1px solid var(--line2);padding-top:11px;
+    display:flex;flex-direction:column;gap:7px}
+  .crow{display:flex;align-items:center;gap:8px;font-size:13.5px;flex-wrap:wrap}
+  .crow .lab{color:var(--sub);width:64px;flex:none;font-size:12px}
+  .crow a{color:var(--blue);text-decoration:none;word-break:break-all}
+  .crow a:hover{text-decoration:underline}
+  .copy{font-size:11px;border:1px solid var(--line);background:#fff;border-radius:8px;
+    padding:3px 9px;cursor:pointer;color:var(--sub)}
+  .copy:hover{border-color:var(--blue);color:var(--blue)}
+  .nomail{color:var(--warn);font-size:12.5px}
+  .open{font-size:12px;color:var(--blue);text-decoration:none;font-weight:600}
+
+  .err{display:none;margin-top:22px;background:#fff4f4;border:1px solid #f3c9c9;
+    color:#a1201f;border-radius:14px;padding:16px 18px;font-size:14px}
+  .err.on{display:block}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:40px}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(30px);
+    background:#1d1d1f;color:#fff;padding:11px 20px;border-radius:12px;font-size:14px;
+    opacity:0;transition:.3s;pointer-events:none;z-index:50}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media(max-width:560px){
+    .row{flex-direction:column}
+    header{padding:40px 0 8px}
+  }
+</style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="nav">
-        <div class="nav-content">
-            <a href="login.html" class="nav-link">Giriş Yap</a>
-        </div>
-    </nav>
+<div class="wrap">
+  <header>
+    <div class="logo">Soy<span>.</span>ad</div>
+    <div class="tag">Kanalına ortak video partneri bul — aynı niş, benzer boyut.</div>
+  </header>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero fade-in">
-            <h1 class="hero-title">
-                Karşılıklı Tanıtım <span>Platformu</span>
-            </h1>
-        </section>
-        
-        <!-- Video Section -->
-        <section class="video-section fade-in">
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/vEqmmIzt6xE?autoplay=0&mute=0&loop=0&controls=1&rel=0&modestbranding=1"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </section>
-        
-        <!-- Info Grid -->
-        <div class="info-grid">
-            <!-- Platform Description Card -->
-            <section class="info-card description-card fade-in">
-                <h2 class="card-title">Soy.ad Nedir?</h2>
-                <p class="card-description">
-                    İstediğiniz Instagram sayfasına tek tıkla teklif gönderin. Hikaye paylaşımıyla karşılıklı tanıtım yapın ve yeni takipçilere ulaşın.
-                </p>
-            </section>
-            
-            <!-- How It Works -->
-            <section class="info-card fade-in">
-                <h2 class="card-title">Nasıl Çalışır?</h2>
-                
-                <div class="steps-container">
-                    <div class="simple-step">
-                        <div class="simple-step-number">1</div>
-                        <div class="simple-step-text">Platforma giriş yapın</div>
-                    </div>
-                    <div class="simple-step">
-                        <div class="simple-step-number">2</div>
-                        <div class="simple-step-text">Size uygun sayfaları beğenin</div>
-                    </div>
-                    <div class="simple-step">
-                        <div class="simple-step-number">3</div>
-                        <div class="simple-step-text">Karşılıklı beğeni geldiğinde, işbirliği başlatın!</div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Benefits -->
-            <section class="info-card fade-in">
-                <h2 class="card-title">Sizin Kazancınız</h2>
-                
-                <div class="benefits-list">
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <div class="benefit-content">
-                            <span class="benefit-title">Organik Büyüme</span>
-                            <span class="benefit-desc">Gerçek takipçiler, gerçek etkileşim</span>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <div class="benefit-content">
-                            <span class="benefit-title">Yeni Müşteriler</span>
-                            <span class="benefit-desc">Farklı kitlelere doğrudan erişim</span>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <div class="benefit-content">
-                            <span class="benefit-title">Reklam Harcaması: 0 TL </span>
-                            <span class="benefit-desc">Sadece karşılıklı destek</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <!-- CTA Section -->
-        <section class="cta-section fade-in">
-            <h2 class="cta-title">Başlayın</h2>
-            <p class="cta-text">
-                İlk ay ücretsiz deneyin.
-            </p>
-            <a href="register.html" class="cta-button">
-                Hesap Oluştur
-                <span class="cta-arrow">→</span>
-            </a>
-        </section>
+  <div class="search">
+    <label for="url">YouTube kanalı (link, @handle veya isim)</label>
+    <div class="row">
+      <input id="url" type="text" placeholder="https://youtube.com/@kanaladi  •  @kanaladi"
+             autocomplete="off" spellcheck="false">
+      <button class="go" id="go">Ortak Bul</button>
     </div>
-    
-    <script>
-        // Detect mobile device
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-        
-        // Disable animations on mobile for better performance (except button)
-        if (isMobile) {
-            // Remove all animations except button
-            const style = document.createElement('style');
-            style.textContent = `
-                *:not(.cta-button) {
-                    animation: none !important;
-                    transition: none !important;
-                }
-                .fade-in {
-                    opacity: 1 !important;
-                    transform: none !important;
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Make all fade-in elements visible immediately
-            document.querySelectorAll('.fade-in').forEach(el => {
-                el.style.opacity = '1';
-                el.style.transform = 'none';
-            });
-            
-            // Improve scroll performance
-            document.addEventListener('touchstart', function() {}, {passive: true});
-            document.addEventListener('touchmove', function() {}, {passive: true});
-            document.addEventListener('wheel', function() {}, {passive: true});
-            
-        } else {
-            // Desktop animations only
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.fade-in').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'all 0.6s ease';
-                observer.observe(el);
-            });
-            
-            // Desktop only - Smooth parallax effect for hero
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero');
-                if (hero && scrolled < 500) {
-                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-                    hero.style.opacity = 1 - (scrolled / 500);
-                }
-            });
-        }
-        
-        // Enhanced button animations for all devices
-        const ctaButton = document.querySelector('.cta-button');
-        if (ctaButton) {
-            ctaButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Immediate visual feedback
-                this.style.transform = 'scale(0.94)';
-                this.style.background = '#0066cc';
-                
-                // Add loading state
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span style="display: inline-block; animation: pulse 0.8s ease-in-out infinite;">Yükleniyor...</span>';
-                
-                // Navigate after brief delay for visual feedback
-                setTimeout(() => {
-                    window.location.href = 'register.html';
-                }, 200);
-            });
-            
-            // Mobile haptic feedback
-            if ('vibrate' in navigator) {
-                ctaButton.addEventListener('touchstart', function() {
-                    navigator.vibrate(10);
-                });
-            }
-        }
-        
-        // Navigation button feedback
-        const navLink = document.querySelector('.nav-link');
-        if (navLink) {
-            navLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Immediate visual feedback
-                this.style.transform = 'scale(0.92)';
-                this.style.opacity = '0.6';
-                
-                // Navigate after brief delay
-                setTimeout(() => {
-                    window.location.href = this.getAttribute('href');
-                }, 150);
-            });
-            
-            // Mobile haptic feedback
-            if ('vibrate' in navigator) {
-                navLink.addEventListener('touchstart', function() {
-                    navigator.vibrate(10);
-                });
-            }
-        }
-        
-        // Add pulse animation
-        const pulseStyle = document.createElement('style');
-        pulseStyle.textContent = `
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.5; }
-            }
-        `;
-        document.head.appendChild(pulseStyle);
-    </script>
-    
-    <script>
-        // Translation System - Auto-detect and translate
-        const translations = {
-            tr: { title: 'Karşılıklı Tanıtım', subtitle: 'Platformu', cardTitle1: 'Soy.ad Nedir?', cardDesc: 'İstediğiniz Instagram sayfasına tek tıkla teklif gönderin. Hikaye paylaşımıyla karşılıklı tanıtım yapın ve yeni takipçilere ulaşın.', cardTitle2: 'Nasıl Çalışır?', step1: 'Platforma giriş yapın', step2: 'Size uygun sayfaları beğenin', step3: 'Karşılıklı beğeni geldiğinde, işbirliği başlatın!', cardTitle3: 'Sizin Kazancınız', benefit1Title: 'Organik Büyüme', benefit1Desc: 'Gerçek takipçiler, gerçek etkileşim', benefit2Title: 'Yeni Müşteriler', benefit2Desc: 'Farklı kitlelere doğrudan erişim', benefit3Title: 'Reklam Harcaması: 0 TL', benefit3Desc: 'Sadece karşılıklı destek', ctaTitle: 'Başlayın', ctaText: 'İlk ay ücretsiz deneyin.', ctaBtn: 'Hesap Oluştur', navBtn: 'Giriş Yap' },
-            en: { title: 'Mutual Promotion', subtitle: 'Platform', cardTitle1: 'What is Soy.ad?', cardDesc: 'Send collaboration offers to any Instagram page with one click. Make mutual promotions through story sharing and reach new followers.', cardTitle2: 'How It Works?', step1: 'Log in to the platform', step2: 'Like pages that suit you', step3: 'When mutual likes arrive, start collaboration!', cardTitle3: 'Your Benefits', benefit1Title: 'Organic Growth', benefit1Desc: 'Real followers, real engagement', benefit2Title: 'New Customers', benefit2Desc: 'Direct access to different audiences', benefit3Title: 'Ad Spend: $0', benefit3Desc: 'Just mutual support', ctaTitle: 'Get Started', ctaText: 'Try free for the first month.', ctaBtn: 'Create Account', navBtn: 'Sign In' },
-            de: { title: 'Gegenseitige Förderung', subtitle: 'Plattform', cardTitle1: 'Was ist Soy.ad?', cardDesc: 'Senden Sie mit einem Klick Kooperationsangebote an jede Instagram-Seite. Machen Sie gegenseitige Werbung durch Story-Sharing und erreichen Sie neue Follower.', cardTitle2: 'Wie funktioniert es?', step1: 'Melden Sie sich auf der Plattform an', step2: 'Liken Sie Seiten, die zu Ihnen passen', step3: 'Wenn gegenseitige Likes eintreffen, starten Sie die Zusammenarbeit!', cardTitle3: 'Ihre Vorteile', benefit1Title: 'Organisches Wachstum', benefit1Desc: 'Echte Follower, echtes Engagement', benefit2Title: 'Neue Kunden', benefit2Desc: 'Direkter Zugang zu verschiedenen Zielgruppen', benefit3Title: 'Werbeausgaben: 0€', benefit3Desc: 'Nur gegenseitige Unterstützung', ctaTitle: 'Loslegen', ctaText: 'Testen Sie den ersten Monat kostenlos.', ctaBtn: 'Konto erstellen', navBtn: 'Anmelden' },
-            fr: { title: 'Promotion Mutuelle', subtitle: 'Plateforme', cardTitle1: 'Qu\'est-ce que Soy.ad?', cardDesc: 'Envoyez des offres de collaboration à n\'importe quelle page Instagram en un clic. Faites des promotions mutuelles par le partage de stories et atteignez de nouveaux abonnés.', cardTitle2: 'Comment ça marche?', step1: 'Connectez-vous à la plateforme', step2: 'Aimez les pages qui vous conviennent', step3: 'Lorsque des likes mutuels arrivent, lancez la collaboration!', cardTitle3: 'Vos Avantages', benefit1Title: 'Croissance Organique', benefit1Desc: 'Vrais abonnés, vrai engagement', benefit2Title: 'Nouveaux Clients', benefit2Desc: 'Accès direct à différents publics', benefit3Title: 'Dépenses Publicitaires: 0€', benefit3Desc: 'Juste un soutien mutuel', ctaTitle: 'Commencer', ctaText: 'Essayez gratuitement le premier mois.', ctaBtn: 'Créer un Compte', navBtn: 'Se Connecter' },
-            es: { title: 'Promoción Mutua', subtitle: 'Plataforma', cardTitle1: '¿Qué es Soy.ad?', cardDesc: 'Envía ofertas de colaboración a cualquier página de Instagram con un clic. Haz promociones mutuas compartiendo historias y alcanza nuevos seguidores.', cardTitle2: '¿Cómo Funciona?', step1: 'Inicia sesión en la plataforma', step2: 'Dale me gusta a páginas que te gusten', step3: 'Cuando lleguen los me gusta mutuos, ¡comienza la colaboración!', cardTitle3: 'Tus Beneficios', benefit1Title: 'Crecimiento Orgánico', benefit1Desc: 'Seguidores reales, compromiso real', benefit2Title: 'Nuevos Clientes', benefit2Desc: 'Acceso directo a diferentes audiencias', benefit3Title: 'Gasto en Publicidad: 0€', benefit3Desc: 'Solo apoyo mutuo', ctaTitle: 'Empezar', ctaText: 'Prueba gratis el primer mes.', ctaBtn: 'Crear Cuenta', navBtn: 'Iniciar Sesión' },
-            it: { title: 'Promozione Reciproca', subtitle: 'Piattaforma', cardTitle1: 'Cos\'è Soy.ad?', cardDesc: 'Invia offerte di collaborazione a qualsiasi pagina Instagram con un clic. Fai promozioni reciproche condividendo storie e raggiungi nuovi follower.', cardTitle2: 'Come Funziona?', step1: 'Accedi alla piattaforma', step2: 'Metti mi piace alle pagine che ti piacciono', step3: 'Quando arrivano i mi piace reciproci, inizia la collaborazione!', cardTitle3: 'I Tuoi Vantaggi', benefit1Title: 'Crescita Organica', benefit1Desc: 'Follower reali, coinvolgimento reale', benefit2Title: 'Nuovi Clienti', benefit2Desc: 'Accesso diretto a diversi pubblici', benefit3Title: 'Spesa Pubblicitaria: 0€', benefit3Desc: 'Solo supporto reciproco', ctaTitle: 'Inizia', ctaText: 'Prova gratis il primo mese.', ctaBtn: 'Crea Account', navBtn: 'Accedi' },
-            pt: { title: 'Promoção Mútua', subtitle: 'Plataforma', cardTitle1: 'O que é Soy.ad?', cardDesc: 'Envie ofertas de colaboração para qualquer página do Instagram com um clique. Faça promoções mútuas compartilhando histórias e alcance novos seguidores.', cardTitle2: 'Como Funciona?', step1: 'Faça login na plataforma', step2: 'Curta páginas que combinam com você', step3: 'Quando as curtidas mútuas chegarem, inicie a colaboração!', cardTitle3: 'Seus Benefícios', benefit1Title: 'Crescimento Orgânico', benefit1Desc: 'Seguidores reais, engajamento real', benefit2Title: 'Novos Clientes', benefit2Desc: 'Acesso direto a diferentes públicos', benefit3Title: 'Gasto com Anúncios: 0€', benefit3Desc: 'Apenas suporte mútuo', ctaTitle: 'Começar', ctaText: 'Experimente grátis no primeiro mês.', ctaBtn: 'Criar Conta', navBtn: 'Entrar' },
-            ru: { title: 'Взаимное Продвижение', subtitle: 'Платформа', cardTitle1: 'Что такое Soy.ad?', cardDesc: 'Отправляйте предложения о сотрудничестве на любую страницу Instagram одним щелчком мыши. Делайте взаимные промо через обмен историями и достигайте новых подписчиков.', cardTitle2: 'Как это работает?', step1: 'Войдите на платформу', step2: 'Лайкайте подходящие вам страницы', step3: 'Когда придут взаимные лайки, начинайте сотрудничество!', cardTitle3: 'Ваши Преимущества', benefit1Title: 'Органический Рост', benefit1Desc: 'Реальные подписчики, реальное вовлечение', benefit2Title: 'Новые Клиенты', benefit2Desc: 'Прямой доступ к разным аудиториям', benefit3Title: 'Расходы на Рекламу: 0₽', benefit3Desc: 'Только взаимная поддержка', ctaTitle: 'Начать', ctaText: 'Попробуйте бесплатно первый месяц.', ctaBtn: 'Создать Аккаунт', navBtn: 'Войти' },
-            ja: { title: '相互プロモーション', subtitle: 'プラットフォーム', cardTitle1: 'Soy.adとは？', cardDesc: 'ワンクリックで任意のInstagramページにコラボレーションオファーを送信。ストーリー共有を通じて相互プロモーションを行い、新しいフォロワーにリーチ。', cardTitle2: '使い方', step1: 'プラットフォームにログイン', step2: 'あなたに合ったページをいいね', step3: '相互いいねが来たら、コラボレーション開始！', cardTitle3: 'あなたのメリット', benefit1Title: 'オーガニック成長', benefit1Desc: '本物のフォロワー、本物のエンゲージメント', benefit2Title: '新規顧客', benefit2Desc: '異なるオーディエンスへの直接アクセス', benefit3Title: '広告費：0円', benefit3Desc: '相互サポートのみ', ctaTitle: '始める', ctaText: '初月無料でお試しください。', ctaBtn: 'アカウント作成', navBtn: 'ログイン' },
-            zh: { title: '互惠推广', subtitle: '平台', cardTitle1: '什么是Soy.ad？', cardDesc: '一键向任何Instagram页面发送合作提案。通过故事分享进行互惠推广，接触新粉丝。', cardTitle2: '如何运作？', step1: '登录平台', step2: '点赞适合您的页面', step3: '收到互相点赞后，开始合作！', cardTitle3: '您的收益', benefit1Title: '有机增长', benefit1Desc: '真实粉丝，真实互动', benefit2Title: '新客户', benefit2Desc: '直接接触不同受众', benefit3Title: '广告支出：0元', benefit3Desc: '仅互相支持', ctaTitle: '开始', ctaText: '首月免费试用。', ctaBtn: '创建账户', navBtn: '登录' },
-            ar: { title: 'الترويج المتبادل', subtitle: 'منصة', cardTitle1: 'ما هو Soy.ad؟', cardDesc: 'أرسل عروض التعاون إلى أي صفحة إنستغرام بنقرة واحدة. قم بالترويج المتبادل من خلال مشاركة القصص والوصول إلى متابعين جدد.', cardTitle2: 'كيف يعمل؟', step1: 'سجل الدخول إلى المنصة', step2: 'أعجب بالصفحات التي تناسبك', step3: 'عندما تصل الإعجابات المتبادلة، ابدأ التعاون!', cardTitle3: 'فوائدك', benefit1Title: 'نمو عضوي', benefit1Desc: 'متابعون حقيقيون، تفاعل حقيقي', benefit2Title: 'عملاء جدد', benefit2Desc: 'وصول مباشر لجماهير مختلفة', benefit3Title: 'إنفاق إعلاني: 0', benefit3Desc: 'فقط الدعم المتبادل', ctaTitle: 'ابدأ', ctaText: 'جرب مجانًا للشهر الأول.', ctaBtn: 'إنشاء حساب', navBtn: 'تسجيل الدخول' },
-            hi: { title: 'पारस्परिक प्रचार', subtitle: 'मंच', cardTitle1: 'Soy.ad क्या है?', cardDesc: 'एक क्लिक से किसी भी Instagram पेज पर सहयोग प्रस्ताव भेजें। स्टोरी शेयरिंग के माध्यम से पारस्परिक प्रचार करें और नए फॉलोअर्स तक पहुंचें।', cardTitle2: 'यह कैसे काम करता है?', step1: 'प्लेटफ़ॉर्म में लॉगिन करें', step2: 'अपने लिए उपयुक्त पेजों को लाइक करें', step3: 'जब पारस्परिक लाइक आएं, सहयोग शुरू करें!', cardTitle3: 'आपके लाभ', benefit1Title: 'जैविक विकास', benefit1Desc: 'वास्तविक फॉलोअर्स, वास्तविक जुड़ाव', benefit2Title: 'नए ग्राहक', benefit2Desc: 'विभिन्न दर्शकों तक सीधी पहुंच', benefit3Title: 'विज्ञापन खर्च: 0', benefit3Desc: 'केवल पारस्परिक समर्थन', ctaTitle: 'शुरू करें', ctaText: 'पहले महीने मुफ्त में आज़माएं।', ctaBtn: 'खाता बनाएं', navBtn: 'साइन इन' },
-            ko: { title: '상호 홍보', subtitle: '플랫폼', cardTitle1: 'Soy.ad란?', cardDesc: '클릭 한 번으로 모든 Instagram 페이지에 협업 제안을 보내세요. 스토리 공유를 통해 상호 홍보하고 새로운 팔로워에게 도달하세요.', cardTitle2: '어떻게 작동하나요?', step1: '플랫폼에 로그인', step2: '마음에 드는 페이지에 좋아요', step3: '상호 좋아요가 오면 협업 시작!', cardTitle3: '귀하의 이점', benefit1Title: '유기적 성장', benefit1Desc: '진짜 팔로워, 진짜 참여', benefit2Title: '새로운 고객', benefit2Desc: '다양한 청중에게 직접 액세스', benefit3Title: '광고 지출: 0원', benefit3Desc: '상호 지원만', ctaTitle: '시작하기', ctaText: '첫 달 무료 체험.', ctaBtn: '계정 만들기', navBtn: '로그인' },
-            nl: { title: 'Wederzijdse Promotie', subtitle: 'Platform', cardTitle1: 'Wat is Soy.ad?', cardDesc: 'Stuur samenwerkingsaanbiedingen naar elke Instagram-pagina met één klik. Maak wederzijdse promoties via het delen van verhalen en bereik nieuwe volgers.', cardTitle2: 'Hoe werkt het?', step1: 'Log in op het platform', step2: 'Vind pagina\'s leuk die bij je passen', step3: 'Wanneer wederzijdse likes binnenkomen, start de samenwerking!', cardTitle3: 'Jouw Voordelen', benefit1Title: 'Organische Groei', benefit1Desc: 'Echte volgers, echte betrokkenheid', benefit2Title: 'Nieuwe Klanten', benefit2Desc: 'Directe toegang tot verschillende doelgroepen', benefit3Title: 'Advertentie-uitgaven: €0', benefit3Desc: 'Alleen wederzijdse ondersteuning', ctaTitle: 'Begin', ctaText: 'Probeer de eerste maand gratis.', ctaBtn: 'Account Aanmaken', navBtn: 'Inloggen' },
-            pl: { title: 'Wzajemna Promocja', subtitle: 'Platforma', cardTitle1: 'Czym jest Soy.ad?', cardDesc: 'Wysyłaj oferty współpracy na dowolną stronę Instagram jednym kliknięciem. Promuj się wzajemnie poprzez udostępnianie historii i docieraj do nowych obserwujących.', cardTitle2: 'Jak to działa?', step1: 'Zaloguj się na platformę', step2: 'Polub strony, które Ci odpowiadają', step3: 'Gdy przyjdą wzajemne polubienia, rozpocznij współpracę!', cardTitle3: 'Twoje Korzyści', benefit1Title: 'Organiczny Wzrost', benefit1Desc: 'Prawdziwi obserwujący, prawdziwe zaangażowanie', benefit2Title: 'Nowi Klienci', benefit2Desc: 'Bezpośredni dostęp do różnych odbiorców', benefit3Title: 'Wydatki na Reklamy: 0 zł', benefit3Desc: 'Tylko wzajemne wsparcie', ctaTitle: 'Rozpocznij', ctaText: 'Wypróbuj za darmo przez pierwszy miesiąc.', ctaBtn: 'Utwórz Konto', navBtn: 'Zaloguj się' },
-            sv: { title: 'Ömsesidig Marknadsföring', subtitle: 'Plattform', cardTitle1: 'Vad är Soy.ad?', cardDesc: 'Skicka samarbetserbjudanden till vilken Instagram-sida som helst med ett klick. Gör ömsesidig marknadsföring genom att dela berättelser och nå nya följare.', cardTitle2: 'Hur fungerar det?', step1: 'Logga in på plattformen', step2: 'Gilla sidor som passar dig', step3: 'När ömsesidiga gillanden kommer, starta samarbetet!', cardTitle3: 'Dina Fördelar', benefit1Title: 'Organisk Tillväxt', benefit1Desc: 'Riktiga följare, riktigt engagemang', benefit2Title: 'Nya Kunder', benefit2Desc: 'Direkt tillgång till olika målgrupper', benefit3Title: 'Annonssutgifter: 0 kr', benefit3Desc: 'Bara ömsesidigt stöd', ctaTitle: 'Kom igång', ctaText: 'Prova gratis första månaden.', ctaBtn: 'Skapa Konto', navBtn: 'Logga in' },
-            no: { title: 'Gjensidig Markedsføring', subtitle: 'Plattform', cardTitle1: 'Hva er Soy.ad?', cardDesc: 'Send samarbeidsforslag til hvilken som helst Instagram-side med ett klikk. Gjør gjensidig markedsføring gjennom historiedeling og nå nye følgere.', cardTitle2: 'Hvordan fungerer det?', step1: 'Logg inn på plattformen', step2: 'Lik sider som passer deg', step3: 'Når gjensidige likes kommer, start samarbeidet!', cardTitle3: 'Dine Fordeler', benefit1Title: 'Organisk Vekst', benefit1Desc: 'Ekte følgere, ekte engasjement', benefit2Title: 'Nye Kunder', benefit2Desc: 'Direkte tilgang til forskjellige målgrupper', benefit3Title: 'Annonseutgifter: 0 kr', benefit3Desc: 'Bare gjensidig støtte', ctaTitle: 'Kom i gang', ctaText: 'Prøv gratis første måneden.', ctaBtn: 'Opprett Konto', navBtn: 'Logg inn' },
-            da: { title: 'Gensidig Markedsføring', subtitle: 'Platform', cardTitle1: 'Hvad er Soy.ad?', cardDesc: 'Send samarbejdstilbud til enhver Instagram-side med et klik. Lav gensidig markedsføring gennem historiedeling og nå nye følgere.', cardTitle2: 'Hvordan virker det?', step1: 'Log ind på platformen', step2: 'Synes godt om sider, der passer til dig', step3: 'Når gensidige likes kommer, start samarbejdet!', cardTitle3: 'Dine Fordele', benefit1Title: 'Organisk Vækst', benefit1Desc: 'Ægte følgere, ægte engagement', benefit2Title: 'Nye Kunder', benefit2Desc: 'Direkte adgang til forskellige målgrupper', benefit3Title: 'Annonceudgifter: 0 kr', benefit3Desc: 'Kun gensidig støtte', ctaTitle: 'Kom i gang', ctaText: 'Prøv gratis den første måned.', ctaBtn: 'Opret Konto', navBtn: 'Log ind' },
-            fi: { title: 'Keskinäinen Markkinointi', subtitle: 'Alusta', cardTitle1: 'Mikä on Soy.ad?', cardDesc: 'Lähetä yhteistyötarjouksia mihin tahansa Instagram-sivulle yhdellä klikkauksella. Tee keskinäistä markkinointia tarinoiden jakamisen kautta ja tavoita uusia seuraajia.', cardTitle2: 'Miten se toimii?', step1: 'Kirjaudu alustalle', step2: 'Tykkää sinulle sopivista sivuista', step3: 'Kun keskinäiset tykkäykset tulevat, aloita yhteistyö!', cardTitle3: 'Sinun Etusi', benefit1Title: 'Orgaaninen Kasvu', benefit1Desc: 'Aitoja seuraajia, aitoa sitoutumista', benefit2Title: 'Uusia Asiakkaita', benefit2Desc: 'Suora pääsy eri yleisöihin', benefit3Title: 'Mainoskulut: 0€', benefit3Desc: 'Vain keskinäistä tukea', ctaTitle: 'Aloita', ctaText: 'Kokeile ilmaiseksi ensimmäinen kuukausi.', ctaBtn: 'Luo Tili', navBtn: 'Kirjaudu' },
-            cs: { title: 'Vzájemná Propagace', subtitle: 'Platforma', cardTitle1: 'Co je Soy.ad?', cardDesc: 'Posílejte nabídky spolupráce na jakoukoli Instagram stránku jedním kliknutím. Dělejte vzájemnou propagaci sdílením příběhů a oslovte nové sledující.', cardTitle2: 'Jak to funguje?', step1: 'Přihlaste se na platformu', step2: 'Lajkujte stránky, které vám vyhovují', step3: 'Když přijdou vzájemné lajky, začněte spolupráci!', cardTitle3: 'Vaše Výhody', benefit1Title: 'Organický Růst', benefit1Desc: 'Skuteční sledující, skutečné zapojení', benefit2Title: 'Noví Zákazníci', benefit2Desc: 'Přímý přístup k různým publiku', benefit3Title: 'Náklady na Reklamu: 0 Kč', benefit3Desc: 'Pouze vzájemná podpora', ctaTitle: 'Začněte', ctaText: 'Vyzkoušejte zdarma první měsíc.', ctaBtn: 'Vytvořit Účet', navBtn: 'Přihlásit se' },
-            uk: { title: 'Взаємне Просування', subtitle: 'Платформа', cardTitle1: 'Що таке Soy.ad?', cardDesc: 'Надсилайте пропозиції про співпрацю на будь-яку сторінку Instagram одним кліком. Робіть взаємне просування через обмін історіями та досягайте нових підписників.', cardTitle2: 'Як це працює?', step1: 'Увійдіть на платформу', step2: 'Лайкайте сторінки, які вам підходять', step3: 'Коли з\'являться взаємні лайки, почніть співпрацю!', cardTitle3: 'Ваші Переваги', benefit1Title: 'Органічне Зростання', benefit1Desc: 'Справжні підписники, справжнє залучення', benefit2Title: 'Нові Клієнти', benefit2Desc: 'Прямий доступ до різних аудиторій', benefit3Title: 'Витрати на Рекламу: 0₴', benefit3Desc: 'Лише взаємна підтримка', ctaTitle: 'Почати', ctaText: 'Спробуйте безкоштовно перший місяць.', ctaBtn: 'Створити Акаунт', navBtn: 'Увійти' },
-            ro: { title: 'Promovare Reciprocă', subtitle: 'Platformă', cardTitle1: 'Ce este Soy.ad?', cardDesc: 'Trimiteți oferte de colaborare către orice pagină Instagram cu un singur clic. Faceți promovare reciprocă prin partajarea poveștilor și ajungeți la noi urmăritori.', cardTitle2: 'Cum funcționează?', step1: 'Conectați-vă pe platformă', step2: 'Apreciați paginile care vi se potrivesc', step3: 'Când sosesc aprecierile reciproce, începeți colaborarea!', cardTitle3: 'Beneficiile Dumneavoastră', benefit1Title: 'Creștere Organică', benefit1Desc: 'Urmăritori reali, implicare reală', benefit2Title: 'Clienți Noi', benefit2Desc: 'Acces direct la audiențe diferite', benefit3Title: 'Cheltuieli Publicitare: 0 lei', benefit3Desc: 'Doar sprijin reciproc', ctaTitle: 'Începeți', ctaText: 'Încercați gratuit prima lună.', ctaBtn: 'Creați Cont', navBtn: 'Conectare' },
-            el: { title: 'Αμοιβαία Προώθηση', subtitle: 'Πλατφόρμα', cardTitle1: 'Τι είναι το Soy.ad;', cardDesc: 'Στείλτε προτάσεις συνεργασίας σε οποιαδήποτε σελίδα Instagram με ένα κλικ. Κάντε αμοιβαία προώθηση μέσω κοινοποίησης ιστοριών και φτάστε νέους ακόλουθους.', cardTitle2: 'Πώς λειτουργεί;', step1: 'Συνδεθείτε στην πλατφόρμα', step2: 'Κάντε like σε σελίδες που σας ταιριάζουν', step3: 'Όταν έρθουν αμοιβαία likes, ξεκινήστε τη συνεργασία!', cardTitle3: 'Τα Οφέλη Σας', benefit1Title: 'Οργανική Ανάπτυξη', benefit1Desc: 'Πραγματικοί ακόλουθοι, πραγματική αφοσίωση', benefit2Title: 'Νέοι Πελάτες', benefit2Desc: 'Άμεση πρόσβαση σε διαφορετικό κοινό', benefit3Title: 'Διαφημιστικά Έξοδα: 0€', benefit3Desc: 'Μόνο αμοιβαία υποστήριξη', ctaTitle: 'Ξεκινήστε', ctaText: 'Δοκιμάστε δωρεάν τον πρώτο μήνα.', ctaBtn: 'Δημιουργία Λογαριασμού', navBtn: 'Σύνδεση' },
-            hu: { title: 'Kölcsönös Promóció', subtitle: 'Platform', cardTitle1: 'Mi az a Soy.ad?', cardDesc: 'Küldjön együttműködési ajánlatokat bármely Instagram oldalra egy kattintással. Kölcsönös promóciót végezzen történetmegosztással és érjen el új követőket.', cardTitle2: 'Hogyan működik?', step1: 'Jelentkezzen be a platformra', step2: 'Lájkolja az Önnek tetsző oldalakat', step3: 'Amikor érkeznek a kölcsönös lájkok, kezdje el az együttműködést!', cardTitle3: 'Az Ön Előnyei', benefit1Title: 'Organikus Növekedés', benefit1Desc: 'Valódi követők, valódi elkötelezettség', benefit2Title: 'Új Ügyfelek', benefit2Desc: 'Közvetlen hozzáférés különböző közönségekhez', benefit3Title: 'Hirdetési Költségek: 0 Ft', benefit3Desc: 'Csak kölcsönös támogatás', ctaTitle: 'Kezdje El', ctaText: 'Próbálja ki ingyen az első hónapban.', ctaBtn: 'Fiók Létrehozása', navBtn: 'Bejelentkezés' },
-            th: { title: 'การส่งเสริมร่วมกัน', subtitle: 'แพลตฟอร์ม', cardTitle1: 'Soy.ad คืออะไร?', cardDesc: 'ส่งข้อเสนอความร่วมมือไปยังเพจ Instagram ใดก็ได้ด้วยคลิกเดียว ทำการส่งเสริมร่วมกันผ่านการแชร์สตอรี่และเข้าถึงผู้ติดตามใหม่', cardTitle2: 'มันทำงานอย่างไร?', step1: 'เข้าสู่ระบบแพลตฟอร์ม', step2: 'กดไลค์เพจที่เหมาะกับคุณ', step3: 'เมื่อได้รับไลค์ร่วมกัน เริ่มความร่วมมือ!', cardTitle3: 'ผลประโยชน์ของคุณ', benefit1Title: 'การเติบโตแบบออร์แกนิก', benefit1Desc: 'ผู้ติดตามจริง การมีส่วนร่วมจริง', benefit2Title: 'ลูกค้าใหม่', benefit2Desc: 'เข้าถึงกลุ่มเป้าหมายที่แตกต่างกันโดยตรง', benefit3Title: 'ค่าโฆษณา: 0 บาท', benefit3Desc: 'เพียงการสนับสนุนร่วมกัน', ctaTitle: 'เริ่มต้น', ctaText: 'ทดลองใช้ฟรีเดือนแรก', ctaBtn: 'สร้างบัญชี', navBtn: 'เข้าสู่ระบบ' },
-            vi: { title: 'Quảng Bá Lẫn Nhau', subtitle: 'Nền Tảng', cardTitle1: 'Soy.ad là gì?', cardDesc: 'Gửi đề nghị hợp tác đến bất kỳ trang Instagram nào chỉ với một cú nhấp chuột. Thực hiện quảng bá lẫn nhau thông qua chia sẻ story và tiếp cận người theo dõi mới.', cardTitle2: 'Nó hoạt động như thế nào?', step1: 'Đăng nhập vào nền tảng', step2: 'Thích các trang phù hợp với bạn', step3: 'Khi nhận được lượt thích lẫn nhau, bắt đầu hợp tác!', cardTitle3: 'Lợi Ích Của Bạn', benefit1Title: 'Tăng Trưởng Tự Nhiên', benefit1Desc: 'Người theo dõi thực, tương tác thực', benefit2Title: 'Khách Hàng Mới', benefit2Desc: 'Tiếp cận trực tiếp đến các đối tượng khác nhau', benefit3Title: 'Chi Phí Quảng Cáo: 0₫', benefit3Desc: 'Chỉ hỗ trợ lẫn nhau', ctaTitle: 'Bắt Đầu', ctaText: 'Dùng thử miễn phí tháng đầu tiên.', ctaBtn: 'Tạo Tài Khoản', navBtn: 'Đăng Nhập' },
-            id: { title: 'Promosi Timbal Balik', subtitle: 'Platform', cardTitle1: 'Apa itu Soy.ad?', cardDesc: 'Kirim tawaran kolaborasi ke halaman Instagram mana pun dengan satu klik. Lakukan promosi timbal balik melalui berbagi story dan jangkau pengikut baru.', cardTitle2: 'Bagaimana cara kerjanya?', step1: 'Masuk ke platform', step2: 'Sukai halaman yang cocok untuk Anda', step3: 'Ketika suka timbal balik datang, mulai kolaborasi!', cardTitle3: 'Keuntungan Anda', benefit1Title: 'Pertumbuhan Organik', benefit1Desc: 'Pengikut nyata, keterlibatan nyata', benefit2Title: 'Pelanggan Baru', benefit2Desc: 'Akses langsung ke audiens yang berbeda', benefit3Title: 'Biaya Iklan: Rp0', benefit3Desc: 'Hanya dukungan timbal balik', ctaTitle: 'Mulai', ctaText: 'Coba gratis bulan pertama.', ctaBtn: 'Buat Akun', navBtn: 'Masuk' },
-            ms: { title: 'Promosi Bersama', subtitle: 'Platform', cardTitle1: 'Apa itu Soy.ad?', cardDesc: 'Hantar tawaran kerjasama ke mana-mana halaman Instagram dengan satu klik. Buat promosi bersama melalui perkongsian cerita dan capai pengikut baharu.', cardTitle2: 'Bagaimana ia berfungsi?', step1: 'Log masuk ke platform', step2: 'Suka halaman yang sesuai dengan anda', step3: 'Apabila suka bersama tiba, mulakan kerjasama!', cardTitle3: 'Faedah Anda', benefit1Title: 'Pertumbuhan Organik', benefit1Desc: 'Pengikut sebenar, penglibatan sebenar', benefit2Title: 'Pelanggan Baru', benefit2Desc: 'Akses terus kepada khalayak berbeza', benefit3Title: 'Perbelanjaan Iklan: RM0', benefit3Desc: 'Hanya sokongan bersama', ctaTitle: 'Mulakan', ctaText: 'Cuba percuma bulan pertama.', ctaBtn: 'Cipta Akaun', navBtn: 'Log Masuk' },
-            bn: { title: 'পারস্পরিক প্রচার', subtitle: 'প্ল্যাটফর্ম', cardTitle1: 'Soy.ad কী?', cardDesc: 'এক ক্লিকে যেকোনো Instagram পেজে সহযোগিতার প্রস্তাব পাঠান। স্টোরি শেয়ারিংয়ের মাধ্যমে পারস্পরিক প্রচার করুন এবং নতুন অনুসরণকারীদের কাছে পৌঁছান।', cardTitle2: 'এটি কীভাবে কাজ করে?', step1: 'প্ল্যাটফর্মে লগইন করুন', step2: 'আপনার উপযুক্ত পেজগুলিতে লাইক দিন', step3: 'পারস্পরিক লাইক এলে, সহযোগিতা শুরু করুন!', cardTitle3: 'আপনার সুবিধা', benefit1Title: 'জৈব বৃদ্ধি', benefit1Desc: 'প্রকৃত অনুসরণকারী, প্রকৃত সম্পৃক্ততা', benefit2Title: 'নতুন গ্রাহক', benefit2Desc: 'বিভিন্ন দর্শকদের সরাসরি অ্যাক্সেস', benefit3Title: 'বিজ্ঞাপন খরচ: ০৳', benefit3Desc: 'শুধুমাত্র পারস্পরিক সহায়তা', ctaTitle: 'শুরু করুন', ctaText: 'প্রথম মাস বিনামূল্যে চেষ্টা করুন।', ctaBtn: 'অ্যাকাউন্ট তৈরি করুন', navBtn: 'সাইন ইন' },
-            tl: { title: 'Mutual na Promosyon', subtitle: 'Platform', cardTitle1: 'Ano ang Soy.ad?', cardDesc: 'Magpadala ng alok ng kolaborasyon sa kahit anong Instagram page sa isang click. Gumawa ng mutual na promosyon sa pamamagitan ng pagbabahagi ng story at maabot ang mga bagong followers.', cardTitle2: 'Paano ito gumagana?', step1: 'Mag-login sa platform', step2: 'I-like ang mga page na akma sa iyo', step3: 'Kapag dumating ang mutual likes, simulan ang kolaborasyon!', cardTitle3: 'Ang Iyong Mga Benepisyo', benefit1Title: 'Organikong Paglaki', benefit1Desc: 'Tunay na followers, tunay na engagement', benefit2Title: 'Bagong Mga Kliyente', benefit2Desc: 'Direktang access sa iba\'t ibang audience', benefit3Title: 'Gastos sa Ads: ₱0', benefit3Desc: 'Mutual support lamang', ctaTitle: 'Magsimula', ctaText: 'Subukan nang libre sa unang buwan.', ctaBtn: 'Lumikha ng Account', navBtn: 'Mag-sign In' },
-            hr: { title: 'Uzajamna Promocija', subtitle: 'Platforma', cardTitle1: 'Što je Soy.ad?', cardDesc: 'Pošaljite ponude za suradnju na bilo koju Instagram stranicu jednim klikom. Napravite uzajamnu promociju dijeljenjem priča i dosegnite nove pratitelje.', cardTitle2: 'Kako funkcionira?', step1: 'Prijavite se na platformu', step2: 'Lajkajte stranice koje vam odgovaraju', step3: 'Kada stižu uzajamni lajkovi, započnite suradnju!', cardTitle3: 'Vaše Prednosti', benefit1Title: 'Organski Rast', benefit1Desc: 'Pravi pratitelji, pravi angažman', benefit2Title: 'Novi Kupci', benefit2Desc: 'Izravan pristup različitim publikama', benefit3Title: 'Troškovi Oglašavanja: 0 kn', benefit3Desc: 'Samo uzajamna podrška', ctaTitle: 'Počnite', ctaText: 'Isprobajte besplatno prvi mjesec.', ctaBtn: 'Kreiraj Račun', navBtn: 'Prijava' },
-            he: { title: 'קידום הדדי', subtitle: 'פלטפורמה', cardTitle1: 'מה זה Soy.ad?', cardDesc: 'שלח הצעות שיתוף פעולה לכל עמוד אינסטגרם בלחיצה אחת. בצע קידום הדדי באמצעות שיתוף סטוריז והגע לעוקבים חדשים.', cardTitle2: 'איך זה עובד?', step1: 'התחבר לפלטפורמה', step2: 'תן לייק לעמודים שמתאימים לך', step3: 'כשמגיעים לייקים הדדיים, התחל את שיתוף הפעולה!', cardTitle3: 'היתרונות שלך', benefit1Title: 'צמיחה אורגנית', benefit1Desc: 'עוקבים אמיתיים, מעורבות אמיתית', benefit2Title: 'לקוחות חדשים', benefit2Desc: 'גישה ישירה לקהלים שונים', benefit3Title: 'הוצאות פרסום: ₪0', benefit3Desc: 'רק תמיכה הדדית', ctaTitle: 'התחל', ctaText: 'נסה בחינם בחודש הראשון.', ctaBtn: 'צור חשבון', navBtn: 'התחבר' },
-            fa: { title: 'تبلیغات متقابل', subtitle: 'پلتفرم', cardTitle1: 'Soy.ad چیست؟', cardDesc: 'پیشنهادهای همکاری را با یک کلیک به هر صفحه اینستاگرام ارسال کنید. تبلیغات متقابل را از طریق اشتراک‌گذاری استوری انجام دهید و به دنبال‌کنندگان جدید دسترسی پیدا کنید.', cardTitle2: 'چگونه کار می‌کند؟', step1: 'وارد پلتفرم شوید', step2: 'صفحات مناسب خود را لایک کنید', step3: 'وقتی لایک‌های متقابل می‌رسد، همکاری را شروع کنید!', cardTitle3: 'مزایای شما', benefit1Title: 'رشد ارگانیک', benefit1Desc: 'دنبال‌کنندگان واقعی، تعامل واقعی', benefit2Title: 'مشتریان جدید', benefit2Desc: 'دسترسی مستقیم به مخاطبان مختلف', benefit3Title: 'هزینه تبلیغات: ۰ تومان', benefit3Desc: 'فقط حمایت متقابل', ctaTitle: 'شروع کنید', ctaText: 'ماه اول را رایگان امتحان کنید.', ctaBtn: 'ایجاد حساب', navBtn: 'ورود' },
-            ca: { title: 'Promoció Mútua', subtitle: 'Plataforma', cardTitle1: 'Què és Soy.ad?', cardDesc: 'Envia ofertes de col·laboració a qualsevol pàgina d\'Instagram amb un clic. Fes promoció mútua compartint històries i arriba a nous seguidors.', cardTitle2: 'Com funciona?', step1: 'Inicia sessió a la plataforma', step2: 'Dóna m\'agrada a pàgines que t\'agradin', step3: 'Quan arribin els m\'agrada mutus, comença la col·laboració!', cardTitle3: 'Els Teus Beneficis', benefit1Title: 'Creixement Orgànic', benefit1Desc: 'Seguidors reals, compromís real', benefit2Title: 'Nous Clients', benefit2Desc: 'Accés directe a diferents audiències', benefit3Title: 'Despeses Publicitàries: 0€', benefit3Desc: 'Només suport mutu', ctaTitle: 'Comença', ctaText: 'Prova gratuïtament el primer mes.', ctaBtn: 'Crea Compte', navBtn: 'Inicia Sessió' },
-            sk: { title: 'Vzájomná Propagácia', subtitle: 'Platforma', cardTitle1: 'Čo je Soy.ad?', cardDesc: 'Posielajte ponuky spolupráce na akúkoľvek Instagram stránku jedným kliknutím. Robte vzájomnú propagáciu zdieľaním príbehov a oslovte nových sledovateľov.', cardTitle2: 'Ako to funguje?', step1: 'Prihláste sa na platformu', step2: 'Lajkujte stránky, ktoré vám vyhovujú', step3: 'Keď prídu vzájomné lajky, začnite spoluprácu!', cardTitle3: 'Vaše Výhody', benefit1Title: 'Organický Rast', benefit1Desc: 'Skutoční sledovatelia, skutočné zapojenie', benefit2Title: 'Noví Zákazníci', benefit2Desc: 'Priamy prístup k rôznym publiku', benefit3Title: 'Náklady na Reklamu: 0€', benefit3Desc: 'Len vzájomná podpora', ctaTitle: 'Začnite', ctaText: 'Vyskúšajte zadarmo prvý mesiac.', ctaBtn: 'Vytvoriť Účet', navBtn: 'Prihlásiť sa' },
-            ur: { title: 'باہمی فروغ', subtitle: 'پلیٹ فارم', cardTitle1: 'Soy.ad کیا ہے؟', cardDesc: 'ایک کلک سے کسی بھی Instagram صفحہ پر تعاون کی پیشکش بھیجیں۔ کہانی شیئرنگ کے ذریعے باہمی فروغ کریں اور نئے پیروکاروں تک پہنچیں۔', cardTitle2: 'یہ کیسے کام کرتا ہے؟', step1: 'پلیٹ فارم میں لاگ ان کریں', step2: 'اپنے لیے موزوں صفحات کو پسند کریں', step3: 'جب باہمی پسند آئیں، تعاون شروع کریں!', cardTitle3: 'آپ کے فوائد', benefit1Title: 'نامیاتی ترقی', benefit1Desc: 'حقیقی پیروکار، حقیقی مشغولیت', benefit2Title: 'نئے گاہک', benefit2Desc: 'مختلف سامعین تک براہ راست رسائی', benefit3Title: 'اشتہاری اخراجات: ₨0', benefit3Desc: 'صرف باہمی معاونت', ctaTitle: 'شروع کریں', ctaText: 'پہلے مہینے مفت آزمائیں۔', ctaBtn: 'اکاؤنٹ بنائیں', navBtn: 'سائن ان' },
-            sr: { title: 'Uzajamna Promocija', subtitle: 'Platforma', cardTitle1: 'Šta je Soy.ad?', cardDesc: 'Pošaljite ponude za saradnju na bilo koju Instagram stranicu jednim klikom. Napravite uzajamnu promociju deljenjem priča i dosegnite nove pratioce.', cardTitle2: 'Kako funkcioniše?', step1: 'Prijavite se na platformu', step2: 'Lajkujte stranice koje vam odgovaraju', step3: 'Kada stignu uzajemni lajkovi, započnite saradnju!', cardTitle3: 'Vaše Prednosti', benefit1Title: 'Organski Rast', benefit1Desc: 'Pravi pratioci, pravi angažman', benefit2Title: 'Novi Kupci', benefit2Desc: 'Direktan pristup različitim publikama', benefit3Title: 'Troškovi Oglašavanja: 0 din', benefit3Desc: 'Samo uzajemna podrška', ctaTitle: 'Počnite', ctaText: 'Isprobajte besplatno prvi mesec.', ctaBtn: 'Kreiraj Nalog', navBtn: 'Prijava' },
-            bg: { title: 'Взаимна Промоция', subtitle: 'Платформа', cardTitle1: 'Какво е Soy.ad?', cardDesc: 'Изпращайте предложения за сътрудничество към всяка Instagram страница с едно кликване. Правете взаимна промоция чрез споделяне на истории и достигайте нови последователи.', cardTitle2: 'Как работи?', step1: 'Влезте в платформата', step2: 'Харесайте страници, които ви подхождат', step3: 'Когато дойдат взаимните харесвания, започнете сътрудничеството!', cardTitle3: 'Вашите Ползи', benefit1Title: 'Органичен Растеж', benefit1Desc: 'Истински последователи, истинска ангажираност', benefit2Title: 'Нови Клиенти', benefit2Desc: 'Директен достъп до различни аудитории', benefit3Title: 'Разходи за Реклама: 0 лв', benefit3Desc: 'Само взаимна подкрепа', ctaTitle: 'Започнете', ctaText: 'Изпробвайте безплатно първия месец.', ctaBtn: 'Създай Акаунт', navBtn: 'Вход' },
-            lt: { title: 'Abipusis Skatinimas', subtitle: 'Platforma', cardTitle1: 'Kas yra Soy.ad?', cardDesc: 'Siųskite bendradarbiavimo pasiūlymus bet kuriam Instagram puslapiui vienu paspaudimu. Darykite abipusį skatinimą dalindamiesi istorijomis ir pasiekite naujus sekėjus.', cardTitle2: 'Kaip tai veikia?', step1: 'Prisijunkite prie platformos', step2: 'Pamėgkite jums tinkamus puslapius', step3: 'Kai ateina abipusiai patikimai, pradėkite bendradarbiavimą!', cardTitle3: 'Jūsų Pranašumai', benefit1Title: 'Organinis Augimas', benefit1Desc: 'Tikri sekėjai, tikras įsitraukimas', benefit2Title: 'Nauji Klientai', benefit2Desc: 'Tiesioginė prieiga prie skirtingų auditorijų', benefit3Title: 'Reklamos Išlaidos: 0€', benefit3Desc: 'Tik abipusė parama', ctaTitle: 'Pradėkite', ctaText: 'Išbandykite nemokamai pirmą mėnesį.', ctaBtn: 'Sukurti Paskyrą', navBtn: 'Prisijungti' },
-            lv: { title: 'Savstarpēja Veicināšana', subtitle: 'Platforma', cardTitle1: 'Kas ir Soy.ad?', cardDesc: 'Nosūtiet sadarbības piedāvājumus uz jebkuru Instagram lapu ar vienu klikšķi. Veiciet savstarpēju veicināšanu, daloties ar stāstiem, un sasniedziet jaunus sekotājus.', cardTitle2: 'Kā tas darbojas?', step1: 'Piesakieties platformā', step2: 'Patīk lapas, kas jums der', step3: 'Kad pienāk savstarpējie patīk, sāciet sadarbību!', cardTitle3: 'Jūsu Priekšrocības', benefit1Title: 'Organisks Pieaugums', benefit1Desc: 'Īsti sekotāji, īsta iesaiste', benefit2Title: 'Jauni Klienti', benefit2Desc: 'Tieša piekļuve dažādām auditorijām', benefit3Title: 'Reklāmas Izmaksas: 0€', benefit3Desc: 'Tikai savstarpējs atbalsts', ctaTitle: 'Sāciet', ctaText: 'Izmēģiniet bez maksas pirmo mēnesi.', ctaBtn: 'Izveidot Kontu', navBtn: 'Pieteikties' },
-            et: { title: 'Vastastikune Edendamine', subtitle: 'Platvorm', cardTitle1: 'Mis on Soy.ad?', cardDesc: 'Saatke koostööpakkumisi ükskõik millisele Instagram lehele ühe klikiga. Tehke vastastikust edendamist lugude jagamise kaudu ja jõudke uute jälgijateni.', cardTitle2: 'Kuidas see toimib?', step1: 'Logige platvormi sisse', step2: 'Meeldi lehed, mis teile sobivad', step3: 'Kui tulevad vastastikused meeldimised, alustage koostööd!', cardTitle3: 'Teie Eelised', benefit1Title: 'Orgaaniline Kasv', benefit1Desc: 'Tõelised jälgijad, tõeline kaasatus', benefit2Title: 'Uued Kliendid', benefit2Desc: 'Otsene juurdepääs erinevatele publikutele', benefit3Title: 'Reklaamikulud: 0€', benefit3Desc: 'Ainult vastastikune tugi', ctaTitle: 'Alustage', ctaText: 'Proovige esimest kuud tasuta.', ctaBtn: 'Loo Konto', navBtn: 'Logi Sisse' },
-            af: { title: 'Wedersydse Bevordering', subtitle: 'Platform', cardTitle1: 'Wat is Soy.ad?', cardDesc: 'Stuur samewerkingsaanbiedinge na enige Instagram-bladsy met een klik. Doen wedersydse bevordering deur stories te deel en bereik nuwe volgelinge.', cardTitle2: 'Hoe werk dit?', step1: 'Teken in op die platform', step2: 'Hou van bladsye wat by jou pas', step3: 'Wanneer wedersydse houings kom, begin die samewerking!', cardTitle3: 'Jou Voordele', benefit1Title: 'Organiese Groei', benefit1Desc: 'Regte volgelinge, regte betrokkenheid', benefit2Title: 'Nuwe Kliënte', benefit2Desc: 'Direkte toegang tot verskillende gehore', benefit3Title: 'Advertensiekoste: R0', benefit3Desc: 'Net wedersydse ondersteuning', ctaTitle: 'Begin', ctaText: 'Probeer gratis die eerste maand.', ctaBtn: 'Skep Rekening', navBtn: 'Teken In' },
-            az: { title: 'Qarşılıqlı Tanıtım', subtitle: 'Platforma', cardTitle1: 'Soy.ad nədir?', cardDesc: 'Bir kliklə istənilən Instagram səhifəsinə əməkdaşlıq təklifi göndərin. Hekayə paylaşımı vasitəsilə qarşılıqlı tanıtım edin və yeni izləyicilərə çatın.', cardTitle2: 'Necə işləyir?', step1: 'Platformaya daxil olun', step2: 'Sizə uyğun səhifələri bəyənin', step3: 'Qarşılıqlı bəyənilər gələndə, əməkdaşlığa başlayın!', cardTitle3: 'Sizin Üstünlükləriniz', benefit1Title: 'Orqanik Böyümə', benefit1Desc: 'Həqiqi izləyicilər, həqiqi məşğulluq', benefit2Title: 'Yeni Müştərilər', benefit2Desc: 'Müxtəlif auditoriyalara birbaşa çıxış', benefit3Title: 'Reklam Xərcləri: 0₼', benefit3Desc: 'Yalnız qarşılıqlı dəstək', ctaTitle: 'Başlayın', ctaText: 'İlk ayı pulsuz sınayın.', ctaBtn: 'Hesab Yaradın', navBtn: 'Daxil Ol' },
-            uz: { title: 'O\'zaro Reklama', subtitle: 'Platforma', cardTitle1: 'Soy.ad nima?', cardDesc: 'Bir marta bosish bilan istalgan Instagram sahifasiga hamkorlik taklifini yuboring. Hikoya ulashish orqali o\'zaro reklama qiling va yangi obunachilar bilan bog\'laning.', cardTitle2: 'Qanday ishlaydi?', step1: 'Platformaga kiring', step2: 'Sizga mos sahifalarni yoqtiring', step3: 'O\'zaro yoqtirishlar kelganda, hamkorlikni boshlang!', cardTitle3: 'Sizning Afzalliklaringiz', benefit1Title: 'Organik O\'sish', benefit1Desc: 'Haqiqiy obunachilar, haqiqiy jalb qilish', benefit2Title: 'Yangi Mijozlar', benefit2Desc: 'Turli auditoriyalarga to\'g\'ridan-to\'g\'ri kirish', benefit3Title: 'Reklama Xarajatlari: 0 so\'m', benefit3Desc: 'Faqat o\'zaro qo\'llab-quvvatlash', ctaTitle: 'Boshlang', ctaText: 'Birinchi oyni bepul sinab ko\'ring.', ctaBtn: 'Hisob Yarating', navBtn: 'Kirish' },
-            kk: { title: 'Өзара Жарнама', subtitle: 'Платформа', cardTitle1: 'Soy.ad дегеніміз не?', cardDesc: 'Бір басумен кез келген Instagram бетіне ынтымақтастық ұсынысын жіберіңіз. Әңгіме бөлісу арқылы өзара жарнама жасаңыз және жаңа жазылушыларға жетіңіз.', cardTitle2: 'Қалай жұмыс істейді?', step1: 'Платформаға кіріңіз', step2: 'Сізге сәйкес беттерді ұнатыңыз', step3: 'Өзара ұнатулар келгенде, ынтымақтастықты бастаңыз!', cardTitle3: 'Сіздің Артықшылықтарыңыз', benefit1Title: 'Органикалық Өсу', benefit1Desc: 'Шынайы жазылушылар, шынайы белсенділік', benefit2Title: 'Жаңа Клиенттер', benefit2Desc: 'Әртүрлі аудиторияларға тікелей қол жеткізу', benefit3Title: 'Жарнама Шығындары: 0₸', benefit3Desc: 'Тек өзара қолдау', ctaTitle: 'Бастау', ctaText: 'Алғашқы айды тегін сынап көріңіз.', ctaBtn: 'Тіркелгі Жасау', navBtn: 'Кіру' },
-            ky: { title: 'Өз ара Жарнама', subtitle: 'Платформа', cardTitle1: 'Soy.ad деген эмне?', cardDesc: 'Бир чыкылдатуу менен каалаган Instagram бетине кызматташуу сунушун жөнөтүңүз. Окуяларды бөлүшүү аркылуу өз ара жарнама жасаңыз жана жаңы жазылуучуларга жетиңиз.', cardTitle2: 'Кантип иштейт?', step1: 'Платформага кириңиз', step2: 'Сизге ылайыктуу беттерди жактырыңыз', step3: 'Өз ара жактыруулар келгенде, кызматташууну баштаңыз!', cardTitle3: 'Сиздин Артыкчылыктарыңыз', benefit1Title: 'Органикалык Өсүш', benefit1Desc: 'Чыныгы жазылуучулар, чыныгы катышуу', benefit2Title: 'Жаңы Кардарлар', benefit2Desc: 'Ар кандай аудиторияларга түз жетүү', benefit3Title: 'Жарнама Чыгымдары: 0 сом', benefit3Desc: 'Өз ара колдоо гана', ctaTitle: 'Баштоо', ctaText: 'Биринчи айды акысыз сынап көрүңүз.', ctaBtn: 'Аккаунт Түзүү', navBtn: 'Кирүү' },
-            ka: { title: 'ორმხრივი პროპაგანდა', subtitle: 'პლატფორმა', cardTitle1: 'რა არის Soy.ad?', cardDesc: 'გაგზავნეთ თანამშრომლობის შეთავაზებები ნებისმიერ Instagram გვერდზე ერთი დაწკაპუნებით. გააკეთეთ ორმხრივი პროპაგანდა სთორის გაზიარებით და მიაღწიეთ ახალ მიმდევრებს.', cardTitle2: 'როგორ მუშაობს?', step1: 'შედით პლატფორმაზე', step2: 'მოიწონეთ თქვენთვის შესაფერისი გვერდები', step3: 'როცა ორმხრივი მოწონებები მოვა, დაიწყეთ თანამშრომლობა!', cardTitle3: 'თქვენი უპირატესობები', benefit1Title: 'ორგანული ზრდა', benefit1Desc: 'რეალური მიმდევრები, რეალური ჩართულობა', benefit2Title: 'ახალი კლიენტები', benefit2Desc: 'პირდაპირი წვდომა სხვადასხვა აუდიტორიებთან', benefit3Title: 'სარეკლამო ხარჯები: 0₾', benefit3Desc: 'მხოლოდ ორმხრივი მხარდაჭერა', ctaTitle: 'დაიწყეთ', ctaText: 'გამოცადეთ უფასოდ პირველი თვე.', ctaBtn: 'ანგარიშის შექმნა', navBtn: 'შესვლა' },
-            sw: { title: 'Uendelezaji wa Pamoja', subtitle: 'Jukwaa', cardTitle1: 'Soy.ad ni nini?', cardDesc: 'Tuma matoleo ya ushirikiano kwa ukurasa wowote wa Instagram kwa kubofya mara moja. Fanya uendelezaji wa pamoja kupitia kushiriki hadithi na fikia wafuasi wapya.', cardTitle2: 'Inafanyaje kazi?', step1: 'Ingia kwenye jukwaa', step2: 'Penda kurasa zinazokufaa', step3: 'Unapopata kupendana kwa pamoja, anza ushirikiano!', cardTitle3: 'Faida Zako', benefit1Title: 'Ukuaji wa Asili', benefit1Desc: 'Wafuasi halisi, ushiriki halisi', benefit2Title: 'Wateja Wapya', benefit2Desc: 'Ufikiaji wa moja kwa moja kwa hadhira tofauti', benefit3Title: 'Gharama za Matangazo: 0 Tsh', benefit3Desc: 'Msaada wa pamoja tu', ctaTitle: 'Anza', ctaText: 'Jaribu bure mwezi wa kwanza.', ctaBtn: 'Unda Akaunti', navBtn: 'Ingia' }
-            };
+    <div class="hint">Bir YouTuber gir; aynı nişte ve benzer abone sayısında,
+      birlikte video çekmeye ideal 5 kanalı iletişim bilgisiyle çıkarır.</div>
+    <div class="keyline">
+      <span id="keystate">🔑 Operatör anahtarı gerekli.</span>
+      <a id="setkey">Anahtarı gir / değiştir</a>
+    </div>
+  </div>
 
-        function detectLanguage() {
-            const saved = localStorage.getItem('soyad-lang');
-            if (saved && translations[saved]) return saved;
-            
-            const browserLang = navigator.language.toLowerCase();
-            for (const code in translations) {
-                if (browserLang.startsWith(code)) return code;
-            }
-            return 'tr';
-        }
+  <div class="progress" id="progress">
+    <div class="pstage"><span class="spin"></span><span id="pstage">Başlatılıyor…</span></div>
+    <div class="pmeta" id="pmeta"></div>
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  </div>
 
-        function translatePage(lang) {
-            if (!translations[lang]) return;
-            
-            const t = translations[lang];
-            
-            // Hero
-            const heroTitleParts = document.querySelector('.hero-title').childNodes;
-            heroTitleParts[0].textContent = t.title + ' ';
-            heroTitleParts[1].textContent = t.subtitle;
-            
-            // Cards
-            const cardTitles = document.querySelectorAll('.card-title');
-            const cardDescriptions = document.querySelectorAll('.card-description');
-            
-            if (cardTitles[0]) cardTitles[0].textContent = t.cardTitle1;
-            if (cardDescriptions[0]) cardDescriptions[0].textContent = t.cardDesc;
-            if (cardTitles[1]) cardTitles[1].textContent = t.cardTitle2;
-            if (cardTitles[2]) cardTitles[2].textContent = t.cardTitle3;
-            
-            // Steps
-            const stepTexts = document.querySelectorAll('.simple-step-text');
-            if (stepTexts[0]) stepTexts[0].textContent = t.step1;
-            if (stepTexts[1]) stepTexts[1].textContent = t.step2;
-            if (stepTexts[2]) stepTexts[2].textContent = t.step3;
-            
-            // Benefits
-            const benefitTitles = document.querySelectorAll('.benefit-title');
-            const benefitDescs = document.querySelectorAll('.benefit-desc');
-            if (benefitTitles[0]) benefitTitles[0].textContent = t.benefit1Title;
-            if (benefitDescs[0]) benefitDescs[0].textContent = t.benefit1Desc;
-            if (benefitTitles[1]) benefitTitles[1].textContent = t.benefit2Title;
-            if (benefitDescs[1]) benefitDescs[1].textContent = t.benefit2Desc;
-            if (benefitTitles[2]) benefitTitles[2].textContent = t.benefit3Title;
-            if (benefitDescs[2]) benefitDescs[2].textContent = t.benefit3Desc;
-            
-            // CTA
-            const ctaTitle = document.querySelector('.cta-title');
-            const ctaText = document.querySelector('.cta-text');
-            const ctaButton = document.querySelector('.cta-button');
-            const navLink = document.querySelector('.nav-link');
-            
-            if (ctaTitle) ctaTitle.textContent = t.ctaTitle;
-            if (ctaText) ctaText.textContent = t.ctaText;
-            if (ctaButton) ctaButton.childNodes[0].textContent = t.ctaBtn + ' ';
-            if (navLink) navLink.textContent = t.navBtn;
-            
-            // Update page title
-            document.title = `Soy.ad - ${t.title} ${t.subtitle}`;
-            document.documentElement.lang = lang;
-            localStorage.setItem('soyad-lang', lang);
-        }
+  <div class="err" id="err"></div>
 
-        // Auto-detect and translate on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const detectedLang = detectLanguage();
-            translatePage(detectedLang);
-        });
-    </script>
+  <div class="target" id="target">
+    <img id="tImg" alt="">
+    <div>
+      <div class="nm" id="tName"></div>
+      <div class="mt" id="tMeta"></div>
+    </div>
+    <div class="deliver">
+      <button id="deliverBtn">📋 Teslim mesajını kopyala</button>
+    </div>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <footer>Soy.ad · dahili operatör aracı</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://duflat-production.up.railway.app';
+const $ = s => document.querySelector(s);
+let lastData = null;
+
+/* ---------- operator key ---------- */
+function getKey(){ return localStorage.getItem('soy_key') || ''; }
+function refreshKeyState(){
+  const k = getKey();
+  $('#keystate').textContent = k ? '🔑 Anahtar kayıtlı.' : '🔑 Operatör anahtarı gerekli.';
+}
+$('#setkey').onclick = () => {
+  const cur = getKey();
+  const v = prompt('Operatör anahtarı (X-Soy-Key):', cur);
+  if (v !== null){ localStorage.setItem('soy_key', v.trim()); refreshKeyState(); toast('Anahtar kaydedildi'); }
+};
+refreshKeyState();
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 1800);
+}
+function copy(text, label){
+  navigator.clipboard.writeText(text).then(()=>toast((label||'Kopyalandı')+' ✓'));
+}
+
+/* ---------- helpers ---------- */
+const STAGE_PCT = {target:20, search:40, score:55, enrich:75, done:100};
+function esc(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function igHandle(url){
+  const m = (url||'').match(/instagram\.com\/([^/?]+)/i); return m ? '@'+m[1] : url;
+}
+
+/* ---------- run ---------- */
+$('#go').onclick = run;
+$('#url').addEventListener('keydown', e => { if(e.key==='Enter') run(); });
+
+async function run(){
+  const url = $('#url').value.trim();
+  if(!url){ toast('Bir kanal gir'); return; }
+  const key = getKey();
+  if(!key){ $('#setkey').click(); return; }
+
+  // reset UI
+  $('#go').disabled = true;
+  $('#err').classList.remove('on');
+  $('#target').classList.remove('on');
+  $('#results').innerHTML = '';
+  $('#progress').classList.add('on');
+  setStage('Başlatılıyor…', '', 10);
+
+  try{
+    const startRes = await fetch(API + '/soy/find-partners/start', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Soy-Key':key},
+      body: JSON.stringify({ url, max_results:5, deep_contact:true })
+    });
+    if(startRes.status === 401){ throw new Error('Anahtar geçersiz. Sağ üstten doğru anahtarı gir.'); }
+    const start = await startRes.json();
+    if(!start.job_id){ throw new Error(start.error || 'İş başlatılamadı'); }
+    await poll(start.job_id, key);
+  }catch(e){
+    showErr(e.message || String(e));
+  }finally{
+    $('#go').disabled = false;
+  }
+}
+
+async function poll(jobId, key){
+  for(let i=0;i<200;i++){
+    await new Promise(r=>setTimeout(r, 2500));
+    let s;
+    try{
+      const r = await fetch(API + '/soy/find-partners/status?job=' + encodeURIComponent(jobId),
+                            { headers:{'X-Soy-Key':key} });
+      s = await r.json();
+    }catch(e){ continue; } // transient network — keep polling
+
+    const label = s.stage_label || 'Çalışıyor…';
+    let meta = '';
+    if(s.stage === 'enrich' && s.total) meta = `${s.cur+1}/${s.total} kanal işleniyor`;
+    else if(s.stage === 'search' && s.cur) meta = `${s.cur} aday bulundu`;
+    setStage(label, meta, STAGE_PCT[s.stage] || 50);
+
+    if(s.status === 'done'){ render(s.result); return; }
+    if(s.status === 'error'){ throw new Error((s.result && s.result.error) || s.error || 'Hata'); }
+  }
+  throw new Error('Zaman aşımı — çok uzun sürdü.');
+}
+
+function setStage(label, meta, pct){
+  $('#pstage').textContent = label;
+  $('#pmeta').textContent = meta || '';
+  $('#pfill').style.width = (pct||10) + '%';
+}
+
+function showErr(msg){
+  $('#progress').classList.remove('on');
+  $('#err').textContent = '⚠️ ' + msg;
+  $('#err').classList.add('on');
+}
+
+/* ---------- render ---------- */
+function render(data){
+  $('#progress').classList.remove('on');
+  if(!data || !data.ok){ showErr((data && data.error) || 'Sonuç yok'); return; }
+  lastData = data;
+
+  const t = data.target;
+  $('#tImg').src = t.thumbnail || '';
+  $('#tName').textContent = t.name;
+  $('#tMeta').textContent = `${t.subscribers_h} abone · ${(t.topics||[]).slice(0,3).join(' · ')||'—'}`;
+  $('#target').classList.add('on');
+
+  const box = $('#results');
+  box.innerHTML = '';
+  if(!data.partners.length){
+    box.innerHTML = '<div class="err on">Bu niş + boyut için uygun ortak bulunamadı. Daha farklı/daha büyük bir kanal deneyin.</div>';
+    return;
+  }
+  data.partners.forEach((p, i) => box.appendChild(cardEl(p, i)));
+}
+
+function cardEl(p, i){
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.style.animationDelay = (i*70) + 'ms';
+
+  const chips = (p.reasons||[]).map(r=>`<span class="chip">${esc(r)}</span>`).join('');
+  const c = p.contact || {};
+
+  let contactRows = '';
+  if(c.email){
+    contactRows += `<div class="crow"><span class="lab">E-posta</span>
+      <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>
+      <button class="copy" data-copy="${esc(c.email)}">kopyala</button></div>`;
+  }
+  if(c.instagram){
+    contactRows += `<div class="crow"><span class="lab">Instagram</span>
+      <a href="${esc(c.instagram)}" target="_blank" rel="noopener">${esc(igHandle(c.instagram))}</a>
+      <button class="copy" data-copy="${esc(c.instagram)}">kopyala</button></div>`;
+  }
+  const otherSoc = Object.entries(c.socials||{}).filter(([k])=>k!=='instagram');
+  if(otherSoc.length){
+    contactRows += `<div class="crow"><span class="lab">Diğer</span>` +
+      otherSoc.map(([k,v])=>`<a href="${esc(v)}" target="_blank" rel="noopener">${esc(k)}</a>`).join(' · ') +
+      `</div>`;
+  }
+  if(c.agency && c.agency.name){
+    contactRows += `<div class="crow"><span class="lab">Ajans</span>
+      <span>${esc(c.agency.name)}${c.agency.email?(' · '+esc(c.agency.email)):''}</span></div>`;
+  }
+  if(!c.email && !c.instagram && !otherSoc.length){
+    contactRows = `<div class="crow"><span class="nomail">Doğrudan iletişim bulunamadı — kanaldan mesaj gönder.</span></div>`;
+  }
+
+  el.innerHTML = `
+    <div class="rank">${i+1}</div>
+    <img src="${esc(p.thumbnail||'')}" alt="">
+    <div class="body">
+      <div class="top">
+        <span class="name">${esc(p.name)}</span>
+        <span class="subs">${esc(p.subscribers_h)} abone</span>
+        <span class="match">%${p.match} uyum</span>
+      </div>
+      <div class="chips">${chips}
+        <span class="chip">niş %${p.niche}</span></div>
+      <div class="contact">${contactRows}
+        <div class="crow"><a class="open" href="${esc(p.url)}" target="_blank" rel="noopener">Kanalı aç ↗</a></div>
+      </div>
+    </div>`;
+  el.querySelectorAll('.copy').forEach(b=>b.onclick=()=>copy(b.dataset.copy,'Kopyalandı'));
+  return el;
+}
+
+/* ---------- deliver message (GTM: "5 kanal buldum") ---------- */
+$('#deliverBtn').onclick = () => {
+  if(!lastData) return;
+  const t = lastData.target;
+  const lines = [];
+  lines.push(`Merhaba! ${t.name} kanalınla ortak video çekebilecek, aynı nişte ve benzer boyutta ${lastData.partners.length} kanal buldum:`);
+  lines.push('');
+  lastData.partners.forEach((p,i)=>{
+    let contact = p.contact?.email || (p.contact?.instagram?('IG '+igHandle(p.contact.instagram)):'') || 'iletişim: kanaldan';
+    lines.push(`${i+1}. ${p.name} — ${p.subscribers_h} abone`);
+    lines.push(`   ${p.url}`);
+    lines.push(`   İletişim: ${contact}`);
+  });
+  lines.push('');
+  lines.push('İşbirliği kurmak istersen tam listeyi + ulaşma metnini hazırlayabilirim.');
+  copy(lines.join('\n'), 'Teslim mesajı kopyalandı');
+};
+</script>
 </body>
 </html>
